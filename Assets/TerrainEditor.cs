@@ -31,13 +31,24 @@ public class TerrainEditor : Editor
     private void OnSceneGUI()
     {
         //if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
-        if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        if (Event.current.type == EventType.MouseDown && Event.current.button == 0 &&
+            Event.current.control)
+        {
+            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != 30)
+            {
+                DestroyImmediate(hit.collider.gameObject);
+            }
+        }
+        else if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
         {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject temp = Instantiate(tree, hit.point, Quaternion.identity, terrain.transform);
+                Quaternion rotation = terrain.placeAsNormals ? Quaternion.Euler(hit.normal) : Quaternion.identity;
+                GameObject temp = Instantiate(tree, hit.point, rotation, terrain.transform);
                 if (centerObject) temp.transform.localPosition += new Vector3(0, tree.transform.localScale.y / 2, 0);
             }
         }
