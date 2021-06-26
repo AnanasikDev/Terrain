@@ -1,27 +1,20 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using System.Collections;
-//[ExecuteInEditMode]
+
 [CustomEditor(typeof(TerrainScript))]
 public class TerrainEditor : Editor
 {
-    public TerrainScript terrain;
-    public GameObject tree;
-    Camera cam;
+    TerrainScript terrain;
+    GameObject obj;
 
-    bool centerObject = true;
     void Update()
     {
-        Selection.activeTransform = terrain.transform;
+       if (terrain.mouseOn) Selection.activeTransform = terrain.transform;
     }
     private void Awake()
     {
         terrain = (TerrainScript)target;
-        tree = terrain.obj;
-        Debug.Log(tree);
-        //objects = new GameObject[1];
-        //objects[0] = Resources.Load<GameObject>("Prefabs/Cube");
-        cam = SceneView.lastActiveSceneView.camera;
+        obj = terrain.obj;
         EditorApplication.update += Update;
     }
     private void OnDestroy()
@@ -30,9 +23,7 @@ public class TerrainEditor : Editor
     }
     private void OnSceneGUI()
     {
-        //if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
-        if (Event.current.type == EventType.MouseDown && Event.current.button == 0 &&
-            Event.current.control)
+        if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control)
         {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             RaycastHit hit = new RaycastHit();
@@ -43,13 +34,22 @@ public class TerrainEditor : Editor
         }
         else if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
         {
-            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            RaycastHit hit = new RaycastHit();
-            if (Physics.Raycast(ray, out hit))
+            for (int i = 0; i < terrain.objectsAmount; i++)
             {
-                Quaternion rotation = terrain.placeAsNormals ? Quaternion.Euler(hit.normal) : Quaternion.identity;
-                GameObject temp = Instantiate(tree, hit.point, rotation, terrain.transform);
-                if (centerObject) temp.transform.localPosition += new Vector3(0, tree.transform.localScale.y / 2, 0);
+                Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition + 
+                    new Vector2(Random.Range(-terrain.radius, terrain.radius),
+                                Random.Range(-terrain.radius, terrain.radius)));
+                RaycastHit hit = new RaycastHit();
+                if (Physics.Raycast(ray, out hit) &&
+                    ((terrain.place == TerrainScript.placeType.onTerrainOnly && hit.collider.gameObject.layer == 30) ||
+                    (terrain.place == TerrainScript.placeType.onObjectsOnly && hit.collider.gameObject.layer != 30) ||
+                    (terrain.place == TerrainScript.placeType.onTerrainAndObjects)))
+                {
+                    Quaternion rotation = terrain.placeAsNormals ? Quaternion.Euler(hit.normal) : Quaternion.identity;
+                    Debug.Log(rotation);
+                    GameObject temp = Instantiate(obj, hit.point, rotation, terrain.transform);
+                    if (terrain.centerObject) temp.transform.localPosition += new Vector3(0, obj.transform.localScale.y / 2, 0);
+                }
             }
         }
     }
