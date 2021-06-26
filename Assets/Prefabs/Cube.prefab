@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7834885600646574730}
   - component: {fileID: 4205081641631979824}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037733525138008554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.751614, y: -0.043378398, z: 25.163273}
+  m_LocalPosition: {x: 22.751614, y: 1.9566216, z: 25.163273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
