@@ -21,14 +21,24 @@ public class TerrainEditor : Editor
         if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
         //if (Input.GetMouseButton(0))
         {
-            Debug.Log("Spawn");
+            /*Debug.Log("Spawn");
             Vector3 hitPosition;
             RaycastHit hit;
 
             Physics.Raycast(cam.WorldToScreenPoint(Input.mousePosition), cam.transform.forward, out hit);
             hitPosition = hit.point;
 
-            Instantiate(tree, hitPosition, Quaternion.Euler(hit.normal));
+            Instantiate(tree, hitPosition, Quaternion.Euler(hit.normal));*/
+
+            //Ray ray = Camera.main.ScreenPointToRay(Event.current.mousePosition);
+            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(Event.current.mousePosition);
+                Vector3 newTilePosition = hit.point;
+                Instantiate(tree, newTilePosition, Quaternion.identity);
+            }
         }
     }
 }
