@@ -51,8 +51,8 @@ public class TerrainEditor : Editor
                 SpawnableObject spawnableObject = GetObject();
                 if (spawnableObject == null) continue;
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
-                spawnableObject.spawnableObject.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
-                temp.GetComponent<SpawnableObj>().renderer.material.color = GetObjectColor(spawnableObject);
+                temp.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
+                SetObjectColor(spawnableObject, temp);
                 spawnableObject.spawnableObject.transform.parent = GetObjectParent(spawnableObject);
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
@@ -134,15 +134,15 @@ public class TerrainEditor : Editor
             return obj.spawnableObject.transform.rotation;
         }
     }
-    Color GetObjectColor(SpawnableObject obj)
+    void SetObjectColor(SpawnableObject obj, GameObject gameObject)
     {
-        /*if (obj.modColor)
+        Renderer renderer = gameObject.GetComponent<SpawnableObj>().renderer;
+        var tempMaterial = new Material(renderer.sharedMaterial);
+        if (obj.modColor)
         {
-            return obj.renderableObject.sharedMaterial.color * UnityEngine.Random.Range(1 - obj.colorModPercentage, 1 + obj.colorModPercentage);
-        }*/
-        return new Color(UnityEngine.Random.Range(0f, 1f),
-                         UnityEngine.Random.Range(0f, 1f),
-                         UnityEngine.Random.Range(0f, 1f), 1); //obj.renderableObject.sharedMaterial.color;
+            tempMaterial.color *= UnityEngine.Random.Range(1 - (obj.colorModPercentage / 100), 1 + (obj.colorModPercentage / 100));
+        }
+        renderer.sharedMaterial = tempMaterial;
     }
     Transform GetObjectParent(SpawnableObject obj)
     {
