@@ -82,27 +82,47 @@ public class TerrainEditor : Editor
     //int a = 0;
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+        base.OnInspectorGUI();
+
+        EditorGUILayout.Space(20);
+
         if (GUILayout.Button("Add"))
         {
-            terrain.amount++;
             objs.Add(new SpawnableObject());
         }
-        /*if (GUILayout.Button("Remove"))
+        for (int i = 0; i < objs.Count; i++)
         {
-            terrain.amount--;
-            objs = new SpawnableObject[terrain.amount];
-        }*/
-        for (int i = 0; i < terrain.amount; i++)
-        {
+            EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.BeginVertical("box");
-            //int o = 5;
+            int removeBtnHeight = 40;
+            if (i < objs.Count - 1 || i == 0) removeBtnHeight = 60;
+            if (i > 0)
+                if (GUILayout.Button("˄", GUILayout.Width(18), GUILayout.Height(18)))
+                {
+                    var temp = objs[i];
+                    objs[i] = objs[i - 1];
+                    objs[i - 1] = temp;
+                }
+            if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
+            {
+                objs.RemoveAt(i);
+            }
+            if (i < objs.Count-1)
+                if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
+                {
+                    var temp = objs[i];
+                    objs[i] = objs[i + 1];
+                    objs[i + 1] = temp;
+                }
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.BeginVertical("box");
             objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), false);
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
             if (objs[i].rotationType == RotationType.Random)
                 objs[i].rotationAxis = (RotationAxis)EditorGUILayout.EnumPopup("Axis", objs[i].rotationAxis);
             EditorGUILayout.EndVertical();
+            EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.Space();
     }
