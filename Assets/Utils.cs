@@ -41,6 +41,7 @@ public static class Utils
 [System.Serializable]
 public class SpawnableObject
 {
+    public bool spawn = true;
     public GameObject spawnableObject;
     [SerializeField, Min(0)] public int spawnChance = 1;
     public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
@@ -49,7 +50,30 @@ public class SpawnableObject
     public bool centerObject = false;
     public bool modColor = true;
     public float colorModPercentage = 35;
-    public Renderer renderableObject;
+    //public Renderer renderableObject;
+    public bool customParent = false;
+    public Transform parent;
+
 
     public bool hidden = false;
+
+    public SpawnableObject()
+    {
+
+    }
+    public SpawnableObject (SpawnableObject clone)
+    {
+        spawn = clone.spawn;
+        spawnableObject = clone.spawnableObject;
+        spawnChance = clone.spawnChance;
+        rotationType = clone.rotationType;
+        rotationAxis = clone.rotationAxis;
+        customEulersRotation = clone.customEulersRotation;
+        centerObject = clone.centerObject;
+        modColor = clone.modColor;
+        colorModPercentage = clone.colorModPercentage;
+        //renderableObject = clone.renderableObject;
+        customParent = clone.customParent;
+        parent = clone.parent;
+    }
 }

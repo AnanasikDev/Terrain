@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using static Utils;
+
 [CustomEditor(typeof(TerrainSettings))]
 public class TerrainEditor : Editor
 {
@@ -41,21 +42,24 @@ public class TerrainEditor : Editor
                 new Vector2(UnityEngine.Random.Range(-terrain.radius, terrain.radius),
                             UnityEngine.Random.Range(-terrain.radius, terrain.radius))));
             RaycastHit hit = new RaycastHit();
-            /* &&
-                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
-                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
-                (terrain.place == SpawnPlaceType.onTerrainAndObjects))*/
-            if (Physics.Raycast(ray, out hit))
+             
+            if (Physics.Raycast(ray, out hit) &&
+                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
+                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
+                (terrain.place == SpawnPlaceType.onTerrainAndObjects)))
             {
                 SpawnableObject spawnableObject = GetObject();
-                GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity, terrain.parent);
-                SetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
-                SetObjectColor(spawnableObject);
-                if (spawnableObject.centerObject) temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
+                if (spawnableObject == null) continue;
+                GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
+                spawnableObject.spawnableObject.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
+                temp.GetComponent<SpawnableObj>().renderer.material.color = GetObjectColor(spawnableObject);
+                spawnableObject.spawnableObject.transform.parent = GetObjectParent(spawnableObject);
+                if (spawnableObject.centerObject)
+                    temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
             }
         }
     }
-    private void OnSceneGUI()
+    void OnSceneGUI()
     {
         if (!terrain.active) return;
         if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control)
@@ -70,19 +74,22 @@ public class TerrainEditor : Editor
     SpawnableObject GetObject()
     {
         int[] chances = new int[objs.Count];
+        bool ableToSpawn = false;
         for (int i = 0; i < chances.Length; i++)
         {
-            chances[i] = objs[i].spawnChance;
+            chances[i] = objs[i].spawn && objs[i].spawnableObject != null ? objs[i].spawnChance : 0;
+            if (chances[i] > 0) ableToSpawn = true;
         }
-        return objs[GetChance(chances)];
+        if (!ableToSpawn) return null;
+        return new SpawnableObject( objs[GetChance(chances)] );
     }
-    void SetObjectRotation(SpawnableObject obj, Vector3 normal, Vector3 custom)
+    Quaternion GetObjectRotation(SpawnableObject obj, Vector3 normal, Vector3 custom)
     {
         if (obj.rotationType == RotationType.Static)
         {
-            obj.spawnableObject.transform.eulerAngles = custom;
+            return Quaternion.Euler(custom);
         }
-        if (obj.rotationType == RotationType.Random)
+        else if (obj.rotationType == RotationType.Random)
         {
             float x = 0;
             float y = 0;
@@ -116,23 +123,31 @@ public class TerrainEditor : Editor
                     z = UnityEngine.Random.value;
                     break;
             }
-            obj.spawnableObject.transform.eulerAngles = new Vector3(x, y, z);
+            return new Quaternion(x, y, z, obj.spawnableObject.transform.rotation.w);
         }
-        if (obj.rotationType == RotationType.AsPrefab)
+        else if (obj.rotationType == RotationType.AsNormal)
         {
-            // default
+            return Quaternion.Euler(normal);
         }
-        if (obj.rotationType == RotationType.AsNormal)
+        else // if AsPrefab
         {
-            obj.spawnableObject.transform.eulerAngles = normal;
+            return obj.spawnableObject.transform.rotation;
         }
     }
-    void SetObjectColor(SpawnableObject obj)
+    Color GetObjectColor(SpawnableObject obj)
     {
-        if (obj.modColor)
+        /*if (obj.modColor)
         {
-            obj.renderableObject.sharedMaterial.color *= UnityEngine.Random.Range(1 - obj.colorModPercentage, 1 + obj.colorModPercentage);
-        }
+            return obj.renderableObject.sharedMaterial.color * UnityEngine.Random.Range(1 - obj.colorModPercentage, 1 + obj.colorModPercentage);
+        }*/
+        return new Color(UnityEngine.Random.Range(0f, 1f),
+                         UnityEngine.Random.Range(0f, 1f),
+                         UnityEngine.Random.Range(0f, 1f), 1); //obj.renderableObject.sharedMaterial.color;
+    }
+    Transform GetObjectParent(SpawnableObject obj)
+    {
+        if (obj.customParent) return obj.parent;
+        else return terrain.parent;
     }
     public override void OnInspectorGUI()
     {
@@ -175,10 +190,8 @@ public class TerrainEditor : Editor
                 }
                 else
                 {
-                    //GUILayout.Space(20);
                     GUILayout.Label(objs[i].spawnableObject != null ? objs[i].spawnableObject.name : "null");
                     EditorGUILayout.EndHorizontal();
-                    //EditorGUILayout.FlexibleSpace();
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.EndVertical();
                     continue;
@@ -204,9 +217,20 @@ public class TerrainEditor : Editor
                     objs[i] = objs[i + 1];
                     objs[i + 1] = temp;
                 }
+            if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
+            {
+                objs.Insert(i, new SpawnableObject(objs[i]));
+            }
             EditorGUILayout.EndVertical();
             EditorGUILayout.BeginVertical("box");
-            objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), false);
+            objs[i].spawn = EditorGUILayout.Toggle("Spawn", objs[i].spawn);
+            if (!objs[i].spawn)
+            {
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
+                continue;
+            }
+            objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), true);
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
 
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
@@ -222,8 +246,11 @@ public class TerrainEditor : Editor
             if (objs[i].modColor)
             {
                 objs[i].colorModPercentage = EditorGUILayout.FloatField("Color modification %", objs[i].colorModPercentage);
-                objs[i].renderableObject = (Renderer)EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer), false);
+                //objs[i].renderableObject = (Renderer)EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer), true)  ;
             }
+            objs[i].customParent = EditorGUILayout.Toggle("Custom parent", objs[i].customParent);
+            if (objs[i].customParent)
+                objs[i].parent = (Transform)EditorGUILayout.ObjectField("Parent", objs[i].parent, typeof(Transform), true);
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
