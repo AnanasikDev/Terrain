@@ -4,17 +4,33 @@ using UnityEngine;
 
 public static class Utils
 {
-    public enum spawnPlaceType
+    public enum SpawnPlaceType
     {
         onTerrainOnly,
         onObjectsOnly,
         onTerrainAndObjects
     }
-    public enum colorModType
+    public enum ColorModType
     {
         Random,
         Static,
         None
+    }
+    public enum RotationType
+    {
+        Random,
+        Static,
+        AsPrefab,
+    }
+    public enum RotationAxis
+    {
+        X,
+        Y,
+        Z,
+        XY,
+        XZ,
+        YZ,
+        XYZ
     }
     public static int GetChance(int[] chances)
     {
@@ -32,5 +48,6 @@ public class SpawnableObject
 {
     public GameObject spawnableObject;
     [SerializeField, Min(0)] public int spawnChance = 1;
-
+    public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
+    public Utils.RotationAxis rotationAxis = Utils.RotationAxis.Y;
 }

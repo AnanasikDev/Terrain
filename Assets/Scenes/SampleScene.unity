@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 743666216}
   - component: {fileID: 743666215}
   m_Layer: 30
-  m_Name: Terrain (1)
+  m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainLayer: 30
-  obj: {fileID: 2037733525138008554, guid: d41407cb67f8be94580ecb963b53001e, type: 3}
   placeAsNormals: 0
   centerObject: 1
   objectsAmount: 1
@@ -253,6 +252,7 @@ MonoBehaviour:
   place: 0
   active: 0
   parent: {fileID: 743666218}
+  amount: 13
 --- !u!154 &743666216
 TerrainCollider:
   m_ObjectHideFlags: 0
