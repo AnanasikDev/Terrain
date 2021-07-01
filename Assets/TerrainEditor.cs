@@ -35,15 +35,16 @@ public class TerrainEditor : Editor
     }
     void SpawnObject()
     {
+        RaycastHit screenHit = new RaycastHit();
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        Physics.Raycast(ray, out screenHit);
         for (int i = 0; i < terrain.objectsAmount; i++)
         {
-            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition +
-                (terrain.objectsAmount == 1 ? Vector2.zero :
-                new Vector2(UnityEngine.Random.Range(-terrain.radius, terrain.radius),
-                            UnityEngine.Random.Range(-terrain.radius, terrain.radius))));
             RaycastHit hit = new RaycastHit();
-             
-            if (Physics.Raycast(ray, out hit) &&
+
+            if (Physics.Raycast(screenHit.point + Vector3.up*5, 
+                new Vector3(UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius), -1,
+                            UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius)), out hit) &&
                 ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
                 (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
                 (terrain.place == SpawnPlaceType.onTerrainAndObjects)))
@@ -53,7 +54,7 @@ public class TerrainEditor : Editor
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
                 temp.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
                 SetObjectColor(spawnableObject, temp);
-                spawnableObject.spawnableObject.transform.parent = GetObjectParent(spawnableObject);
+                temp.transform.parent = GetObjectParent(spawnableObject);
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
             }

@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804dba5ca00a46946b9c569d7dc75e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsAmount: 5
-  radius: 60
+  objectsAmount: 8
+  radius: 25
   place: 0
   active: 0
   parent: {fileID: 743666218}
@@ -254,14 +254,14 @@ MonoBehaviour:
     spawnableObject: {fileID: 2037733525138008554, guid: d41407cb67f8be94580ecb963b53001e,
       type: 3}
     spawnChance: 1
-    rotationType: 0
+    rotationType: 3
     rotationAxis: 1
     customEulersRotation: {x: 0, y: 0, z: 0}
     centerObject: 1
-    modColor: 1
+    modColor: 0
     colorModPercentage: 50
     customParent: 0
-    parent: {fileID: 743666218}
+    parent: {fileID: 0}
     hidden: 0
 --- !u!154 &743666216
 TerrainCollider:
