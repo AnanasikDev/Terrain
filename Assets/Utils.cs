@@ -10,17 +10,12 @@ public static class Utils
         onObjectsOnly,
         onTerrainAndObjects
     }
-    public enum ColorModType
-    {
-        Random,
-        Static,
-        None
-    }
     public enum RotationType
     {
         Random,
         Static,
         AsPrefab,
+        AsNormal
     }
     public enum RotationAxis
     {
@@ -50,4 +45,11 @@ public class SpawnableObject
     [SerializeField, Min(0)] public int spawnChance = 1;
     public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
     public Utils.RotationAxis rotationAxis = Utils.RotationAxis.Y;
+    public Vector3 customEulersRotation = Vector3.zero;
+    public bool centerObject = false;
+    public bool modColor = true;
+    public float colorModPercentage = 35;
+    public Renderer renderableObject;
+
+    public bool hidden = false;
 }
