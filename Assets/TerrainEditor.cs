@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using static Utils;
 
@@ -9,7 +9,7 @@ public class TerrainEditor : Editor
 {
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
-    //public readonly List<GameObject> objs;
+    
     void Update()
     {
        if (terrain.active) Selection.activeTransform = terrain.transform;
@@ -17,6 +17,7 @@ public class TerrainEditor : Editor
     private void Awake()
     {
         terrain = (TerrainSettings)target;
+        TerrainSettings.terrainSettings = terrain;
         EditorApplication.update += Update;
         objs = terrain.objs;
     }
@@ -28,10 +29,20 @@ public class TerrainEditor : Editor
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.GetComponent<TerrainSettings>() == null)
+        Physics.Raycast(ray, out hit);
+
+        List<GameObject> spawnedObjectsTemp = terrain.spawnedObjects;
+        GameObject[] objsToDestroy = spawnedObjectsTemp.Where(gameObject => ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.radius * terrain.radius)).ToArray();
+
+        foreach (GameObject o in objsToDestroy)
         {
-            DestroyImmediate(hit.collider.gameObject);
+            if (Random.Range(0, terrain.eraseSmoothness+1) == terrain.eraseSmoothness || terrain.eraseSmoothness == 0)
+            {
+                spawnedObjectsTemp.Remove(o);
+                DestroyImmediate(o);
+            }
         }
+        terrain.spawnedObjects = spawnedObjectsTemp;
     }
     void SpawnObject()
     {
@@ -45,9 +56,10 @@ public class TerrainEditor : Editor
             if (Physics.Raycast(screenHit.point + Vector3.up*5, 
                 new Vector3(UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius), -1,
                             UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius)), out hit) &&
-                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
-                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
-                (terrain.place == SpawnPlaceType.onTerrainAndObjects)))
+
+                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>()) != null ||
+                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>()) == null ||
+                (terrain.place == SpawnPlaceType.onTerrainAndObjects)) )
             {
                 SpawnableObject spawnableObject = GetObject();
                 if (spawnableObject == null) continue;
@@ -57,17 +69,19 @@ public class TerrainEditor : Editor
                 temp.transform.parent = GetObjectParent(spawnableObject);
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
+                terrain.spawnedObjects.Add(temp);
             }
         }
     }
     void OnSceneGUI()
     {
         if (!terrain.active) return;
-        if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control)
+        if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
+            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && terrain.erase))
         {
             DestroyObject();
         }
-        else if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && !terrain.erase)
         {
             SpawnObject();
         }
@@ -152,6 +166,67 @@ public class TerrainEditor : Editor
     }
     public override void OnInspectorGUI()
     {
+        Color oldBackgroundColor = GUI.backgroundColor;
+        Color oldContentColor = GUI.contentColor;
+        if (terrain.active)
+        {
+            GUI.backgroundColor = new Color(0.4f, 1f, 0.4f, 1);
+            GUI.contentColor = new Color(0.9f, 0.6f, 0.6f, 1);
+            if (GUILayout.Button("Disable"))
+            {
+                terrain.active = false;
+            }
+        }
+        if (!terrain.active)
+        {
+            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f, 1);
+            GUI.contentColor = new Color(0.6f, 0.9f, 0.6f, 1);
+            if (GUILayout.Button("Enable"))
+            {
+                terrain.active = true;
+            }
+        }
+        
+        GUI.contentColor = oldContentColor;
+        GUI.backgroundColor = oldBackgroundColor; 
+
+        EditorGUILayout.BeginHorizontal("box");
+        if (terrain.erase)
+        {
+            if (GUILayout.Button("Spawn"))
+            {
+                terrain.erase = false;
+            }
+            GUI.backgroundColor = new Color(0.3f, 0.75f, 0.3f, 1);
+            GUI.enabled = false;
+            GUILayout.Button("Erase");
+            GUI.enabled = true;
+            GUI.backgroundColor = oldBackgroundColor;
+        }
+        else
+        {
+            GUI.backgroundColor = new Color(0.3f, 0.75f, 0.3f, 1);
+            GUI.enabled = false;
+            GUILayout.Button("Spawn");
+            GUI.enabled = true;
+            GUI.backgroundColor = oldBackgroundColor;
+            if (GUILayout.Button("Erase"))
+            {
+                terrain.erase = true;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+
+        if (terrain.erase)
+        {
+            EditorGUILayout.BeginVertical("box");
+            terrain.eraseSmoothness = EditorGUILayout.IntField("  Erase smoothness", terrain.eraseSmoothness);
+            EditorGUILayout.EndVertical();
+        }
+
+
+        EditorGUILayout.Space(20);
+
         base.OnInspectorGUI();
 
         EditorGUILayout.Space(20);
@@ -236,22 +311,22 @@ public class TerrainEditor : Editor
 
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
             if (objs[i].rotationType == RotationType.Random)
-                objs[i].rotationAxis = (RotationAxis)EditorGUILayout.EnumPopup("Axis", objs[i].rotationAxis);
+                objs[i].rotationAxis = (RotationAxis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
 
             if (objs[i].rotationType == RotationType.Static)
-                objs[i].customEulersRotation = EditorGUILayout.Vector3Field("Custom Euler Rotation", objs[i].customEulersRotation);
+                objs[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", objs[i].customEulersRotation);
 
             objs[i].centerObject = EditorGUILayout.Toggle("Center Object", objs[i].centerObject);
 
             objs[i].modColor = EditorGUILayout.Toggle("Modify color", objs[i].modColor);
             if (objs[i].modColor)
             {
-                objs[i].colorModPercentage = EditorGUILayout.FloatField("Color modification %", objs[i].colorModPercentage);
-                //objs[i].renderableObject = (Renderer)EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer), true)  ;
+                objs[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", objs[i].colorModPercentage);
+                //objs[i].renderableObject = (Renderer))EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer)), true))  ;
             }
             objs[i].customParent = EditorGUILayout.Toggle("Custom parent", objs[i].customParent);
             if (objs[i].customParent)
-                objs[i].parent = (Transform)EditorGUILayout.ObjectField("Parent", objs[i].parent, typeof(Transform), true);
+                objs[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", objs[i].parent, typeof(Transform), true);
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
