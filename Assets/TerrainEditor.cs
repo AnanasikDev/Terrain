@@ -10,10 +10,6 @@ public class TerrainEditor : Editor
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
     
-    void Update()
-    {
-       if (terrain.active) Selection.activeTransform = terrain.transform;
-    }
     private void Awake()
     {
         terrain = (TerrainSettings)target;
@@ -25,6 +21,11 @@ public class TerrainEditor : Editor
     {
         EditorApplication.update -= Update;
     }
+
+    void Update()
+    {
+        if (terrain.active) Selection.activeTransform = terrain.transform;
+    }
     void DestroyObject()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -32,16 +33,23 @@ public class TerrainEditor : Editor
         Physics.Raycast(ray, out hit);
 
         List<GameObject> spawnedObjectsTemp = terrain.spawnedObjects;
-        GameObject[] objsToDestroy = spawnedObjectsTemp.Where(gameObject => ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.radius * terrain.radius)).ToArray();
+        GameObject[] objsToDestroy = 
+            spawnedObjectsTemp
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.radius * terrain.radius))
+            .ToArray();
 
         foreach (GameObject o in objsToDestroy)
         {
-            if (Random.Range(0, terrain.eraseSmoothness+1) == terrain.eraseSmoothness || terrain.eraseSmoothness == 0)
+            if (Random.Range(0, terrain.eraseSmoothness + 1) == terrain.eraseSmoothness || terrain.eraseSmoothness == 0)
             {
-                spawnedObjectsTemp.Remove(o);
-                DestroyImmediate(o);
+                if (o != null)
+                {
+                    spawnedObjectsTemp.Remove(o);
+                    DestroyImmediate(o);
+                }
             }
         }
+        spawnedObjectsTemp.RemoveAll(o => o == null);
         terrain.spawnedObjects = spawnedObjectsTemp;
     }
     void SpawnObject()
@@ -57,35 +65,26 @@ public class TerrainEditor : Editor
                 new Vector3(UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius), -1,
                             UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius)), out hit) &&
 
-                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>()) != null ||
-                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>()) == null ||
+                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
+                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
                 (terrain.place == SpawnPlaceType.onTerrainAndObjects)) )
             {
                 SpawnableObject spawnableObject = GetObject();
                 if (spawnableObject == null) continue;
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
+
                 temp.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
                 SetObjectColor(spawnableObject, temp);
+                temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
+
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
                 terrain.spawnedObjects.Add(temp);
             }
         }
     }
-    void OnSceneGUI()
-    {
-        if (!terrain.active) return;
-        if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
-            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && terrain.erase))
-        {
-            DestroyObject();
-        }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && !terrain.erase)
-        {
-            SpawnObject();
-        }
-    }
+
     SpawnableObject GetObject()
     {
         int[] chances = new int[objs.Count];
@@ -151,7 +150,7 @@ public class TerrainEditor : Editor
     }
     void SetObjectColor(SpawnableObject obj, GameObject gameObject)
     {
-        Renderer renderer = gameObject.GetComponent<SpawnableObj>().renderer;
+        Renderer renderer = gameObject.GetComponent<SpawnedObject>().renderer;
         var tempMaterial = new Material(renderer.sharedMaterial);
         if (obj.modColor)
         {
@@ -163,6 +162,25 @@ public class TerrainEditor : Editor
     {
         if (obj.customParent) return obj.parent;
         else return terrain.parent;
+    }
+    Vector3 GetObjectPositionAdd(SpawnableObject obj)
+    {
+        Debug.Log(obj.modifyPosition);
+        return obj.modifyPosition ? obj.positionAddition : Vector3.zero;
+    }
+
+    void OnSceneGUI()
+    {
+        if (!terrain.active) return;
+        if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
+            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && terrain.erase))
+        {
+            DestroyObject();
+        }
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && !terrain.erase)
+        {
+            SpawnObject();
+        }
     }
     public override void OnInspectorGUI()
     {
@@ -324,6 +342,11 @@ public class TerrainEditor : Editor
                 objs[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", objs[i].colorModPercentage);
                 //objs[i].renderableObject = (Renderer))EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer)), true))  ;
             }
+
+            objs[i].modifyPosition = EditorGUILayout.Toggle("Modify position", objs[i].modifyPosition);
+            if (objs[i].modifyPosition)
+                objs[i].positionAddition = EditorGUILayout.Vector3Field("  Position addition", objs[i].positionAddition);
+
             objs[i].customParent = EditorGUILayout.Toggle("Custom parent", objs[i].customParent);
             if (objs[i].customParent)
                 objs[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", objs[i].parent, typeof(Transform), true);

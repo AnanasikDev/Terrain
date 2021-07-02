@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SpawnableObj : MonoBehaviour
+public class SpawnedObject : MonoBehaviour
 {
     public Renderer renderer;
 }

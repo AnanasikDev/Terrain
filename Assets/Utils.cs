@@ -54,6 +54,9 @@ public class SpawnableObject
     public bool customParent = false;
     public Transform parent;
 
+    public bool modifyPosition = false;
+    public Vector3 positionAddition = Vector3.zero;
+
 
     public bool hidden = false;
 
@@ -75,5 +78,7 @@ public class SpawnableObject
         //renderableObject = clone.renderableObject;
         customParent = clone.customParent;
         parent = clone.parent;
+        modifyPosition = clone.modifyPosition;
+        positionAddition = clone.positionAddition;
     }
 }
