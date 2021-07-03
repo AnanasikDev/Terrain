@@ -10,6 +10,8 @@ public class TerrainEditor : Editor
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
     string newLayerName = "def";
+    int tabSelectedId = 0;
+    string[] tabs = new string[3] { "settings", "layers", "objects" };
     private void Awake()
     {
         terrain = (TerrainSettings)target;
@@ -35,7 +37,7 @@ public class TerrainEditor : Editor
         List<GameObject> spawnedObjectsTemp = terrain.spawnedObjects;
         GameObject[] objsToDestroy = 
             spawnedObjectsTemp
-            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.radius * terrain.radius))
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.brushSize * terrain.brushSize))
             .ToArray();
 
         foreach (GameObject o in objsToDestroy)
@@ -57,17 +59,17 @@ public class TerrainEditor : Editor
         RaycastHit screenHit = new RaycastHit();
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         Physics.Raycast(ray, out screenHit);
-        for (int i = 0; i < terrain.objectsAmount; i++)
+        for (int i = 0; i < terrain.density; i++)
         {
             RaycastHit hit = new RaycastHit();
 
             if (Physics.Raycast(screenHit.point + Vector3.up*5, 
-                new Vector3(UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius), -1,
-                            UnityEngine.Random.Range(-0.085f * terrain.radius, 0.085f * terrain.radius)), out hit) &&
+                new Vector3(UnityEngine.Random.Range(-0.085f * terrain.brushSize, 0.085f * terrain.brushSize), -1,
+                            UnityEngine.Random.Range(-0.085f * terrain.brushSize, 0.085f * terrain.brushSize)), out hit) &&
 
-                ((terrain.place == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
-                (terrain.place == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
-                (terrain.place == SpawnPlaceType.onTerrainAndObjects)) )
+                ((terrain.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
+                (terrain.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
+                (terrain.placementType == SpawnPlaceType.onTerrainAndObjects)) )
             {
                 SpawnableObject spawnableObject = GetObject();
                 if (spawnableObject == null) continue;
@@ -182,7 +184,8 @@ public class TerrainEditor : Editor
             SpawnObject();
         }
     }
-    public override void OnInspectorGUI()
+
+    new void DrawHeader()
     {
         Color oldBackgroundColor = GUI.backgroundColor;
         Color oldContentColor = GUI.contentColor;
@@ -204,9 +207,9 @@ public class TerrainEditor : Editor
                 terrain.active = true;
             }
         }
-        
+
         GUI.contentColor = oldContentColor;
-        GUI.backgroundColor = oldBackgroundColor; 
+        GUI.backgroundColor = oldBackgroundColor;
 
         EditorGUILayout.BeginHorizontal("box");
         if (terrain.erase)
@@ -244,11 +247,54 @@ public class TerrainEditor : Editor
 
 
         EditorGUILayout.Space(20);
-
+    }
+    void DrawTabs()
+    {
+        tabSelectedId = GUILayout.Toolbar(tabSelectedId, tabs);
+    }
+    void DrawSettingsTab()
+    {
         base.OnInspectorGUI();
+    }
+    void DrawLayersTab()
+    {
+        EditorGUILayout.BeginHorizontal("box");
+        bool add = false;
+        if (GUILayout.Button("Add"))
+            add = true;
 
-        EditorGUILayout.Space(20);
+        newLayerName = EditorGUILayout.TextField("New layer name: ", newLayerName);
+        if (add && newLayerName != "")
+        {
+            if (!terrain.layers.Contains(newLayerName))
+            terrain.layers.Add(newLayerName);
+        }
 
+        EditorGUILayout.EndHorizontal();
+
+        DrawLayersArray();
+    }
+    void DrawLayersArray()
+    {
+        terrain.layers.RemoveAll(layerName => layerName == "");
+        for (int layerId = 0; layerId < terrain.layers.Count; layerId++)
+        {
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.BeginHorizontal("box");
+            Color oldBgColor = GUI.backgroundColor;
+            GUI.backgroundColor = new Color(1f, 0.5f, 0.5f, 1f);
+            if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(18)))
+            {
+                terrain.layers[layerId] = "";
+            }
+            GUI.backgroundColor = oldBgColor;
+            terrain.layers[layerId] = EditorGUILayout.TextField("Name: ", terrain.layers[layerId]);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+        }
+    }
+    void DrawObjectsTab()
+    {
         EditorGUILayout.BeginHorizontal("box");
         GUILayout.Label(objs.Count.ToString());
         if (GUILayout.Button("Add"))
@@ -256,19 +302,8 @@ public class TerrainEditor : Editor
             objs.Add(new SpawnableObject());
         }
         EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal("box");
-        bool add = false;
-        if (GUILayout.Button("Add class"))
-        {
-            add = true;
-        }
-
         
-        newLayerName = EditorGUILayout.TextField("New layer: ", newLayerName);
-        if (add && newLayerName != "") terrain.layers.Add(newLayerName);
-
-        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space(20);
 
         for (int i = 0; i < objs.Count; i++)
         {
@@ -280,7 +315,7 @@ public class TerrainEditor : Editor
             {
                 if (GUILayout.Button("‹", GUILayout.Width(18), GUILayout.Height(18)))
                 {
-                    
+
                     objs[i].hidden = true;
                     EditorGUILayout.EndVertical();
                     EditorGUILayout.EndHorizontal();
@@ -303,7 +338,7 @@ public class TerrainEditor : Editor
                     EditorGUILayout.EndVertical();
                     continue;
                 }
-                
+
             }
             if (i > 0)
                 if (GUILayout.Button("˄", GUILayout.Width(18), GUILayout.Height(18)))
@@ -317,7 +352,7 @@ public class TerrainEditor : Editor
                 objs.RemoveAt(i);
                 continue;
             }
-            if (i < objs.Count-1)
+            if (i < objs.Count - 1)
                 if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
                 {
                     var temp = objs[i];
@@ -339,11 +374,11 @@ public class TerrainEditor : Editor
             }
             objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), true);
 
-            //ObjectClass c = Utils.possibleTypes.Select(a => (ObjectClass)System.Enum.Parse(typeof(ObjectClass), a)).Aggregate(ObjectClass.Object, (current, next) => current | next);
-            //Debug.Log(string.Join(", ", c));
-            //objs[i].objectClass = (ObjectClass)EditorGUILayout.EnumPopup("Class", objs[i].objectClass);
             objs[i].layerIndex = EditorGUILayout.Popup(objs[i].layerIndex, terrain.layers.ToArray());
-            objs[i].layer = terrain.layers[objs[i].layerIndex];
+            if (objs[i].layerIndex >= terrain.layers.Count)
+                objs[i].layer = terrain.layers[0];
+            else
+                objs[i].layer = terrain.layers[objs[i].layerIndex];
 
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
 
@@ -375,5 +410,25 @@ public class TerrainEditor : Editor
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.Space();
+    
+    }
+    public override void OnInspectorGUI()
+    {
+        DrawHeader();
+
+        DrawTabs();
+
+        switch (tabSelectedId)
+        {
+            case 0:
+                DrawSettingsTab();
+                break;
+            case 1:
+                DrawLayersTab();
+                break;
+            case 2:
+                DrawObjectsTab();
+                break;
+        }
     }
 }
