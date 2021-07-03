@@ -9,7 +9,7 @@ public class TerrainEditor : Editor
 {
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
-    
+    string newLayerName = "def";
     private void Awake()
     {
         terrain = (TerrainSettings)target;
@@ -257,6 +257,19 @@ public class TerrainEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal("box");
+        bool add = false;
+        if (GUILayout.Button("Add class"))
+        {
+            add = true;
+        }
+
+        
+        newLayerName = EditorGUILayout.TextField("New layer: ", newLayerName);
+        if (add && newLayerName != "") terrain.layers.Add(newLayerName);
+
+        EditorGUILayout.EndHorizontal();
+
         for (int i = 0; i < objs.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("box");
@@ -325,7 +338,15 @@ public class TerrainEditor : Editor
                 continue;
             }
             objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), true);
+
+            //ObjectClass c = Utils.possibleTypes.Select(a => (ObjectClass)System.Enum.Parse(typeof(ObjectClass), a)).Aggregate(ObjectClass.Object, (current, next) => current | next);
+            //Debug.Log(string.Join(", ", c));
+            //objs[i].objectClass = (ObjectClass)EditorGUILayout.EnumPopup("Class", objs[i].objectClass);
+            objs[i].layerIndex = EditorGUILayout.Popup(objs[i].layerIndex, terrain.layers.ToArray());
+            objs[i].layer = terrain.layers[objs[i].layerIndex];
+
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
+
 
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
             if (objs[i].rotationType == RotationType.Random)

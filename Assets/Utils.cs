@@ -27,6 +27,7 @@ public static class Utils
         YZ,
         XYZ
     }
+    
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;
@@ -56,7 +57,8 @@ public class SpawnableObject
 
     public bool modifyPosition = false;
     public Vector3 positionAddition = Vector3.zero;
-
+    public string layer;
+    public int layerIndex = 0;
 
     public bool hidden = false;
 

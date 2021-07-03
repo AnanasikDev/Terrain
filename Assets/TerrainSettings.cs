@@ -17,7 +17,8 @@ public class TerrainSettings : MonoBehaviour
     [HideInInspector] public int eraseSmoothness = 0;
 
     [HideInInspector] public List<SpawnableObject> objs = new List<SpawnableObject>();
-    public List<GameObject> spawnedObjects = new List<GameObject>();
+    [HideInInspector] public List<GameObject> spawnedObjects = new List<GameObject>();
+    public List<string> layers = new List<string>() { "default" };
 
     public static TerrainSettings terrainSettings;
 }
