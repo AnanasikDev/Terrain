@@ -10,9 +10,11 @@ public class TerrainEditor : Editor
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
     string newLayerName = "def";
-    int tabSelectedId = 0;
     string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
+    int optionsTabSelectedId = 0;
     string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
+    int brushTabSelectedId = 0;
+
     private void Awake()
     {
         terrain = (TerrainSettings)target;
@@ -30,7 +32,8 @@ public class TerrainEditor : Editor
         if (terrain.active) 
             Selection.activeTransform = terrain.transform;
     }
-    void DestroyObject()
+
+    void EraseObjects()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -56,14 +59,14 @@ public class TerrainEditor : Editor
         spawnedObjectsTemp.RemoveAll(o => o == null);
         terrain.spawnedObjects = spawnedObjectsTemp;
     }
-    void PlaceObject()
+    void PlaceObjects()
     {
-        RaycastHit screenHit = new RaycastHit();
+        RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         Physics.Raycast(ray, out screenHit);
         for (int i = 0; i < terrain.density; i++)
         {
-            RaycastHit hit = new RaycastHit();
+            RaycastHit hit;
 
             if (Physics.Raycast(screenHit.point + Vector3.up*5, 
                 new Vector3(UnityEngine.Random.Range(-0.085f * terrain.brushSize, 0.085f * terrain.brushSize), -1,
@@ -82,6 +85,8 @@ public class TerrainEditor : Editor
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
 
+                temp.GetComponent<SpawnedObject>().positionAdd = spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+
                 if (spawnableObject.renameObject)
                     temp.name = spawnableObject.newObjectName;
 
@@ -90,6 +95,41 @@ public class TerrainEditor : Editor
                 terrain.spawnedObjects.Add(temp);
             }
         }
+    }
+    void ExchangeObjects()
+    {
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+
+        List<GameObject> spawnedObjectsTemp = terrain.spawnedObjects;
+        GameObject[] objsToClone =
+            spawnedObjectsTemp
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.brushSize * terrain.brushSize))
+            .ToArray();
+
+        foreach (GameObject o in objsToClone)
+        {
+            if (Random.Range(0, terrain.exchangeSmoothness + 1) == terrain.exchangeSmoothness || terrain.exchangeSmoothness == 0)
+            {
+                if (o != null)
+                {
+                    SpawnableObject spawnableObject = GetObject();
+                    Vector3 position = terrain.exchangePosition ? o.transform.position : o.transform.position - o.GetComponent<SpawnedObject>().positionAdd + GetObjectPositionAdd(spawnableObject);
+                    RaycastHit normalHit;
+                    bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
+                    Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
+                    Quaternion rotation = terrain.exchangeRotation ? o.transform.rotation : GetObjectRotation(spawnableObject, normal, spawnableObject.customEulersRotation);
+                    Transform parent = terrain.exchangeParent ? o.transform.parent : spawnableObject.parent;
+                    Instantiate(spawnableObject.spawnableObject, position, rotation, parent);
+                    
+                    spawnedObjectsTemp.Remove(o);
+                    DestroyImmediate(o);
+                }
+            }
+        }
+        spawnedObjectsTemp.RemoveAll(o => o == null);
+        terrain.spawnedObjects = spawnedObjectsTemp;
     }
 
     SpawnableObject GetObject()
@@ -173,7 +213,6 @@ public class TerrainEditor : Editor
     }
     Vector3 GetObjectPositionAdd(SpawnableObject obj)
     {
-        Debug.Log(obj.modifyPosition);
         return obj.modifyPosition ? obj.positionAddition : Vector3.zero;
     }
 
@@ -181,13 +220,17 @@ public class TerrainEditor : Editor
     {
         if (!terrain.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
-            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && terrain.erase))
+            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && brushTabSelectedId == 1)) // Destroying objects
         {
-            DestroyObject();
+            EraseObjects();
         }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && !terrain.erase)
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && brushTabSelectedId == 0) // Placing objects
         {
-            PlaceObject();
+            PlaceObjects();
+        }
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && brushTabSelectedId == 2) // Exchanging objects
+        {
+            ExchangeObjects();
         }
     }
 
@@ -217,32 +260,7 @@ public class TerrainEditor : Editor
         GUI.contentColor = oldContentColor;
         GUI.backgroundColor = oldBackgroundColor;
 
-        EditorGUILayout.BeginHorizontal("box");
-        if (terrain.erase)
-        {
-            if (GUILayout.Button("Spawn"))
-            {
-                terrain.erase = false;
-            }
-            GUI.backgroundColor = new Color(0.3f, 0.75f, 0.3f, 1);
-            GUI.enabled = false;
-            GUILayout.Button("Erase");
-            GUI.enabled = true;
-            GUI.backgroundColor = oldBackgroundColor;
-        }
-        else
-        {
-            GUI.backgroundColor = new Color(0.3f, 0.75f, 0.3f, 1);
-            GUI.enabled = false;
-            GUILayout.Button("Spawn");
-            GUI.enabled = true;
-            GUI.backgroundColor = oldBackgroundColor;
-            if (GUILayout.Button("Erase"))
-            {
-                terrain.erase = true;
-            }
-        }
-        EditorGUILayout.EndHorizontal();
+        DrawBrushTabs();
 
         if (terrain.erase)
         {
@@ -251,20 +269,50 @@ public class TerrainEditor : Editor
             EditorGUILayout.EndVertical();
         }
 
-
         EditorGUILayout.Space(20);
     }
+    void DrawBrushTabs()
+    {
+        brushTabSelectedId = GUILayout.Toolbar(brushTabSelectedId, brushTabs);
+        if (brushTabSelectedId == 1) // Erasing
+        {
+            DrawErasingTab();
+        }
+        if (brushTabSelectedId == 2) // Exchanging
+        {
+            DrawExchangingTab();
+        }
+    }
+    // BRUSHES TABS
+    void DrawErasingTab()
+    {
+        EditorGUILayout.BeginVertical("box");
+
+        terrain.eraseSmoothness = EditorGUILayout.IntField("  Erase smoothness", terrain.eraseSmoothness);
+
+        EditorGUILayout.EndVertical();
+    }
+    void DrawExchangingTab()
+    {
+        EditorGUILayout.BeginVertical("box");
+
+        terrain.exchangeSmoothness = EditorGUILayout.IntField("  Exchange smoothness", terrain.exchangeSmoothness);
+
+        terrain.exchangePosition = EditorGUILayout.Toggle("Exchange position", terrain.exchangePosition);
+        terrain.exchangeRotation = EditorGUILayout.Toggle("Exchange rotation", terrain.exchangeRotation);
+        terrain.exchangeScale = EditorGUILayout.Toggle("Exchange scale", terrain.exchangeScale);
+        terrain.exchangeParent = EditorGUILayout.Toggle("Exchange parent", terrain.exchangeParent);
+
+        EditorGUILayout.EndVertical();
+    }
+    // OPTIONS TABS
     void DrawTabs()
     {
-        tabSelectedId = GUILayout.Toolbar(tabSelectedId, optionsTabs);
+        optionsTabSelectedId = GUILayout.Toolbar(optionsTabSelectedId, optionsTabs);
     }
     void DrawSettingsTab()
     {
         base.OnInspectorGUI();
-        if (terrain.renderOnlySelected)
-        {
-
-        }
     }
     void DrawLayersTab()
     {
@@ -387,9 +435,9 @@ public class TerrainEditor : Editor
 
             objs[i].renameObject = EditorGUILayout.Toggle("Rename object", objs[i].renameObject);
             if (objs[i].renameObject)
-                objs[i].newObjectName = EditorGUILayout.TextField("Name: ", objs[i].newObjectName);
+                objs[i].newObjectName = EditorGUILayout.TextField("  Name: ", objs[i].newObjectName);
 
-            objs[i].layerIndex = EditorGUILayout.Popup(objs[i].layerIndex, terrain.layers.ToArray());
+            objs[i].layerIndex = EditorGUILayout.Popup("Layer: ", objs[i].layerIndex, terrain.layers.ToArray());
             if (objs[i].layerIndex >= terrain.layers.Count)
                 objs[i].layer = terrain.layers[0];
             else
@@ -433,7 +481,7 @@ public class TerrainEditor : Editor
 
         DrawTabs();
 
-        switch (tabSelectedId)
+        switch (optionsTabSelectedId)
         {
             case 0:
                 DrawSettingsTab();

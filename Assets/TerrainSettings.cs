@@ -18,8 +18,13 @@ public class TerrainSettings : MonoBehaviour
     [HideInInspector] public List<GameObject> spawnedObjects = new List<GameObject>();
     [HideInInspector] public List<string> layers = new List<string>() { "default" };
 
-    public bool renderOnlySelected = false;
     [HideInInspector] public string layerSelected;
 
     public static TerrainSettings terrainSettings;
+
+    [HideInInspector] public int exchangeSmoothness = 0;
+    [HideInInspector] public bool exchangeRotation = true;
+    [HideInInspector] public bool exchangePosition = false;
+    [HideInInspector] public bool exchangeScale = true;
+    [HideInInspector] public bool exchangeParent = true;
 }
