@@ -77,7 +77,7 @@ public class TerrainEditor : Editor
                 if (spawnableObject == null) continue;
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
 
-                temp.transform.rotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
+                temp.transform.localRotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
                 SetObjectColor(spawnableObject, temp);
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
@@ -148,7 +148,8 @@ public class TerrainEditor : Editor
         }
         else if (obj.rotationType == RotationType.AsNormal)
         {
-            return Quaternion.Euler(normal);
+            Debug.Log(normal);
+            return Quaternion.FromToRotation(Vector3.up, normal);
         }
         else // if AsPrefab
         {
