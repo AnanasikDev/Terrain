@@ -2,5 +2,5 @@
 
 public class SpawnedObject : MonoBehaviour
 {
-    public Renderer renderer;
+    public new Renderer renderer;
 }

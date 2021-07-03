@@ -18,5 +18,8 @@ public class TerrainSettings : MonoBehaviour
     [HideInInspector] public List<GameObject> spawnedObjects = new List<GameObject>();
     [HideInInspector] public List<string> layers = new List<string>() { "default" };
 
+    public bool renderOnlySelected = false;
+    [HideInInspector] public string layerSelected;
+
     public static TerrainSettings terrainSettings;
 }

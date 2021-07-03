@@ -60,6 +60,9 @@ public class SpawnableObject
     public string layer;
     public int layerIndex = 0;
 
+    public bool renameObject = false;
+    public string newObjectName = "Object";
+
     public bool hidden = false;
 
     public SpawnableObject()
@@ -77,10 +80,13 @@ public class SpawnableObject
         centerObject = clone.centerObject;
         modColor = clone.modColor;
         colorModPercentage = clone.colorModPercentage;
-        //renderableObject = clone.renderableObject;
         customParent = clone.customParent;
         parent = clone.parent;
         modifyPosition = clone.modifyPosition;
         positionAddition = clone.positionAddition;
+        layer = clone.layer;
+        layerIndex = clone.layerIndex;
+        renameObject = clone.renameObject;
+        newObjectName = clone.newObjectName;
     }
 }

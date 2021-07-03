@@ -11,7 +11,8 @@ public class TerrainEditor : Editor
     public List<SpawnableObject> objs;
     string newLayerName = "def";
     int tabSelectedId = 0;
-    string[] tabs = new string[3] { "settings", "layers", "objects" };
+    string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
+    string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
     private void Awake()
     {
         terrain = (TerrainSettings)target;
@@ -26,7 +27,8 @@ public class TerrainEditor : Editor
 
     void Update()
     {
-        if (terrain.active) Selection.activeTransform = terrain.transform;
+        if (terrain.active) 
+            Selection.activeTransform = terrain.transform;
     }
     void DestroyObject()
     {
@@ -54,7 +56,7 @@ public class TerrainEditor : Editor
         spawnedObjectsTemp.RemoveAll(o => o == null);
         terrain.spawnedObjects = spawnedObjectsTemp;
     }
-    void SpawnObject()
+    void PlaceObject()
     {
         RaycastHit screenHit = new RaycastHit();
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -79,6 +81,9 @@ public class TerrainEditor : Editor
                 SetObjectColor(spawnableObject, temp);
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
+
+                if (spawnableObject.renameObject)
+                    temp.name = spawnableObject.newObjectName;
 
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
@@ -181,7 +186,7 @@ public class TerrainEditor : Editor
         }
         else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && !terrain.erase)
         {
-            SpawnObject();
+            PlaceObject();
         }
     }
 
@@ -250,11 +255,15 @@ public class TerrainEditor : Editor
     }
     void DrawTabs()
     {
-        tabSelectedId = GUILayout.Toolbar(tabSelectedId, tabs);
+        tabSelectedId = GUILayout.Toolbar(tabSelectedId, optionsTabs);
     }
     void DrawSettingsTab()
     {
         base.OnInspectorGUI();
+        if (terrain.renderOnlySelected)
+        {
+
+        }
     }
     void DrawLayersTab()
     {
@@ -285,7 +294,8 @@ public class TerrainEditor : Editor
             GUI.backgroundColor = new Color(1f, 0.5f, 0.5f, 1f);
             if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                terrain.layers[layerId] = "";
+                if (terrain.layers.Count > 1)
+                    terrain.layers[layerId] = "";
             }
             GUI.backgroundColor = oldBgColor;
             terrain.layers[layerId] = EditorGUILayout.TextField("Name: ", terrain.layers[layerId]);
@@ -295,6 +305,7 @@ public class TerrainEditor : Editor
     }
     void DrawObjectsTab()
     {
+        EditorGUILayout.Space(20);
         EditorGUILayout.BeginHorizontal("box");
         GUILayout.Label(objs.Count.ToString());
         if (GUILayout.Button("Add"))
@@ -303,7 +314,6 @@ public class TerrainEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         
-        EditorGUILayout.Space(20);
 
         for (int i = 0; i < objs.Count; i++)
         {
@@ -373,6 +383,10 @@ public class TerrainEditor : Editor
                 continue;
             }
             objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), true);
+
+            objs[i].renameObject = EditorGUILayout.Toggle("Rename object", objs[i].renameObject);
+            if (objs[i].renameObject)
+                objs[i].newObjectName = EditorGUILayout.TextField("Name: ", objs[i].newObjectName);
 
             objs[i].layerIndex = EditorGUILayout.Popup(objs[i].layerIndex, terrain.layers.ToArray());
             if (objs[i].layerIndex >= terrain.layers.Count)
