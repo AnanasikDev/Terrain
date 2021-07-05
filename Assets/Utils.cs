@@ -16,6 +16,11 @@ public static class Utils
         Static,
         AsPrefab,
         AsNormal,
+        RandomAsNormal,
+        StaticAsNormal,
+        LerpedRandomAsNormal,
+        LerpedStaticAsNormal,
+        LerpedAsPrefabAsNormal
     }
     public enum ScaleType
     {

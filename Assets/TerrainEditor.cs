@@ -76,7 +76,7 @@ public class TerrainEditor : Editor
                 if (spawnableObject == null) continue;
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
 
-                temp.transform.localRotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
+                SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.customEulersRotation);
                 SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, temp);
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
@@ -117,9 +117,12 @@ public class TerrainEditor : Editor
                     RaycastHit normalHit;
                     bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
                     Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
-                    Quaternion rotation = terrain.exchangeRotation ? o.transform.rotation : GetObjectRotation(spawnableObject, normal, spawnableObject.customEulersRotation);
                     Transform parent = terrain.exchangeParent ? o.transform.parent : spawnableObject.parent;
-                    GameObject spawned = Instantiate(spawnableObject.spawnableObject, position, rotation, parent);
+                    GameObject spawned = Instantiate(spawnableObject.spawnableObject, position, Quaternion.identity, parent);
+                    if (terrain.exchangeRotation)
+                        spawned.transform.localRotation = o.transform.localRotation;
+                    else
+                        SetObjectRotation(spawnableObject, spawned, normal, spawnableObject.customEulersRotation);
                     if (terrain.exchangeColor)
                         SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned, o.GetComponent<SpawnedObject>().renderer.sharedMaterial.color);
                     else SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned);
@@ -151,56 +154,45 @@ public class TerrainEditor : Editor
         if (!ableToSpawn) return null;
         return new SpawnableObject( objs[GetChance(chances)] );
     }
-    Quaternion GetObjectRotation(SpawnableObject obj, Vector3 normal, Vector3 custom)
+    void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
-        if (obj.rotationType == RotationType.Static)
+        if (spawnableObject.rotationType == RotationType.Static)
         {
-            return Quaternion.Euler(custom);
+            spawnedObject.transform.localEulerAngles = custom;
         }
-        else if (obj.rotationType == RotationType.Random)
+        else if (spawnableObject.rotationType == RotationType.Random)
+        {
+            spawnedObject.transform.localEulerAngles = GetRandomRotation();
+        }
+        else if (spawnableObject.rotationType == RotationType.AsNormal)
+        {
+            spawnedObject.transform.localRotation = Quaternion.FromToRotation(Vector3.up, normal);
+        }
+        else if (spawnableObject.rotationType == RotationType.RandomAsNormal)
+        {
+            spawnedObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
+            spawnedObject.transform.Rotate(GetRandomRotation(), Space.Self);
+            //spawnedObject.transform.localEulerAngles += GetRandomRotation();
+        }
+        else // if AsPrefab
+        {
+            spawnedObject.transform.rotation = spawnableObject.spawnableObject.transform.rotation;
+        }
+
+        Vector3 GetRandomRotation()
         {
             float x = 0;
             float y = 0;
             float z = 0;
-            switch (obj.rotationAxis)
-            {
-                case Axis.X:
-                    x = UnityEngine.Random.value;
-                    break;
-                case Axis.Y:
-                    y = UnityEngine.Random.value;
-                    break;
-                case Axis.Z:
-                    z = UnityEngine.Random.value;
-                    break;
-                case Axis.XY:
-                    x = UnityEngine.Random.value;
-                    y = UnityEngine.Random.value;
-                    break;
-                case Axis.XZ:
-                    x = UnityEngine.Random.value;
-                    z = UnityEngine.Random.value;
-                    break;
-                case Axis.YZ:
-                    y = UnityEngine.Random.value;
-                    z = UnityEngine.Random.value;
-                    break;
-                case Axis.XYZ:
-                    x = UnityEngine.Random.value;
-                    y = UnityEngine.Random.value;
-                    z = UnityEngine.Random.value;
-                    break;
-            }
-            return new Quaternion(x, y, z, obj.spawnableObject.transform.rotation.w);
-        }
-        else if (obj.rotationType == RotationType.AsNormal)
-        {
-            Debug.Log(normal);
-            return Quaternion.FromToRotation(Vector3.up, normal);
-        }
-        else // if AsPrefab
-        {
-            return obj.spawnableObject.transform.rotation;
+
+            string axis = spawnableObject.rotationAxis.ToString();
+            Debug.Log(axis);
+
+            if (axis.Contains("X")) x = Random.Range(0f, 360f);
+            if (axis.Contains("Y")) y = Random.Range(0f, 360f);
+            if (axis.Contains("Z")) z = Random.Range(0f, 360f);
+
+            return new Vector3(x, y, z);//Quaternion.Euler(x, y, z);
         }
     }
     void SetObjectColor(bool modifyColor, float colorModificationPercentage, GameObject gameObject, Color? color = null)
@@ -362,6 +354,22 @@ public class TerrainEditor : Editor
     void DrawSettingsTab()
     {
         base.OnInspectorGUI();
+
+        // General Info
+
+        EditorGUILayout.Space(25);
+
+        Color color = GUI.contentColor;
+
+        GUIStyle style = GUIStyle.none;
+        style.alignment = TextAnchor.MiddleCenter;
+        style.fontSize = 16;
+
+        EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>General Info</color></b>", style);
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("Total spawned: " + terrain.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
+        EditorGUILayout.LabelField("Layers amount: " + terrain.layers.Count.ToString());
+        EditorGUILayout.LabelField("Total spawnable objects: " + objs.Count);
     }
     void DrawLayersTab()
     {
@@ -497,10 +505,14 @@ public class TerrainEditor : Editor
 
 
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
-            if (objs[i].rotationType == RotationType.Random)
+            if (objs[i].rotationType == RotationType.Random ||
+                objs[i].rotationType == RotationType.RandomAsNormal ||
+                objs[i].rotationType == RotationType.LerpedRandomAsNormal)
                 objs[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
 
-            if (objs[i].rotationType == RotationType.Static)
+            if (objs[i].rotationType == RotationType.Static ||
+                objs[i].rotationType == RotationType.StaticAsNormal ||
+                objs[i].rotationType == RotationType.LerpedStaticAsNormal)
                 objs[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", objs[i].customEulersRotation);
 
 
