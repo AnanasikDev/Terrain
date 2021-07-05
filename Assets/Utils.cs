@@ -49,6 +49,11 @@ public static class Utils
         }
         return res[Random.Range(0, res.Count)];
     }
+
+    public static Vector3 Abs(this Vector3 vector)
+    {
+        return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
+    }
 }
 [System.Serializable]
 public class SpawnableObject
@@ -60,6 +65,7 @@ public class SpawnableObject
     public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
     public Utils.Axis rotationAxis = Utils.Axis.Y;
     public Vector3 customEulersRotation = Vector3.zero;
+    public float lerpValue = 0.5f;
 
     public bool modColor = true;
     public float colorModPercentage = 35;
@@ -96,22 +102,28 @@ public class SpawnableObject
     public SpawnableObject (SpawnableObject clone)
     {
         spawn = clone.spawn;
+        centerObject = clone.centerObject;
         spawnableObject = clone.spawnableObject;
         spawnChance = clone.spawnChance;
-        rotationType = clone.rotationType;
-        rotationAxis = clone.rotationAxis;
-        customEulersRotation = clone.customEulersRotation;
-        centerObject = clone.centerObject;
-        modColor = clone.modColor;
-        colorModPercentage = clone.colorModPercentage;
-        customParent = clone.customParent;
-        parent = clone.parent;
-        modifyPosition = clone.modifyPosition;
-        positionAddition = clone.positionAddition;
         layer = clone.layer;
         layerIndex = clone.layerIndex;
         renameObject = clone.renameObject;
         newObjectName = clone.newObjectName;
+
+        rotationType = clone.rotationType;
+        rotationAxis = clone.rotationAxis;
+        customEulersRotation = clone.customEulersRotation;
+        lerpValue = clone.lerpValue;
+
+        modColor = clone.modColor;
+        colorModPercentage = clone.colorModPercentage;
+
+        customParent = clone.customParent;
+        parent = clone.parent;
+
+        modifyPosition = clone.modifyPosition;
+        positionAddition = clone.positionAddition;
+
         scaleType = clone.scaleType;
         modScale = clone.modScale;
         separateScaleAxis = clone.separateScaleAxis;

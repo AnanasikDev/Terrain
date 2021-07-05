@@ -59,7 +59,8 @@ public class TerrainEditor : Editor
     {
         RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        Physics.Raycast(ray, out screenHit);
+        bool ableToSpawn = Physics.Raycast(ray, out screenHit);
+        if (ableToSpawn)
         for (int i = 0; i < terrain.density; i++)
         {
             RaycastHit hit;
@@ -172,7 +173,16 @@ public class TerrainEditor : Editor
         {
             spawnedObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
             spawnedObject.transform.Rotate(GetRandomRotation(), Space.Self);
-            //spawnedObject.transform.localEulerAngles += GetRandomRotation();
+        }
+        else if (spawnableObject.rotationType == RotationType.StaticAsNormal)
+        {
+            spawnedObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
+            spawnedObject.transform.Rotate(custom, Space.Self);
+        }
+        else if (spawnableObject.rotationType == RotationType.LerpedStaticAsNormal)
+        {
+            //spawnedObject.transform.eulerAngles = Vector3.Lerp(custom.Abs(), Quaternion.FromToRotation(Vector3.up, normal).eulerAngles.Abs(), spawnableObject.lerpValue);
+            spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.lerpValue);
         }
         else // if AsPrefab
         {
@@ -514,6 +524,9 @@ public class TerrainEditor : Editor
                 objs[i].rotationType == RotationType.StaticAsNormal ||
                 objs[i].rotationType == RotationType.LerpedStaticAsNormal)
                 objs[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", objs[i].customEulersRotation);
+
+            if (objs[i].rotationType == RotationType.LerpedStaticAsNormal)
+                objs[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", objs[i].lerpValue);
 
 
             objs[i].modifyPosition = EditorGUILayout.Toggle("Modify position", objs[i].modifyPosition);

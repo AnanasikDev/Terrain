@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804dba5ca00a46946b9c569d7dc75e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  density: 5
+  density: 1
   brushSize: 15
   placementType: 0
-  active: 0
+  active: 1
   parent: {fileID: 522055306}
   erase: 0
   eraseSmoothness: 0
@@ -164,12 +164,13 @@ MonoBehaviour:
     spawnableObject: {fileID: 4347689355874489333, guid: 7872ed2cd601ff1408274192e5be24af,
       type: 3}
     spawnChance: 1
-    rotationType: 0
+    rotationType: 7
     rotationAxis: 1
     customEulersRotation: {x: 0, y: 0, z: 0}
+    lerpValue: 0.15
     modColor: 1
     colorModPercentage: 50
-    customParent: 1
+    customParent: 0
     parent: {fileID: 0}
     centerObject: 1
     modifyPosition: 1
@@ -185,7 +186,7 @@ MonoBehaviour:
     scaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
     scaleMin: 0.5
     scaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    scaleMax: 1.25
+    scaleMax: 1
     separateScaleAxis: 0
     hidden: 0
   - spawn: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
     rotationType: 3
     rotationAxis: 1
     customEulersRotation: {x: 0, y: 0, z: 0}
+    lerpValue: 0.5
     modColor: 0
     colorModPercentage: 80
     customParent: 1
@@ -216,8 +218,7 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 1
-  spawnedObjects:
-  - {fileID: 0}
+  spawnedObjects: []
   layers:
   - tree
   - table
@@ -232,7 +233,7 @@ MonoBehaviour:
   - settings
   - layers
   - objects
-  optionsTabSelectedId: 2
+  optionsTabSelectedId: 0
   brushTabs:
   - Place
   - Erase
@@ -290,13 +291,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522055302}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalRotation: {x: -0.0046811043, y: -0.008776019, z: -0.0011491914, w: 0.99994993}
+  m_LocalPosition: {x: 8.831726, y: -1.5711002, z: -8.61264}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.53800005, y: -1.005, z: -0.127}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
