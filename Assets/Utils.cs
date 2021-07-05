@@ -15,9 +15,15 @@ public static class Utils
         Random,
         Static,
         AsPrefab,
-        AsNormal
+        AsNormal,
     }
-    public enum RotationAxis
+    public enum ScaleType
+    {
+        Random,
+        Static,
+        AsPrefab
+    }
+    public enum Axis
     {
         X,
         Y,
@@ -45,23 +51,36 @@ public class SpawnableObject
     public bool spawn = true;
     public GameObject spawnableObject;
     [SerializeField, Min(0)] public int spawnChance = 1;
+
     public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
-    public Utils.RotationAxis rotationAxis = Utils.RotationAxis.Y;
+    public Utils.Axis rotationAxis = Utils.Axis.Y;
     public Vector3 customEulersRotation = Vector3.zero;
-    public bool centerObject = false;
+
     public bool modColor = true;
     public float colorModPercentage = 35;
-    //public Renderer renderableObject;
+
     public bool customParent = false;
     public Transform parent;
 
+    public bool centerObject = false;
     public bool modifyPosition = false;
     public Vector3 positionAddition = Vector3.zero;
+
     public string layer;
     public int layerIndex = 0;
 
     public bool renameObject = false;
     public string newObjectName = "Object";
+
+    public Utils.ScaleType scaleType = Utils.ScaleType.AsPrefab;
+    public Utils.Axis scaleAxis = Utils.Axis.XYZ;
+    public bool modScale;
+    public Vector3 customScale = Vector3.one;
+    public Vector3 scaleMinSeparated = new Vector3(0.9f, 0.9f, 0.9f);
+    public float scaleMin = 1;
+    public Vector3 scaleMaxSeparated = new Vector3(1.1f, 1.1f, 1.1f);
+    public float scaleMax = 1;
+    public bool separateScaleAxis = true;
 
     public bool hidden = false;
 
@@ -88,5 +107,12 @@ public class SpawnableObject
         layerIndex = clone.layerIndex;
         renameObject = clone.renameObject;
         newObjectName = clone.newObjectName;
+        scaleType = clone.scaleType;
+        modScale = clone.modScale;
+        separateScaleAxis = clone.separateScaleAxis;
+        scaleMin = clone.scaleMin;
+        scaleMax = clone.scaleMax;
+        scaleMinSeparated = clone.scaleMinSeparated;
+        scaleMaxSeparated = clone.scaleMaxSeparated;
     }
 }

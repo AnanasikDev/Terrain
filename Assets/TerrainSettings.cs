@@ -27,4 +27,10 @@ public class TerrainSettings : MonoBehaviour
     [HideInInspector] public bool exchangePosition = false;
     [HideInInspector] public bool exchangeScale = true;
     [HideInInspector] public bool exchangeParent = true;
+    [HideInInspector] public bool exchangeColor = false;
+
+    [HideInInspector] public string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
+    [HideInInspector] public int optionsTabSelectedId = 0;
+    [HideInInspector] public string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
+    [HideInInspector] public int brushTabSelectedId = 0;
 }

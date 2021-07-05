@@ -10,10 +10,6 @@ public class TerrainEditor : Editor
     TerrainSettings terrain;
     public List<SpawnableObject> objs;
     string newLayerName = "def";
-    string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
-    int optionsTabSelectedId = 0;
-    string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
-    int brushTabSelectedId = 0;
 
     private void Awake()
     {
@@ -81,11 +77,13 @@ public class TerrainEditor : Editor
                 GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
 
                 temp.transform.localRotation = GetObjectRotation(spawnableObject, hit.normal, spawnableObject.customEulersRotation);
-                SetObjectColor(spawnableObject, temp);
+                SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, temp);
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
-
-                temp.GetComponent<SpawnedObject>().positionAdd = spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+                temp.transform.localScale = GetObjectScale(spawnableObject);    
+                
+                temp.GetComponent<SpawnedObject>().positionAdd = 
+                    spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
 
                 if (spawnableObject.renameObject)
                     temp.name = spawnableObject.newObjectName;
@@ -103,12 +101,12 @@ public class TerrainEditor : Editor
         Physics.Raycast(ray, out hit);
 
         List<GameObject> spawnedObjectsTemp = terrain.spawnedObjects;
-        GameObject[] objsToClone =
+        GameObject[] objsToExchange =
             spawnedObjectsTemp
             .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= terrain.brushSize * terrain.brushSize))
             .ToArray();
 
-        foreach (GameObject o in objsToClone)
+        foreach (GameObject o in objsToExchange)
         {
             if (Random.Range(0, terrain.exchangeSmoothness + 1) == terrain.exchangeSmoothness || terrain.exchangeSmoothness == 0)
             {
@@ -121,9 +119,18 @@ public class TerrainEditor : Editor
                     Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
                     Quaternion rotation = terrain.exchangeRotation ? o.transform.rotation : GetObjectRotation(spawnableObject, normal, spawnableObject.customEulersRotation);
                     Transform parent = terrain.exchangeParent ? o.transform.parent : spawnableObject.parent;
-                    Instantiate(spawnableObject.spawnableObject, position, rotation, parent);
+                    GameObject spawned = Instantiate(spawnableObject.spawnableObject, position, rotation, parent);
+                    if (terrain.exchangeColor)
+                        SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned, o.GetComponent<SpawnedObject>().renderer.sharedMaterial.color);
+                    else SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned);
                     
+                    spawned.GetComponent<SpawnedObject>().positionAdd =
+                        spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+
+                    spawned.transform.localScale = terrain.exchangeScale ? o.transform.localScale : GetObjectScale(spawnableObject);
+
                     spawnedObjectsTemp.Remove(o);
+                    spawnedObjectsTemp.Add(spawned);
                     DestroyImmediate(o);
                 }
             }
@@ -157,28 +164,28 @@ public class TerrainEditor : Editor
             float z = 0;
             switch (obj.rotationAxis)
             {
-                case RotationAxis.X:
+                case Axis.X:
                     x = UnityEngine.Random.value;
                     break;
-                case RotationAxis.Y:
+                case Axis.Y:
                     y = UnityEngine.Random.value;
                     break;
-                case RotationAxis.Z:
+                case Axis.Z:
                     z = UnityEngine.Random.value;
                     break;
-                case RotationAxis.XY:
+                case Axis.XY:
                     x = UnityEngine.Random.value;
                     y = UnityEngine.Random.value;
                     break;
-                case RotationAxis.XZ:
+                case Axis.XZ:
                     x = UnityEngine.Random.value;
                     z = UnityEngine.Random.value;
                     break;
-                case RotationAxis.YZ:
+                case Axis.YZ:
                     y = UnityEngine.Random.value;
                     z = UnityEngine.Random.value;
                     break;
-                case RotationAxis.XYZ:
+                case Axis.XYZ:
                     x = UnityEngine.Random.value;
                     y = UnityEngine.Random.value;
                     z = UnityEngine.Random.value;
@@ -196,15 +203,18 @@ public class TerrainEditor : Editor
             return obj.spawnableObject.transform.rotation;
         }
     }
-    void SetObjectColor(SpawnableObject obj, GameObject gameObject)
+    void SetObjectColor(bool modifyColor, float colorModificationPercentage, GameObject gameObject, Color? color = null)
     {
-        Renderer renderer = gameObject.GetComponent<SpawnedObject>().renderer;
-        var tempMaterial = new Material(renderer.sharedMaterial);
-        if (obj.modColor)
+        if (modifyColor)
         {
-            tempMaterial.color *= UnityEngine.Random.Range(1 - (obj.colorModPercentage / 100), 1 + (obj.colorModPercentage / 100));
+            Renderer renderer = gameObject.GetComponent<SpawnedObject>().renderer;
+            var tempMaterial = new Material(renderer.sharedMaterial);
+            if (color == null)
+                tempMaterial.color *= UnityEngine.Random.Range(1 - (colorModificationPercentage / 100), 1 + (colorModificationPercentage / 100));
+            else
+                tempMaterial.color = (Color)color;
+            renderer.sharedMaterial = tempMaterial;
         }
-        renderer.sharedMaterial = tempMaterial;
     }
     Transform GetObjectParent(SpawnableObject obj)
     {
@@ -215,20 +225,58 @@ public class TerrainEditor : Editor
     {
         return obj.modifyPosition ? obj.positionAddition : Vector3.zero;
     }
+    Vector3 GetObjectScale(SpawnableObject spawnableObject)
+    {
+        Vector3 scale = Vector3.one;
+        switch (spawnableObject.scaleType)
+        {
+            case ScaleType.AsPrefab:
+                scale = spawnableObject.spawnableObject.transform.localScale;
+                break;
+            case ScaleType.Random:
+                if (spawnableObject.modScale)
+                {
+                    float x = 1;
+                    float y = 1;
+                    float z = 1;
+
+                    string axis = spawnableObject.scaleAxis.ToString();
+                    if (spawnableObject.separateScaleAxis)
+                    {
+                        if (axis.Contains("X")) x = Random.Range(spawnableObject.scaleMinSeparated.x, spawnableObject.scaleMaxSeparated.x);
+                        if (axis.Contains("Y")) y = Random.Range(spawnableObject.scaleMinSeparated.y, spawnableObject.scaleMaxSeparated.y);
+                        if (axis.Contains("Z")) z = Random.Range(spawnableObject.scaleMinSeparated.z, spawnableObject.scaleMaxSeparated.z);
+                    }
+                    else
+                    {
+                        float value = Random.Range(spawnableObject.scaleMin, spawnableObject.scaleMax);
+                        x = y = z = value;
+                    }
+
+                    scale = new Vector3(x, y, z);
+                }
+                    
+                break;
+            case ScaleType.Static:
+                scale = spawnableObject.customScale;
+                break;
+        }
+        return scale;
+    }
 
     void OnSceneGUI()
     {
         if (!terrain.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
-            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && brushTabSelectedId == 1)) // Destroying objects
+            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && terrain.brushTabSelectedId == 1)) // Destroying objects
         {
             EraseObjects();
         }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && brushTabSelectedId == 0) // Placing objects
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && terrain.brushTabSelectedId == 0) // Placing objects
         {
             PlaceObjects();
         }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && brushTabSelectedId == 2) // Exchanging objects
+        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && terrain.brushTabSelectedId == 2) // Exchanging objects
         {
             ExchangeObjects();
         }
@@ -273,12 +321,12 @@ public class TerrainEditor : Editor
     }
     void DrawBrushTabs()
     {
-        brushTabSelectedId = GUILayout.Toolbar(brushTabSelectedId, brushTabs);
-        if (brushTabSelectedId == 1) // Erasing
+        terrain.brushTabSelectedId = GUILayout.Toolbar(terrain.brushTabSelectedId, terrain.brushTabs);
+        if (terrain.brushTabSelectedId == 1) // Erasing
         {
             DrawErasingTab();
         }
-        if (brushTabSelectedId == 2) // Exchanging
+        if (terrain.brushTabSelectedId == 2) // Exchanging
         {
             DrawExchangingTab();
         }
@@ -288,7 +336,7 @@ public class TerrainEditor : Editor
     {
         EditorGUILayout.BeginVertical("box");
 
-        terrain.eraseSmoothness = EditorGUILayout.IntField("  Erase smoothness", terrain.eraseSmoothness);
+        terrain.eraseSmoothness = EditorGUILayout.IntField("Erase smoothness", terrain.eraseSmoothness);
 
         EditorGUILayout.EndVertical();
     }
@@ -296,19 +344,20 @@ public class TerrainEditor : Editor
     {
         EditorGUILayout.BeginVertical("box");
 
-        terrain.exchangeSmoothness = EditorGUILayout.IntField("  Exchange smoothness", terrain.exchangeSmoothness);
+        terrain.exchangeSmoothness = EditorGUILayout.IntField("Exchange smoothness", terrain.exchangeSmoothness);
 
         terrain.exchangePosition = EditorGUILayout.Toggle("Exchange position", terrain.exchangePosition);
         terrain.exchangeRotation = EditorGUILayout.Toggle("Exchange rotation", terrain.exchangeRotation);
         terrain.exchangeScale = EditorGUILayout.Toggle("Exchange scale", terrain.exchangeScale);
         terrain.exchangeParent = EditorGUILayout.Toggle("Exchange parent", terrain.exchangeParent);
+        terrain.exchangeColor = EditorGUILayout.Toggle("Exchange color", terrain.exchangeColor);
 
         EditorGUILayout.EndVertical();
     }
     // OPTIONS TABS
     void DrawTabs()
     {
-        optionsTabSelectedId = GUILayout.Toolbar(optionsTabSelectedId, optionsTabs);
+        terrain.optionsTabSelectedId = GUILayout.Toolbar(terrain.optionsTabSelectedId, terrain.optionsTabs);
     }
     void DrawSettingsTab()
     {
@@ -391,7 +440,7 @@ public class TerrainEditor : Editor
                 }
                 else
                 {
-                    GUILayout.Label(objs[i].spawnableObject != null ? objs[i].spawnableObject.name : "null");
+                    GUILayout.Label(objs[i].spawnableObject != null ? (objs[i].renameObject ? objs[i].newObjectName : objs[i].spawnableObject.name) : "null");
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.EndVertical();
@@ -444,31 +493,64 @@ public class TerrainEditor : Editor
                 objs[i].layer = terrain.layers[objs[i].layerIndex];
 
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
+            if (objs[i].spawnChance < 0) objs[i].spawnChance = 0;
 
 
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
             if (objs[i].rotationType == RotationType.Random)
-                objs[i].rotationAxis = (RotationAxis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
+                objs[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
 
             if (objs[i].rotationType == RotationType.Static)
                 objs[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", objs[i].customEulersRotation);
 
-            objs[i].centerObject = EditorGUILayout.Toggle("Center Object", objs[i].centerObject);
-
-            objs[i].modColor = EditorGUILayout.Toggle("Modify color", objs[i].modColor);
-            if (objs[i].modColor)
-            {
-                objs[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", objs[i].colorModPercentage);
-                //objs[i].renderableObject = (Renderer))EditorGUILayout.ObjectField("Renderer", objs[i].renderableObject, typeof(Renderer)), true))  ;
-            }
 
             objs[i].modifyPosition = EditorGUILayout.Toggle("Modify position", objs[i].modifyPosition);
             if (objs[i].modifyPosition)
                 objs[i].positionAddition = EditorGUILayout.Vector3Field("  Position addition", objs[i].positionAddition);
 
+
+            objs[i].modScale = EditorGUILayout.Toggle("Modify scale", objs[i].modScale);
+            if (objs[i].modScale)
+            {
+                objs[i].scaleType = (ScaleType)EditorGUILayout.EnumPopup(  "Scale", objs[i].scaleType);
+                objs[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", objs[i].separateScaleAxis);
+                if (objs[i].scaleType == ScaleType.Random)
+                {
+                    objs[i].scaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].scaleAxis);
+                    if (objs[i].separateScaleAxis)
+                    {
+                        objs[i].scaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", objs[i].scaleMaxSeparated);
+                        objs[i].scaleMinSeparated = EditorGUILayout.Vector3Field("  Min scale", objs[i].scaleMinSeparated);
+                    }
+                    else
+                    {
+                        objs[i].scaleMin = EditorGUILayout.FloatField("  Min scale", objs[i].scaleMin);
+                        objs[i].scaleMax = EditorGUILayout.FloatField("  Max scale", objs[i].scaleMax);
+                    }
+                }
+                if (objs[i].scaleType == ScaleType.Static)
+                    objs[i].customScale = EditorGUILayout.Vector3Field("  Custom scale", objs[i].customScale);
+
+            }
+
+
+            objs[i].centerObject = EditorGUILayout.Toggle("Center Object", objs[i].centerObject);
+
+
+            objs[i].modColor = EditorGUILayout.Toggle("Modify color", objs[i].modColor);
+            
+            if (objs[i].modColor)
+            {
+                objs[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", objs[i].colorModPercentage);
+                if (objs[i].colorModPercentage < 0) objs[i].colorModPercentage = 0;
+            }
+
+
             objs[i].customParent = EditorGUILayout.Toggle("Custom parent", objs[i].customParent);
             if (objs[i].customParent)
                 objs[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", objs[i].parent, typeof(Transform), true);
+
+
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
@@ -481,7 +563,7 @@ public class TerrainEditor : Editor
 
         DrawTabs();
 
-        switch (optionsTabSelectedId)
+        switch (terrain.optionsTabSelectedId)
         {
             case 0:
                 DrawSettingsTab();
