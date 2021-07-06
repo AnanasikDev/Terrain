@@ -202,11 +202,20 @@ public class TerrainEditor : EditorWindow
             float y = 0;
             float z = 0;
 
-            string axis = spawnableObject.rotationAxis.ToString();
+            if (spawnableObject.multiRotationAxis)
+            {
+                x = Random.Range(spawnableObject.randomMinRotation.x, spawnableObject.randomMaxRotation.x);
+                y = Random.Range(spawnableObject.randomMinRotation.y, spawnableObject.randomMaxRotation.y);
+                z = Random.Range(spawnableObject.randomMinRotation.z, spawnableObject.randomMaxRotation.z);
+            }
+            else
+            {
+                string axis = spawnableObject.rotationAxis.ToString();
 
-            if (axis.Contains("X")) x = Random.Range(0f, 360f);
-            if (axis.Contains("Y")) y = Random.Range(0f, 360f);
-            if (axis.Contains("Z")) z = Random.Range(0f, 360f);
+                if (axis.Contains("X")) x = Random.Range(0f, 360f);
+                if (axis.Contains("Y")) y = Random.Range(0f, 360f);
+                if (axis.Contains("Z")) z = Random.Range(0f, 360f);
+            }
 
             return new Vector3(x, y, z);
         }
@@ -537,12 +546,21 @@ public class TerrainEditor : EditorWindow
             objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
             if (objs[i].spawnChance < 0) objs[i].spawnChance = 0;
 
-
+            objs[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", objs[i].multiRotationAxis);
+            
             objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
             if (objs[i].rotationType == RotationType.Random ||
                 objs[i].rotationType == RotationType.RandomAsNormal ||
                 objs[i].rotationType == RotationType.LerpedRandomAsNormal)
-                objs[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
+            {
+                if (objs[i].multiRotationAxis)
+                {
+                    objs[i].randomMinRotation = EditorGUILayout.Vector3Field("  Min rotation", objs[i].randomMinRotation);
+                    objs[i].randomMaxRotation = EditorGUILayout.Vector3Field("  Max rotation", objs[i].randomMaxRotation);
+                }
+                else
+                    objs[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
+            }
 
             if (objs[i].rotationType == RotationType.Static ||
                 objs[i].rotationType == RotationType.StaticAsNormal ||

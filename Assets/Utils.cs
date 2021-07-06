@@ -66,6 +66,9 @@ public class SpawnableObject
     public Utils.Axis rotationAxis = Utils.Axis.Y;
     public Vector3 customEulersRotation = Vector3.zero;
     public float lerpValue = 0.5f;
+    public Vector3 randomMinRotation = Vector3.zero;
+    public Vector3 randomMaxRotation = Vector3.one * 360;
+    public bool multiRotationAxis = false;
 
     public bool modColor = true;
     public float colorModPercentage = 35;
@@ -114,6 +117,9 @@ public class SpawnableObject
         rotationAxis = clone.rotationAxis;
         customEulersRotation = clone.customEulersRotation;
         lerpValue = clone.lerpValue;
+        randomMinRotation = clone.randomMinRotation;
+        randomMaxRotation = clone.randomMaxRotation;
+        multiRotationAxis = clone.multiRotationAxis;
 
         modColor = clone.modColor;
         colorModPercentage = clone.colorModPercentage;
