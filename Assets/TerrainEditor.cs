@@ -4,16 +4,22 @@ using System.Linq;
 using System.Collections.Generic;
 using static Utils;
 
-[CustomEditor(typeof(TerrainSettings))]
-public class TerrainEditor : Editor
+//[CustomEditor(typeof(TerrainSettings))]
+public class TerrainEditor : EditorWindow
 {
-    TerrainSettings terrain;
+    public TerrainSettings terrain;
     public List<SpawnableObject> objs;
     string newLayerName = "def";
 
+    [MenuItem("Window/Terrain")]
+    public static void ShowWindow()
+    {
+        GetWindow<TerrainEditor>("Terrain++");
+    }
     private void Awake()
     {
-        terrain = (TerrainSettings)target;
+        //terrain = (TerrainSettings)target;
+        terrain = TerrainEditorInit.terrain;
         TerrainSettings.terrainSettings = terrain;
         EditorApplication.update += Update;
         objs = terrain.objs;
@@ -196,13 +202,12 @@ public class TerrainEditor : Editor
             float z = 0;
 
             string axis = spawnableObject.rotationAxis.ToString();
-            Debug.Log(axis);
 
             if (axis.Contains("X")) x = Random.Range(0f, 360f);
             if (axis.Contains("Y")) y = Random.Range(0f, 360f);
             if (axis.Contains("Z")) z = Random.Range(0f, 360f);
 
-            return new Vector3(x, y, z);//Quaternion.Euler(x, y, z);
+            return new Vector3(x, y, z);
         }
     }
     void SetObjectColor(bool modifyColor, float colorModificationPercentage, GameObject gameObject, Color? color = null)
@@ -265,8 +270,7 @@ public class TerrainEditor : Editor
         }
         return scale;
     }
-
-    void OnSceneGUI()
+    void onSceneGUI()
     {
         if (!terrain.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
@@ -283,8 +287,20 @@ public class TerrainEditor : Editor
             ExchangeObjects();
         }
     }
+    void OnFocus()
+    {
+        SceneView.duringSceneGui -= OnSceneGUI;
+        SceneView.duringSceneGui += OnSceneGUI;
+    }
 
-    new void DrawHeader()
+    void OnDisable()
+    {
+        SceneView.duringSceneGui -= OnSceneGUI;
+    }
+
+    void OnSceneGUI(SceneView sceneView) => onSceneGUI();
+
+    void DrawHeader()
     {
         Color oldBackgroundColor = GUI.backgroundColor;
         Color oldContentColor = GUI.contentColor;
@@ -363,7 +379,14 @@ public class TerrainEditor : Editor
     }
     void DrawSettingsTab()
     {
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
+
+        terrain.density = EditorGUILayout.IntField("Brush density", terrain.density);
+        terrain.brushSize = EditorGUILayout.FloatField("Brush size", terrain.brushSize);
+
+        terrain.parent = (Transform)EditorGUILayout.ObjectField("Parent", terrain.parent, typeof(Transform), true);
+        terrain.placementType = (Utils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", terrain.placementType);
+
 
         // General Info
 
@@ -582,7 +605,7 @@ public class TerrainEditor : Editor
         EditorGUILayout.Space();
     
     }
-    public override void OnInspectorGUI()
+    public void OnGUI()
     {
         DrawHeader();
 
