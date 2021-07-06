@@ -10,6 +10,7 @@ public class TerrainEditor : EditorWindow
     public TerrainSettings terrain;
     public List<SpawnableObject> objs;
     string newLayerName = "def";
+    Vector2 scrollPos = Vector2.zero;
 
     [MenuItem("Window/Terrain")]
     public static void ShowWindow()
@@ -607,6 +608,7 @@ public class TerrainEditor : EditorWindow
     }
     public void OnGUI()
     {
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
         DrawHeader();
 
         DrawTabs();
@@ -623,5 +625,6 @@ public class TerrainEditor : EditorWindow
                 DrawObjectsTab();
                 break;
         }
+        GUILayout.EndScrollView();
     }
 }
