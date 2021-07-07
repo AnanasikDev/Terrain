@@ -4,12 +4,11 @@ using System.Linq;
 using System.Collections.Generic;
 using static Utils;
 
-//[CustomEditor(typeof(TerrainSettings))]
 public class TerrainEditor : EditorWindow
 {
     public TerrainSettings terrain;
     public List<SpawnableObject> objs;
-    string newLayerName = "def";
+    string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
 
     [MenuItem("Window/Terrain")]
@@ -19,21 +18,24 @@ public class TerrainEditor : EditorWindow
     }
     private void Awake()
     {
-        //terrain = (TerrainSettings)target;
         terrain = TerrainEditorInit.terrain;
         TerrainSettings.terrainSettings = terrain;
-        EditorApplication.update += Update;
         objs = terrain.objs;
-    }
-    private void OnDestroy()
-    {
-        EditorApplication.update -= Update;
     }
 
     void Update()
     {
         if (terrain.active) 
             Selection.activeTransform = terrain.transform;
+
+        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.button == 0)
+        {
+            if (Event.current.modifiers == EventModifiers.Shift)
+            {
+                // Undo
+                
+            }
+        }
     }
 
     void EraseObjects()
@@ -61,12 +63,14 @@ public class TerrainEditor : EditorWindow
         }
         spawnedObjectsTemp.RemoveAll(o => o == null);
         terrain.spawnedObjects = spawnedObjectsTemp;
+        Repaint();
     }
     void PlaceObjects()
     {
         RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         bool ableToSpawn = Physics.Raycast(ray, out screenHit);
+        List<GameObject> spawnedObjs = new List<GameObject>();
         if (ableToSpawn)
         for (int i = 0; i < terrain.density; i++)
         {
@@ -98,9 +102,14 @@ public class TerrainEditor : EditorWindow
 
                 if (spawnableObject.centerObject)
                     temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
+
                 terrain.spawnedObjects.Add(temp);
+
+                spawnedObjs.Add(temp);
             }
         }
+        Undo.RecordObjects(spawnedObjs.ToArray(), "Hi!");
+        Repaint();
     }
     void ExchangeObjects()
     {
@@ -280,7 +289,8 @@ public class TerrainEditor : EditorWindow
         }
         return scale;
     }
-    void onSceneGUI()
+
+    private void SceneGUI()
     {
         if (!terrain.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
@@ -297,19 +307,6 @@ public class TerrainEditor : EditorWindow
             ExchangeObjects();
         }
     }
-    void OnFocus()
-    {
-        SceneView.duringSceneGui -= OnSceneGUI;
-        SceneView.duringSceneGui += OnSceneGUI;
-    }
-
-    void OnDisable()
-    {
-        SceneView.duringSceneGui -= OnSceneGUI;
-    }
-
-    void OnSceneGUI(SceneView sceneView) => onSceneGUI();
-
     void DrawHeader()
     {
         Color oldBackgroundColor = GUI.backgroundColor;
@@ -391,6 +388,7 @@ public class TerrainEditor : EditorWindow
     {
         //base.OnInspectorGUI();
 
+        Debug.Log("Drawing");
         terrain.density = EditorGUILayout.IntField("Brush density", terrain.density);
         terrain.brushSize = EditorGUILayout.FloatField("Brush size", terrain.brushSize);
 
@@ -624,6 +622,7 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.Space();
     
     }
+
     public void OnGUI()
     {
         scrollPos = GUILayout.BeginScrollView(scrollPos);
@@ -644,5 +643,21 @@ public class TerrainEditor : EditorWindow
                 break;
         }
         GUILayout.EndScrollView();
+    }
+
+    void OnFocus()
+    {
+        //SceneView.duringSceneGui -= OnSceneGUI;
+        SceneView.duringSceneGui += OnSceneGUI;
+    }
+
+    void OnDisable()
+    {
+        SceneView.duringSceneGui -= OnSceneGUI;
+    }
+
+    void OnSceneGUI(SceneView sceneView)
+    {
+        SceneGUI();
     }
 }
