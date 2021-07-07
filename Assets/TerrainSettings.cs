@@ -33,4 +33,6 @@ public class TerrainSettings : MonoBehaviour
     [HideInInspector] public int optionsTabSelectedId = 0;
     [HideInInspector] public string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
     [HideInInspector] public int brushTabSelectedId = 0;
+
+    [HideInInspector] public Stack<Change> changelog = new Stack<Change>();
 }

@@ -38,7 +38,11 @@ public static class Utils
         YZ,
         XYZ
     }
-    
+    public enum ChangeType
+    {
+        Placement,
+        Erasure
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;
@@ -137,5 +141,17 @@ public class SpawnableObject
         scaleMax = clone.scaleMax;
         scaleMinSeparated = clone.scaleMinSeparated;
         scaleMaxSeparated = clone.scaleMaxSeparated;
+    }
+}
+
+public class Change
+{
+    public Utils.ChangeType type;
+    public List<GameObject> changedObjects;
+
+    public Change (Utils.ChangeType Type, List<GameObject> Objects)
+    {
+        type = Type;
+        changedObjects = Objects;
     }
 }

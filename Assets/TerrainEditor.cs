@@ -27,15 +27,6 @@ public class TerrainEditor : EditorWindow
     {
         if (terrain.active) 
             Selection.activeTransform = terrain.transform;
-
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.button == 0)
-        {
-            if (Event.current.modifiers == EventModifiers.Shift)
-            {
-                // Undo
-                
-            }
-        }
     }
 
     void EraseObjects()
@@ -108,7 +99,7 @@ public class TerrainEditor : EditorWindow
                 spawnedObjs.Add(temp);
             }
         }
-        Undo.RecordObjects(spawnedObjs.ToArray(), "Hi!");
+        terrain.changelog.Push(new Change(Utils.ChangeType.Placement, spawnedObjs));
         Repaint();
     }
     void ExchangeObjects()
@@ -306,6 +297,25 @@ public class TerrainEditor : EditorWindow
         {
             ExchangeObjects();
         }
+
+        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Z)
+        {
+            if (Event.current.modifiers == EventModifiers.Control)
+            {
+                // Undo
+
+                Change lastChange = terrain.changelog.Pop();
+                if (lastChange.type == ChangeType.Placement)
+                {
+                    GameObject[] changedObjsTemp = lastChange.changedObjects.ToArray();
+                    foreach (GameObject obj in changedObjsTemp)
+                    {
+                        lastChange.changedObjects.Remove(obj);
+                        DestroyImmediate(obj);
+                    }
+                }
+            }
+        }
     }
     void DrawHeader()
     {
@@ -388,7 +398,6 @@ public class TerrainEditor : EditorWindow
     {
         //base.OnInspectorGUI();
 
-        Debug.Log("Drawing");
         terrain.density = EditorGUILayout.IntField("Brush density", terrain.density);
         terrain.brushSize = EditorGUILayout.FloatField("Brush size", terrain.brushSize);
 
