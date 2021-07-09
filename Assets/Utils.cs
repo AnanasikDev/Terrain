@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
@@ -143,7 +142,7 @@ public class SpawnableObject
         scaleMaxSeparated = clone.scaleMaxSeparated;
     }
 }
-
+[System.Serializable]
 public class Change
 {
     public Utils.ChangeType type;

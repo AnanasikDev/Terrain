@@ -1,38 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using static Utils;
 public class TerrainSettings : MonoBehaviour
 {
-    public int density = 1; // if -1 then random
-    public float brushSize = 25;
+    static public bool validated = false;
 
-    public SpawnPlaceType placementType;
+    static public TerrainSettings instance;
 
-    [HideInInspector] public bool active = false;
-    public Transform parent;
+    static public int density = 4;
+    static public float brushSize = 25;
 
-    [HideInInspector] public bool erase = false;
-    [HideInInspector] public int eraseSmoothness = 0;
+    static public SpawnPlaceType placementType;
 
-    [HideInInspector] public List<SpawnableObject> objs = new List<SpawnableObject>();
-    [HideInInspector] public List<GameObject> spawnedObjects = new List<GameObject>();
-    [HideInInspector] public List<string> layers = new List<string>() { "default" };
+    static public bool active = false;
+    static public Transform parent;
 
-    [HideInInspector] public string layerSelected;
+    static public bool erase = false;
+    static public int eraseSmoothness = 0;
 
-    public static TerrainSettings terrainSettings;
+    static public List<SpawnableObject> objs = new List<SpawnableObject>();
+    static public List<GameObject> spawnedObjects = new List<GameObject>();
+    static public List<string> layers = new List<string>() { "default" };
 
-    [HideInInspector] public int exchangeSmoothness = 0;
-    [HideInInspector] public bool exchangeRotation = true;
-    [HideInInspector] public bool exchangePosition = false;
-    [HideInInspector] public bool exchangeScale = true;
-    [HideInInspector] public bool exchangeParent = true;
-    [HideInInspector] public bool exchangeColor = false;
+    static public string layerSelected;
 
-    [HideInInspector] public string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
-    [HideInInspector] public int optionsTabSelectedId = 0;
-    [HideInInspector] public string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
-    [HideInInspector] public int brushTabSelectedId = 0;
+    static public int exchangeSmoothness = 0;
+    static public bool exchangeRotation = true;
+    static public bool exchangePosition = false;
+    static public bool exchangeScale = true;
+    static public bool exchangeParent = true;
+    static public bool exchangeColor = false;
 
-    [HideInInspector] public Stack<Change> changelog = new Stack<Change>();
+    // Tabs names
+    static public string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
+    static public int optionsTabSelectedId = 0;
+    static public string[] brushTabs = new string[4] { "Place", "Erase", "Exchange", "Move" };
+    static public int brushTabSelectedId = 0;
+
+    // Changelog for undo implementation
+    static public Stack<Change> changelog = new Stack<Change>();
 }
