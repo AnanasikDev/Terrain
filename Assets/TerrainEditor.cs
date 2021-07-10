@@ -204,8 +204,19 @@ public class TerrainEditor : EditorWindow
         }
         else if (spawnableObject.rotationType == RotationType.LerpedStaticAsNormal)
         {
-            //spawnedObject.transform.eulerAngles = Vector3.Lerp(custom.Abs(), Quaternion.FromToRotation(Vector3.up, normal).eulerAngles.Abs(), spawnableObject.lerpValue);
             spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.lerpValue);
+        }
+        else if (spawnableObject.rotationType == RotationType.LerpedRandomAsNormal)
+        {
+            float lerpV = spawnableObject.lerpValue;
+            if (spawnableObject.randomizeLerpValue) lerpV = Random.Range(spawnableObject.minLerpValue, spawnableObject.maxLerpValue);
+
+            spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), lerpV);
+            spawnedObject.transform.Rotate(GetRandomRotation(), Space.Self);
+        }
+        else if (spawnableObject.rotationType == RotationType.LerpedAsPrefabAsNormal)
+        {
+            spawnedObject.transform.rotation = Quaternion.Lerp(spawnableObject.spawnableObject.transform.rotation, Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.lerpValue);
         }
         else // if AsPrefab
         {
@@ -600,14 +611,13 @@ public class TerrainEditor : EditorWindow
             if (TerrainSettings.spawnableObjects[i].spawnChance < 0) TerrainSettings.spawnableObjects[i].spawnChance = 0;
 
             Label("Rotation");
-
-            TerrainSettings.spawnableObjects[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", TerrainSettings.spawnableObjects[i].multiRotationAxis);
             
             TerrainSettings.spawnableObjects[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", TerrainSettings.spawnableObjects[i].rotationType);
             if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.Random ||
                 TerrainSettings.spawnableObjects[i].rotationType == RotationType.RandomAsNormal ||
                 TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedRandomAsNormal)
             {
+                TerrainSettings.spawnableObjects[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", TerrainSettings.spawnableObjects[i].multiRotationAxis);
                 if (TerrainSettings.spawnableObjects[i].multiRotationAxis)
                 {
                     TerrainSettings.spawnableObjects[i].randomMinRotation = EditorGUILayout.Vector3Field("  Min rotation", TerrainSettings.spawnableObjects[i].randomMinRotation);
@@ -622,8 +632,23 @@ public class TerrainEditor : EditorWindow
                 TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal)
                 TerrainSettings.spawnableObjects[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", TerrainSettings.spawnableObjects[i].customEulersRotation);
 
-            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal)
+            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedRandomAsNormal)
+            {
+                TerrainSettings.spawnableObjects[i].randomizeLerpValue = EditorGUILayout.Toggle("  Randomize lerp value", TerrainSettings.spawnableObjects[i].randomizeLerpValue);
+                if (TerrainSettings.spawnableObjects[i].randomizeLerpValue)
+                {
+                    TerrainSettings.spawnableObjects[i].minLerpValue = EditorGUILayout.FloatField("  Min lerp value", TerrainSettings.spawnableObjects[i].minLerpValue);
+                    TerrainSettings.spawnableObjects[i].maxLerpValue = EditorGUILayout.FloatField("  Max lerp value", TerrainSettings.spawnableObjects[i].maxLerpValue);
+                }
+                else
+                {
+                    TerrainSettings.spawnableObjects[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", TerrainSettings.spawnableObjects[i].lerpValue);
+                }
+            }
+            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal ||
+                TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedAsPrefabAsNormal)
                 TerrainSettings.spawnableObjects[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", TerrainSettings.spawnableObjects[i].lerpValue);
+
 
             Label("Position");
 
@@ -643,8 +668,8 @@ public class TerrainEditor : EditorWindow
                     TerrainSettings.spawnableObjects[i].scaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", TerrainSettings.spawnableObjects[i].scaleAxis);
                     if (TerrainSettings.spawnableObjects[i].separateScaleAxis)
                     {
-                        TerrainSettings.spawnableObjects[i].scaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", TerrainSettings.spawnableObjects[i].scaleMaxSeparated);
                         TerrainSettings.spawnableObjects[i].scaleMinSeparated = EditorGUILayout.Vector3Field("  Min scale", TerrainSettings.spawnableObjects[i].scaleMinSeparated);
+                        TerrainSettings.spawnableObjects[i].scaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", TerrainSettings.spawnableObjects[i].scaleMaxSeparated);
                     }
                     else
                     {
