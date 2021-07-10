@@ -6,7 +6,6 @@ using static Utils;
 
 public class TerrainEditor : EditorWindow
 {
-    public List<SpawnableObject> objs;
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
 
@@ -15,11 +14,6 @@ public class TerrainEditor : EditorWindow
     {
         GetWindow<TerrainEditor>("Terrain++");
     }
-    private void Awake()
-    {
-        objs = TerrainSettings.objs;
-    }
-
     void Update()
     {
         if (TerrainSettings.active && TerrainSettings.validated) 
@@ -38,15 +32,6 @@ public class TerrainEditor : EditorWindow
             .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= TerrainSettings.brushSize * TerrainSettings.brushSize))
             .ToArray();
 
-        /*List<GameObject> savedObjsToDestroy = new List<GameObject>();
-        foreach (GameObject obj in objsToDestroy)
-        {
-            GameObject g = Instantiate(obj, obj.transform.position, obj.transform.rotation, obj.transform.parent);
-            g.SetActive(false);
-            g.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
-            savedObjsToDestroy.Add(g);
-        }*/
-        // Можно Instantiatnutь эти объекты в парент UndoObjects
         foreach (GameObject o in objsToDestroy)
         {
             if (Random.Range(0, TerrainSettings.eraseSmoothness + 1) == TerrainSettings.eraseSmoothness || TerrainSettings.eraseSmoothness == 0)
@@ -75,49 +60,65 @@ public class TerrainEditor : EditorWindow
         bool ableToSpawn = Physics.Raycast(ray, out screenHit);
         List<GameObject> spawnedObjs = new List<GameObject>();
         if (ableToSpawn)
-        for (int i = 0; i < TerrainSettings.density; i++)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(screenHit.point + Vector3.up*5, 
-                new Vector3(UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize), -1,
-                            UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize)), out hit) &&
-
-                ((TerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
-                (TerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
-                (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)) )
+            bool anySpawnableObjects = false;
+            foreach (SpawnableObject spObj in TerrainSettings.spawnableObjects)
             {
-                SpawnableObject spawnableObject = GetObject();
-                if (spawnableObject == null) continue;
-
-                GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
-
-                SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.customEulersRotation);
-                SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, temp);
-                temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
-                temp.transform.parent = GetObjectParent(spawnableObject);
-                temp.transform.localScale = GetObjectScale(spawnableObject);
-
-                temp.GetComponent<SpawnedObject>().positionAdd =
-                spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
-
-                if (spawnableObject.renameObject)
-                    temp.name = spawnableObject.newObjectName;
-
-                if (spawnableObject.centerObject)
-                    temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
-
-                TerrainSettings.spawnedObjects.Add(temp);
-
-                spawnedObjs.Add(temp);
+                if (spObj.spawn)
+                {
+                    anySpawnableObjects = true;
+                    break;
                 }
+            }
+            if (TerrainSettings.spawnableObjects.Count > 0 && anySpawnableObjects)
+            {
+                for (int i = 0; i < TerrainSettings.density; i++)
+                {
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(screenHit.point + Vector3.up*5, 
+                        new Vector3(UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize), -1,
+                                    UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize)), out hit) &&
+
+                        ((TerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
+                        (TerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
+                        (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)) )
+                    {
+                        SpawnableObject spawnableObject = GetObject();
+                        if (spawnableObject == null) continue;
+
+                        GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
+
+                        SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.customEulersRotation);
+                        SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, temp);
+                        temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
+                        temp.transform.parent = GetObjectParent(spawnableObject);
+                        temp.transform.localScale = GetObjectScale(spawnableObject);
+
+                        temp.GetComponent<SpawnedObject>().positionAdd =
+                        spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+
+                        if (spawnableObject.renameObject)
+                            temp.name = spawnableObject.newObjectName;
+
+                        if (spawnableObject.centerObject)
+                            temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
+
+                        TerrainSettings.spawnedObjects.Add(temp);
+
+                        spawnedObjs.Add(temp);
+                    }
+                }
+
+                TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Placement, spawnedObjs));
+                Repaint();
+            }
+            else
+            {
+                Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>There are no objects to spawn!</color></b>");
+            }
         }
-        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Placement, spawnedObjs));
-        /*foreach (Change c in TerrainSettings.changelog)
-        {
-            Debug.Log(c.changedObjects);
-        }*/
-        Repaint();
+        
     }
     void ExchangeObjects()
     {
@@ -169,15 +170,15 @@ public class TerrainEditor : EditorWindow
 
     SpawnableObject GetObject()
     {
-        int[] chances = new int[objs.Count];
+        int[] chances = new int[TerrainSettings.spawnableObjects.Count];
         bool ableToSpawn = false;
         for (int i = 0; i < chances.Length; i++)
         {
-            chances[i] = objs[i].spawn && objs[i].spawnableObject != null ? objs[i].spawnChance : 0;
+            chances[i] = TerrainSettings.spawnableObjects[i].spawn && TerrainSettings.spawnableObjects[i].spawnableObject != null ? TerrainSettings.spawnableObjects[i].spawnChance : 0;
             if (chances[i] > 0) ableToSpawn = true;
         }
         if (!ableToSpawn) return null;
-        return new SpawnableObject( objs[GetChance(chances)] );
+        return new SpawnableObject( TerrainSettings.spawnableObjects[GetChance(chances)] );
     }
     void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
@@ -300,6 +301,7 @@ public class TerrainEditor : EditorWindow
 
     private void SceneGUI()
     {
+        Debug.Log("Scene gui");
         if (!TerrainSettings.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
             (Event.current.type == EventType.MouseDown && Event.current.button == 0 && TerrainSettings.brushTabSelectedId == 1)) // Destroying objects
@@ -325,6 +327,12 @@ public class TerrainEditor : EditorWindow
     }
     void Undo()
     {
+        if (TerrainSettings.changelog.Count == 0)
+        {
+            Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>Undo stack is empty!</color></b>");
+            return;
+        }
+
         Change lastChange = TerrainSettings.changelog.Pop();
         if (lastChange.type == ChangeType.Placement)
         {
@@ -425,8 +433,6 @@ public class TerrainEditor : EditorWindow
     }
     void DrawSettingsTab()
     {
-        //base.OnInspectorGUI();
-
         TerrainSettings.density = EditorGUILayout.IntField("Brush density", TerrainSettings.density);
         if (TerrainSettings.density < 0) TerrainSettings.density = 0;
         TerrainSettings.brushSize = EditorGUILayout.FloatField("Brush size", TerrainSettings.brushSize);
@@ -450,14 +456,12 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Total spawned: " + TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
         EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
-        EditorGUILayout.LabelField("Total spawnable objects: " + objs.Count);
-         
-        for (int i = 0; i < TerrainSettings.spawnedObjects.Count; i++)
-        {
-            EditorGUILayout.LabelField(TerrainSettings.spawnedObjects[i].name);
-        }
+        EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
 
-        
+        foreach (Change change in TerrainSettings.changelog)
+        {
+            EditorGUILayout.LabelField(change.type.ToString() + string.Join(", ", change.changedObjects));
+        }
     }
     void DrawLayersTab()
     {
@@ -501,26 +505,26 @@ public class TerrainEditor : EditorWindow
     {
         EditorGUILayout.Space(20);
         EditorGUILayout.BeginHorizontal("box");
-        GUILayout.Label(objs.Count.ToString());
+        GUILayout.Label(TerrainSettings.spawnableObjects.Count.ToString());
         if (GUILayout.Button("Add"))
         {
-            objs.Add(new SpawnableObject());
+            TerrainSettings.spawnableObjects.Add(new SpawnableObject());
         }
         EditorGUILayout.EndHorizontal();
         
 
-        for (int i = 0; i < objs.Count; i++)
+        for (int i = 0; i < TerrainSettings.spawnableObjects.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.BeginVertical("box");
             int removeBtnHeight = 40;
-            if (i < objs.Count - 1 || i == 0) removeBtnHeight = 60;
-            if (!objs[i].hidden)
+            if (i < TerrainSettings.spawnableObjects.Count - 1 || i == 0) removeBtnHeight = 60;
+            if (!TerrainSettings.spawnableObjects[i].hidden)
             {
                 if (GUILayout.Button("‹", GUILayout.Width(18), GUILayout.Height(18)))
                 {
 
-                    objs[i].hidden = true;
+                    TerrainSettings.spawnableObjects[i].hidden = true;
                     EditorGUILayout.EndVertical();
                     EditorGUILayout.EndHorizontal();
                     continue;
@@ -531,12 +535,12 @@ public class TerrainEditor : EditorWindow
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("›", GUILayout.Width(18), GUILayout.Height(18)))
                 {
-                    objs[i].hidden = false;
+                    TerrainSettings.spawnableObjects[i].hidden = false;
                     EditorGUILayout.EndHorizontal();
                 }
                 else
                 {
-                    GUILayout.Label(objs[i].spawnableObject != null ? (objs[i].renameObject ? objs[i].newObjectName : objs[i].spawnableObject.name) : "null");
+                    GUILayout.Label(TerrainSettings.spawnableObjects[i].spawnableObject != null ? (TerrainSettings.spawnableObjects[i].renameObject ? TerrainSettings.spawnableObjects[i].newObjectName : TerrainSettings.spawnableObjects[i].spawnableObject.name) : "null");
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.EndVertical();
@@ -547,127 +551,126 @@ public class TerrainEditor : EditorWindow
             if (i > 0)
                 if (GUILayout.Button("˄", GUILayout.Width(18), GUILayout.Height(18)))
                 {
-                    var temp = objs[i];
-                    objs[i] = objs[i - 1];
-                    objs[i - 1] = temp;
+                    var temp = TerrainSettings.spawnableObjects[i];
+                    TerrainSettings.spawnableObjects[i] = TerrainSettings.spawnableObjects[i - 1];
+                    TerrainSettings.spawnableObjects[i - 1] = temp;
                 }
             if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
             {
-                objs.RemoveAt(i);
+                TerrainSettings.spawnableObjects.RemoveAt(i);
                 continue;
             }
-            if (i < objs.Count - 1)
+            if (i < TerrainSettings.spawnableObjects.Count - 1)
                 if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
                 {
-                    var temp = objs[i];
-                    objs[i] = objs[i + 1];
-                    objs[i + 1] = temp;
+                    var temp = TerrainSettings.spawnableObjects[i];
+                    TerrainSettings.spawnableObjects[i] = TerrainSettings.spawnableObjects[i + 1];
+                    TerrainSettings.spawnableObjects[i + 1] = temp;
                 }
             if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                objs.Insert(i, new SpawnableObject(objs[i]));
+                TerrainSettings.spawnableObjects.Insert(i, new SpawnableObject(TerrainSettings.spawnableObjects[i]));
             }
             EditorGUILayout.EndVertical();
             EditorGUILayout.BeginVertical("box");
-            objs[i].spawn = EditorGUILayout.Toggle("Spawn", objs[i].spawn);
-            if (!objs[i].spawn)
+            TerrainSettings.spawnableObjects[i].spawn = EditorGUILayout.Toggle("Spawn", TerrainSettings.spawnableObjects[i].spawn);
+            if (!TerrainSettings.spawnableObjects[i].spawn)
             {
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
                 continue;
             }
-            objs[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", objs[i].spawnableObject, typeof(GameObject), true);
+            TerrainSettings.spawnableObjects[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", TerrainSettings.spawnableObjects[i].spawnableObject, typeof(GameObject), true);
 
-            objs[i].renameObject = EditorGUILayout.Toggle("Rename object", objs[i].renameObject);
-            if (objs[i].renameObject)
-                objs[i].newObjectName = EditorGUILayout.TextField("  Name: ", objs[i].newObjectName);
+            TerrainSettings.spawnableObjects[i].renameObject = EditorGUILayout.Toggle("Rename object", TerrainSettings.spawnableObjects[i].renameObject);
+            if (TerrainSettings.spawnableObjects[i].renameObject)
+                TerrainSettings.spawnableObjects[i].newObjectName = EditorGUILayout.TextField("  Name: ", TerrainSettings.spawnableObjects[i].newObjectName);
 
-            objs[i].layerIndex = EditorGUILayout.Popup("Layer: ", objs[i].layerIndex, TerrainSettings.layers.ToArray());
-            if (objs[i].layerIndex >= TerrainSettings.layers.Count)
-                objs[i].layer = TerrainSettings.layers[0];
+            TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer: ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layers.ToArray());
+            if (TerrainSettings.spawnableObjects[i].layerIndex >= TerrainSettings.layers.Count)
+                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layers[0];
             else
-                objs[i].layer = TerrainSettings.layers[objs[i].layerIndex];
+                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layers[TerrainSettings.spawnableObjects[i].layerIndex];
 
-            objs[i].spawnChance = EditorGUILayout.IntField("Chance", objs[i].spawnChance); //objs[i].spawnChance
-            if (objs[i].spawnChance < 0) objs[i].spawnChance = 0;
+            TerrainSettings.spawnableObjects[i].spawnChance = EditorGUILayout.IntField("Chance", TerrainSettings.spawnableObjects[i].spawnChance); //objs[i].spawnChance
+            if (TerrainSettings.spawnableObjects[i].spawnChance < 0) TerrainSettings.spawnableObjects[i].spawnChance = 0;
 
-            objs[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", objs[i].multiRotationAxis);
+            TerrainSettings.spawnableObjects[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", TerrainSettings.spawnableObjects[i].multiRotationAxis);
             
-            objs[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", objs[i].rotationType);
-            if (objs[i].rotationType == RotationType.Random ||
-                objs[i].rotationType == RotationType.RandomAsNormal ||
-                objs[i].rotationType == RotationType.LerpedRandomAsNormal)
+            TerrainSettings.spawnableObjects[i].rotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", TerrainSettings.spawnableObjects[i].rotationType);
+            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.Random ||
+                TerrainSettings.spawnableObjects[i].rotationType == RotationType.RandomAsNormal ||
+                TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedRandomAsNormal)
             {
-                if (objs[i].multiRotationAxis)
+                if (TerrainSettings.spawnableObjects[i].multiRotationAxis)
                 {
-                    objs[i].randomMinRotation = EditorGUILayout.Vector3Field("  Min rotation", objs[i].randomMinRotation);
-                    objs[i].randomMaxRotation = EditorGUILayout.Vector3Field("  Max rotation", objs[i].randomMaxRotation);
+                    TerrainSettings.spawnableObjects[i].randomMinRotation = EditorGUILayout.Vector3Field("  Min rotation", TerrainSettings.spawnableObjects[i].randomMinRotation);
+                    TerrainSettings.spawnableObjects[i].randomMaxRotation = EditorGUILayout.Vector3Field("  Max rotation", TerrainSettings.spawnableObjects[i].randomMaxRotation);
                 }
                 else
-                    objs[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].rotationAxis);
+                    TerrainSettings.spawnableObjects[i].rotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", TerrainSettings.spawnableObjects[i].rotationAxis);
             }
 
-            if (objs[i].rotationType == RotationType.Static ||
-                objs[i].rotationType == RotationType.StaticAsNormal ||
-                objs[i].rotationType == RotationType.LerpedStaticAsNormal)
-                objs[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", objs[i].customEulersRotation);
+            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.Static ||
+                TerrainSettings.spawnableObjects[i].rotationType == RotationType.StaticAsNormal ||
+                TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal)
+                TerrainSettings.spawnableObjects[i].customEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", TerrainSettings.spawnableObjects[i].customEulersRotation);
 
-            if (objs[i].rotationType == RotationType.LerpedStaticAsNormal)
-                objs[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", objs[i].lerpValue);
-
-
-            objs[i].modifyPosition = EditorGUILayout.Toggle("Modify position", objs[i].modifyPosition);
-            if (objs[i].modifyPosition)
-                objs[i].positionAddition = EditorGUILayout.Vector3Field("  Position addition", objs[i].positionAddition);
+            if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal)
+                TerrainSettings.spawnableObjects[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", TerrainSettings.spawnableObjects[i].lerpValue);
 
 
-            objs[i].modScale = EditorGUILayout.Toggle("Modify scale", objs[i].modScale);
-            if (objs[i].modScale)
+            TerrainSettings.spawnableObjects[i].modifyPosition = EditorGUILayout.Toggle("Modify position", TerrainSettings.spawnableObjects[i].modifyPosition);
+            if (TerrainSettings.spawnableObjects[i].modifyPosition)
+                TerrainSettings.spawnableObjects[i].positionAddition = EditorGUILayout.Vector3Field("  Position addition", TerrainSettings.spawnableObjects[i].positionAddition);
+
+
+            TerrainSettings.spawnableObjects[i].modScale = EditorGUILayout.Toggle("Modify scale", TerrainSettings.spawnableObjects[i].modScale);
+            if (TerrainSettings.spawnableObjects[i].modScale)
             {
-                objs[i].scaleType = (ScaleType)EditorGUILayout.EnumPopup(  "Scale", objs[i].scaleType);
-                objs[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", objs[i].separateScaleAxis);
-                if (objs[i].scaleType == ScaleType.Random)
+                TerrainSettings.spawnableObjects[i].scaleType = (ScaleType)EditorGUILayout.EnumPopup(  "Scale", TerrainSettings.spawnableObjects[i].scaleType);
+                TerrainSettings.spawnableObjects[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", TerrainSettings.spawnableObjects[i].separateScaleAxis);
+                if (TerrainSettings.spawnableObjects[i].scaleType == ScaleType.Random)
                 {
-                    objs[i].scaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", objs[i].scaleAxis);
-                    if (objs[i].separateScaleAxis)
+                    TerrainSettings.spawnableObjects[i].scaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", TerrainSettings.spawnableObjects[i].scaleAxis);
+                    if (TerrainSettings.spawnableObjects[i].separateScaleAxis)
                     {
-                        objs[i].scaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", objs[i].scaleMaxSeparated);
-                        objs[i].scaleMinSeparated = EditorGUILayout.Vector3Field("  Min scale", objs[i].scaleMinSeparated);
+                        TerrainSettings.spawnableObjects[i].scaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", TerrainSettings.spawnableObjects[i].scaleMaxSeparated);
+                        TerrainSettings.spawnableObjects[i].scaleMinSeparated = EditorGUILayout.Vector3Field("  Min scale", TerrainSettings.spawnableObjects[i].scaleMinSeparated);
                     }
                     else
                     {
-                        objs[i].scaleMin = EditorGUILayout.FloatField("  Min scale", objs[i].scaleMin);
-                        objs[i].scaleMax = EditorGUILayout.FloatField("  Max scale", objs[i].scaleMax);
+                        TerrainSettings.spawnableObjects[i].scaleMin = EditorGUILayout.FloatField("  Min scale", TerrainSettings.spawnableObjects[i].scaleMin);
+                        TerrainSettings.spawnableObjects[i].scaleMax = EditorGUILayout.FloatField("  Max scale", TerrainSettings.spawnableObjects[i].scaleMax);
                     }
                 }
-                if (objs[i].scaleType == ScaleType.Static)
-                    objs[i].customScale = EditorGUILayout.Vector3Field("  Custom scale", objs[i].customScale);
+                if (TerrainSettings.spawnableObjects[i].scaleType == ScaleType.Static)
+                    TerrainSettings.spawnableObjects[i].customScale = EditorGUILayout.Vector3Field("  Custom scale", TerrainSettings.spawnableObjects[i].customScale);
 
             }
 
 
-            objs[i].centerObject = EditorGUILayout.Toggle("Center Object", objs[i].centerObject);
+            TerrainSettings.spawnableObjects[i].centerObject = EditorGUILayout.Toggle("Center Object", TerrainSettings.spawnableObjects[i].centerObject);
 
 
-            objs[i].modColor = EditorGUILayout.Toggle("Modify color", objs[i].modColor);
+            TerrainSettings.spawnableObjects[i].modColor = EditorGUILayout.Toggle("Modify color", TerrainSettings.spawnableObjects[i].modColor);
             
-            if (objs[i].modColor)
+            if (TerrainSettings.spawnableObjects[i].modColor)
             {
-                objs[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", objs[i].colorModPercentage);
-                if (objs[i].colorModPercentage < 0) objs[i].colorModPercentage = 0;
+                TerrainSettings.spawnableObjects[i].colorModPercentage = EditorGUILayout.FloatField("  Color modification %", TerrainSettings.spawnableObjects[i].colorModPercentage);
+                if (TerrainSettings.spawnableObjects[i].colorModPercentage < 0) TerrainSettings.spawnableObjects[i].colorModPercentage = 0;
             }
 
 
-            objs[i].customParent = EditorGUILayout.Toggle("Custom parent", objs[i].customParent);
-            if (objs[i].customParent)
-                objs[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", objs[i].parent, typeof(Transform), true);
+            TerrainSettings.spawnableObjects[i].customParent = EditorGUILayout.Toggle("Custom parent", TerrainSettings.spawnableObjects[i].customParent);
+            if (TerrainSettings.spawnableObjects[i].customParent)
+                TerrainSettings.spawnableObjects[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", TerrainSettings.spawnableObjects[i].parent, typeof(Transform), true);
 
 
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.Space();
-    
     }
 
     public void OnGUI()
@@ -692,13 +695,27 @@ public class TerrainEditor : EditorWindow
         GUILayout.EndScrollView();
     }
 
+    private void OnEnable()
+    {
+        OnValidate();
+    }
+    private void OnDisable()
+    {
+        OnDestroy();
+    }
     private void OnValidate()
     {
         SceneView.duringSceneGui += OnSceneGUI;
+        if (TerrainSettings.changelog.Count == 0)
+            Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow started!</color></b>");
+
+        Debug.Log(string.Join(", ", TerrainSettings.spawnableObjects));
+        //EditorApplication.update += OnUpdate;
     }
     private void OnDestroy()
     {
         SceneView.duringSceneGui -= OnSceneGUI;
+        //EditorApplication.update -= OnUpdate;
     }
     void OnSceneGUI(SceneView sceneView)
     {

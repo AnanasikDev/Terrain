@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Events;
 using static Utils;
 public class TerrainSettings : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class TerrainSettings : MonoBehaviour
     static public bool erase = false;
     static public int eraseSmoothness = 0;
 
-    static public List<SpawnableObject> objs = new List<SpawnableObject>();
+    static public List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
     static public List<GameObject> spawnedObjects = new List<GameObject>();
     static public List<string> layers = new List<string>() { "default" };
 
