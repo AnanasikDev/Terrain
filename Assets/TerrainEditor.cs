@@ -505,12 +505,12 @@ public class TerrainEditor : EditorWindow
             TerrainSettings.spawnableObjects.Add(new SpawnableObject());
         }
         EditorGUILayout.EndHorizontal();
-        
 
         for (int i = 0; i < TerrainSettings.spawnableObjects.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.BeginVertical("box");
+            
             int removeBtnHeight = 40;
             if (i < TerrainSettings.spawnableObjects.Count - 1 || i == 0) removeBtnHeight = 60;
             if (!TerrainSettings.spawnableObjects[i].hidden)
@@ -567,6 +567,7 @@ public class TerrainEditor : EditorWindow
             }
             EditorGUILayout.EndVertical();
             EditorGUILayout.BeginVertical("box");
+
             TerrainSettings.spawnableObjects[i].spawn = EditorGUILayout.Toggle("Spawn", TerrainSettings.spawnableObjects[i].spawn);
             if (!TerrainSettings.spawnableObjects[i].spawn)
             {
@@ -574,11 +575,20 @@ public class TerrainEditor : EditorWindow
                 EditorGUILayout.EndVertical();
                 continue;
             }
+            EditorGUILayout.BeginVertical("box");
+            Label("GameObject");
+
             TerrainSettings.spawnableObjects[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", TerrainSettings.spawnableObjects[i].spawnableObject, typeof(GameObject), true);
 
             TerrainSettings.spawnableObjects[i].renameObject = EditorGUILayout.Toggle("Rename object", TerrainSettings.spawnableObjects[i].renameObject);
             if (TerrainSettings.spawnableObjects[i].renameObject)
                 TerrainSettings.spawnableObjects[i].newObjectName = EditorGUILayout.TextField("  Name: ", TerrainSettings.spawnableObjects[i].newObjectName);
+
+            TerrainSettings.spawnableObjects[i].centerObject = EditorGUILayout.Toggle("Center Object", TerrainSettings.spawnableObjects[i].centerObject);
+
+            TerrainSettings.spawnableObjects[i].customParent = EditorGUILayout.Toggle("Custom parent", TerrainSettings.spawnableObjects[i].customParent);
+            if (TerrainSettings.spawnableObjects[i].customParent)
+                TerrainSettings.spawnableObjects[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", TerrainSettings.spawnableObjects[i].parent, typeof(Transform), true);
 
             TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer: ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layers.ToArray());
             if (TerrainSettings.spawnableObjects[i].layerIndex >= TerrainSettings.layers.Count)
@@ -588,6 +598,8 @@ public class TerrainEditor : EditorWindow
 
             TerrainSettings.spawnableObjects[i].spawnChance = EditorGUILayout.IntField("Chance", TerrainSettings.spawnableObjects[i].spawnChance); //objs[i].spawnChance
             if (TerrainSettings.spawnableObjects[i].spawnChance < 0) TerrainSettings.spawnableObjects[i].spawnChance = 0;
+
+            Label("Rotation");
 
             TerrainSettings.spawnableObjects[i].multiRotationAxis = EditorGUILayout.Toggle("Multi axis", TerrainSettings.spawnableObjects[i].multiRotationAxis);
             
@@ -613,11 +625,13 @@ public class TerrainEditor : EditorWindow
             if (TerrainSettings.spawnableObjects[i].rotationType == RotationType.LerpedStaticAsNormal)
                 TerrainSettings.spawnableObjects[i].lerpValue = EditorGUILayout.FloatField("  Lerp value", TerrainSettings.spawnableObjects[i].lerpValue);
 
+            Label("Position");
 
             TerrainSettings.spawnableObjects[i].modifyPosition = EditorGUILayout.Toggle("Modify position", TerrainSettings.spawnableObjects[i].modifyPosition);
             if (TerrainSettings.spawnableObjects[i].modifyPosition)
                 TerrainSettings.spawnableObjects[i].positionAddition = EditorGUILayout.Vector3Field("  Position addition", TerrainSettings.spawnableObjects[i].positionAddition);
 
+            Label("Scale");
 
             TerrainSettings.spawnableObjects[i].modScale = EditorGUILayout.Toggle("Modify scale", TerrainSettings.spawnableObjects[i].modScale);
             if (TerrainSettings.spawnableObjects[i].modScale)
@@ -643,9 +657,7 @@ public class TerrainEditor : EditorWindow
 
             }
 
-
-            TerrainSettings.spawnableObjects[i].centerObject = EditorGUILayout.Toggle("Center Object", TerrainSettings.spawnableObjects[i].centerObject);
-
+            Label("Color");
 
             TerrainSettings.spawnableObjects[i].modColor = EditorGUILayout.Toggle("Modify color", TerrainSettings.spawnableObjects[i].modColor);
             
@@ -655,18 +667,25 @@ public class TerrainEditor : EditorWindow
                 if (TerrainSettings.spawnableObjects[i].colorModPercentage < 0) TerrainSettings.spawnableObjects[i].colorModPercentage = 0;
             }
 
-
-            TerrainSettings.spawnableObjects[i].customParent = EditorGUILayout.Toggle("Custom parent", TerrainSettings.spawnableObjects[i].customParent);
-            if (TerrainSettings.spawnableObjects[i].customParent)
-                TerrainSettings.spawnableObjects[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", TerrainSettings.spawnableObjects[i].parent, typeof(Transform), true);
-
-
+            EditorGUILayout.EndVertical();
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.Space();
-    }
 
+        void Label(string text)
+        {
+            GUIStyle labelStyle = GUIStyle.none;
+            labelStyle.alignment = TextAnchor.MiddleCenter;
+            labelStyle.fontSize = 12;
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(12);
+            EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>{text}</color></b>", labelStyle);
+            EditorGUILayout.Space(12);
+            EditorGUILayout.BeginVertical("box");
+        }
+    }
     public void OnGUI()
     {
         scrollPos = GUILayout.BeginScrollView(scrollPos);

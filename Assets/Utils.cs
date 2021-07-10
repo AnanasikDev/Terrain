@@ -81,7 +81,8 @@ public class SpawnableObject
     public Utils.RotationType rotationType = Utils.RotationType.AsPrefab;
     public Utils.Axis rotationAxis = Utils.Axis.Y;
     public Vector3 customEulersRotation = Vector3.zero;
-    public float lerpValue = 0.5f;
+    public float lerpValue = 0.15f;
+    public bool randomizeLerpValue = false;
     public Vector3 randomMinRotation = Vector3.zero;
     public Vector3 randomMaxRotation = Vector3.one * 360;
     public bool multiRotationAxis = false;
@@ -133,6 +134,7 @@ public class SpawnableObject
         rotationAxis = clone.rotationAxis;
         customEulersRotation = clone.customEulersRotation;
         lerpValue = clone.lerpValue;
+        randomizeLerpValue = clone.randomizeLerpValue;
         randomMinRotation = clone.randomMinRotation;
         randomMaxRotation = clone.randomMaxRotation;
         multiRotationAxis = clone.multiRotationAxis;
