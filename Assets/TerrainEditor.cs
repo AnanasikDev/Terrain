@@ -41,7 +41,7 @@ public class TerrainEditor : EditorWindow
                     o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
                     o.SetActive(false);
                     spawnedObjectsTemp.Remove(o);
-                    //DestroyImmediate(o);
+                    TerrainSettings.destroyedObjects.Add(o);
                 }
             }
         }
@@ -49,12 +49,10 @@ public class TerrainEditor : EditorWindow
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
 
         TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, objsToDestroy.ToList()));
-        Debug.Log(string.Join(", ", TerrainSettings.changelog));
         Repaint();
     }
     void PlaceObjects()
     {
-        Debug.Log("Place");
         RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         bool ableToSpawn = Physics.Raycast(ray, out screenHit);
@@ -301,7 +299,6 @@ public class TerrainEditor : EditorWindow
 
     private void SceneGUI()
     {
-        Debug.Log("Scene gui");
         if (!TerrainSettings.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
             (Event.current.type == EventType.MouseDown && Event.current.button == 0 && TerrainSettings.brushTabSelectedId == 1)) // Destroying objects
@@ -350,6 +347,8 @@ public class TerrainEditor : EditorWindow
             {
                 obj.hideFlags = HideFlags.None;
                 obj.SetActive(true);
+                TerrainSettings.destroyedObjects.Remove(obj);
+                TerrainSettings.spawnedObjects.Add(obj);
             }
         }
         Repaint();
@@ -457,11 +456,6 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Total spawned: " + TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
         EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
-
-        foreach (Change change in TerrainSettings.changelog)
-        {
-            EditorGUILayout.LabelField(change.type.ToString() + string.Join(", ", change.changedObjects));
-        }
     }
     void DrawLayersTab()
     {
@@ -697,25 +691,14 @@ public class TerrainEditor : EditorWindow
 
     private void OnEnable()
     {
-        OnValidate();
+        if (TerrainSettings.changelog.Count == 0)
+            Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow started!</color></b>");
+        SceneView.duringSceneGui += OnSceneGUI;
     }
     private void OnDisable()
     {
-        OnDestroy();
-    }
-    private void OnValidate()
-    {
-        SceneView.duringSceneGui += OnSceneGUI;
-        if (TerrainSettings.changelog.Count == 0)
-            Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow started!</color></b>");
-
-        Debug.Log(string.Join(", ", TerrainSettings.spawnableObjects));
-        //EditorApplication.update += OnUpdate;
-    }
-    private void OnDestroy()
-    {
+        Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow ended..</color></b>");
         SceneView.duringSceneGui -= OnSceneGUI;
-        //EditorApplication.update -= OnUpdate;
     }
     void OnSceneGUI(SceneView sceneView)
     {

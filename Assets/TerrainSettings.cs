@@ -21,6 +21,7 @@ public class TerrainSettings : MonoBehaviour
     static public List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
     static public List<GameObject> spawnedObjects = new List<GameObject>();
     static public List<string> layers = new List<string>() { "default" };
+    static public List<GameObject> destroyedObjects = new List<GameObject>();
 
     static public string layerSelected;
 
