@@ -10,14 +10,14 @@ public class ClearCache : Editor
         {
              DestroyImmediate(obj);
         }
-        Debug.Log($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>Changelog cleared!</color></b>");
+        Debug.Log(Utils.FormatLog("Changelog cleared", "#00FF00FF"));
     }
     [MenuItem("Terrain/Enable Destoryed Objects")]
     public static void EnableDestroyedObjects()
     {
         if (TerrainSettings.destroyedObjects.Count == 0)
         {
-            Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>There are no destroyed objects!</color></b>");
+            Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
         }
         else foreach (GameObject obj in TerrainSettings.destroyedObjects)
         {
@@ -30,7 +30,7 @@ public class ClearCache : Editor
     {
         if (TerrainSettings.destroyedObjects.Count == 0)
         {
-            Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>There are no destroyed objects!</color></b>");
+            Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
         }
         else foreach (GameObject obj in TerrainSettings.destroyedObjects)
         {

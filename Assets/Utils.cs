@@ -40,7 +40,8 @@ public static class Utils
     public enum ChangeType
     {
         Placement,
-        Erasure
+        Erasure,
+        Exchange
     }
     public static int GetChance(int[] chances)
     {
@@ -58,7 +59,11 @@ public static class Utils
         return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
     }
 
-    public static string LogPrefix()
+    public static string FormatLog(string message, string color = "#FFFF00FF")
+    {
+        return LogPrefix() + ": " + $"<b><color={color}>{message}</color></b>";
+    }
+    static string LogPrefix()
     {
         string c0 = "#00FF00FF";
         string c1 = "#00FE00FF";
@@ -162,14 +167,15 @@ public class SpawnableObject
     }
 }
 [System.Serializable]
-public class Change
+public struct Change
 {
     public Utils.ChangeType type;
-    public List<GameObject> changedObjects;
-
-    public Change (Utils.ChangeType Type, List<GameObject> Objects)
+    public List<GameObject> spawnedObjects;
+    public List<GameObject> destroyedObjects;
+    public Change (Utils.ChangeType Type, List<GameObject> SpawnedObjects, List<GameObject> DestroyedObjects)
     {
         type = Type;
-        changedObjects = Objects;
+        spawnedObjects = SpawnedObjects;
+        destroyedObjects = DestroyedObjects;
     }
 }

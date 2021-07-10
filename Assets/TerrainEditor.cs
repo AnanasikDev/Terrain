@@ -14,13 +14,16 @@ public class TerrainEditor : EditorWindow
     {
         GetWindow<TerrainEditor>("Terrain++");
     }
-    void Update()
+    private void Update()
     {
-        if (TerrainSettings.active && TerrainSettings.validated) 
+        if (TerrainSettings.active && TerrainSettings.validated)
+        {
+            Selection.objects = new Object[0];
             Selection.activeTransform = TerrainSettings.instance.transform;
+        }
     }
 
-    void EraseObjects()
+    public virtual void EraseObjects()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -48,10 +51,10 @@ public class TerrainEditor : EditorWindow
         spawnedObjectsTemp.RemoveAll(o => o == null);
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
 
-        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, objsToDestroy.ToList()));
+        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, null, objsToDestroy.ToList()));
         Repaint();
     }
-    void PlaceObjects()
+    public virtual void PlaceObjects()
     {
         RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -94,7 +97,9 @@ public class TerrainEditor : EditorWindow
                         temp.transform.localScale = GetObjectScale(spawnableObject);
 
                         temp.GetComponent<SpawnedObject>().positionAdd =
-                        spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+                            spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+
+                        temp.GetComponent<SpawnedObject>().layer = spawnableObject.layer;
 
                         if (spawnableObject.renameObject)
                             temp.name = spawnableObject.newObjectName;
@@ -108,17 +113,17 @@ public class TerrainEditor : EditorWindow
                     }
                 }
 
-                TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Placement, spawnedObjs));
+                TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Placement, spawnedObjs, null));
                 Repaint();
             }
             else
             {
-                Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>There are no objects to spawn!</color></b>");
+                Debug.LogError(Utils.FormatLog("There are no objects to spawn!"));
             }
         }
         
     }
-    void ExchangeObjects()
+    public virtual void ExchangeObjects()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit;
@@ -158,15 +163,20 @@ public class TerrainEditor : EditorWindow
 
                     spawnedObjectsTemp.Remove(o);
                     spawnedObjectsTemp.Add(spawned);
-                    DestroyImmediate(o);
+
+                    o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                    o.SetActive(false);
+                    TerrainSettings.destroyedObjects.Add(o);
                 }
             }
         }
+        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Exchange, objsToExchange.ToList(), spawnedObjectsTemp.ToList()));
+        Repaint();
         spawnedObjectsTemp.RemoveAll(o => o == null);
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
     }
 
-    SpawnableObject GetObject()
+    public virtual SpawnableObject GetObject()
     {
         int[] chances = new int[TerrainSettings.spawnableObjects.Count];
         bool ableToSpawn = false;
@@ -178,7 +188,7 @@ public class TerrainEditor : EditorWindow
         if (!ableToSpawn) return null;
         return new SpawnableObject( TerrainSettings.spawnableObjects[GetChance(chances)] );
     }
-    void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
+    public virtual void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
         if (spawnableObject.rotationType == RotationType.Static)
         {
@@ -247,7 +257,7 @@ public class TerrainEditor : EditorWindow
             return new Vector3(x, y, z);
         }
     }
-    void SetObjectColor(bool modifyColor, float colorModificationPercentage, GameObject gameObject, Color? color = null)
+    public virtual void SetObjectColor(bool modifyColor, float colorModificationPercentage, GameObject gameObject, Color? color = null)
     {
         if (modifyColor)
         {
@@ -260,16 +270,16 @@ public class TerrainEditor : EditorWindow
             renderer.sharedMaterial = tempMaterial;
         }
     }
-    Transform GetObjectParent(SpawnableObject obj)
+    public virtual Transform GetObjectParent(SpawnableObject obj)
     {
         if (obj.customParent) return obj.parent;
         else return TerrainSettings.parent;
     }
-    Vector3 GetObjectPositionAdd(SpawnableObject obj)
+    public virtual Vector3 GetObjectPositionAdd(SpawnableObject obj)
     {
         return obj.modifyPosition ? obj.positionAddition : Vector3.zero;
     }
-    Vector3 GetObjectScale(SpawnableObject spawnableObject)
+    public virtual Vector3 GetObjectScale(SpawnableObject spawnableObject)
     {
         Vector3 scale = Vector3.one;
         switch (spawnableObject.scaleType)
@@ -308,7 +318,7 @@ public class TerrainEditor : EditorWindow
         return scale;
     }
 
-    private void SceneGUI()
+    public virtual void SceneGUI()
     {
         if (!TerrainSettings.active) return;
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
@@ -333,27 +343,27 @@ public class TerrainEditor : EditorWindow
             }
         }
     }
-    void Undo()
+    public virtual void Undo()
     {
         if (TerrainSettings.changelog.Count == 0)
         {
-            Debug.LogError($"{Utils.LogPrefix()}: <b><color=#FFFF00FF>Undo stack is empty!</color></b>");
+            Debug.LogError(Utils.FormatLog("Undo stack is empty!"));
             return;
         }
 
         Change lastChange = TerrainSettings.changelog.Pop();
         if (lastChange.type == ChangeType.Placement)
         {
-            GameObject[] changedObjsTemp = lastChange.changedObjects.ToArray();
+            GameObject[] changedObjsTemp = lastChange.spawnedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
                 obj.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
                 obj.SetActive(false);
             }
         }
-        if (lastChange.type == ChangeType.Erasure)
+        else if (lastChange.type == ChangeType.Erasure)
         {
-            GameObject[] changedObjsTemp = lastChange.changedObjects.ToArray();
+            GameObject[] changedObjsTemp = lastChange.destroyedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
                 obj.hideFlags = HideFlags.None;
@@ -362,9 +372,29 @@ public class TerrainEditor : EditorWindow
                 TerrainSettings.spawnedObjects.Add(obj);
             }
         }
+        else if (lastChange.type == ChangeType.Exchange)
+        {
+            GameObject[] destroyedObjsTemp = lastChange.destroyedObjects.ToArray();
+            foreach (GameObject obj in destroyedObjsTemp)
+            {
+                obj.hideFlags = HideFlags.None;
+                obj.SetActive(true);
+                TerrainSettings.destroyedObjects.Remove(obj);
+                TerrainSettings.spawnedObjects.Add(obj);
+            }
+
+            GameObject[] spawnedObjsTemp = lastChange.spawnedObjects.ToArray();
+            foreach (GameObject obj in spawnedObjsTemp)
+            {
+                obj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                obj.SetActive(false);
+                TerrainSettings.spawnedObjects.Remove(obj);
+                TerrainSettings.destroyedObjects.Add(obj);
+            }
+        }
         Repaint();
     }
-    void DrawHeader()
+    public virtual void DrawHeader()
     {
         Color oldBackgroundColor = GUI.backgroundColor;
         Color oldContentColor = GUI.contentColor;
@@ -401,7 +431,7 @@ public class TerrainEditor : EditorWindow
 
         EditorGUILayout.Space(20);
     }
-    void DrawBrushTabs()
+    public virtual void DrawBrushTabs()
     {
         TerrainSettings.brushTabSelectedId = GUILayout.Toolbar(TerrainSettings.brushTabSelectedId, TerrainSettings.brushTabs);
         if (TerrainSettings.brushTabSelectedId == 1) // Erasing
@@ -414,7 +444,7 @@ public class TerrainEditor : EditorWindow
         }
     }
     // BRUSHES TABS
-    void DrawErasingTab()
+    public virtual void DrawErasingTab()
     {
         EditorGUILayout.BeginVertical("box");
 
@@ -422,7 +452,7 @@ public class TerrainEditor : EditorWindow
 
         EditorGUILayout.EndVertical();
     }
-    void DrawExchangingTab()
+    public virtual void DrawExchangingTab()
     {
         EditorGUILayout.BeginVertical("box");
 
@@ -437,11 +467,11 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.EndVertical();
     }
     // OPTIONS TABS
-    void DrawTabs()
+    public virtual void DrawTabs()
     {
         TerrainSettings.optionsTabSelectedId = GUILayout.Toolbar(TerrainSettings.optionsTabSelectedId, TerrainSettings.optionsTabs);
     }
-    void DrawSettingsTab()
+    public virtual void DrawSettingsTab()
     {
         TerrainSettings.density = EditorGUILayout.IntField("Brush density", TerrainSettings.density);
         if (TerrainSettings.density < 0) TerrainSettings.density = 0;
@@ -468,7 +498,7 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
     }
-    void DrawLayersTab()
+    public virtual void DrawLayersTab()
     {
         EditorGUILayout.BeginHorizontal("box");
         bool add = false;
@@ -479,34 +509,106 @@ public class TerrainEditor : EditorWindow
         if (add && newLayerName != "")
         {
             if (!TerrainSettings.layers.Contains(newLayerName))
+            {
                 TerrainSettings.layers.Add(newLayerName);
+                TerrainSettings.layerActive.Add(true);
+            }
         }
 
         EditorGUILayout.EndHorizontal();
 
         DrawLayersArray();
     }
-    void DrawLayersArray()
+    public virtual void DrawLayersArray()
     {
         TerrainSettings.layers.RemoveAll(layerName => layerName == "");
         for (int layerId = 0; layerId < TerrainSettings.layers.Count; layerId++)
         {
-            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.BeginHorizontal("box");
             Color oldBgColor = GUI.backgroundColor;
             GUI.backgroundColor = new Color(1f, 0.5f, 0.5f, 1f);
             if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(18)))
             {
                 if (TerrainSettings.layers.Count > 1)
-                    TerrainSettings.layers[layerId] = "";
+                {
+                    int dependedAmount = 0;
+                    foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
+                    {
+                        if (spawnedObj.GetComponent<SpawnedObject>().layer == TerrainSettings.layers[layerId])
+                        {
+                            dependedAmount++;
+                        }
+                    }
+                    if (dependedAmount > 0)
+                    {
+                        Debug.LogError(Utils.FormatLog($"Impossible to remove the layer: {dependedAmount} objects depend on it."));
+                    }
+                    else
+                        TerrainSettings.layers[layerId] = "";
+                }
+                else
+                {
+                    Debug.LogError(Utils.FormatLog("Impossible to remove the last layer."));
+                }
             }
             GUI.backgroundColor = oldBgColor;
-            TerrainSettings.layers[layerId] = EditorGUILayout.TextField("Name: ", TerrainSettings.layers[layerId]);
             EditorGUILayout.EndHorizontal();
+
+
+            EditorGUILayout.BeginVertical("box");
+
+            bool layerActiveBefore = TerrainSettings.layerActive[layerId];
+            TerrainSettings.layerActive[layerId] = EditorGUILayout.Toggle("Active", TerrainSettings.layerActive[layerId]);
+
+            if (layerActiveBefore != TerrainSettings.layerActive[layerId]) // Toggle value changed
+            {
+                List<GameObject> spawned = TerrainSettings.spawnedObjects.Where(
+                                    o => o != null && 
+                                    o.hideFlags == HideFlags.None && 
+                                    o.GetComponent<SpawnedObject>().layer == TerrainSettings.layers[layerId]).ToList();
+
+                if (TerrainSettings.layerActive[layerId]) // If active
+                    foreach (GameObject spawnedObj in spawned)
+                    {
+                        spawnedObj.SetActive(true);
+                    }
+                if (!TerrainSettings.layerActive[layerId]) // If inactive
+                    foreach (GameObject spawnedObj in spawned)
+                    {
+                        spawnedObj.SetActive(false);
+                    }
+            }
+
+            string lastLayerName = TerrainSettings.layers[layerId];
+            TerrainSettings.layers[layerId] = EditorGUILayout.TextField("Name: ", TerrainSettings.layers[layerId]);
+
+            if (lastLayerName != TerrainSettings.layers[layerId]) // Layer was renamed
+            {
+                if (TerrainSettings.layers[layerId] == "") TerrainSettings.layers[layerId] += "layer";
+                if (TerrainSettings.layers.FindAll(x => x == TerrainSettings.layers[layerId]).Count > 1)
+                {
+                    TerrainSettings.layers[layerId] = lastLayerName;
+                    Debug.LogWarning(Utils.FormatLog("Impossible to hold several layers with the same name."));
+                }
+                else foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
+                {
+                    if (spawnedObj != null && spawnedObj.hideFlags == HideFlags.None)
+                    {
+                        SpawnedObject spawnedObjectSc = spawnedObj.GetComponent<SpawnedObject>();
+                        if (spawnedObjectSc != null && spawnedObjectSc.layer == lastLayerName)
+                        {
+                            spawnedObjectSc.layer = TerrainSettings.layers[layerId];
+                        }
+                    }
+                }
+            }
+
             EditorGUILayout.EndVertical();
+            EditorGUILayout.EndHorizontal();
         }
     }
-    void DrawObjectsTab()
+    public virtual void DrawObjectsTab()
     {
         EditorGUILayout.Space(20);
         EditorGUILayout.BeginHorizontal("box");
@@ -711,7 +813,8 @@ public class TerrainEditor : EditorWindow
             EditorGUILayout.BeginVertical("box");
         }
     }
-    public void OnGUI()
+
+    public virtual void OnGUI()
     {
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         DrawHeader();
@@ -732,20 +835,19 @@ public class TerrainEditor : EditorWindow
         }
         GUILayout.EndScrollView();
     }
-
     private void OnEnable()
     {
-        if (TerrainSettings.changelog.Count == 0)
-            Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow started!</color></b>");
+        Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
     }
     private void OnDisable()
     {
-        Debug.Log($"{Utils.LogPrefix()}: <b><color=#00EE00FF>Willow ended..</color></b>");
+        Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
     }
-    void OnSceneGUI(SceneView sceneView)
+    private void OnSceneGUI(SceneView sceneView)
     {
         SceneGUI();
     }
+
 }
