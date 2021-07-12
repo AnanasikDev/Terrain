@@ -41,4 +41,6 @@ public class TerrainSettings : MonoBehaviour
 
     // Changelog for undo implementation
     static public Stack<Change> changelog = new Stack<Change>();
+
+    static public Projector BrushProjector;
 }

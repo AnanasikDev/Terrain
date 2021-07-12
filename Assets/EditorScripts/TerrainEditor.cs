@@ -8,6 +8,7 @@ public class TerrainEditor : EditorWindow
 {
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
+    Projector brushProjector;
 
     [MenuItem("Terrain/Prefab brush")]
     public static void ShowWindow()
@@ -20,6 +21,16 @@ public class TerrainEditor : EditorWindow
         {
             Selection.objects = new Object[0];
             Selection.activeTransform = TerrainSettings.instance.transform;
+
+            /*if (true) //Event.current != null
+            {
+                Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                RaycastHit screenHit;
+                Physics.Raycast(ray, out screenHit, 10);
+                brushProjector.transform.position = screenHit.point + new Vector3(0, 10, 0);
+
+
+            }*/
         }
     }
 
@@ -170,7 +181,7 @@ public class TerrainEditor : EditorWindow
                 }
             }
         }
-        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Exchange, objsToExchange.ToList(), spawnedObjectsTemp.ToList()));
+        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Exchange, spawnedObjectsTemp.ToList(), objsToExchange.ToList()));
         Repaint();
         spawnedObjectsTemp.RemoveAll(o => o == null);
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
@@ -497,6 +508,8 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Total spawned: " + TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
         EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
+
+        //TerrainSettings.BrushProjector = (Projector)EditorGUILayout.ObjectField("Projector", TerrainSettings.BrushProjector, typeof(Projector), false);
     }
     public virtual void DrawLayersTab()
     {
@@ -689,6 +702,7 @@ public class TerrainEditor : EditorWindow
                 continue;
             }
             EditorGUILayout.BeginVertical("box");
+
             Label("GameObject");
 
             TerrainSettings.spawnableObjects[i].spawnableObject = (GameObject)EditorGUILayout.ObjectField("GameObject", TerrainSettings.spawnableObjects[i].spawnableObject, typeof(GameObject), true);
@@ -764,9 +778,10 @@ public class TerrainEditor : EditorWindow
             if (TerrainSettings.spawnableObjects[i].modScale)
             {
                 TerrainSettings.spawnableObjects[i].scaleType = (ScaleType)EditorGUILayout.EnumPopup(  "Scale", TerrainSettings.spawnableObjects[i].scaleType);
-                TerrainSettings.spawnableObjects[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", TerrainSettings.spawnableObjects[i].separateScaleAxis);
+                
                 if (TerrainSettings.spawnableObjects[i].scaleType == ScaleType.Random)
                 {
+                    TerrainSettings.spawnableObjects[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", TerrainSettings.spawnableObjects[i].separateScaleAxis);
                     TerrainSettings.spawnableObjects[i].scaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", TerrainSettings.spawnableObjects[i].scaleAxis);
                     if (TerrainSettings.spawnableObjects[i].separateScaleAxis)
                     {
@@ -780,7 +795,17 @@ public class TerrainEditor : EditorWindow
                     }
                 }
                 if (TerrainSettings.spawnableObjects[i].scaleType == ScaleType.Static)
-                    TerrainSettings.spawnableObjects[i].customScale = EditorGUILayout.Vector3Field("  Custom scale", TerrainSettings.spawnableObjects[i].customScale);
+                {
+                    TerrainSettings.spawnableObjects[i].separateScaleAxis = EditorGUILayout.Toggle("  Separate axis", TerrainSettings.spawnableObjects[i].separateScaleAxis);
+                    if (TerrainSettings.spawnableObjects[i].separateScaleAxis)
+                        TerrainSettings.spawnableObjects[i].customScale = EditorGUILayout.Vector3Field("  Custom scale", TerrainSettings.spawnableObjects[i].customScale);
+                    else
+                    {
+                        TerrainSettings.spawnableObjects[i].customScale = new Vector3(1, 1, 1);
+                        float scale = EditorGUILayout.FloatField("  Scale", TerrainSettings.spawnableObjects[i].customScale.x);
+                        TerrainSettings.spawnableObjects[i].customScale = new Vector3(scale, scale, scale);
+                    }
+                }
 
             }
 
@@ -839,11 +864,16 @@ public class TerrainEditor : EditorWindow
     {
         Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
+       /* brushProjector = Instantiate(TerrainSettings.BrushProjector);
+        brushProjector.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+        brushProjector.orthographic = true;
+        brushProjector.orthographicSize = TerrainSettings.brushSize;*/
     }
     private void OnDisable()
     {
         Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
+        //DestroyImmediate(brushProjector);
     }
     private void OnSceneGUI(SceneView sceneView)
     {
