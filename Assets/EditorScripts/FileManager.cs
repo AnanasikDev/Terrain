@@ -17,9 +17,15 @@ public class FileManager : Editor
 
         output.AppendLine(TerrainSettings.parent == null ? "null" : TerrainSettings.parent.name);
         output.AppendLine(TerrainSettings.placementType.ToString());
-        
-        output.AppendLine(TerrainSettings.spawnableObjects.Count.ToString());
 
+        output.AppendLine(TerrainSettings.layers.Count.ToString());
+        for (int layer = 0; layer < TerrainSettings.layers.Count; layer++)
+        {
+            output.AppendLine(TerrainSettings.layers[layer].Replace("\r", "").Replace("\n", ""));
+            output.AppendLine(TerrainSettings.layerActive[layer].ToString());
+        }
+
+        output.AppendLine(TerrainSettings.spawnableObjects.Count.ToString());
         foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
         {
             output.AppendLine(obj.spawnableObject == null ? "null" : obj.spawnableObject.name);
@@ -54,7 +60,7 @@ public class FileManager : Editor
             //22
 
             output.AppendLine(obj.scaleType.ToString());
-            output.AppendLine(obj.scaleAxis.ToString());//
+            output.AppendLine(obj.scaleAxis.ToString());
             output.AppendLine(obj.modScale.ToString());
             output.AppendLine(obj.customScale.ToString());
             output.AppendLine(obj.scaleMinSeparated.ToString());
@@ -63,6 +69,8 @@ public class FileManager : Editor
             output.AppendLine(obj.scaleMax.ToString());
             output.AppendLine(obj.separateScaleAxis.ToString());
             //31
+            output.AppendLine(obj.layer);
+            output.AppendLine(obj.layerIndex.ToString());
         }
         using (StreamWriter writer = new StreamWriter(path, false))
         {
@@ -70,10 +78,7 @@ public class FileManager : Editor
         }
     }
     public static void Read()
-    {/*
-        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-        ci.NumberFormat.CurrencyDecimalSeparator = ".";*/
-
+    {
         string[] lines;
 
         using (StreamReader reader = new StreamReader(path))
@@ -88,10 +93,20 @@ public class FileManager : Editor
 
             Enum.TryParse(lines[4], out TerrainSettings.placementType);
 
-            TerrainSettings.spawnableObjects.Clear();
+            int layerAmount = Convert.ToInt32(lines[5]);
+            TerrainSettings.layers.Clear();
+            TerrainSettings.layers = new System.Collections.Generic.List<string>(layerAmount);
+            TerrainSettings.layerActive.Clear();
+            TerrainSettings.layerActive = new System.Collections.Generic.List<bool>(layerAmount);
+            for (int layer = 0; layer < layerAmount*2; layer+=2)
+            {
+                TerrainSettings.layers.Add(lines[layer + 6]);
+                TerrainSettings.layerActive.Add(Convert.ToBoolean(lines[layer + 7]));
+            }
 
+            TerrainSettings.spawnableObjects.Clear();
             TerrainSettings.spawnableObjects = new System.Collections.Generic.List<SpawnableObject>(Convert.ToInt32(lines[5]));
-            for (int line = 6; line < lines.Length - 2; line+=31)
+            for (int line = 6 + layerAmount*2 + 1; line < lines.Length - 2; line+=33)
             {
                 SpawnableObject obj = new SpawnableObject();
                 if (lines[line] == "null")
@@ -161,6 +176,9 @@ public class FileManager : Editor
                 obj.scaleMax = (float)Convert.ToDouble(lines[line + 29]);
 
                 obj.separateScaleAxis = Convert.ToBoolean(lines[line + 30]);
+
+                obj.layer = lines[line + 31];
+                obj.layerIndex = Convert.ToInt32(lines[line + 32]);
 
                 TerrainSettings.spawnableObjects.Add(obj);
             }

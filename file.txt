@@ -3,44 +3,22 @@ False
 29
 Directional Light
 onTerrainAndObjects
-2
-GameObject1
+4
+f
 True
-3
-True
-Terrain
-True
-LerpedStaticAsNormal
-Y
-(0.0, 0.0, 0.0)
-0,154
-0,1
-0,2
+defaultLayer
 False
+32
 False
-(0.0, 0.0, 0.0)
-(360.0, 360.0, 360.0)
+34243
 True
-12
-True
-(0.0, 4.0, 0.0)
-False
-Object
-Static
-XYZ
-True
-(1.0, 14.0, 1.0)
-(0.9, 0.9, 0.9)
-1
-(1.1, 1.1, 1.1)
-1
-True
+4
 null
 True
-4343
-True
+1
+False
 null
-True
+False
 AsPrefab
 Y
 (0.0, 0.0, 0.0)
@@ -51,18 +29,119 @@ False
 False
 (0.0, 0.0, 0.0)
 (360.0, 360.0, 360.0)
-False
+True
 35
 False
 (0.0, 0.0, 0.0)
 False
-Object
+Object
 AsPrefab
 XYZ
-True
+False
 (1.0, 1.0, 1.0)
 (0.9, 0.9, 0.9)
 1
 (1.1, 1.1, 1.1)
 1
 True
+32
+2
+null
+True
+1
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+False
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
+True
+34243
+3
+null
+True
+1
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+False
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
+True
+f
+0
+null
+True
+1
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+False
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
+True
+f
+0

@@ -20,6 +20,7 @@ public class TerrainSettings : MonoBehaviour
 
     static public List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
     static public List<GameObject> spawnedObjects = new List<GameObject>();
+    //static public List<Layer> layers = new List<Layer>() { new Layer("default", true) };
     static public List<string> layers = new List<string>() { "default" };
     static public List<bool> layerActive = new List<bool>() { true };
     static public List<GameObject> destroyedObjects = new List<GameObject>();
@@ -41,6 +42,4 @@ public class TerrainSettings : MonoBehaviour
 
     // Changelog for undo implementation
     static public Stack<Change> changelog = new Stack<Change>();
-
-    static public Projector BrushProjector;
 }

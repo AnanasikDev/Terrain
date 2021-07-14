@@ -529,7 +529,6 @@ public class TerrainEditor : EditorWindow
         {
             Debug.Log("layer = " + obj.layer);
         }*/
-        Debug.Log(new Vector3(1,2,3).ToString());
     }
     public virtual void DrawLayersTab()
     {
@@ -882,20 +881,20 @@ public class TerrainEditor : EditorWindow
     }
     private void OnEnable()
     {
+        FileManager.Read();
         Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
         /*brushProjector = Instantiate(TerrainSettings.BrushProjector);
         brushProjector.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
         brushProjector.orthographic = true;
         brushProjector.orthographicSize = TerrainSettings.brushSize;*/
-        FileManager.Read(); //
     }
     private void OnDisable()
     {
+        FileManager.Write();
         Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
         //DestroyImmediate(brushProjector);
-        FileManager.Write();
     }
     private void OnSceneGUI(SceneView sceneView)
     {

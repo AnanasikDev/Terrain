@@ -190,3 +190,14 @@ public static class Extensions
         return result;
     }
 }
+/*public struct Layer
+{
+    public string name;
+    public bool active;
+
+    public Layer(string Name, bool Active)
+    {
+        name = Name;
+        active = Active;
+    }
+}*/
