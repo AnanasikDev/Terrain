@@ -21,19 +21,15 @@ public class TerrainEditor : EditorWindow
         {
             Selection.objects = new Object[0];
             Selection.activeTransform = TerrainSettings.instance.transform;
-
-            /*if (true) //Event.current != null
-            {
-                Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-                RaycastHit screenHit;
-                Physics.Raycast(ray, out screenHit, 10);
-                brushProjector.transform.position = screenHit.point + new Vector3(0, 10, 0);
-
-
-            }*/
         }
     }
-
+    public void drawBrush(Vector3 Pos, Vector3 norm, float radius)
+    {
+        //Debug.Log("drawwww");
+        Handles.color = new Color(0.1f, 0.1f, 0.2f, 0.5f);
+        Handles.DrawSolidDisc(Pos, norm, radius);
+        
+    }
     public virtual void EraseObjects()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -353,6 +349,24 @@ public class TerrainEditor : EditorWindow
                 Undo();
             }
         }
+
+        //Debug.Log("scnee gui");
+
+        BrushVis();
+    }
+    public virtual void BrushVis()
+    {
+        if (Event.current != null) //Event.current != null
+        {
+            Debug.Log("drawing");
+            //Debug.Log(Event.current.mousePosition);
+
+            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+            RaycastHit screenHit;
+            Physics.Raycast(ray, out screenHit);
+
+            drawBrush(screenHit.point, screenHit.normal, 10);
+        }
     }
     public virtual void Undo()
     {
@@ -510,6 +524,11 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
 
         //TerrainSettings.BrushProjector = (Projector)EditorGUILayout.ObjectField("Projector", TerrainSettings.BrushProjector, typeof(Projector), false);
+
+        foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
+        {
+            Debug.Log("layer = " + obj.layer);
+        }
     }
     public virtual void DrawLayersTab()
     {
@@ -864,19 +883,22 @@ public class TerrainEditor : EditorWindow
     {
         Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
-       /* brushProjector = Instantiate(TerrainSettings.BrushProjector);
+        /*brushProjector = Instantiate(TerrainSettings.BrushProjector);
         brushProjector.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
         brushProjector.orthographic = true;
         brushProjector.orthographicSize = TerrainSettings.brushSize;*/
+        FileManager.Read(); //
     }
     private void OnDisable()
     {
         Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
         //DestroyImmediate(brushProjector);
+        FileManager.Write();
     }
     private void OnSceneGUI(SceneView sceneView)
     {
+        //BrushVis();
         SceneGUI();
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public static class Utils
 {
     public enum SpawnPlaceType
@@ -51,7 +51,7 @@ public static class Utils
         {
             for (int _ = 0; _ < chances[i]; _++) res.Add(i);
         }
-        return res[Random.Range(0, res.Count)];
+        return res[UnityEngine.Random.Range(0, res.Count)];
     }
 
     public static Vector3 Abs(this Vector3 vector)
@@ -177,5 +177,14 @@ public struct Change
         type = Type;
         spawnedObjects = SpawnedObjects;
         destroyedObjects = DestroyedObjects;
+    }
+}
+public static class Extensions
+{
+    public static T[] SubArray<T>(this T[] array, int offset, int length)
+    {
+        T[] result = new T[length];
+        Array.Copy(array, offset, result, 0, length);
+        return result;
     }
 }
