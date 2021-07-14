@@ -1,10 +1,68 @@
 False
-4
-29
 3
+29
+Directional Light
+onTerrainAndObjects
+2
 GameObject1
 True
-GameObject2
+3
+True
+Terrain
+True
+LerpedStaticAsNormal
+Y
+(0.0, 0.0, 0.0)
+0,154
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+12
+True
+(0.0, 4.0, 0.0)
+False
+Object
+Static
+XYZ
+True
+(1.0, 14.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
 True
 null
+True
+4343
+True
+null
+True
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+False
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+True
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
 True

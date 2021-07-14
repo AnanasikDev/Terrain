@@ -158,7 +158,9 @@ public class SpawnableObject
         positionAddition = clone.positionAddition;
 
         scaleType = clone.scaleType;
+        scaleAxis = clone.scaleAxis;
         modScale = clone.modScale;
+        customScale = clone.customScale;
         separateScaleAxis = clone.separateScaleAxis;
         scaleMin = clone.scaleMin;
         scaleMax = clone.scaleMax;

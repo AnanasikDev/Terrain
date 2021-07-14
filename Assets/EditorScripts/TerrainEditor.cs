@@ -525,10 +525,11 @@ public class TerrainEditor : EditorWindow
 
         //TerrainSettings.BrushProjector = (Projector)EditorGUILayout.ObjectField("Projector", TerrainSettings.BrushProjector, typeof(Projector), false);
 
-        foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
+        /*foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
         {
             Debug.Log("layer = " + obj.layer);
-        }
+        }*/
+        Debug.Log(new Vector3(1,2,3).ToString());
     }
     public virtual void DrawLayersTab()
     {
