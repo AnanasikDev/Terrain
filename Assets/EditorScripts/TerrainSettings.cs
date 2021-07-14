@@ -4,11 +4,14 @@ using static Utils;
 public class TerrainSettings : MonoBehaviour
 {
     static public bool validated = false;
-
     static public TerrainSettings instance;
 
     static public int density = 4;
     static public float brushSize = 25;
+    static public bool indexObjects = true;
+
+    static public long spawnedIndecies = 0;
+    static public string indexFormat = " ({0} clone)";
 
     static public SpawnPlaceType placementType;
 

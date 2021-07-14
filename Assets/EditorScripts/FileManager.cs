@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 public class FileManager : Editor
 {
     static string path = "./file.txt";
@@ -56,7 +57,7 @@ public class FileManager : Editor
             output.AppendLine(obj.positionAddition.ToString());
 
             output.AppendLine(obj.renameObject.ToString());
-            output.AppendLine(obj.newObjectName.ToString());
+            output.AppendLine(obj.newObjectName.Replace("\r", ""));
             //22
 
             output.AppendLine(obj.scaleType.ToString());
@@ -69,13 +70,25 @@ public class FileManager : Editor
             output.AppendLine(obj.scaleMax.ToString());
             output.AppendLine(obj.separateScaleAxis.ToString());
             //31
-            output.AppendLine(obj.layer);
+            output.AppendLine(obj.layer.Replace("\r", ""));
             output.AppendLine(obj.layerIndex.ToString());
         }
+
+        output.AppendLine(TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length .ToString());
+        foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects.Where(o => o != null))
+        {
+            output.AppendLine(spawnedObj.name.Replace("\r", ""));
+        }
+
+        output.AppendLine(TerrainSettings.indexObjects.ToString());
+        output.AppendLine(TerrainSettings.indexFormat.Replace("\r", ""));
+        output.AppendLine(TerrainSettings.spawnedIndecies.ToString());
+
         using (StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(output);
         }
+        Debug.Log(Utils.FormatLog("Templates saved!", "#00FF00FF"));
     }
     public static void Read()
     {
@@ -95,9 +108,9 @@ public class FileManager : Editor
 
             int layerAmount = Convert.ToInt32(lines[5]);
             TerrainSettings.layers.Clear();
-            TerrainSettings.layers = new System.Collections.Generic.List<string>(layerAmount);
+            TerrainSettings.layers = new List<string>(layerAmount);
             TerrainSettings.layerActive.Clear();
-            TerrainSettings.layerActive = new System.Collections.Generic.List<bool>(layerAmount);
+            TerrainSettings.layerActive = new List<bool>(layerAmount);
             for (int layer = 0; layer < layerAmount*2; layer+=2)
             {
                 TerrainSettings.layers.Add(lines[layer + 6]);
@@ -105,15 +118,18 @@ public class FileManager : Editor
             }
 
             TerrainSettings.spawnableObjects.Clear();
-            TerrainSettings.spawnableObjects = new System.Collections.Generic.List<SpawnableObject>(Convert.ToInt32(lines[5]));
-            for (int line = 6 + layerAmount*2 + 1; line < lines.Length - 2; line+=33)
+            int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
+            TerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
+            int line;
+            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line+=33)
             {
                 SpawnableObject obj = new SpawnableObject();
                 if (lines[line] == "null")
                     obj.spawnableObject = null;
                 else
                     obj.spawnableObject = AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
-                obj.spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", ""));
+
+                obj.spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", "").Replace("\n", ""));
                 obj.spawnChance = Convert.ToInt32(lines[line + 2]);
                 obj.customParent = Convert.ToBoolean(lines[line + 3]);
 
@@ -182,6 +198,19 @@ public class FileManager : Editor
 
                 TerrainSettings.spawnableObjects.Add(obj);
             }
+
+            TerrainSettings.spawnedObjects.Clear();
+            TerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].Replace("\r", "").Replace("\n", "")));
+            int l;
+            for (l = line + 1; l < TerrainSettings.spawnedObjects.Capacity + line + 1; l++)
+            {
+                var g = GameObject.Find(lines[l]); //.Replace("\r", "")
+                TerrainSettings.spawnedObjects.Add(g);
+            }
+
+            TerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
+            TerrainSettings.indexFormat = lines[l + 1];
+            TerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]); // /]ds;[dsd
         }
     }
 }

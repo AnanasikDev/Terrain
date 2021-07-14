@@ -104,7 +104,7 @@ public class SpawnableObject
     public bool modifyPosition = false;
     public Vector3 positionAddition = Vector3.zero;
 
-    public string layer;
+    public string layer = "default";
     public int layerIndex = 0;
 
     public bool renameObject = false;
@@ -112,7 +112,7 @@ public class SpawnableObject
 
     public Utils.ScaleType scaleType = Utils.ScaleType.AsPrefab;
     public Utils.Axis scaleAxis = Utils.Axis.XYZ;
-    public bool modScale;
+    public bool modScale = false;
     public Vector3 customScale = Vector3.one;
     public Vector3 scaleMinSeparated = new Vector3(0.9f, 0.9f, 0.9f);
     public float scaleMin = 1;

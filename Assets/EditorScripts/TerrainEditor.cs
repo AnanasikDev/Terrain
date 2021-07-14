@@ -8,9 +8,8 @@ public class TerrainEditor : EditorWindow
 {
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
-    Projector brushProjector;
 
-    [MenuItem("Terrain/Prefab brush")]
+    [MenuItem("Willow/Prefab brush")]
     public static void ShowWindow()
     {
         GetWindow<TerrainEditor>("Terrain++");
@@ -22,6 +21,7 @@ public class TerrainEditor : EditorWindow
             Selection.objects = new Object[0];
             Selection.activeTransform = TerrainSettings.instance.transform;
         }
+        
     }
     public void drawBrush(Vector3 Pos, Vector3 norm, float radius)
     {
@@ -110,6 +110,10 @@ public class TerrainEditor : EditorWindow
 
                         if (spawnableObject.renameObject)
                             temp.name = spawnableObject.newObjectName;
+
+                        if (TerrainSettings.indexObjects)
+                            temp.name += string.Format(TerrainSettings.indexFormat, TerrainSettings.spawnedIndecies);
+                        TerrainSettings.spawnedIndecies++;
 
                         if (spawnableObject.centerObject)
                             temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
@@ -350,6 +354,12 @@ public class TerrainEditor : EditorWindow
             }
         }
 
+        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && Event.current.modifiers == EventModifiers.Control)
+        {
+            // Save
+            FileManager.Write();
+        }
+
         //Debug.Log("scnee gui");
 
         BrushVis();
@@ -358,7 +368,7 @@ public class TerrainEditor : EditorWindow
     {
         if (Event.current != null) //Event.current != null
         {
-            Debug.Log("drawing");
+            //Debug.Log("drawing");
             //Debug.Log(Event.current.mousePosition);
 
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -499,9 +509,16 @@ public class TerrainEditor : EditorWindow
     public virtual void DrawSettingsTab()
     {
         TerrainSettings.density = EditorGUILayout.IntField("Brush density", TerrainSettings.density);
-        if (TerrainSettings.density < 0) TerrainSettings.density = 0;
+        
+        if (TerrainSettings.density < 0)
+            TerrainSettings.density = 0;
         TerrainSettings.brushSize = EditorGUILayout.FloatField("Brush size", TerrainSettings.brushSize);
-        if (TerrainSettings.brushSize < 0) TerrainSettings.brushSize = 0;
+        if (TerrainSettings.brushSize < 0) 
+            TerrainSettings.brushSize = 0;
+
+        TerrainSettings.indexObjects = EditorGUILayout.Toggle("Index objects", TerrainSettings.indexObjects);
+        if (TerrainSettings.indexObjects)
+            TerrainSettings.indexFormat = EditorGUILayout.TextField("({0} clone)", TerrainSettings.indexFormat);
 
         TerrainSettings.parent = (Transform)EditorGUILayout.ObjectField("Parent", TerrainSettings.parent, typeof(Transform), true);
         TerrainSettings.placementType = (Utils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", TerrainSettings.placementType);
@@ -525,10 +542,7 @@ public class TerrainEditor : EditorWindow
 
         //TerrainSettings.BrushProjector = (Projector)EditorGUILayout.ObjectField("Projector", TerrainSettings.BrushProjector, typeof(Projector), false);
 
-        /*foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
-        {
-            Debug.Log("layer = " + obj.layer);
-        }*/
+        
     }
     public virtual void DrawLayersTab()
     {
@@ -884,17 +898,12 @@ public class TerrainEditor : EditorWindow
         FileManager.Read();
         Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
-        /*brushProjector = Instantiate(TerrainSettings.BrushProjector);
-        brushProjector.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
-        brushProjector.orthographic = true;
-        brushProjector.orthographicSize = TerrainSettings.brushSize;*/
     }
     private void OnDisable()
     {
         FileManager.Write();
         Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
-        //DestroyImmediate(brushProjector);
     }
     private void OnSceneGUI(SceneView sceneView)
     {
