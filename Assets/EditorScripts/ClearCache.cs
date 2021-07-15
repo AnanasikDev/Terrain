@@ -11,39 +11,41 @@ public class ClearCache : Editor
         {
              DestroyImmediate(obj);
         }
-        Debug.Log(Utils.FormatLog("Changelog cleared", "#00FF00FF"));
+        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Changelog cleared", "#00FF00FF"));
     }
     [MenuItem("Willow/Enable Destoryed Objects")]
     public static void EnableDestroyedObjects()
     {
         if (TerrainSettings.destroyedObjects.Count == 0)
         {
-            Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
+            if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
         }
         else foreach (GameObject obj in TerrainSettings.destroyedObjects.Where(x => x != null))
         {
             obj.hideFlags = HideFlags.None;
             obj.SetActive(true);
         }
+        SceneView.RepaintAll();
     }
     [MenuItem("Willow/Disable Destoryed Objects")]
     public static void DisableDestroyedObjects()
     {
         if (TerrainSettings.destroyedObjects.Count == 0)
         {
-            Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
+            if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("There are no destroyed objects!"));
         }
         else foreach (GameObject obj in TerrainSettings.destroyedObjects.Where(x => x != null))
         {
             obj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
             obj.SetActive(false);
         }
+        SceneView.RepaintAll();
     }
     [MenuItem("Willow/Reset indecies")]
     public static void ResetIndecies()
     {
         TerrainSettings.spawnedIndecies = 0;
-        Debug.Log(Utils.FormatLog("Indecies reseted.", "#00FF00FF"));
+        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Indecies reseted.", "#00FF00FF"));
     }
     [MenuItem("Willow/Save changings")]
     public static void Save()

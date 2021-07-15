@@ -129,7 +129,7 @@ public class TerrainEditor : EditorWindow
             }
             else
             {
-                Debug.LogError(Utils.FormatLog("There are no objects to spawn!"));
+                if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("There are no objects to spawn!"));
             }
         }
         
@@ -382,7 +382,7 @@ public class TerrainEditor : EditorWindow
     {
         if (TerrainSettings.changelog.Count == 0)
         {
-            Debug.LogError(Utils.FormatLog("Undo stack is empty!"));
+            if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("Undo stack is empty!"));
             return;
         }
 
@@ -433,6 +433,15 @@ public class TerrainEditor : EditorWindow
     {
         Color oldBackgroundColor = GUI.backgroundColor;
         Color oldContentColor = GUI.contentColor;
+        GUI.backgroundColor = new Color(0.3f, 1f, 0.3f, 1);
+        GUI.contentColor = new Color(0.9f, 0.9f, 0.95f, 1);
+        if (GUILayout.Button("Save"))
+        {
+            FileManager.Write();
+        }
+
+        GUILayout.Space(20);
+
         if (TerrainSettings.active)
         {
             GUI.backgroundColor = new Color(0.4f, 1f, 0.4f, 1);
@@ -518,11 +527,12 @@ public class TerrainEditor : EditorWindow
 
         TerrainSettings.indexObjects = EditorGUILayout.Toggle("Index objects", TerrainSettings.indexObjects);
         if (TerrainSettings.indexObjects)
-            TerrainSettings.indexFormat = EditorGUILayout.TextField("({0} clone)", TerrainSettings.indexFormat);
+            TerrainSettings.indexFormat = EditorGUILayout.TextField("Index format", TerrainSettings.indexFormat);
 
         TerrainSettings.parent = (Transform)EditorGUILayout.ObjectField("Parent", TerrainSettings.parent, typeof(Transform), true);
         TerrainSettings.placementType = (Utils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", TerrainSettings.placementType);
 
+        TerrainSettings.debugMode = EditorGUILayout.Toggle("Debug mode", TerrainSettings.debugMode);
 
         // General Info
 
@@ -540,9 +550,6 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
 
-        //TerrainSettings.BrushProjector = (Projector)EditorGUILayout.ObjectField("Projector", TerrainSettings.BrushProjector, typeof(Projector), false);
-
-        
     }
     public virtual void DrawLayersTab()
     {
@@ -588,14 +595,14 @@ public class TerrainEditor : EditorWindow
                     }
                     if (dependedAmount > 0)
                     {
-                        Debug.LogError(Utils.FormatLog($"Impossible to remove the layer: {dependedAmount} objects depend on it."));
+                        if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog($"Impossible to remove the layer: {dependedAmount} objects depend on it."));
                     }
                     else
                         TerrainSettings.layers[layerId] = "";
                 }
                 else
                 {
-                    Debug.LogError(Utils.FormatLog("Impossible to remove the last layer."));
+                    if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("Impossible to remove the last layer."));
                 }
             }
             GUI.backgroundColor = oldBgColor;
@@ -635,7 +642,7 @@ public class TerrainEditor : EditorWindow
                 if (TerrainSettings.layers.FindAll(x => x == TerrainSettings.layers[layerId]).Count > 1)
                 {
                     TerrainSettings.layers[layerId] = lastLayerName;
-                    Debug.LogWarning(Utils.FormatLog("Impossible to hold several layers with the same name."));
+                    if (TerrainSettings.debugMode) Debug.LogWarning(Utils.FormatLog("Impossible to hold several layers with the same name."));
                 }
                 else foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
                 {
@@ -891,18 +898,23 @@ public class TerrainEditor : EditorWindow
                 DrawObjectsTab();
                 break;
         }
+        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && Event.current.modifiers == EventModifiers.Control)
+        {
+            // Save
+            FileManager.Write();
+        }
         GUILayout.EndScrollView();
     }
     private void OnEnable()
     {
         FileManager.Read();
-        Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
+        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
     }
     private void OnDisable()
     {
         FileManager.Write();
-        Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
+        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
     }
     private void OnSceneGUI(SceneView sceneView)

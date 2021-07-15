@@ -74,8 +74,8 @@ public class FileManager : Editor
             output.AppendLine(obj.layerIndex.ToString());
         }
 
-        output.AppendLine(TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length .ToString());
-        foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects.Where(o => o != null))
+        output.AppendLine(TerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
+        foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
             output.AppendLine(spawnedObj.name.Replace("\r", ""));
         }
@@ -88,7 +88,7 @@ public class FileManager : Editor
         {
             writer.Write(output);
         }
-        Debug.Log(Utils.FormatLog("Templates saved!", "#00FF00FF"));
+        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Templates saved!", "#00FF00FF"));
     }
     public static void Read()
     {
@@ -111,7 +111,7 @@ public class FileManager : Editor
             TerrainSettings.layers = new List<string>(layerAmount);
             TerrainSettings.layerActive.Clear();
             TerrainSettings.layerActive = new List<bool>(layerAmount);
-            for (int layer = 0; layer < layerAmount*2; layer+=2)
+            for (int layer = 0; layer < layerAmount * 2; layer += 2)
             {
                 TerrainSettings.layers.Add(lines[layer + 6]);
                 TerrainSettings.layerActive.Add(Convert.ToBoolean(lines[layer + 7]));
@@ -121,7 +121,7 @@ public class FileManager : Editor
             int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
             TerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
             int line;
-            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line+=33)
+            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
                 SpawnableObject obj = new SpawnableObject();
                 if (lines[line] == "null")
@@ -204,13 +204,13 @@ public class FileManager : Editor
             int l;
             for (l = line + 1; l < TerrainSettings.spawnedObjects.Capacity + line + 1; l++)
             {
-                var g = GameObject.Find(lines[l]); //.Replace("\r", "")
+                var g = GameObject.Find(lines[l]);
                 TerrainSettings.spawnedObjects.Add(g);
             }
 
             TerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
             TerrainSettings.indexFormat = lines[l + 1];
-            TerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]); // /]ds;[dsd
+            TerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]);
         }
     }
 }

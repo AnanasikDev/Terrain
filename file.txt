@@ -1,12 +1,10 @@
 True
-2
-12
+4
+25
 null
 onTerrainOnly
-2
+1
 default
-True
-defaultLayer
 True
 1
 GameObject1
@@ -14,15 +12,15 @@ True
 1
 False
 null
-True
-LerpedRandomAsNormal
+False
+AsPrefab
 Y
 (0.0, 0.0, 0.0)
 0,15
 0,1
-0,3
+0,2
 False
-True
+False
 (0.0, 0.0, 0.0)
 (360.0, 360.0, 360.0)
 True
@@ -42,7 +40,16 @@ False
 True
 default
 0
-0
+9
+GameObject1(Clone) (48 clone)
+GameObject1(Clone) (50 clone)
+GameObject1(Clone) (51 clone)
+GameObject1(Clone) (52 clone)
+GameObject1(Clone) (53 clone)
+GameObject1(Clone) (54 clone)
+GameObject1(Clone) (55 clone)
+GameObject1(Clone) (61 clone)
+GameObject1(Clone) (63 clone)
 True
- ({0} clone33)
-0
+ ({0} clone)
+64

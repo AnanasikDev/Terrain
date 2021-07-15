@@ -13,6 +13,8 @@ public class TerrainSettings : MonoBehaviour
     static public long spawnedIndecies = 0;
     static public string indexFormat = " ({0} clone)";
 
+    static public bool debugMode = true;
+
     static public SpawnPlaceType placementType;
 
     static public bool active = false;
