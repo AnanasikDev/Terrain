@@ -9,20 +9,24 @@ public class TerrainEditor : EditorWindow
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
 
+    bool clicked = false;
+
     [MenuItem("Willow/Prefab brush")]
     public static void ShowWindow()
     {
         GetWindow<TerrainEditor>("Terrain++");
     }
-    private void Update()
+    /*private void Update()
     {
+        if (clicked)
         if (TerrainSettings.active && TerrainSettings.validated)
         {
             Selection.objects = new Object[0];
             Selection.activeTransform = TerrainSettings.instance.transform;
+
+            clicked = false;
         }
-        
-    }
+    }*/
     public void drawBrush(Vector3 Pos, Vector3 norm, float radius)
     {
         //Debug.Log("drawwww");
@@ -37,10 +41,13 @@ public class TerrainEditor : EditorWindow
         Physics.Raycast(ray, out hit);
 
         List<GameObject> spawnedObjectsTemp = TerrainSettings.spawnedObjects;
-        GameObject[] objsToDestroy = 
+        GameObject[] objsToDestroy =
             spawnedObjectsTemp
             .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= TerrainSettings.brushSize * TerrainSettings.brushSize))
             .ToArray();
+
+        if (TerrainSettings.ignoreInactiveLayers)
+            objsToDestroy = objsToDestroy.Where(gameObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(gameObject.GetComponent<SpawnedObject>().layer)]).ToArray();
 
         foreach (GameObject o in objsToDestroy)
         {
@@ -72,28 +79,35 @@ public class TerrainEditor : EditorWindow
             bool anySpawnableObjects = false;
             foreach (SpawnableObject spObj in TerrainSettings.spawnableObjects)
             {
-                if (spObj.spawn)
+                if (spObj.spawn && spObj.spawnableObject != null)
                 {
                     anySpawnableObjects = true;
                     break;
                 }
             }
+            List<SpawnableObject> spawnableObjects = TerrainSettings.spawnableObjects;
+            if (TerrainSettings.ignoreInactiveLayers)
+                spawnableObjects = spawnableObjects.Where(spawnableObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(spawnableObject.layer)]).ToList();
+            
             if (TerrainSettings.spawnableObjects.Count > 0 && anySpawnableObjects)
             {
                 for (int i = 0; i < TerrainSettings.density; i++)
                 {
+                    SpawnableObject spawnableObject = GetObject(spawnableObjects);
+                    if (spawnableObject == null) continue;
+                    
+
                     RaycastHit hit;
 
                     if (Physics.Raycast(screenHit.point + Vector3.up*5, 
-                        new Vector3(UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize), -1,
-                                    UnityEngine.Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize)), out hit) &&
+                        new Vector3(Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize), -1,
+                                    Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize)), out hit) &&
 
                         ((TerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
                         (TerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
                         (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)) )
                     {
-                        SpawnableObject spawnableObject = GetObject();
-                        if (spawnableObject == null) continue;
+                        
 
                         GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
 
@@ -146,13 +160,20 @@ public class TerrainEditor : EditorWindow
             .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= TerrainSettings.brushSize * TerrainSettings.brushSize))
             .ToArray();
 
+        List<SpawnableObject> spawnableObjects = TerrainSettings.spawnableObjects;
+        if (TerrainSettings.ignoreInactiveLayers)
+        {
+            objsToExchange = objsToExchange.Where(gameObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(gameObject.GetComponent<SpawnedObject>().layer)]).ToArray();
+            spawnableObjects = spawnableObjects.Where(spawnableObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(spawnableObject.layer)]).ToList();
+        }
+
         foreach (GameObject o in objsToExchange)
         {
             if (Random.Range(0, TerrainSettings.exchangeSmoothness + 1) == TerrainSettings.exchangeSmoothness || TerrainSettings.exchangeSmoothness == 0)
             {
                 if (o != null)
                 {
-                    SpawnableObject spawnableObject = GetObject();
+                    SpawnableObject spawnableObject = GetObject(spawnableObjects);
                     Vector3 position = TerrainSettings.exchangePosition ? o.transform.position : o.transform.position - o.GetComponent<SpawnedObject>().positionAdd + GetObjectPositionAdd(spawnableObject);
                     RaycastHit normalHit;
                     bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
@@ -187,17 +208,17 @@ public class TerrainEditor : EditorWindow
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
     }
 
-    public virtual SpawnableObject GetObject()
+    public virtual SpawnableObject GetObject(List<SpawnableObject> spawnableObjects)
     {
-        int[] chances = new int[TerrainSettings.spawnableObjects.Count];
+        int[] chances = new int[spawnableObjects.Count];
         bool ableToSpawn = false;
         for (int i = 0; i < chances.Length; i++)
         {
-            chances[i] = TerrainSettings.spawnableObjects[i].spawn && TerrainSettings.spawnableObjects[i].spawnableObject != null ? TerrainSettings.spawnableObjects[i].spawnChance : 0;
+            chances[i] = spawnableObjects[i].spawn && spawnableObjects[i].spawnableObject != null ? spawnableObjects[i].spawnChance : 0;
             if (chances[i] > 0) ableToSpawn = true;
         }
         if (!ableToSpawn) return null;
-        return new SpawnableObject( TerrainSettings.spawnableObjects[GetChance(chances)] );
+        return new SpawnableObject(spawnableObjects[GetChance(chances)] );
     }
     public virtual void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
@@ -332,18 +353,28 @@ public class TerrainEditor : EditorWindow
     public virtual void SceneGUI()
     {
         if (!TerrainSettings.active) return;
+        int controlId = GUIUtility.GetControlID(FocusType.Passive);
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
             (Event.current.type == EventType.MouseDown && Event.current.button == 0 && TerrainSettings.brushTabSelectedId == 1)) // Destroying objects
         {
             EraseObjects();
+
+            GUIUtility.hotControl = controlId;
+            Event.current.Use();
         }
         else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && TerrainSettings.brushTabSelectedId == 0) // Placing objects
         {
             PlaceObjects();
+
+            GUIUtility.hotControl = controlId;
+            Event.current.Use();
         }
         else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && TerrainSettings.brushTabSelectedId == 2) // Exchanging objects
         {
             ExchangeObjects();
+
+            GUIUtility.hotControl = controlId;
+            Event.current.Use();
         }
 
         if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Z)
@@ -362,7 +393,7 @@ public class TerrainEditor : EditorWindow
 
         //Debug.Log("scnee gui");
 
-        BrushVis();
+        //BrushVis();
     }
     public virtual void BrushVis()
     {
@@ -458,6 +489,8 @@ public class TerrainEditor : EditorWindow
             if (GUILayout.Button("Enable"))
             {
                 TerrainSettings.active = true;
+
+                Selection.activeObject = null;
             }
         }
 
@@ -532,6 +565,8 @@ public class TerrainEditor : EditorWindow
         TerrainSettings.parent = (Transform)EditorGUILayout.ObjectField("Parent", TerrainSettings.parent, typeof(Transform), true);
         TerrainSettings.placementType = (Utils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", TerrainSettings.placementType);
 
+        TerrainSettings.ignoreInactiveLayers = EditorGUILayout.Toggle("Ignore inactive layers", TerrainSettings.ignoreInactiveLayers);
+
         TerrainSettings.debugMode = EditorGUILayout.Toggle("Debug mode", TerrainSettings.debugMode);
 
         // General Info
@@ -547,7 +582,7 @@ public class TerrainEditor : EditorWindow
         EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>General Info</color></b>", style);
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Total spawned: " + TerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
-        EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layers.Count.ToString());
+        EditorGUILayout.LabelField("Layers amount: " + TerrainSettings.layersName.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + TerrainSettings.spawnableObjects.Count);
 
     }
@@ -561,10 +596,10 @@ public class TerrainEditor : EditorWindow
         newLayerName = EditorGUILayout.TextField("New layer name: ", newLayerName);
         if (add && newLayerName != "")
         {
-            if (!TerrainSettings.layers.Contains(newLayerName))
+            if (!TerrainSettings.layersName.Contains(newLayerName))
             {
-                TerrainSettings.layers.Add(newLayerName);
-                TerrainSettings.layerActive.Add(true);
+                TerrainSettings.layersName.Add(newLayerName);
+                TerrainSettings.layersState.Add(true);
             }
         }
 
@@ -574,8 +609,8 @@ public class TerrainEditor : EditorWindow
     }
     public virtual void DrawLayersArray()
     {
-        TerrainSettings.layers.RemoveAll(layerName => layerName == "");
-        for (int layerId = 0; layerId < TerrainSettings.layers.Count; layerId++)
+        TerrainSettings.layersName.RemoveAll(layerName => layerName == "");
+        for (int layerId = 0; layerId < TerrainSettings.layersName.Count; layerId++)
         {
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.BeginHorizontal("box");
@@ -583,12 +618,12 @@ public class TerrainEditor : EditorWindow
             GUI.backgroundColor = new Color(1f, 0.5f, 0.5f, 1f);
             if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                if (TerrainSettings.layers.Count > 1)
+                if (TerrainSettings.layersName.Count > 1)
                 {
                     int dependedAmount = 0;
                     foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
                     {
-                        if (spawnedObj.GetComponent<SpawnedObject>().layer == TerrainSettings.layers[layerId])
+                        if (spawnedObj.GetComponent<SpawnedObject>().layer == TerrainSettings.layersName[layerId])
                         {
                             dependedAmount++;
                         }
@@ -598,7 +633,7 @@ public class TerrainEditor : EditorWindow
                         if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog($"Impossible to remove the layer: {dependedAmount} objects depend on it."));
                     }
                     else
-                        TerrainSettings.layers[layerId] = "";
+                        TerrainSettings.layersName[layerId] = "";
                 }
                 else
                 {
@@ -611,37 +646,37 @@ public class TerrainEditor : EditorWindow
 
             EditorGUILayout.BeginVertical("box");
 
-            bool layerActiveBefore = TerrainSettings.layerActive[layerId];
-            TerrainSettings.layerActive[layerId] = EditorGUILayout.Toggle("Active", TerrainSettings.layerActive[layerId]);
+            bool layerActiveBefore = TerrainSettings.layersState[layerId];
+            TerrainSettings.layersState[layerId] = EditorGUILayout.Toggle("Active", TerrainSettings.layersState[layerId]);
 
-            if (layerActiveBefore != TerrainSettings.layerActive[layerId]) // Toggle value changed
+            if (layerActiveBefore != TerrainSettings.layersState[layerId]) // Toggle value changed
             {
                 List<GameObject> spawned = TerrainSettings.spawnedObjects.Where(
                                     o => o != null && 
                                     o.hideFlags == HideFlags.None && 
-                                    o.GetComponent<SpawnedObject>().layer == TerrainSettings.layers[layerId]).ToList();
+                                    o.GetComponent<SpawnedObject>().layer == TerrainSettings.layersName[layerId]).ToList();
 
-                if (TerrainSettings.layerActive[layerId]) // If active
+                if (TerrainSettings.layersState[layerId]) // If active
                     foreach (GameObject spawnedObj in spawned)
                     {
                         spawnedObj.SetActive(true);
                     }
-                if (!TerrainSettings.layerActive[layerId]) // If inactive
+                if (!TerrainSettings.layersState[layerId]) // If inactive
                     foreach (GameObject spawnedObj in spawned)
                     {
                         spawnedObj.SetActive(false);
                     }
             }
 
-            string lastLayerName = TerrainSettings.layers[layerId];
-            TerrainSettings.layers[layerId] = EditorGUILayout.TextField("Name: ", TerrainSettings.layers[layerId]);
+            string lastLayerName = TerrainSettings.layersName[layerId];
+            TerrainSettings.layersName[layerId] = EditorGUILayout.TextField("Name: ", TerrainSettings.layersName[layerId]);
 
-            if (lastLayerName != TerrainSettings.layers[layerId]) // Layer was renamed
+            if (lastLayerName != TerrainSettings.layersName[layerId]) // Layer was renamed
             {
-                if (TerrainSettings.layers[layerId] == "") TerrainSettings.layers[layerId] += "layer";
-                if (TerrainSettings.layers.FindAll(x => x == TerrainSettings.layers[layerId]).Count > 1)
+                if (TerrainSettings.layersName[layerId] == "") TerrainSettings.layersName[layerId] += "layer";
+                if (TerrainSettings.layersName.FindAll(x => x == TerrainSettings.layersName[layerId]).Count > 1)
                 {
-                    TerrainSettings.layers[layerId] = lastLayerName;
+                    TerrainSettings.layersName[layerId] = lastLayerName;
                     if (TerrainSettings.debugMode) Debug.LogWarning(Utils.FormatLog("Impossible to hold several layers with the same name."));
                 }
                 else foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
@@ -651,7 +686,7 @@ public class TerrainEditor : EditorWindow
                         SpawnedObject spawnedObjectSc = spawnedObj.GetComponent<SpawnedObject>();
                         if (spawnedObjectSc != null && spawnedObjectSc.layer == lastLayerName)
                         {
-                            spawnedObjectSc.layer = TerrainSettings.layers[layerId];
+                            spawnedObjectSc.layer = TerrainSettings.layersName[layerId];
                         }
                     }
                 }
@@ -757,11 +792,11 @@ public class TerrainEditor : EditorWindow
             if (TerrainSettings.spawnableObjects[i].customParent)
                 TerrainSettings.spawnableObjects[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", TerrainSettings.spawnableObjects[i].parent, typeof(Transform), true);
 
-            TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer: ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layers.ToArray());
-            if (TerrainSettings.spawnableObjects[i].layerIndex >= TerrainSettings.layers.Count)
-                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layers[0];
+            TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer: ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layersName.ToArray());
+            if (TerrainSettings.spawnableObjects[i].layerIndex >= TerrainSettings.layersName.Count)
+                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layersName[0];
             else
-                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layers[TerrainSettings.spawnableObjects[i].layerIndex];
+                TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layersName[TerrainSettings.spawnableObjects[i].layerIndex];
 
             TerrainSettings.spawnableObjects[i].spawnChance = EditorGUILayout.IntField("Chance", TerrainSettings.spawnableObjects[i].spawnChance); //objs[i].spawnChance
             if (TerrainSettings.spawnableObjects[i].spawnChance < 0) TerrainSettings.spawnableObjects[i].spawnChance = 0;

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
 public static class Utils
 {
     public enum SpawnPlaceType
@@ -181,23 +180,3 @@ public struct Change
         destroyedObjects = DestroyedObjects;
     }
 }
-public static class Extensions
-{
-    public static T[] SubArray<T>(this T[] array, int offset, int length)
-    {
-        T[] result = new T[length];
-        Array.Copy(array, offset, result, 0, length);
-        return result;
-    }
-}
-/*public struct Layer
-{
-    public string name;
-    public bool active;
-
-    public Layer(string Name, bool Active)
-    {
-        name = Name;
-        active = Active;
-    }
-}*/

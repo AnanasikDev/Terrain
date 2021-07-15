@@ -7,9 +7,10 @@ public class ClearCache : Editor
     public static void ClearChangeLog()
     {
         TerrainSettings.changelog.Clear();
+
         foreach (GameObject obj in TerrainSettings.destroyedObjects)
         {
-             DestroyImmediate(obj);
+            DestroyImmediate(obj);
         }
         if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Changelog cleared", "#00FF00FF"));
     }

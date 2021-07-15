@@ -19,11 +19,11 @@ public class FileManager : Editor
         output.AppendLine(TerrainSettings.parent == null ? "null" : TerrainSettings.parent.name);
         output.AppendLine(TerrainSettings.placementType.ToString());
 
-        output.AppendLine(TerrainSettings.layers.Count.ToString());
-        for (int layer = 0; layer < TerrainSettings.layers.Count; layer++)
+        output.AppendLine(TerrainSettings.layersName.Count.ToString());
+        for (int layer = 0; layer < TerrainSettings.layersName.Count; layer++)
         {
-            output.AppendLine(TerrainSettings.layers[layer].Replace("\r", "").Replace("\n", ""));
-            output.AppendLine(TerrainSettings.layerActive[layer].ToString());
+            output.AppendLine(TerrainSettings.layersName[layer].Replace("\r", "").Replace("\n", ""));
+            output.AppendLine(TerrainSettings.layersState[layer].ToString());
         }
 
         output.AppendLine(TerrainSettings.spawnableObjects.Count.ToString());
@@ -84,6 +84,15 @@ public class FileManager : Editor
         output.AppendLine(TerrainSettings.indexFormat.Replace("\r", ""));
         output.AppendLine(TerrainSettings.spawnedIndecies.ToString());
 
+        output.AppendLine(TerrainSettings.eraseSmoothness.ToString());
+
+        output.AppendLine(TerrainSettings.exchangeColor.ToString());
+        output.AppendLine(TerrainSettings.exchangeParent.ToString());
+        output.AppendLine(TerrainSettings.exchangePosition.ToString());
+        output.AppendLine(TerrainSettings.exchangeRotation.ToString());
+        output.AppendLine(TerrainSettings.exchangeScale.ToString());
+        output.AppendLine(TerrainSettings.exchangeSmoothness.ToString());
+
         using (StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(output);
@@ -107,14 +116,14 @@ public class FileManager : Editor
             Enum.TryParse(lines[4], out TerrainSettings.placementType);
 
             int layerAmount = Convert.ToInt32(lines[5]);
-            TerrainSettings.layers.Clear();
-            TerrainSettings.layers = new List<string>(layerAmount);
-            TerrainSettings.layerActive.Clear();
-            TerrainSettings.layerActive = new List<bool>(layerAmount);
+            TerrainSettings.layersName.Clear();
+            TerrainSettings.layersName = new List<string>(layerAmount);
+            TerrainSettings.layersState.Clear();
+            TerrainSettings.layersState = new List<bool>(layerAmount);
             for (int layer = 0; layer < layerAmount * 2; layer += 2)
             {
-                TerrainSettings.layers.Add(lines[layer + 6]);
-                TerrainSettings.layerActive.Add(Convert.ToBoolean(lines[layer + 7]));
+                TerrainSettings.layersName.Add(lines[layer + 6]);
+                TerrainSettings.layersState.Add(Convert.ToBoolean(lines[layer + 7]));
             }
 
             TerrainSettings.spawnableObjects.Clear();
@@ -211,6 +220,15 @@ public class FileManager : Editor
             TerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
             TerrainSettings.indexFormat = lines[l + 1];
             TerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]);
+
+            TerrainSettings.eraseSmoothness = Convert.ToInt32(lines[l + 3]);
+
+            TerrainSettings.exchangeColor = Convert.ToBoolean(lines[l + 4]);
+            TerrainSettings.exchangeParent = Convert.ToBoolean(lines[l + 5]);
+            TerrainSettings.exchangePosition = Convert.ToBoolean(lines[l + 6]);
+            TerrainSettings.exchangeRotation = Convert.ToBoolean(lines[l + 7]);
+            TerrainSettings.exchangeScale = Convert.ToBoolean(lines[l + 8]);
+            TerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]); //
         }
     }
 }

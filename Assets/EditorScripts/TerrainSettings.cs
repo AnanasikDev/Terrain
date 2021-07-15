@@ -15,6 +15,8 @@ public class TerrainSettings : MonoBehaviour
 
     static public bool debugMode = true;
 
+    static public bool ignoreInactiveLayers = false;
+
     static public SpawnPlaceType placementType;
 
     static public bool active = false;
@@ -25,12 +27,10 @@ public class TerrainSettings : MonoBehaviour
 
     static public List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
     static public List<GameObject> spawnedObjects = new List<GameObject>();
-    //static public List<Layer> layers = new List<Layer>() { new Layer("default", true) };
-    static public List<string> layers = new List<string>() { "default" };
-    static public List<bool> layerActive = new List<bool>() { true };
     static public List<GameObject> destroyedObjects = new List<GameObject>();
 
-    static public string layerSelected;
+    static public List<string> layersName = new List<string>() { "default" };
+    static public List<bool> layersState = new List<bool>() { true };
 
     static public int exchangeSmoothness = 0;
     static public bool exchangeRotation = true;
