@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class FileManager : Editor
 {
     static string path = "./file.txt";
+    static string prefabsFolder = "Assets/Willow/Example/Prefabs/";
     public static void Write()
     {
         StringBuilder output = new StringBuilder();
@@ -136,7 +137,7 @@ public class FileManager : Editor
                 if (lines[line] == "null")
                     obj.spawnableObject = null;
                 else
-                    obj.spawnableObject = AssetDatabase.LoadAssetAtPath($"Assets/Prefabs/{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
+                    obj.spawnableObject = AssetDatabase.LoadAssetAtPath(prefabsFolder + $"{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
 
                 obj.spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", "").Replace("\n", ""));
                 obj.spawnChance = Convert.ToInt32(lines[line + 2]);

@@ -42,6 +42,11 @@ public static class Utils
         Erasure,
         Exchange
     }
+    public enum BrushShape
+    {
+        Circle,
+        Square
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;

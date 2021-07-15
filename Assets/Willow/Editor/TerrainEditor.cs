@@ -9,30 +9,25 @@ public class TerrainEditor : EditorWindow
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
 
-    bool clicked = false;
-
     [MenuItem("Willow/Prefab brush")]
     public static void ShowWindow()
     {
         GetWindow<TerrainEditor>("Terrain++");
     }
-    /*private void Update()
-    {
-        if (clicked)
-        if (TerrainSettings.active && TerrainSettings.validated)
-        {
-            Selection.objects = new Object[0];
-            Selection.activeTransform = TerrainSettings.instance.transform;
-
-            clicked = false;
-        }
-    }*/
     public void drawBrush(Vector3 Pos, Vector3 norm, float radius)
     {
-        //Debug.Log("drawwww");
         Handles.color = new Color(0.1f, 0.1f, 0.2f, 0.5f);
-        Handles.DrawSolidDisc(Pos, norm, radius);
-        
+        Handles.DrawSolidDisc(Pos, Vector3.up, radius);
+    }
+    public virtual void BrushVis()
+    {
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        RaycastHit screenHit;
+        Physics.Raycast(ray, out screenHit);
+
+        drawBrush(screenHit.point, screenHit.normal, TerrainSettings.brushSize);
+
+        SceneView.RepaintAll();
     }
     public virtual void EraseObjects()
     {
@@ -67,6 +62,7 @@ public class TerrainEditor : EditorWindow
 
         TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, null, objsToDestroy.ToList()));
         Repaint();
+        EditorApplication.RepaintHierarchyWindow();
     }
     public virtual void PlaceObjects()
     {
@@ -74,6 +70,7 @@ public class TerrainEditor : EditorWindow
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         bool ableToSpawn = Physics.Raycast(ray, out screenHit);
         List<GameObject> spawnedObjs = new List<GameObject>();
+        Debug.Log("Place");
         if (ableToSpawn)
         {
             bool anySpawnableObjects = false;
@@ -95,17 +92,39 @@ public class TerrainEditor : EditorWindow
                 {
                     SpawnableObject spawnableObject = GetObject(spawnableObjects);
                     if (spawnableObject == null) continue;
-                    
+
 
                     RaycastHit hit;
 
-                    if (Physics.Raycast(screenHit.point + Vector3.up*5, 
-                        new Vector3(Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize), -1,
-                                    Random.Range(-0.085f * TerrainSettings.brushSize, 0.085f * TerrainSettings.brushSize)), out hit) &&
+                    Vector3 position = Vector3.zero;
+                    switch (TerrainSettings.brushShape)
+                    {
+                        case BrushShape.Circle:
+
+                            float a = Random.Range(0f, 360f);
+                            float r = TerrainSettings.brushSize;
+                            if (TerrainSettings.fillBrush) r = Random.Range(0, TerrainSettings.brushSize);
+                            position = new Vector3(Mathf.Sin(a) * r, 0, Mathf.Cos(a) * r);
+
+                            break;
+
+                        case BrushShape.Square:
+
+                            float d = TerrainSettings.brushSize;
+                            if (TerrainSettings.fillBrush) d = Random.Range(0, TerrainSettings.brushSize);
+                            position = new Vector3(
+                                        Random.Range(-0.085f * d, 0.085f * d),
+                                        -1,
+                                        Random.Range(-0.085f * d, 0.085f * d));
+
+                            break;
+                    }
+
+                    if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) &&
 
                         ((TerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() != null) ||
                         (TerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
-                        (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)) )
+                        (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)))
                     {
                         
 
@@ -146,7 +165,6 @@ public class TerrainEditor : EditorWindow
                 if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("There are no objects to spawn!"));
             }
         }
-        
     }
     public virtual void ExchangeObjects()
     {
@@ -203,9 +221,10 @@ public class TerrainEditor : EditorWindow
             }
         }
         TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Exchange, spawnedObjectsTemp.ToList(), objsToExchange.ToList()));
-        Repaint();
         spawnedObjectsTemp.RemoveAll(o => o == null);
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
+        Repaint();
+        EditorApplication.RepaintHierarchyWindow();
     }
 
     public virtual SpawnableObject GetObject(List<SpawnableObject> spawnableObjects)
@@ -352,6 +371,7 @@ public class TerrainEditor : EditorWindow
 
     public virtual void SceneGUI()
     {
+
         if (!TerrainSettings.active) return;
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
@@ -385,30 +405,16 @@ public class TerrainEditor : EditorWindow
             }
         }
 
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && Event.current.modifiers == EventModifiers.Control)
+        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && 
+            Event.current.modifiers == EventModifiers.Control)
         {
             // Save
             FileManager.Write();
         }
-
-        //Debug.Log("scnee gui");
-
-        //BrushVis();
+        
+        BrushVis();
     }
-    public virtual void BrushVis()
-    {
-        if (Event.current != null) //Event.current != null
-        {
-            //Debug.Log("drawing");
-            //Debug.Log(Event.current.mousePosition);
-
-            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            RaycastHit screenHit;
-            Physics.Raycast(ray, out screenHit);
-
-            drawBrush(screenHit.point, screenHit.normal, 10);
-        }
-    }
+    
     public virtual void Undo()
     {
         if (TerrainSettings.changelog.Count == 0)
@@ -459,6 +465,7 @@ public class TerrainEditor : EditorWindow
             }
         }
         Repaint();
+        EditorApplication.RepaintHierarchyWindow();
     }
     public virtual void DrawHeader()
     {
@@ -477,21 +484,13 @@ public class TerrainEditor : EditorWindow
         {
             GUI.backgroundColor = new Color(0.4f, 1f, 0.4f, 1);
             GUI.contentColor = new Color(0.9f, 0.6f, 0.6f, 1);
-            if (GUILayout.Button("Disable"))
-            {
-                TerrainSettings.active = false;
-            }
+            if (GUILayout.Button("Disable")) Disable();
         }
         if (!TerrainSettings.active)
         {
             GUI.backgroundColor = new Color(1f, 0.4f, 0.4f, 1);
             GUI.contentColor = new Color(0.6f, 0.9f, 0.6f, 1);
-            if (GUILayout.Button("Enable"))
-            {
-                TerrainSettings.active = true;
-
-                Selection.activeObject = null;
-            }
+            if (GUILayout.Button("Enable")) Enable();
         }
 
         GUI.contentColor = oldContentColor;
@@ -507,6 +506,16 @@ public class TerrainEditor : EditorWindow
         }
 
         EditorGUILayout.Space(20);
+    }
+    void Enable()
+    {
+        TerrainSettings.active = true;
+
+        Selection.activeObject = null;
+    }
+    void Disable()
+    {
+        TerrainSettings.active = false;
     }
     public virtual void DrawBrushTabs()
     {
@@ -558,6 +567,9 @@ public class TerrainEditor : EditorWindow
         if (TerrainSettings.brushSize < 0) 
             TerrainSettings.brushSize = 0;
 
+        TerrainSettings.brushShape = (Utils.BrushShape)EditorGUILayout.EnumPopup("Brush shape", TerrainSettings.brushShape);
+        TerrainSettings.fillBrush = EditorGUILayout.Toggle("Fill brush", TerrainSettings.fillBrush);
+
         TerrainSettings.indexObjects = EditorGUILayout.Toggle("Index objects", TerrainSettings.indexObjects);
         if (TerrainSettings.indexObjects)
             TerrainSettings.indexFormat = EditorGUILayout.TextField("Index format", TerrainSettings.indexFormat);
@@ -568,6 +580,7 @@ public class TerrainEditor : EditorWindow
         TerrainSettings.ignoreInactiveLayers = EditorGUILayout.Toggle("Ignore inactive layers", TerrainSettings.ignoreInactiveLayers);
 
         TerrainSettings.debugMode = EditorGUILayout.Toggle("Debug mode", TerrainSettings.debugMode);
+
 
         // General Info
 
@@ -784,7 +797,7 @@ public class TerrainEditor : EditorWindow
 
             TerrainSettings.spawnableObjects[i].renameObject = EditorGUILayout.Toggle("Rename object", TerrainSettings.spawnableObjects[i].renameObject);
             if (TerrainSettings.spawnableObjects[i].renameObject)
-                TerrainSettings.spawnableObjects[i].newObjectName = EditorGUILayout.TextField("  Name: ", TerrainSettings.spawnableObjects[i].newObjectName);
+                TerrainSettings.spawnableObjects[i].newObjectName = EditorGUILayout.TextField("  Name ", TerrainSettings.spawnableObjects[i].newObjectName);
 
             TerrainSettings.spawnableObjects[i].centerObject = EditorGUILayout.Toggle("Center Object", TerrainSettings.spawnableObjects[i].centerObject);
 
@@ -792,7 +805,7 @@ public class TerrainEditor : EditorWindow
             if (TerrainSettings.spawnableObjects[i].customParent)
                 TerrainSettings.spawnableObjects[i].parent = (Transform)EditorGUILayout.ObjectField("  Parent", TerrainSettings.spawnableObjects[i].parent, typeof(Transform), true);
 
-            TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer: ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layersName.ToArray());
+            TerrainSettings.spawnableObjects[i].layerIndex = EditorGUILayout.Popup("Layer ", TerrainSettings.spawnableObjects[i].layerIndex, TerrainSettings.layersName.ToArray());
             if (TerrainSettings.spawnableObjects[i].layerIndex >= TerrainSettings.layersName.Count)
                 TerrainSettings.spawnableObjects[i].layer = TerrainSettings.layersName[0];
             else
@@ -945,17 +958,17 @@ public class TerrainEditor : EditorWindow
         FileManager.Read();
         if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Willow started!", "#00FF00FF"));
         SceneView.duringSceneGui += OnSceneGUI;
+        EditorApplication.quitting += FileManager.Write;
     }
     private void OnDisable()
     {
         FileManager.Write();
         if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Willow ended..", "#00FF00FF"));
         SceneView.duringSceneGui -= OnSceneGUI;
+        EditorApplication.quitting -= FileManager.Write;
     }
     private void OnSceneGUI(SceneView sceneView)
     {
-        //BrushVis();
         SceneGUI();
     }
-
 }

@@ -10,6 +10,9 @@ public class TerrainSettings : MonoBehaviour
     static public float brushSize = 25;
     static public bool indexObjects = true;
 
+    static public BrushShape brushShape = BrushShape.Circle;
+    static public bool fillBrush = true;
+
     static public long spawnedIndecies = 0;
     static public string indexFormat = " ({0} clone)";
 
