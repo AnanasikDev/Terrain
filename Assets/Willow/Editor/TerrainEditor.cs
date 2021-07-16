@@ -14,10 +14,22 @@ public class TerrainEditor : EditorWindow
     {
         GetWindow<TerrainEditor>("Terrain++");
     }
-    public void drawBrush(Vector3 Pos, Vector3 norm, float radius)
+    public void drawBrush(Vector3 pos, float size)
     {
-        Handles.color = new Color(0.1f, 0.1f, 0.2f, 0.5f);
-        Handles.DrawSolidDisc(Pos, Vector3.up, radius);
+        Color c = new Color(0.1f, 0.1f, 0.2f, 0.5f);
+        Handles.color = c;
+        if (TerrainSettings.brushShape == BrushShape.Circle)
+            Handles.DrawSolidDisc(pos, Vector3.up, size);
+        else if (TerrainSettings.brushShape == BrushShape.Square)
+        {
+            float normSize = size * 1.6f;
+            Handles.DrawSolidRectangleWithOutline(new Vector3[4] {
+            new Vector3(pos.x - normSize/2, pos.y, pos.z - normSize / 2),
+            new Vector3(pos.x - normSize/2, pos.y, pos.z + normSize / 2),
+            new Vector3(pos.x + normSize/2, pos.y, pos.z + normSize / 2),
+            new Vector3(pos.x + normSize/2, pos.y, pos.z - normSize / 2)
+            }, new Color(0.1f, 0.1f, 0.2f, 0.8f), c);
+        }
     }
     public virtual void BrushVis()
     {
@@ -25,7 +37,7 @@ public class TerrainEditor : EditorWindow
         RaycastHit screenHit;
         Physics.Raycast(ray, out screenHit);
 
-        drawBrush(screenHit.point, screenHit.normal, TerrainSettings.brushSize);
+        drawBrush(screenHit.point, TerrainSettings.brushSize);
 
         SceneView.RepaintAll();
     }
@@ -50,7 +62,7 @@ public class TerrainEditor : EditorWindow
             {
                 if (o != null)
                 {
-                    o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                    o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;// | HideFlags.DontSave;
                     o.SetActive(false);
                     spawnedObjectsTemp.Remove(o);
                     TerrainSettings.destroyedObjects.Add(o);
@@ -110,12 +122,30 @@ public class TerrainEditor : EditorWindow
 
                         case BrushShape.Square:
 
-                            float d = TerrainSettings.brushSize;
-                            if (TerrainSettings.fillBrush) d = Random.Range(0, TerrainSettings.brushSize);
-                            position = new Vector3(
-                                        Random.Range(-0.085f * d, 0.085f * d),
-                                        -1,
-                                        Random.Range(-0.085f * d, 0.085f * d));
+                            float size = TerrainSettings.brushSize * 0.75f;
+                            float x = 0;
+                            float z = 0;
+                            if (TerrainSettings.fillBrush)
+                            {
+                                x = Random.Range(-size, size);
+                                z = Random.Range(-size, size);
+                            }
+                            else
+                            {
+                                var lims = new float[2] { -size, size };
+                                bool g = Random.value > 0.5f;
+                                if (g)
+                                {
+                                    x = Random.Range(-size, size);
+                                    z = lims[Random.Range(0, 2)];
+                                }
+                                else
+                                {
+                                    z = Random.Range(-size, size);
+                                    x = lims[Random.Range(0, 2)];
+                                }
+                            }
+                            position = new Vector3(x, 0, z);
 
                             break;
                     }
@@ -371,7 +401,6 @@ public class TerrainEditor : EditorWindow
 
     public virtual void SceneGUI()
     {
-
         if (!TerrainSettings.active) return;
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
