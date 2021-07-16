@@ -8,6 +8,7 @@ public class TerrainSettings : MonoBehaviour
 
     static public int density = 4;
     static public float brushSize = 25;
+
     static public bool indexObjects = true;
 
     static public BrushShape brushShape = BrushShape.Circle;

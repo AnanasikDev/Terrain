@@ -1,12 +1,14 @@
-True
-200
-25
+False
+2
+10
 null
 onTerrainOnly
-1
-default
+2
+tree
 True
-1
+defaultLayer
+True
+2
 WillowExamplePrefab
 True
 1
@@ -38,7 +40,40 @@ False
 (1.1, 1.1, 1.1)
 1
 True
-default
+defaultLayer
+1
+WillowExamplePrefab 1
+True
+1
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+False
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
+True
+tree
 0
 0
 True

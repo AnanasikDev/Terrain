@@ -6,8 +6,12 @@ using static Utils;
 
 public class TerrainEditor : EditorWindow
 {
+    bool sceneview = true;
     string newLayerName = "defaultLayer";
     Vector2 scrollPos = Vector2.zero;
+
+    const HideFlags hidden = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave | HideFlags.NotEditable;
+    const HideFlags active = HideFlags.None;
 
     [MenuItem("Willow/Prefab brush")]
     public static void ShowWindow()
@@ -41,70 +45,30 @@ public class TerrainEditor : EditorWindow
 
         SceneView.RepaintAll();
     }
-    public virtual void EraseObjects()
-    {
-        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        RaycastHit hit = new RaycastHit();
-        Physics.Raycast(ray, out hit);
-
-        List<GameObject> spawnedObjectsTemp = TerrainSettings.spawnedObjects;
-        GameObject[] objsToDestroy =
-            spawnedObjectsTemp
-            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= TerrainSettings.brushSize * TerrainSettings.brushSize))
-            .ToArray();
-
-        if (TerrainSettings.ignoreInactiveLayers)
-            objsToDestroy = objsToDestroy.Where(gameObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(gameObject.GetComponent<SpawnedObject>().layer)]).ToArray();
-
-        foreach (GameObject o in objsToDestroy)
-        {
-            if (Random.Range(0, TerrainSettings.eraseSmoothness + 1) == TerrainSettings.eraseSmoothness || TerrainSettings.eraseSmoothness == 0)
-            {
-                if (o != null)
-                {
-                    o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;// | HideFlags.DontSave;
-                    o.SetActive(false);
-                    spawnedObjectsTemp.Remove(o);
-                    TerrainSettings.destroyedObjects.Add(o);
-                }
-            }
-        }
-        spawnedObjectsTemp.RemoveAll(o => o == null);
-        TerrainSettings.spawnedObjects = spawnedObjectsTemp;
-
-        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, null, objsToDestroy.ToList()));
-        Repaint();
-        EditorApplication.RepaintHierarchyWindow();
-    }
     public virtual void PlaceObjects()
     {
         RaycastHit screenHit;
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         bool ableToSpawn = Physics.Raycast(ray, out screenHit);
         List<GameObject> spawnedObjs = new List<GameObject>();
-        Debug.Log("Place");
         if (ableToSpawn)
         {
-            bool anySpawnableObjects = false;
-            foreach (SpawnableObject spObj in TerrainSettings.spawnableObjects)
-            {
-                if (spObj.spawn && spObj.spawnableObject != null)
-                {
-                    anySpawnableObjects = true;
-                    break;
-                }
-            }
             List<SpawnableObject> spawnableObjects = TerrainSettings.spawnableObjects;
             if (TerrainSettings.ignoreInactiveLayers)
-                spawnableObjects = spawnableObjects.Where(spawnableObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(spawnableObject.layer)]).ToList();
-            
+                spawnableObjects = spawnableObjects
+                    .Where(spawnableObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(spawnableObject.layer)])
+                    .Where(spawnableObject => spawnableObject.spawn && spawnableObject.spawnableObject != null)
+                    .ToList();
+
+
+            bool anySpawnableObjects = spawnableObjects.Any();
+
             if (TerrainSettings.spawnableObjects.Count > 0 && anySpawnableObjects)
             {
                 for (int i = 0; i < TerrainSettings.density; i++)
                 {
                     SpawnableObject spawnableObject = GetObject(spawnableObjects);
                     if (spawnableObject == null) continue;
-
 
                     RaycastHit hit;
 
@@ -156,7 +120,6 @@ public class TerrainEditor : EditorWindow
                         (TerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<TerrainSettings>() == null) ||
                         (TerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)))
                     {
-                        
 
                         GameObject temp = Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
 
@@ -171,6 +134,7 @@ public class TerrainEditor : EditorWindow
 
                         temp.GetComponent<SpawnedObject>().layer = spawnableObject.layer;
 
+                        temp.name = spawnableObject.spawnableObject.name;
                         if (spawnableObject.renameObject)
                             temp.name = spawnableObject.newObjectName;
 
@@ -195,6 +159,43 @@ public class TerrainEditor : EditorWindow
                 if (TerrainSettings.debugMode) Debug.LogError(Utils.FormatLog("There are no objects to spawn!"));
             }
         }
+    }
+    public virtual void EraseObjects()
+    {
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(ray, out hit);
+
+        List<GameObject> spawnedObjectsTemp = TerrainSettings.spawnedObjects;
+        GameObject[] objsToDestroy =
+            spawnedObjectsTemp
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= TerrainSettings.brushSize * TerrainSettings.brushSize))
+            .ToArray();
+
+        if (TerrainSettings.ignoreInactiveLayers)
+            objsToDestroy = objsToDestroy.Where(gameObject => TerrainSettings.layersState[TerrainSettings.layersName.IndexOf(gameObject.GetComponent<SpawnedObject>().layer)]).ToArray();
+
+        foreach (GameObject o in objsToDestroy)
+        {
+            if (Random.Range(0, TerrainSettings.eraseSmoothness + 1) == TerrainSettings.eraseSmoothness || TerrainSettings.eraseSmoothness == 0)
+            {
+                if (o != null)
+                {
+                    o.gameObject.hideFlags = hidden;
+                    o.SetActive(false);
+                    spawnedObjectsTemp.Remove(o);
+                    TerrainSettings.destroyedObjects.Add(o);
+
+                    EditorApplication.RepaintHierarchyWindow();
+                }
+            }
+        }
+        spawnedObjectsTemp.RemoveAll(o => o == null);
+        TerrainSettings.spawnedObjects = spawnedObjectsTemp;
+
+        TerrainSettings.changelog.Push(new Change(Utils.ChangeType.Erasure, null, objsToDestroy.ToList()));
+        Repaint();
+        EditorApplication.RepaintHierarchyWindow();
     }
     public virtual void ExchangeObjects()
     {
@@ -228,6 +229,8 @@ public class TerrainEditor : EditorWindow
                     Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
                     Transform parent = TerrainSettings.exchangeParent ? o.transform.parent : spawnableObject.parent;
                     GameObject spawned = Instantiate(spawnableObject.spawnableObject, position, Quaternion.identity, parent);
+                    spawned.name = o.name;
+
                     if (TerrainSettings.exchangeRotation)
                         spawned.transform.localRotation = o.transform.localRotation;
                     else
@@ -244,7 +247,7 @@ public class TerrainEditor : EditorWindow
                     spawnedObjectsTemp.Remove(o);
                     spawnedObjectsTemp.Add(spawned);
 
-                    o.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                    o.gameObject.hideFlags = hidden;
                     o.SetActive(false);
                     TerrainSettings.destroyedObjects.Add(o);
                 }
@@ -255,6 +258,7 @@ public class TerrainEditor : EditorWindow
         TerrainSettings.spawnedObjects = spawnedObjectsTemp;
         Repaint();
         EditorApplication.RepaintHierarchyWindow();
+        EditorApplication.DirtyHierarchyWindowSorting();
     }
 
     public virtual SpawnableObject GetObject(List<SpawnableObject> spawnableObjects)
@@ -402,11 +406,26 @@ public class TerrainEditor : EditorWindow
     public virtual void SceneGUI()
     {
         if (!TerrainSettings.active) return;
+
+        if (Event.current.type == EventType.MouseLeaveWindow)
+            sceneview = false;
+        else if (Event.current.type == EventType.MouseEnterWindow)
+            sceneview = true;
+        if (!sceneview)
+        {
+            EditorApplication.RepaintHierarchyWindow();
+            return;
+        }
+
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
         if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
             (Event.current.type == EventType.MouseDown && Event.current.button == 0 && TerrainSettings.brushTabSelectedId == 1)) // Destroying objects
         {
             EraseObjects();
+
+            Repaint();
+            EditorApplication.RepaintHierarchyWindow();
+            EditorApplication.DirtyHierarchyWindowSorting();
 
             GUIUtility.hotControl = controlId;
             Event.current.Use();
@@ -430,6 +449,9 @@ public class TerrainEditor : EditorWindow
         {
             if (Event.current.modifiers == EventModifiers.Control)
             {
+                GUIUtility.hotControl = controlId;
+                Event.current.Use();
+
                 Undo();
             }
         }
@@ -441,7 +463,9 @@ public class TerrainEditor : EditorWindow
             FileManager.Write();
         }
         
-        BrushVis();
+        if (Event.current != null) BrushVis();
+
+        EditorApplication.RepaintHierarchyWindow();
     }
     
     public virtual void Undo()
@@ -452,14 +476,17 @@ public class TerrainEditor : EditorWindow
             return;
         }
 
+        int controlId = GUIUtility.GetControlID(FocusType.Passive);
         Change lastChange = TerrainSettings.changelog.Pop();
         if (lastChange.type == ChangeType.Placement)
         {
             GameObject[] changedObjsTemp = lastChange.spawnedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
-                obj.gameObject.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                obj.gameObject.hideFlags = hidden;
                 obj.SetActive(false);
+                TerrainSettings.spawnedObjects.Remove(obj);
+                TerrainSettings.destroyedObjects.Add(obj);
             }
         }
         else if (lastChange.type == ChangeType.Erasure)
@@ -467,18 +494,20 @@ public class TerrainEditor : EditorWindow
             GameObject[] changedObjsTemp = lastChange.destroyedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
-                obj.hideFlags = HideFlags.None;
+                obj.hideFlags = active;
                 obj.SetActive(true);
                 TerrainSettings.destroyedObjects.Remove(obj);
                 TerrainSettings.spawnedObjects.Add(obj);
             }
+            GUIUtility.hotControl = controlId;
+            Event.current.Use();
         }
         else if (lastChange.type == ChangeType.Exchange)
         {
             GameObject[] destroyedObjsTemp = lastChange.destroyedObjects.ToArray();
             foreach (GameObject obj in destroyedObjsTemp)
             {
-                obj.hideFlags = HideFlags.None;
+                obj.hideFlags = active;
                 obj.SetActive(true);
                 TerrainSettings.destroyedObjects.Remove(obj);
                 TerrainSettings.spawnedObjects.Add(obj);
@@ -487,7 +516,7 @@ public class TerrainEditor : EditorWindow
             GameObject[] spawnedObjsTemp = lastChange.spawnedObjects.ToArray();
             foreach (GameObject obj in spawnedObjsTemp)
             {
-                obj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
+                obj.hideFlags = hidden;
                 obj.SetActive(false);
                 TerrainSettings.spawnedObjects.Remove(obj);
                 TerrainSettings.destroyedObjects.Add(obj);
@@ -695,7 +724,7 @@ public class TerrainEditor : EditorWindow
             {
                 List<GameObject> spawned = TerrainSettings.spawnedObjects.Where(
                                     o => o != null && 
-                                    o.hideFlags == HideFlags.None && 
+                                    o.hideFlags == active && 
                                     o.GetComponent<SpawnedObject>().layer == TerrainSettings.layersName[layerId]).ToList();
 
                 if (TerrainSettings.layersState[layerId]) // If active
@@ -723,7 +752,7 @@ public class TerrainEditor : EditorWindow
                 }
                 else foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects)
                 {
-                    if (spawnedObj != null && spawnedObj.hideFlags == HideFlags.None)
+                    if (spawnedObj != null && spawnedObj.hideFlags == active)
                     {
                         SpawnedObject spawnedObjectSc = spawnedObj.GetComponent<SpawnedObject>();
                         if (spawnedObjectSc != null && spawnedObjectSc.layer == lastLayerName)
