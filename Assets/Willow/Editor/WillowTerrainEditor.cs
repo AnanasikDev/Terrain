@@ -288,8 +288,12 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowTerrainSettings.debugMode = EditorGUILayout.Toggle("Debug mode", WillowTerrainSettings.debugMode);
         WillowTerrainSettings.autoSave = EditorGUILayout.Toggle("Auto save", WillowTerrainSettings.autoSave);
 
-
-
+        WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
+        if (GUILayout.Button("Recalculate all"))
+        {
+            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
+            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
+        }
 
         // General Info
 
@@ -523,13 +527,14 @@ public sealed class WillowTerrainEditor : EditorWindow
             WillowTerrainSettings.spawnableObjects[i].spawnChance = EditorGUILayout.IntField("Chance", WillowTerrainSettings.spawnableObjects[i].spawnChance); //objs[i].spawnChance
             if (WillowTerrainSettings.spawnableObjects[i].spawnChance < 0) WillowTerrainSettings.spawnableObjects[i].spawnChance = 0;
 
-            WillowTerrainSettings.spawnableObjects[i].RecalculatePosition = GUILayout.Button("Recalculate position");
-            if (WillowTerrainSettings.spawnableObjects[i].RecalculatePosition)
+            if (GUILayout.Button("Recalculate position"))
             {
-                foreach (GameObject obj in WillowTerrainSettings.spawnedObjects)
-                {
-                    obj.GetComponent<WillowSpawnedObject>().RecalculateObjectPosition();
-                }
+                RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.spawnableObjects[i].layer).ToArray());
+                
+            }
+            if (GUILayout.Button("Recalculate rotation"))
+            {
+                RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.spawnableObjects[i].layer).ToArray());
             }
 
             Label("Rotation");
@@ -696,5 +701,19 @@ public sealed class WillowTerrainEditor : EditorWindow
     private void OnSceneGUI(SceneView sceneView)
     {
         SceneGUI();
+    }
+    private void RecalculatePositionsSelected(GameObject[] spawnedObjects)
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectPosition();
+        }
+    }
+    private void RecalculateRotationsSelected(GameObject[] spawnedObjects)
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectRotation();
+        }
     }
 }

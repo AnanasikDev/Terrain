@@ -54,5 +54,5 @@ public class WillowTerrainSettings : MonoBehaviour
     // Changelog for undo implementation
     static public Stack<Change> changelog = new Stack<Change>();
 
-    static public float PositionRayRecalculatingLength = 50;
+    static public float RecalculatingLength = 50;
 }

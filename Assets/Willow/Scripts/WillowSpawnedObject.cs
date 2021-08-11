@@ -11,9 +11,15 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         SpawnableObject = spawnableObject;
     }
+    private bool GetHit(out RaycastHit hit)
+    {
+        bool result = Physics.Raycast(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, out RaycastHit _hit);
+        hit = _hit;
+        return result;
+    }
     private bool GetNewPosition(out Vector3 position)
     {
-        Physics.Raycast(transform.position + Vector3.up * WillowTerrainSettings.PositionRayRecalculatingLength, Vector3.down, out RaycastHit hit);
+        GetHit(out RaycastHit hit);
 
         position = hit.point;
         
@@ -21,7 +27,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void RecalculateObjectPosition()
     {
-        Debug.Log("Recalc");
         if (GetNewPosition(out Vector3 newPosition))
         {
             transform.position = newPosition;
@@ -38,5 +43,11 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         }
 
         transform.position = result;
+    }
+    public void RecalculateObjectRotation()
+    {
+        GetHit(out RaycastHit hit);
+
+        WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, hit.normal, SpawnableObject.customEulersRotation);
     }
 }

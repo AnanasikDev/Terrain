@@ -5,7 +5,7 @@ using System.IO;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-public class WillowFileManager : Editor
+public class WillowFileManager
 {
     static string path = "./file.txt";
     static string prefabsFolder = "Assets/Willow/Example/Prefabs/";

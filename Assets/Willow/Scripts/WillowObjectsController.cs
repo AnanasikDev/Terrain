@@ -95,6 +95,7 @@ public static class WillowObjectsController
                             spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
 
                         temp.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.layer;
+                        temp.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
 
                         temp.name = spawnableObject.spawnableObject.name;
                         if (spawnableObject.renameObject)
@@ -202,6 +203,8 @@ public static class WillowObjectsController
                     if (WillowTerrainSettings.exchangeColor)
                         SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned, o.GetComponent<WillowSpawnedObject>().Renderer.sharedMaterial.color);
                     else SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned);
+
+                    o.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
 
                     spawned.GetComponent<WillowSpawnedObject>().PositionAdd =
                         spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;

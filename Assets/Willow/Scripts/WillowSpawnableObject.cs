@@ -46,8 +46,6 @@ public sealed class SpawnableObject
 
     public bool hidden = false;
 
-    public bool RecalculatePosition = true;
-
     public SpawnableObject()
     {
 
