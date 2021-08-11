@@ -5,7 +5,7 @@ using System.IO;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-public class FileManager : Editor
+public class WillowFileManager : Editor
 {
     static string path = "./file.txt";
     static string prefabsFolder = "Assets/Willow/Example/Prefabs/";
@@ -13,22 +13,22 @@ public class FileManager : Editor
     {
         StringBuilder output = new StringBuilder();
 
-        output.AppendLine(TerrainSettings.active.ToString());
-        output.AppendLine(TerrainSettings.density.ToString());
-        output.AppendLine(TerrainSettings.brushSize.ToString());
+        output.AppendLine(WillowTerrainSettings.active.ToString());
+        output.AppendLine(WillowTerrainSettings.density.ToString());
+        output.AppendLine(WillowTerrainSettings.brushSize.ToString());
 
-        output.AppendLine(TerrainSettings.parent == null ? "null" : TerrainSettings.parent.name);
-        output.AppendLine(TerrainSettings.placementType.ToString());
+        output.AppendLine(WillowTerrainSettings.parent == null ? "null" : WillowTerrainSettings.parent.name);
+        output.AppendLine(WillowTerrainSettings.placementType.ToString());
 
-        output.AppendLine(TerrainSettings.layersName.Count.ToString());
-        for (int layer = 0; layer < TerrainSettings.layersName.Count; layer++)
+        output.AppendLine(WillowTerrainSettings.layersName.Count.ToString());
+        for (int layer = 0; layer < WillowTerrainSettings.layersName.Count; layer++)
         {
-            output.AppendLine(TerrainSettings.layersName[layer].Replace("\r", "").Replace("\n", ""));
-            output.AppendLine(TerrainSettings.layersState[layer].ToString());
+            output.AppendLine(WillowTerrainSettings.layersName[layer].Replace("\r", "").Replace("\n", ""));
+            output.AppendLine(WillowTerrainSettings.layersState[layer].ToString());
         }
 
-        output.AppendLine(TerrainSettings.spawnableObjects.Count.ToString());
-        foreach (SpawnableObject obj in TerrainSettings.spawnableObjects)
+        output.AppendLine(WillowTerrainSettings.spawnableObjects.Count.ToString());
+        foreach (SpawnableObject obj in WillowTerrainSettings.spawnableObjects)
         {
             output.AppendLine(obj.spawnableObject == null ? "null" : obj.spawnableObject.name);
             output.AppendLine(obj.spawn.ToString());
@@ -75,30 +75,30 @@ public class FileManager : Editor
             output.AppendLine(obj.layerIndex.ToString());
         }
 
-        output.AppendLine(TerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
-        foreach (GameObject spawnedObj in TerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
+        output.AppendLine(WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
+        foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
             output.AppendLine(spawnedObj.name.Replace("\r", ""));
         }
 
-        output.AppendLine(TerrainSettings.indexObjects.ToString());
-        output.AppendLine(TerrainSettings.indexFormat.Replace("\r", ""));
-        output.AppendLine(TerrainSettings.spawnedIndecies.ToString());
+        output.AppendLine(WillowTerrainSettings.indexObjects.ToString());
+        output.AppendLine(WillowTerrainSettings.indexFormat.Replace("\r", ""));
+        output.AppendLine(WillowTerrainSettings.spawnedIndecies.ToString());
 
-        output.AppendLine(TerrainSettings.eraseSmoothness.ToString());
+        output.AppendLine(WillowTerrainSettings.eraseSmoothness.ToString());
 
-        output.AppendLine(TerrainSettings.exchangeColor.ToString());
-        output.AppendLine(TerrainSettings.exchangeParent.ToString());
-        output.AppendLine(TerrainSettings.exchangePosition.ToString());
-        output.AppendLine(TerrainSettings.exchangeRotation.ToString());
-        output.AppendLine(TerrainSettings.exchangeScale.ToString());
-        output.AppendLine(TerrainSettings.exchangeSmoothness.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangeColor.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangeParent.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangePosition.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangeRotation.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangeScale.ToString());
+        output.AppendLine(WillowTerrainSettings.exchangeSmoothness.ToString());
 
         using (StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(output);
         }
-        if (TerrainSettings.debugMode) Debug.Log(Utils.FormatLog("Templates saved!", "#00FF00FF"));
+        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Templates saved!", "#00FF00FF"));
     }
     public static void Read()
     {
@@ -107,29 +107,29 @@ public class FileManager : Editor
         using (StreamReader reader = new StreamReader(path))
         {
             lines = reader.ReadToEnd().Split('\n');
-            TerrainSettings.active = Convert.ToBoolean(lines[0]);
-            TerrainSettings.density = Convert.ToInt32(lines[1]);
-            TerrainSettings.brushSize = Convert.ToInt32(lines[2]);
+            WillowTerrainSettings.active = Convert.ToBoolean(lines[0]);
+            WillowTerrainSettings.density = Convert.ToInt32(lines[1]);
+            WillowTerrainSettings.brushSize = Convert.ToInt32(lines[2]);
 
-            if (lines[3].Replace("\r", "") == "null") TerrainSettings.parent = null;
-            else TerrainSettings.parent = GameObject.Find(lines[3].Replace("\r", "")).transform;
+            if (lines[3].Replace("\r", "") == "null") WillowTerrainSettings.parent = null;
+            else WillowTerrainSettings.parent = GameObject.Find(lines[3].Replace("\r", "")).transform;
 
-            Enum.TryParse(lines[4], out TerrainSettings.placementType);
+            Enum.TryParse(lines[4], out WillowTerrainSettings.placementType);
 
             int layerAmount = Convert.ToInt32(lines[5]);
-            TerrainSettings.layersName.Clear();
-            TerrainSettings.layersName = new List<string>(layerAmount);
-            TerrainSettings.layersState.Clear();
-            TerrainSettings.layersState = new List<bool>(layerAmount);
+            WillowTerrainSettings.layersName.Clear();
+            WillowTerrainSettings.layersName = new List<string>(layerAmount);
+            WillowTerrainSettings.layersState.Clear();
+            WillowTerrainSettings.layersState = new List<bool>(layerAmount);
             for (int layer = 0; layer < layerAmount * 2; layer += 2)
             {
-                TerrainSettings.layersName.Add(lines[layer + 6]);
-                TerrainSettings.layersState.Add(Convert.ToBoolean(lines[layer + 7]));
+                WillowTerrainSettings.layersName.Add(lines[layer + 6]);
+                WillowTerrainSettings.layersState.Add(Convert.ToBoolean(lines[layer + 7]));
             }
 
-            TerrainSettings.spawnableObjects.Clear();
+            WillowTerrainSettings.spawnableObjects.Clear();
             int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
-            TerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
+            WillowTerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
             int line;
             for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
@@ -206,30 +206,30 @@ public class FileManager : Editor
                 obj.layer = lines[line + 31];
                 obj.layerIndex = Convert.ToInt32(lines[line + 32]);
 
-                TerrainSettings.spawnableObjects.Add(obj);
+                WillowTerrainSettings.spawnableObjects.Add(obj);
             }
 
-            TerrainSettings.spawnedObjects.Clear();
-            TerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].Replace("\r", "").Replace("\n", "")));
+            WillowTerrainSettings.spawnedObjects.Clear();
+            WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].Replace("\r", "").Replace("\n", "")));
             int l;
-            for (l = line + 1; l < TerrainSettings.spawnedObjects.Capacity + line + 1; l++)
+            for (l = line + 1; l < WillowTerrainSettings.spawnedObjects.Capacity + line + 1; l++)
             {
                 var g = GameObject.Find(lines[l]);
-                TerrainSettings.spawnedObjects.Add(g);
+                WillowTerrainSettings.spawnedObjects.Add(g);
             }
 
-            TerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
-            TerrainSettings.indexFormat = lines[l + 1];
-            TerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]);
+            WillowTerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
+            WillowTerrainSettings.indexFormat = lines[l + 1];
+            WillowTerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]);
 
-            TerrainSettings.eraseSmoothness = Convert.ToInt32(lines[l + 3]);
+            WillowTerrainSettings.eraseSmoothness = Convert.ToInt32(lines[l + 3]);
 
-            TerrainSettings.exchangeColor = Convert.ToBoolean(lines[l + 4]);
-            TerrainSettings.exchangeParent = Convert.ToBoolean(lines[l + 5]);
-            TerrainSettings.exchangePosition = Convert.ToBoolean(lines[l + 6]);
-            TerrainSettings.exchangeRotation = Convert.ToBoolean(lines[l + 7]);
-            TerrainSettings.exchangeScale = Convert.ToBoolean(lines[l + 8]);
-            TerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]); //
+            WillowTerrainSettings.exchangeColor = Convert.ToBoolean(lines[l + 4]);
+            WillowTerrainSettings.exchangeParent = Convert.ToBoolean(lines[l + 5]);
+            WillowTerrainSettings.exchangePosition = Convert.ToBoolean(lines[l + 6]);
+            WillowTerrainSettings.exchangeRotation = Convert.ToBoolean(lines[l + 7]);
+            WillowTerrainSettings.exchangeScale = Convert.ToBoolean(lines[l + 8]);
+            WillowTerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]); //
         }
     }
 }

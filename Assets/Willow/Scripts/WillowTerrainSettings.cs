@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
-using static Utils;
-public class TerrainSettings : MonoBehaviour
+using static WillowUtils;
+public class WillowTerrainSettings : MonoBehaviour
 {
     static public bool validated = false;
-    static public TerrainSettings instance;
+    static public WillowTerrainSettings instance;
 
     static public int density = 4;
     static public float brushSize = 25;
@@ -18,6 +19,7 @@ public class TerrainSettings : MonoBehaviour
     static public string indexFormat = " ({0} clone)";
 
     static public bool debugMode = true;
+    static public bool autoSave = true;
 
     static public bool ignoreInactiveLayers = false;
 
@@ -51,4 +53,6 @@ public class TerrainSettings : MonoBehaviour
 
     // Changelog for undo implementation
     static public Stack<Change> changelog = new Stack<Change>();
+
+    static public float PositionRayRecalculatingLength = 50;
 }

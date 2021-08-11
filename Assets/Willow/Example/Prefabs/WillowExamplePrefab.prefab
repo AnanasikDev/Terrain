@@ -92,6 +92,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 5272771688886314352}
-  layer: 
-  positionAdd: {x: 0, y: 0, z: 0}
+  Renderer: {fileID: 5272771688886314352}
+  Layer: 
+  PositionAdd: {x: 0, y: 0, z: 0}
+  SpawnableObject:
+    spawn: 1
+    spawnableObject: {fileID: 0}
+    spawnChance: 1
+    rotationType: 2
+    rotationAxis: 1
+    customEulersRotation: {x: 0, y: 0, z: 0}
+    lerpValue: 0.15
+    minLerpValue: 0.1
+    maxLerpValue: 0.2
+    randomizeLerpValue: 0
+    randomMinRotation: {x: 0, y: 0, z: 0}
+    randomMaxRotation: {x: 360, y: 360, z: 360}
+    multiRotationAxis: 0
+    modColor: 1
+    colorModPercentage: 35
+    customParent: 0
+    parent: {fileID: 0}
+    centerObject: 0
+    modifyPosition: 0
+    positionAddition: {x: 0, y: 0, z: 0}
+    layer: default
+    layerIndex: 0
+    renameObject: 0
+    newObjectName: Object
+    scaleType: 2
+    scaleAxis: 6
+    modScale: 0
+    customScale: {x: 1, y: 1, z: 1}
+    scaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
+    scaleMin: 1
+    scaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
+    scaleMax: 1
+    separateScaleAxis: 1
+    hidden: 0
+    RecalculatePosition: 1

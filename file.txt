@@ -1,14 +1,12 @@
-False
-2
-10
+True
+15
+30
 null
 onTerrainOnly
-2
-tree
+1
+default
 True
-defaultLayer
-True
-2
+1
 WillowExamplePrefab
 True
 1
@@ -40,45 +38,120 @@ False
 (1.1, 1.1, 1.1)
 1
 True
-defaultLayer
-1
-WillowExamplePrefab 1
-True
-1
-False
-null
-False
-AsPrefab
-Y
-(0.0, 0.0, 0.0)
-0,15
-0,1
-0,2
-False
-False
-(0.0, 0.0, 0.0)
-(360.0, 360.0, 360.0)
-True
-35
-False
-(0.0, 0.0, 0.0)
-False
-Object
-AsPrefab
-XYZ
-False
-(1.0, 1.0, 1.0)
-(0.9, 0.9, 0.9)
-1
-(1.1, 1.1, 1.1)
-1
-True
-tree
+default
 0
-0
+108
+WillowExamplePrefab (0 clone)
+WillowExamplePrefab (1 clone)
+WillowExamplePrefab (2 clone)
+WillowExamplePrefab (3 clone)
+WillowExamplePrefab (4 clone)
+WillowExamplePrefab (5 clone)
+WillowExamplePrefab (6 clone)
+WillowExamplePrefab (7 clone)
+WillowExamplePrefab (8 clone)
+WillowExamplePrefab (9 clone)
+WillowExamplePrefab (10 clone)
+WillowExamplePrefab (11 clone)
+WillowExamplePrefab (12 clone)
+WillowExamplePrefab (13 clone)
+WillowExamplePrefab (14 clone)
+WillowExamplePrefab (15 clone)
+WillowExamplePrefab (16 clone)
+WillowExamplePrefab (17 clone)
+WillowExamplePrefab (18 clone)
+WillowExamplePrefab (19 clone)
+WillowExamplePrefab (20 clone)
+WillowExamplePrefab (21 clone)
+WillowExamplePrefab (22 clone)
+WillowExamplePrefab (23 clone)
+WillowExamplePrefab (24 clone)
+WillowExamplePrefab (25 clone)
+WillowExamplePrefab (26 clone)
+WillowExamplePrefab (27 clone)
+WillowExamplePrefab (28 clone)
+WillowExamplePrefab (29 clone)
+WillowExamplePrefab (30 clone)
+WillowExamplePrefab (31 clone)
+WillowExamplePrefab (32 clone)
+WillowExamplePrefab (33 clone)
+WillowExamplePrefab (34 clone)
+WillowExamplePrefab (35 clone)
+WillowExamplePrefab (36 clone)
+WillowExamplePrefab (37 clone)
+WillowExamplePrefab (38 clone)
+WillowExamplePrefab (39 clone)
+WillowExamplePrefab (40 clone)
+WillowExamplePrefab (41 clone)
+WillowExamplePrefab (42 clone)
+WillowExamplePrefab (43 clone)
+WillowExamplePrefab (44 clone)
+WillowExamplePrefab (45 clone)
+WillowExamplePrefab (46 clone)
+WillowExamplePrefab (47 clone)
+WillowExamplePrefab (48 clone)
+WillowExamplePrefab (49 clone)
+WillowExamplePrefab (50 clone)
+WillowExamplePrefab (51 clone)
+WillowExamplePrefab (52 clone)
+WillowExamplePrefab (53 clone)
+WillowExamplePrefab (54 clone)
+WillowExamplePrefab (55 clone)
+WillowExamplePrefab (56 clone)
+WillowExamplePrefab (57 clone)
+WillowExamplePrefab (58 clone)
+WillowExamplePrefab (59 clone)
+WillowExamplePrefab (60 clone)
+WillowExamplePrefab (61 clone)
+WillowExamplePrefab (62 clone)
+WillowExamplePrefab (63 clone)
+WillowExamplePrefab (64 clone)
+WillowExamplePrefab (65 clone)
+WillowExamplePrefab (66 clone)
+WillowExamplePrefab (67 clone)
+WillowExamplePrefab (68 clone)
+WillowExamplePrefab (69 clone)
+WillowExamplePrefab (70 clone)
+WillowExamplePrefab (71 clone)
+WillowExamplePrefab (72 clone)
+WillowExamplePrefab (73 clone)
+WillowExamplePrefab (74 clone)
+WillowExamplePrefab (75 clone)
+WillowExamplePrefab (76 clone)
+WillowExamplePrefab (77 clone)
+WillowExamplePrefab (78 clone)
+WillowExamplePrefab (79 clone)
+WillowExamplePrefab (80 clone)
+WillowExamplePrefab (81 clone)
+WillowExamplePrefab (82 clone)
+WillowExamplePrefab (83 clone)
+WillowExamplePrefab (84 clone)
+WillowExamplePrefab (85 clone)
+WillowExamplePrefab (86 clone)
+WillowExamplePrefab (87 clone)
+WillowExamplePrefab (88 clone)
+WillowExamplePrefab (89 clone)
+WillowExamplePrefab (90 clone)
+WillowExamplePrefab (91 clone)
+WillowExamplePrefab (92 clone)
+WillowExamplePrefab (93 clone)
+WillowExamplePrefab (94 clone)
+WillowExamplePrefab (95 clone)
+WillowExamplePrefab (96 clone)
+WillowExamplePrefab (97 clone)
+WillowExamplePrefab (98 clone)
+WillowExamplePrefab (99 clone)
+WillowExamplePrefab (100 clone)
+WillowExamplePrefab (101 clone)
+WillowExamplePrefab (102 clone)
+WillowExamplePrefab (103 clone)
+WillowExamplePrefab (104 clone)
+WillowExamplePrefab (105 clone)
+WillowExamplePrefab (106 clone)
+WillowExamplePrefab (107 clone)
 True
  ({0} clone)
-0
+108
 0
 False
 True
