@@ -527,6 +527,8 @@ public sealed class WillowTerrainEditor : EditorWindow
             WillowTerrainSettings.spawnableObjects[i].spawnChance = EditorGUILayout.IntField("Chance", WillowTerrainSettings.spawnableObjects[i].spawnChance); //objs[i].spawnChance
             if (WillowTerrainSettings.spawnableObjects[i].spawnChance < 0) WillowTerrainSettings.spawnableObjects[i].spawnChance = 0;
 
+
+            EditorGUILayout.BeginHorizontal("box");
             if (GUILayout.Button("Recalculate position"))
             {
                 RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.spawnableObjects[i].layer).ToArray());
@@ -536,6 +538,7 @@ public sealed class WillowTerrainEditor : EditorWindow
             {
                 RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.spawnableObjects[i].layer).ToArray());
             }
+            EditorGUILayout.EndHorizontal();
 
             Label("Rotation");
             

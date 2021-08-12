@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -265,7 +265,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &4997541
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -433,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -471,7 +470,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &20711337
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -639,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -677,7 +675,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &26002336
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -770,7 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -808,7 +805,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &26970696
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -1201,7 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -1239,7 +1235,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &48041042
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -1407,7 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -1445,7 +1440,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &75960221
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -1538,7 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -1576,7 +1570,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &76345242
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -1669,7 +1662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -1707,7 +1700,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &76972715
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -2579,7 +2571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -2617,7 +2609,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &118977929
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -2785,7 +2776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -2823,7 +2814,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &127147560
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -2916,7 +2906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -2954,7 +2944,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &128178964
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -3047,7 +3036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -3085,7 +3074,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &134604332
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -3553,7 +3541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -3591,7 +3579,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &164895829
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -3909,7 +3896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -3947,7 +3934,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &186816222
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4040,7 +4026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -4078,7 +4064,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &204610781
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4171,7 +4156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -4209,7 +4194,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &233780637
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4527,7 +4511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -4565,7 +4549,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &245384955
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4658,7 +4641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -4696,7 +4679,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &245645571
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4789,7 +4771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -4827,7 +4809,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &253085727
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -4964,7 +4945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -5002,7 +4983,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &271679021
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -5095,7 +5075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -5133,7 +5113,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &274579837
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -5526,7 +5505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -5564,7 +5543,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &287139798
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -5657,7 +5635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -5695,7 +5673,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &288999307
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -5788,7 +5765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -5826,7 +5803,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &297537996
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6219,7 +6195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6257,7 +6233,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &324052405
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6350,7 +6325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6388,7 +6363,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &328769267
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6481,7 +6455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6519,7 +6493,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &329213525
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6612,7 +6585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6650,7 +6623,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &339552438
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6743,7 +6715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6781,7 +6753,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &345808411
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -6874,7 +6845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -6912,7 +6883,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &350509784
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7080,7 +7050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7118,7 +7088,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &352687653
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7286,7 +7255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7324,7 +7293,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &359724166
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7492,7 +7460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7530,7 +7498,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &371424427
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7623,7 +7590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7661,7 +7628,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &375248193
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7798,7 +7764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7836,7 +7802,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &394027473
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -7929,7 +7894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -7967,7 +7932,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &403741021
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -8060,7 +8024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -8098,7 +8062,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &408593550
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -8371,7 +8334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -8409,7 +8372,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &421778664
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -8577,7 +8539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -8615,7 +8577,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &423774185
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -8783,7 +8744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -8821,7 +8782,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &440618095
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -8914,7 +8874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -8952,7 +8912,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &443994503
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9045,7 +9004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -9083,7 +9042,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &444818651
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9251,7 +9209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -9289,7 +9247,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &452360810
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9382,7 +9339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -9420,7 +9377,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &456760299
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9588,7 +9544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -9626,7 +9582,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &462493044
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9794,7 +9749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -9832,7 +9787,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &470289219
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -9969,7 +9923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -10007,7 +9961,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &475504259
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -10100,7 +10053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -10138,7 +10091,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &485799169
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -10381,7 +10333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -10419,7 +10371,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &498106420
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -10706,7 +10657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -10744,7 +10695,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &507623045
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -10837,7 +10787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -10875,7 +10825,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &509689087
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -10968,7 +10917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11006,7 +10955,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &510435618
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -11174,7 +11122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11212,7 +11160,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &514134269
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -11305,7 +11252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11343,7 +11290,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &515012097
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -11511,7 +11457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11549,7 +11495,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &520499972
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -11731,7 +11676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11769,7 +11714,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &523730792
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -11937,7 +11881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -11975,7 +11919,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &527382728
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12068,7 +12011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12106,7 +12049,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &530968170
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12274,7 +12216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12312,7 +12254,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &542776879
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12405,7 +12346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12443,7 +12384,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &543594547
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12611,7 +12551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12649,7 +12589,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &549392079
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12742,7 +12681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12780,7 +12719,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &550734087
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -12873,7 +12811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -12911,7 +12849,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &555121987
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -13004,7 +12941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -13042,7 +12979,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &558014938
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -13135,7 +13071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -13173,7 +13109,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &558982088
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -13266,7 +13201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -13304,7 +13239,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &577078020
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -13397,7 +13331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -13435,7 +13369,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &584129131
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -13722,7 +13655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -13760,7 +13693,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &593736442
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14153,7 +14085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14191,7 +14123,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &604594119
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14284,7 +14215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14322,7 +14253,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &610953652
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14415,7 +14345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14453,7 +14383,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &613840814
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14590,7 +14519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14628,7 +14557,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &631408831
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14721,7 +14649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14759,7 +14687,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &641877513
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -14927,7 +14854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -14965,7 +14892,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &651635878
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15133,7 +15059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15171,7 +15097,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &655651542
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15264,7 +15189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15302,7 +15227,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &662077978
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15395,7 +15319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15433,7 +15357,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &662186775
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15526,7 +15449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15564,7 +15487,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &664148055
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15657,7 +15579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15695,7 +15617,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &668151016
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -15788,7 +15709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -15826,7 +15747,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &689815946
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -16161,7 +16081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -16199,7 +16119,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &710574478
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -16667,7 +16586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -16705,7 +16624,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &731467133
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -16948,7 +16866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -16986,7 +16904,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &762761990
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -17154,7 +17071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -17192,7 +17109,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &772060809
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -17329,7 +17245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -17367,7 +17283,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &776293784
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -17610,7 +17525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -17648,7 +17563,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &795640008
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -18071,7 +17985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -18109,7 +18023,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &844964418
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -18277,7 +18190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -18315,7 +18228,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &851993032
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -18483,7 +18395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -18521,7 +18433,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &852837226
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -18764,7 +18675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -18802,7 +18713,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &871575451
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -18970,7 +18880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -19008,7 +18918,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &891156841
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -19176,7 +19085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -19214,7 +19123,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &898780080
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -19307,7 +19215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -19345,7 +19253,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &906023360
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -19438,7 +19345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -19476,7 +19383,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &914234612
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -19869,7 +19775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -19907,7 +19813,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &951365647
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -20075,7 +19980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -20113,7 +20018,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &960564656
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -20281,7 +20185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -20319,7 +20223,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &975552328
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -20487,7 +20390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -20525,7 +20428,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &982094737
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -20948,7 +20850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -20986,7 +20888,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1009472817
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -21109,7 +21010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -21147,7 +21048,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1019743777
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -21315,7 +21215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -21353,7 +21253,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1028308843
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -21596,7 +21495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -21634,7 +21533,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1068863940
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -21802,7 +21700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -21840,7 +21738,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1074222311
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22008,7 +21905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22046,7 +21943,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1083026850
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22244,7 +22140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22282,7 +22178,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1112181270
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22450,7 +22345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22488,7 +22383,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1137030176
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22581,7 +22475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22619,7 +22513,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1139484641
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22787,7 +22680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22825,7 +22718,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1141628433
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -22918,7 +22810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -22956,7 +22848,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1152253921
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23049,7 +22940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -23087,7 +22978,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1154581704
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23285,7 +23175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -23323,7 +23213,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1156109169
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23566,7 +23455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -23604,7 +23493,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1169991923
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23697,7 +23585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -23735,7 +23623,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1171622969
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23858,7 +23745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -23896,7 +23783,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1187152225
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -23989,7 +23875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -24027,7 +23913,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1192336613
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -24195,7 +24080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -24233,7 +24118,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1198803832
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -24326,7 +24210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -24364,7 +24248,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1201077185
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -24712,7 +24595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -24750,7 +24633,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1211541708
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -25068,7 +24950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -25106,7 +24988,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1237341228
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -25499,7 +25380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -25537,7 +25418,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1250315939
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -25630,7 +25510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -25668,7 +25548,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1250499697
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -26105,7 +25984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -26143,7 +26022,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1275257912
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -26236,7 +26114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -26274,7 +26152,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1277021402
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -26547,7 +26424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -26585,7 +26462,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1303771117
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -26678,7 +26554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -26716,7 +26592,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1306170805
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -26809,7 +26684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -26847,7 +26722,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1309674415
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -27208,7 +27082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -27246,7 +27120,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1369072726
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -27339,7 +27212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -27377,7 +27250,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1370174896
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -27545,7 +27417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -27583,7 +27455,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1415743054
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -27676,7 +27547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -27714,7 +27585,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1416537562
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -27882,7 +27752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -27920,7 +27790,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1435203390
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -28013,7 +27882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -28051,7 +27920,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1437178408
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -28219,7 +28087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -28257,7 +28125,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1450667208
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -28424,7 +28291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -28462,7 +28329,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1479299094
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -28555,7 +28421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -28593,7 +28459,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1480616303
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -28880,7 +28745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -28918,7 +28783,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1549867694
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29011,7 +28875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -29049,7 +28913,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1553726032
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29217,7 +29080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -29255,7 +29118,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1555279901
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29423,7 +29285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -29461,7 +29323,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1558553471
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29584,7 +29445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -29622,7 +29483,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1582178431
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29790,7 +29650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -29828,7 +29688,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1586296860
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -29996,7 +29855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -30034,7 +29893,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1601121221
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -30202,7 +30060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -30240,7 +30098,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1615948844
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -30408,7 +30265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -30446,7 +30303,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1627886927
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -30539,7 +30395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -30577,7 +30433,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1628954279
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -30745,7 +30600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -30783,7 +30638,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1640589076
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -31551,7 +31405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -31589,7 +31443,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1693918175
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -31682,7 +31535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -31720,7 +31573,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1705414479
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -32113,7 +31965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -32151,7 +32003,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1738092871
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -32843,7 +32694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -32881,7 +32732,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1780414363
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -33228,7 +33078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -33266,7 +33116,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1832505896
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -33359,7 +33208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -33397,7 +33246,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1837914135
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -33490,7 +33338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -33528,7 +33376,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1839350372
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -33696,7 +33543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -33734,7 +33581,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1848049781
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -33827,7 +33673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -33865,7 +33711,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1856190945
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34033,7 +33878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34071,7 +33916,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1873487886
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34164,7 +34008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34202,7 +34046,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1873761894
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34445,7 +34288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34483,7 +34326,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1884134806
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34576,7 +34418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34614,7 +34456,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1916487991
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34782,7 +34623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34820,7 +34661,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1930839701
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -34913,7 +34753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -34951,7 +34791,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1933044877
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35044,7 +34883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35082,7 +34921,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1934695978
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35175,7 +35013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35213,7 +35051,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1939461975
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35306,7 +35143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35344,7 +35181,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1946212508
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35512,7 +35348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35550,7 +35386,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1952932323
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35643,7 +35478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35681,7 +35516,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1956998607
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -35848,7 +35682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -35886,7 +35720,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1982198981
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -36098,7 +35931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -36136,7 +35969,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1986364245
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -36229,7 +36061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -36267,7 +36099,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &1987479715
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -36435,7 +36266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -36473,7 +36304,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2002556300
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -36641,7 +36471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -36679,7 +36509,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2003843145
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -36772,7 +36601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -36810,7 +36639,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2018382018
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -37083,7 +36911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -37121,7 +36949,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2071080678
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -37289,7 +37116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -37327,7 +37154,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2077968978
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -37689,7 +37515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -37727,7 +37553,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2089634996
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -37820,7 +37645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -37858,7 +37683,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2091296355
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -37951,7 +37775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -37989,7 +37813,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2096930349
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -38082,7 +37905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -38120,7 +37943,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2124797979
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -38288,7 +38110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -38326,7 +38148,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2131980868
 MeshRenderer:
   m_ObjectHideFlags: 3
@@ -38538,7 +38359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
+  Renderers: []
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -38576,7 +38397,6 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
 --- !u!23 &2142642415
 MeshRenderer:
   m_ObjectHideFlags: 3

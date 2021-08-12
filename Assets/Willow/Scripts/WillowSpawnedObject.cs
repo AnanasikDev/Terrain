@@ -2,7 +2,7 @@
 
 public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script from spawned object if you need to edit terrain
 {
-    public Renderer Renderer;
+    public Renderer[] Renderers;
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
     [HideInInspector] public SpawnableObject SpawnableObject;

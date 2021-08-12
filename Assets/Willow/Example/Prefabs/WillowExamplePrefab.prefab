@@ -92,7 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 5272771688886314352}
+  Renderers:
+  - {fileID: 5272771688886314352}
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
   SpawnableObject:
@@ -130,4 +131,3 @@ MonoBehaviour:
     scaleMax: 1
     separateScaleAxis: 1
     hidden: 0
-    RecalculatePosition: 1
