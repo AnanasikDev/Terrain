@@ -1,0 +1,54 @@
+True
+4
+25
+null
+onTerrainOnly
+1
+default
+True
+1
+null
+True
+4
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+3,31
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+True
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+1
+(1.1, 1.1, 1.1)
+1
+True
+default
+0
+(0.0, 0.0, 0.0)
+0
+True
+ ({0} clone)
+0
+0
+False
+True
+False
+True
+True
+0

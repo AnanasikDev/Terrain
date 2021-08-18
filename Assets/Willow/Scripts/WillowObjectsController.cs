@@ -19,8 +19,8 @@ public static class WillowObjectsController
         List<SpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
         if (WillowTerrainSettings.ignoreInactiveLayers)
             spawnableObjects = spawnableObjects
-                .Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.layer)])
-                .Where(spawnableObject => spawnableObject.spawn && spawnableObject.spawnableObject != null)
+                .Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)])
+                .Where(spawnableObject => spawnableObject.Spawn && spawnableObject.Object != null)
                 .ToList();
 
 
@@ -88,31 +88,31 @@ public static class WillowObjectsController
                 (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)))
             {
 
-                GameObject temp = Object.Instantiate(spawnableObject.spawnableObject, hit.point, Quaternion.identity);
+                GameObject temp = Object.Instantiate(spawnableObject.Object, hit.point, Quaternion.identity);
 
-                SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.customEulersRotation);
-                SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, temp.GetComponent<WillowSpawnedObject>().Renderers);
+                SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.CustomEulersRotation);
+                SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, temp.GetComponent<WillowSpawnedObject>().Renderers);
                 temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
                 temp.transform.parent = GetObjectParent(spawnableObject);
                 temp.transform.localScale = GetObjectScale(spawnableObject);
 
                 temp.GetComponent<WillowSpawnedObject>().PositionAdd =
-                    spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+                    spawnableObject.ModifyPosition ? spawnableObject.PositionAddition : Vector3.zero;
 
-                temp.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.layer;
+                temp.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.Layer;
 
-                temp.GetComponent<WillowSpawnedObject>().Init(spawnableObject);
+                temp.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject; //Init(spawnableObject);
 
-                temp.name = spawnableObject.spawnableObject.name;
-                if (spawnableObject.renameObject)
-                    temp.name = spawnableObject.newObjectName;
+                temp.name = spawnableObject.Object.name;
+                if (spawnableObject.RenameObject)
+                    temp.name = spawnableObject.NewObjectName;
 
                 if (WillowTerrainSettings.indexObjects)
                     temp.name += string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies);
                 WillowTerrainSettings.spawnedIndecies++;
 
-                if (spawnableObject.centerObject)
-                    temp.transform.localPosition += new Vector3(0, spawnableObject.spawnableObject.transform.localScale.y / 2, 0);
+                if (spawnableObject.CenterObject)
+                    temp.transform.localPosition += new Vector3(0, spawnableObject.Object.transform.localScale.y / 2, 0);
 
                 WillowTerrainSettings.spawnedObjects.Add(temp);
 
@@ -178,7 +178,7 @@ public static class WillowObjectsController
         if (WillowTerrainSettings.ignoreInactiveLayers)
         {
             objsToExchange = objsToExchange.Where(gameObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
-            spawnableObjects = spawnableObjects.Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.layer)]).ToList();
+            spawnableObjects = spawnableObjects.Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)]).ToList();
         }
 
         foreach (GameObject o in objsToExchange)
@@ -192,23 +192,23 @@ public static class WillowObjectsController
                     RaycastHit normalHit;
                     bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
                     Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
-                    Transform parent = WillowTerrainSettings.exchangeParent ? o.transform.parent : spawnableObject.parent;
-                    GameObject spawned = Object.Instantiate(spawnableObject.spawnableObject, position, Quaternion.identity, parent);
+                    Transform parent = WillowTerrainSettings.exchangeParent ? o.transform.parent : spawnableObject.Parent;
+                    GameObject spawned = Object.Instantiate(spawnableObject.Object, position, Quaternion.identity, parent);
                     spawned.name = o.name;
 
                     if (WillowTerrainSettings.exchangeRotation)
                         spawned.transform.localRotation = o.transform.localRotation;
                     else
-                        SetObjectRotation(spawnableObject, spawned, normal, spawnableObject.customEulersRotation);
+                        SetObjectRotation(spawnableObject, spawned, normal, spawnableObject.CustomEulersRotation);
                     if (WillowTerrainSettings.exchangeColor)    
-                        SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers, o.GetComponent<WillowSpawnedObject>().Renderers[0].sharedMaterial.color);
+                        SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers, o.GetComponent<WillowSpawnedObject>().Renderers[0].sharedMaterial.color);
                     else 
-                        SetObjectColor(spawnableObject.modColor, spawnableObject.colorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers);
+                        SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers);
 
                     o.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
 
                     spawned.GetComponent<WillowSpawnedObject>().PositionAdd =
-                        spawnableObject.modifyPosition ? spawnableObject.positionAddition : Vector3.zero;
+                        spawnableObject.ModifyPosition ? spawnableObject.PositionAddition : Vector3.zero;
 
                     spawned.transform.localScale = WillowTerrainSettings.exchangeScale ? o.transform.localScale : GetObjectScale(spawnableObject);
 
@@ -236,7 +236,7 @@ public static class WillowObjectsController
         bool ableToSpawn = false;
         for (int i = 0; i < chances.Length; i++)
         {
-            chances[i] = spawnableObjects[i].spawn && spawnableObjects[i].spawnableObject != null ? spawnableObjects[i].spawnChance : 0;
+            chances[i] = spawnableObjects[i].Spawn && spawnableObjects[i].Object != null ? spawnableObjects[i].SpawnChance : 0;
             if (chances[i] > 0) ableToSpawn = true;
         }
         if (!ableToSpawn) return null;
@@ -244,48 +244,50 @@ public static class WillowObjectsController
     }
     public static void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
-        if (spawnableObject.rotationType == RotationType.Static)
+        if (spawnableObject.RotationType == RotationType.Static)
         {
             spawnedObject.transform.localEulerAngles = custom;
         }
-        else if (spawnableObject.rotationType == RotationType.Random)
+        else if (spawnableObject.RotationType == RotationType.Random)
         {
             spawnedObject.transform.localEulerAngles = GetRandomRotation();
         }
-        else if (spawnableObject.rotationType == RotationType.AsNormal)
+        else if (spawnableObject.RotationType == RotationType.AsNormal)
         {
             spawnedObject.transform.localRotation = Quaternion.FromToRotation(Vector3.up, normal);
         }
-        else if (spawnableObject.rotationType == RotationType.RandomAsNormal)
+        else if (spawnableObject.RotationType == RotationType.RandomAsNormal)
         {
             spawnedObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
             spawnedObject.transform.Rotate(GetRandomRotation(), Space.Self);
         }
-        else if (spawnableObject.rotationType == RotationType.StaticAsNormal)
+        else if (spawnableObject.RotationType == RotationType.StaticAsNormal)
         {
             spawnedObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
             spawnedObject.transform.Rotate(custom, Space.Self);
         }
-        else if (spawnableObject.rotationType == RotationType.LerpedStaticAsNormal)
+        else if (spawnableObject.RotationType == RotationType.LerpedStaticAsNormal)
         {
-            spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.lerpValue);
+            spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.LerpValue);
         }
-        else if (spawnableObject.rotationType == RotationType.LerpedRandomAsNormal)
+        else if (spawnableObject.RotationType == RotationType.LerpedRandomAsNormal)
         {
-            float lerpV = spawnableObject.lerpValue;
-            if (spawnableObject.randomizeLerpValue) lerpV = UnityEngine.Random.Range(spawnableObject.minLerpValue, spawnableObject.maxLerpValue);
+            float lerpV = spawnableObject.LerpValue;
+            if (spawnableObject.RandomizeLerpValue) lerpV = UnityEngine.Random.Range(spawnableObject.MinLerpValue, spawnableObject.MaxLerpValue);
 
             spawnedObject.transform.rotation = Quaternion.Lerp(Quaternion.Euler(custom), Quaternion.FromToRotation(Vector3.up, normal), lerpV);
             spawnedObject.transform.Rotate(GetRandomRotation(), Space.Self);
         }
-        else if (spawnableObject.rotationType == RotationType.LerpedAsPrefabAsNormal)
+        else if (spawnableObject.RotationType == RotationType.LerpedAsPrefabAsNormal)
         {
-            spawnedObject.transform.rotation = Quaternion.Lerp(spawnableObject.spawnableObject.transform.rotation, Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.lerpValue);
+            spawnedObject.transform.rotation = Quaternion.Lerp(spawnableObject.Object.transform.rotation, Quaternion.FromToRotation(Vector3.up, normal), spawnableObject.LerpValue);
         }
-        else // if AsPrefab
+        else if (spawnableObject.RotationType == RotationType.AsPrefab)
         {
-            spawnedObject.transform.rotation = spawnableObject.spawnableObject.transform.rotation;
+            spawnedObject.transform.rotation = spawnableObject.Object.transform.rotation;
         }
+
+        spawnedObject.transform.eulerAngles += spawnableObject.RotationEulerAddition;
 
         Vector3 GetRandomRotation()
         {
@@ -293,15 +295,15 @@ public static class WillowObjectsController
             float y = 0;
             float z = 0;
 
-            if (spawnableObject.multiRotationAxis)
+            if (spawnableObject.MultiRotationAxis)
             {
-                x = UnityEngine.Random.Range(spawnableObject.randomMinRotation.x, spawnableObject.randomMaxRotation.x);
-                y = UnityEngine.Random.Range(spawnableObject.randomMinRotation.y, spawnableObject.randomMaxRotation.y);
-                z = UnityEngine.Random.Range(spawnableObject.randomMinRotation.z, spawnableObject.randomMaxRotation.z);
+                x = UnityEngine.Random.Range(spawnableObject.RandomMinRotation.x, spawnableObject.RandomMaxRotation.x);
+                y = UnityEngine.Random.Range(spawnableObject.RandomMinRotation.y, spawnableObject.RandomMaxRotation.y);
+                z = UnityEngine.Random.Range(spawnableObject.RandomMinRotation.z, spawnableObject.RandomMaxRotation.z);
             }
             else
             {
-                string axis = spawnableObject.rotationAxis.ToString();
+                string axis = spawnableObject.RotationAxis.ToString();
 
                 if (axis.Contains("X")) x = UnityEngine.Random.Range(0f, 360f);
                 if (axis.Contains("Y")) y = UnityEngine.Random.Range(0f, 360f);
@@ -328,38 +330,38 @@ public static class WillowObjectsController
     }
     public static Transform GetObjectParent(SpawnableObject obj)
     {
-        if (obj.customParent) return obj.parent;
+        if (obj.CustomParent) return obj.Parent;
         else return WillowTerrainSettings.parent;
     }
     public static Vector3 GetObjectPositionAdd(SpawnableObject obj)
     {
-        return obj.modifyPosition ? obj.positionAddition : Vector3.zero;
+        return obj.ModifyPosition ? obj.PositionAddition : Vector3.zero;
     }
     public static Vector3 GetObjectScale(SpawnableObject spawnableObject)
     {
         Vector3 scale = Vector3.one;
-        switch (spawnableObject.scaleType)
+        switch (spawnableObject.ScaleType)
         {
             case ScaleType.AsPrefab:
-                scale = spawnableObject.spawnableObject.transform.localScale;
+                scale = spawnableObject.Object.transform.localScale;
                 break;
             case ScaleType.Random:
-                if (spawnableObject.modScale)
+                if (spawnableObject.ModifyScale)
                 {
                     float x = 1;
                     float y = 1;
                     float z = 1;
 
-                    string axis = spawnableObject.scaleAxis.ToString();
-                    if (spawnableObject.separateScaleAxis)
+                    string axis = spawnableObject.ScaleAxis.ToString();
+                    if (spawnableObject.SeparateScaleAxis)
                     {
-                        if (axis.Contains("X")) x = UnityEngine.Random.Range(spawnableObject.scaleMinSeparated.x, spawnableObject.scaleMaxSeparated.x);
-                        if (axis.Contains("Y")) y = UnityEngine.Random.Range(spawnableObject.scaleMinSeparated.y, spawnableObject.scaleMaxSeparated.y);
-                        if (axis.Contains("Z")) z = UnityEngine.Random.Range(spawnableObject.scaleMinSeparated.z, spawnableObject.scaleMaxSeparated.z);
+                        if (axis.Contains("X")) x = UnityEngine.Random.Range(spawnableObject.ScaleMinSeparated.x, spawnableObject.ScaleMaxSeparated.x);
+                        if (axis.Contains("Y")) y = UnityEngine.Random.Range(spawnableObject.ScaleMinSeparated.y, spawnableObject.ScaleMaxSeparated.y);
+                        if (axis.Contains("Z")) z = UnityEngine.Random.Range(spawnableObject.ScaleMinSeparated.z, spawnableObject.ScaleMaxSeparated.z);
                     }
                     else
                     {
-                        float value = UnityEngine.Random.Range(spawnableObject.scaleMin, spawnableObject.scaleMax);
+                        float value = UnityEngine.Random.Range(spawnableObject.ScaleMin, spawnableObject.ScaleMax);
                         x = y = z = value;
                     }
 
@@ -368,7 +370,7 @@ public static class WillowObjectsController
 
                 break;
             case ScaleType.Static:
-                scale = spawnableObject.customScale;
+                scale = spawnableObject.CustomScale;
                 break;
         }
         return scale;

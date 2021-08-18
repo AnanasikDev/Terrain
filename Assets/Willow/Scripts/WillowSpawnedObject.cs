@@ -5,7 +5,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public Renderer[] Renderers;
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
-    [HideInInspector] public SpawnableObject SpawnableObject;
+    public SpawnableObject SpawnableObject;
 
     public void Init(SpawnableObject spawnableObject)
     {
@@ -27,19 +27,19 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void RecalculateObjectPosition()
     {
+        Vector3 result = transform.position;
         if (GetNewPosition(out Vector3 newPosition))
         {
-            transform.position = newPosition;
+            result = newPosition;
         }
-        Vector3 result = transform.position;
 
-        if (SpawnableObject.centerObject)
+        if (SpawnableObject.CenterObject)
         {
             result += Vector3.up * transform.localScale.y;
         }
-        if (SpawnableObject.modifyPosition)
+        if (SpawnableObject.ModifyPosition)
         {
-            result += SpawnableObject.positionAddition;
+            result += SpawnableObject.PositionAddition;
         }
 
         transform.position = result;
@@ -48,6 +48,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         GetHit(out RaycastHit hit);
 
-        WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, hit.normal, SpawnableObject.customEulersRotation);
+        WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, hit.normal, SpawnableObject.CustomEulersRotation);
     }
 }

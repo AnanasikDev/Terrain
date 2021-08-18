@@ -4,7 +4,6 @@ using System.Linq;
 using static WillowGlobalConfig;
 public class WillowClearCache : Editor
 {
-    //const string Path = "Tools/Willow/";
     [MenuItem(Path + "Clear Change Log")]
     public static void ClearChangeLog()
     {
@@ -50,7 +49,7 @@ public class WillowClearCache : Editor
         WillowTerrainSettings.spawnedIndecies = 0;
         if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Indecies reseted.", "#00FF00FF"));
     }
-    [MenuItem(Path + "Save changings")]
+    [MenuItem(Path + "Save")]
     public static void Save()
     {
         WillowFileManager.Write();

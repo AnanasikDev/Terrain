@@ -47,6 +47,22 @@ public static class WillowUtils
         Circle,
         Square
     }
+
+    public enum ParameterActionType
+    {
+        MultiplyByVector3,
+        MultiplyByNum,
+        
+        DivideByVector3,
+        DivideByNum,
+
+        AddVector3,
+
+        SubtractByVector3,
+
+        PowByNum,
+        PowByVector3
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;
@@ -78,5 +94,9 @@ public static class WillowUtils
         string c6 = "#00AE00FF";
         string c7 = "#00AA00FF";
         return $"<color={c0}>[</color><color={c1}>W</color><color={c2}>i</color><color={c3}>l</color><color={c4}>l</color><color={c5}>o</color><color={c6}>w</color><color={c7}>]</color>";
+    }
+    public static float ToFloat(this string input)
+    {
+        return (float)System.Convert.ToDouble(input);
     }
 }

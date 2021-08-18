@@ -5,10 +5,11 @@ using System.IO;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-public class WillowFileManager
+using static WillowUtils;
+public static class WillowFileManager
 {
-    static string path = "./file.txt";
-    static string prefabsFolder = "Assets/Willow/Example/Prefabs/";
+    public static string path = "./WillowSaveFile.txt";
+    //static string prefabsFolder = "Assets/Willow/Example/Prefabs/";
     public static void Write()
     {
         StringBuilder output = new StringBuilder();
@@ -30,49 +31,51 @@ public class WillowFileManager
         output.AppendLine(WillowTerrainSettings.spawnableObjects.Count.ToString());
         foreach (SpawnableObject obj in WillowTerrainSettings.spawnableObjects)
         {
-            output.AppendLine(obj.spawnableObject == null ? "null" : obj.spawnableObject.name);
-            output.AppendLine(obj.spawn.ToString());
-            output.AppendLine(obj.spawnChance.ToString());
-            output.AppendLine(obj.customParent.ToString());
-            output.AppendLine(obj.parent == null ? "null" : obj.parent.name);
-            output.AppendLine(obj.centerObject.ToString());
+            output.AppendLine(obj.Object == null ? "null" : obj.Object.name);
+            output.AppendLine(obj.Spawn.ToString());
+            output.AppendLine(obj.SpawnChance.ToString());
+            output.AppendLine(obj.CustomParent.ToString());
+            output.AppendLine(obj.Parent == null ? "null" : obj.Parent.name);
+            output.AppendLine(obj.CenterObject.ToString());
             //6
 
-            output.AppendLine(obj.rotationType.ToString());
-            output.AppendLine(obj.rotationAxis.ToString());
-            output.AppendLine(obj.customEulersRotation.ToString());
-            output.AppendLine(obj.lerpValue.ToString());
-            output.AppendLine(obj.minLerpValue.ToString());
-            output.AppendLine(obj.maxLerpValue.ToString());
+            output.AppendLine(obj.RotationType.ToString());
+            output.AppendLine(obj.RotationAxis.ToString());
+            output.AppendLine(obj.CustomEulersRotation.ToString());
+            output.AppendLine(obj.LerpValue.ToString());
+            output.AppendLine(obj.MinLerpValue.ToString());
+            output.AppendLine(obj.MaxLerpValue.ToString());
 
-            output.AppendLine(obj.multiRotationAxis.ToString());
-            output.AppendLine(obj.randomizeLerpValue.ToString());
-            output.AppendLine(obj.randomMinRotation.ToString());
-            output.AppendLine(obj.randomMaxRotation.ToString());
+            output.AppendLine(obj.MultiRotationAxis.ToString());
+            output.AppendLine(obj.RandomizeLerpValue.ToString());
+            output.AppendLine(obj.RandomMinRotation.ToString());
+            output.AppendLine(obj.RandomMaxRotation.ToString());
             //16
 
-            output.AppendLine(obj.modColor.ToString());
-            output.AppendLine(obj.colorModPercentage.ToString());
+            output.AppendLine(obj.ModifyColor.ToString());
+            output.AppendLine(obj.ColorModPercentage.ToString());
 
-            output.AppendLine(obj.modifyPosition.ToString());
-            output.AppendLine(obj.positionAddition.ToString());
+            output.AppendLine(obj.ModifyPosition.ToString());
+            output.AppendLine(obj.PositionAddition.ToString());
 
-            output.AppendLine(obj.renameObject.ToString());
-            output.AppendLine(obj.newObjectName.Replace("\r", ""));
+            output.AppendLine(obj.RenameObject.ToString());
+            output.AppendLine(obj.NewObjectName.Replace("\r", ""));
             //22
 
-            output.AppendLine(obj.scaleType.ToString());
-            output.AppendLine(obj.scaleAxis.ToString());
-            output.AppendLine(obj.modScale.ToString());
-            output.AppendLine(obj.customScale.ToString());
-            output.AppendLine(obj.scaleMinSeparated.ToString());
-            output.AppendLine(obj.scaleMin.ToString());
-            output.AppendLine(obj.scaleMaxSeparated.ToString());
-            output.AppendLine(obj.scaleMax.ToString());
-            output.AppendLine(obj.separateScaleAxis.ToString());
+            output.AppendLine(obj.ScaleType.ToString());
+            output.AppendLine(obj.ScaleAxis.ToString());
+            output.AppendLine(obj.ModifyScale.ToString());
+            output.AppendLine(obj.CustomScale.ToString());
+            output.AppendLine(obj.ScaleMinSeparated.ToString());
+            output.AppendLine(obj.ScaleMin.ToString());
+            output.AppendLine(obj.ScaleMaxSeparated.ToString());
+            output.AppendLine(obj.ScaleMax.ToString());
+            output.AppendLine(obj.SeparateScaleAxis.ToString());
             //31
-            output.AppendLine(obj.layer.Replace("\r", ""));
-            output.AppendLine(obj.layerIndex.ToString());
+            output.AppendLine(obj.Layer.Replace("\r", ""));
+            output.AppendLine(obj.LayerIndex.ToString());
+
+            output.AppendLine(obj.RotationEulerAddition.ToString());
         }
 
         output.AppendLine(WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
@@ -98,6 +101,7 @@ public class WillowFileManager
         {
             writer.Write(output);
         }
+
         if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Templates saved!", "#00FF00FF"));
     }
     public static void Read()
@@ -135,81 +139,73 @@ public class WillowFileManager
             {
                 SpawnableObject obj = new SpawnableObject();
                 if (lines[line] == "null")
-                    obj.spawnableObject = null;
+                    obj.Object = null;
                 else
-                    obj.spawnableObject = AssetDatabase.LoadAssetAtPath(prefabsFolder + $"{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
+                    obj.Object = AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath + $"{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
 
-                obj.spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", "").Replace("\n", ""));
-                obj.spawnChance = Convert.ToInt32(lines[line + 2]);
-                obj.customParent = Convert.ToBoolean(lines[line + 3]);
+                obj.Spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", "").Replace("\n", ""));
+                obj.SpawnChance = Convert.ToInt32(lines[line + 2]);
+                obj.CustomParent = Convert.ToBoolean(lines[line + 3]);
 
-                if (lines[line + 4].Replace("\r", "") == "null") obj.parent = null;
-                else obj.parent = GameObject.Find(lines[line + 4].Replace("\r", "")).transform;
+                if (lines[line + 4].Replace("\r", "") == "null") obj.Parent = null;
+                else obj.Parent = GameObject.Find(lines[line + 4].Replace("\r", "")).transform;
 
-                obj.centerObject = Convert.ToBoolean(lines[line + 5]);
+                obj.CenterObject = Convert.ToBoolean(lines[line + 5]);
 
-                Enum.TryParse(lines[line + 6], out obj.rotationType);
-                Enum.TryParse(lines[line + 7], out obj.rotationAxis);
+                obj.RotationType = ParseEnum<RotationType>(lines[line + 6]);
+                obj.RotationAxis = ParseEnum<Axis>(lines[line + 7]);
+                //Enum.TryParse(lines[line + 6], out obj.RotationType);
+                //Enum.TryParse(lines[line + 7], out obj.RotationAxis);
 
-                var customEulerRotation = lines[line + 8].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) customEulerRotation[i] = customEulerRotation[i].Replace(".", ",");
-                obj.customEulersRotation = new Vector3((float)Convert.ToDouble(customEulerRotation[0]), (float)Convert.ToDouble(customEulerRotation[1]), (float)Convert.ToDouble(customEulerRotation[2]));
 
-                obj.lerpValue = (float)Convert.ToDouble(lines[line + 9]);
-                obj.minLerpValue = (float)Convert.ToDouble(lines[line + 10]);
-                obj.maxLerpValue = (float)Convert.ToDouble(lines[line + 11]);
-                obj.multiRotationAxis = Convert.ToBoolean(lines[line + 12]);
-                obj.randomizeLerpValue = Convert.ToBoolean(lines[line + 13]);
+                obj.CustomEulersRotation = ParseVector(lines[line + 8]);
+                obj.LerpValue = lines[line + 9].ToFloat();
+                obj.MinLerpValue = lines[line + 10].ToFloat();
+                obj.MaxLerpValue = lines[line + 11].ToFloat();
+                obj.MultiRotationAxis = Convert.ToBoolean(lines[line + 12]);
+                obj.RandomizeLerpValue = Convert.ToBoolean(lines[line + 13]);
+                obj.RandomMinRotation = ParseVector(lines[line + 14]);
+                obj.RandomMaxRotation = ParseVector(lines[line + 15]);
 
-                var randomMinRotation = lines[line + 14].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) randomMinRotation[i] = randomMinRotation[i].Replace(".", ",");
-                obj.randomMinRotation = new Vector3((float)Convert.ToDouble(randomMinRotation[0]), (float)Convert.ToDouble(randomMinRotation[1]), (float)Convert.ToDouble(randomMinRotation[2]));
+                obj.ModifyColor = Convert.ToBoolean(lines[line + 16]);
+                obj.ColorModPercentage = lines[line + 17].ToFloat();
 
-                var randomMaxRotation = lines[line + 15].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) randomMaxRotation[i] = randomMaxRotation[i].Replace(".", ",");
-                obj.randomMaxRotation = new Vector3((float)Convert.ToDouble(randomMaxRotation[0]), (float)Convert.ToDouble(randomMaxRotation[1]), (float)Convert.ToDouble(randomMaxRotation[2]));
+                obj.ModifyPosition = Convert.ToBoolean(lines[line + 18]);
 
-                obj.modColor = Convert.ToBoolean(lines[line + 16]);
-                obj.colorModPercentage = (float)Convert.ToDouble(lines[line + 17]);
+                
+                obj.PositionAddition = ParseVector(lines[line + 19]);
 
-                obj.modifyPosition = Convert.ToBoolean(lines[line + 18]);
+                obj.RenameObject = Convert.ToBoolean(lines[line + 20]);
+                obj.NewObjectName = lines[line + 21];
 
-                var positionAddition = lines[line + 19].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) positionAddition[i] = positionAddition[i].Replace(".", ",");
-                obj.positionAddition = new Vector3((float)Convert.ToDouble(positionAddition[0]), (float)Convert.ToDouble(positionAddition[1]), (float)Convert.ToDouble(positionAddition[2]));
+                Enum.TryParse(lines[line + 22], out obj.ScaleType);
+                Enum.TryParse(lines[line + 23], out obj.ScaleAxis);
+                obj.ModifyScale = Convert.ToBoolean(lines[line + 24]);
 
-                obj.renameObject = Convert.ToBoolean(lines[line + 20]);
-                obj.newObjectName = lines[line + 21];
+                
+                obj.CustomScale = ParseVector(lines[line + 25]);
 
-                Enum.TryParse(lines[line + 22], out obj.scaleType);
-                Enum.TryParse(lines[line + 23], out obj.scaleAxis);
-                obj.modScale = Convert.ToBoolean(lines[line + 24]);
+                obj.ScaleMinSeparated = ParseVector(lines[line + 26]);
 
-                var customScale = lines[line + 25].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) customScale[i] = customScale[i].Replace(".", ",");
-                obj.customScale = new Vector3((float)Convert.ToDouble(customScale[0]), (float)Convert.ToDouble(customScale[1]), (float)Convert.ToDouble(customScale[2]));
+                obj.ScaleMin = lines[line + 27].ToFloat();
 
-                var scaleMinSeparated = lines[line + 26].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) scaleMinSeparated[i] = scaleMinSeparated[i].Replace(".", ",");
-                obj.scaleMinSeparated = new Vector3((float)Convert.ToDouble(scaleMinSeparated[0]), (float)Convert.ToDouble(scaleMinSeparated[1]), (float)Convert.ToDouble(scaleMinSeparated[2]));
 
-                obj.scaleMin = (float)Convert.ToDouble(lines[line + 27]);
+                obj.ScaleMaxSeparated = ParseVector(lines[line + 28]);
 
-                var scaleMaxSeparated = lines[line + 28].Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
-                for (int i = 0; i < 3; i++) scaleMaxSeparated[i] = scaleMaxSeparated[i].Replace(".", ",");
-                obj.scaleMaxSeparated = new Vector3((float)Convert.ToDouble(scaleMaxSeparated[0]), (float)Convert.ToDouble(scaleMaxSeparated[1]), (float)Convert.ToDouble(scaleMaxSeparated[2]));
+                obj.ScaleMax = lines[line + 29].ToFloat();
 
-                obj.scaleMax = (float)Convert.ToDouble(lines[line + 29]);
+                obj.SeparateScaleAxis = Convert.ToBoolean(lines[line + 30]);
 
-                obj.separateScaleAxis = Convert.ToBoolean(lines[line + 30]);
+                obj.Layer = lines[line + 31];
+                obj.LayerIndex = Convert.ToInt32(lines[line + 32]);
 
-                obj.layer = lines[line + 31];
-                obj.layerIndex = Convert.ToInt32(lines[line + 32]);
+                obj.RotationEulerAddition = ParseVector(lines[line + 33]);
 
                 WillowTerrainSettings.spawnableObjects.Add(obj);
             }
 
             WillowTerrainSettings.spawnedObjects.Clear();
+            line++;
             WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].Replace("\r", "").Replace("\n", "")));
             int l;
             for (l = line + 1; l < WillowTerrainSettings.spawnedObjects.Capacity + line + 1; l++)
@@ -229,7 +225,18 @@ public class WillowFileManager
             WillowTerrainSettings.exchangePosition = Convert.ToBoolean(lines[l + 6]);
             WillowTerrainSettings.exchangeRotation = Convert.ToBoolean(lines[l + 7]);
             WillowTerrainSettings.exchangeScale = Convert.ToBoolean(lines[l + 8]);
-            WillowTerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]); //
+            WillowTerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]);
         }
+    }
+    private static Vector3 ParseVector(string input)
+    {
+        List<string> s = input.Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
+        for (int i = 0; i < 3; i++) s[i] = s[i].Replace(".", ",");
+        return new Vector3((float)Convert.ToDouble(s[0]), (float)Convert.ToDouble(s[1]), (float)Convert.ToDouble(s[2]));
+    }
+    private static T ParseEnum<T>(string input) where T : struct
+    {
+        Enum.TryParse(input, out T t);
+        return t;
     }
 }

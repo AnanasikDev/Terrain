@@ -46,7 +46,7 @@ public class WillowTerrainSettings : MonoBehaviour
     static public bool exchangeColor = false;
 
     // Tabs names
-    static public string[] optionsTabs = new string[3] { "settings", "layers", "objects" };
+    static public string[] optionsTabs = new string[3] { "Settings", "Layers", "Objects" };
     static public int optionsTabSelectedId = 0;
     static public string[] brushTabs = new string[3] { "Place", "Erase", "Exchange" };
     static public int brushTabSelectedId = 0;
@@ -55,4 +55,6 @@ public class WillowTerrainSettings : MonoBehaviour
     static public Stack<Change> changelog = new Stack<Change>();
 
     static public float RecalculatingLength = 50;
+
+    static public string PrefabsPath = "Willow/Examples/Prefabs/";
 }
