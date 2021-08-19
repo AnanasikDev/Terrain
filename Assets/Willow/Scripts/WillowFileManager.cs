@@ -9,10 +9,11 @@ using static WillowUtils;
 public static class WillowFileManager
 {
     public static string path = "./WillowSaveFile.txt";
-    //static string prefabsFolder = "Assets/Willow/Example/Prefabs/";
     public static void Write()
     {
         StringBuilder output = new StringBuilder();
+
+        output.AppendLine(WillowTerrainSettings.PrefabsPath.PrepareForFile());
 
         output.AppendLine(WillowTerrainSettings.active.ToString());
         output.AppendLine(WillowTerrainSettings.density.ToString());
@@ -24,7 +25,7 @@ public static class WillowFileManager
         output.AppendLine(WillowTerrainSettings.layersName.Count.ToString());
         for (int layer = 0; layer < WillowTerrainSettings.layersName.Count; layer++)
         {
-            output.AppendLine(WillowTerrainSettings.layersName[layer].Replace("\r", "").Replace("\n", ""));
+            output.AppendLine(WillowTerrainSettings.layersName[layer].PrepareForFile());
             output.AppendLine(WillowTerrainSettings.layersState[layer].ToString());
         }
 
@@ -59,7 +60,7 @@ public static class WillowFileManager
             output.AppendLine(obj.PositionAddition.ToString());
 
             output.AppendLine(obj.RenameObject.ToString());
-            output.AppendLine(obj.NewObjectName.Replace("\r", ""));
+            output.AppendLine(obj.NewObjectName.PrepareForFile());
             //22
 
             output.AppendLine(obj.ScaleType.ToString());
@@ -72,7 +73,7 @@ public static class WillowFileManager
             output.AppendLine(obj.ScaleMax.ToString());
             output.AppendLine(obj.SeparateScaleAxis.ToString());
             //31
-            output.AppendLine(obj.Layer.Replace("\r", ""));
+            output.AppendLine(obj.Layer.PrepareForFile());
             output.AppendLine(obj.LayerIndex.ToString());
 
             output.AppendLine(obj.RotationEulerAddition.ToString());
@@ -81,11 +82,11 @@ public static class WillowFileManager
         output.AppendLine(WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
         foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
-            output.AppendLine(spawnedObj.name.Replace("\r", ""));
+            output.AppendLine(spawnedObj.name.PrepareForFile());
         }
 
         output.AppendLine(WillowTerrainSettings.indexObjects.ToString());
-        output.AppendLine(WillowTerrainSettings.indexFormat.Replace("\r", ""));
+        output.AppendLine(WillowTerrainSettings.indexFormat.PrepareForFile());
         output.AppendLine(WillowTerrainSettings.spawnedIndecies.ToString());
 
         output.AppendLine(WillowTerrainSettings.eraseSmoothness.ToString());
@@ -111,52 +112,52 @@ public static class WillowFileManager
         using (StreamReader reader = new StreamReader(path))
         {
             lines = reader.ReadToEnd().Split('\n');
-            WillowTerrainSettings.active = Convert.ToBoolean(lines[0]);
-            WillowTerrainSettings.density = Convert.ToInt32(lines[1]);
-            WillowTerrainSettings.brushSize = Convert.ToInt32(lines[2]);
 
-            if (lines[3].Replace("\r", "") == "null") WillowTerrainSettings.parent = null;
-            else WillowTerrainSettings.parent = GameObject.Find(lines[3].Replace("\r", "")).transform;
+            WillowTerrainSettings.PrefabsPath = lines[0];
 
-            Enum.TryParse(lines[4], out WillowTerrainSettings.placementType);
+            WillowTerrainSettings.active = Convert.ToBoolean(lines[1]);
+            WillowTerrainSettings.density = Convert.ToInt32(lines[2]);
+            WillowTerrainSettings.brushSize = Convert.ToInt32(lines[3]);
 
-            int layerAmount = Convert.ToInt32(lines[5]);
+            if (lines[4].PrepareForFile() == "null") WillowTerrainSettings.parent = null;
+            else WillowTerrainSettings.parent = GameObject.Find(lines[4].PrepareForFile()).transform;
+
+            Enum.TryParse(lines[5], out WillowTerrainSettings.placementType);
+
+            int layerAmount = Convert.ToInt32(lines[6]);
             WillowTerrainSettings.layersName.Clear();
             WillowTerrainSettings.layersName = new List<string>(layerAmount);
             WillowTerrainSettings.layersState.Clear();
             WillowTerrainSettings.layersState = new List<bool>(layerAmount);
+
             for (int layer = 0; layer < layerAmount * 2; layer += 2)
             {
-                WillowTerrainSettings.layersName.Add(lines[layer + 6]);
-                WillowTerrainSettings.layersState.Add(Convert.ToBoolean(lines[layer + 7]));
+                WillowTerrainSettings.layersName.Add(lines[layer + 7]);
+                WillowTerrainSettings.layersState.Add(Convert.ToBoolean(lines[layer + 8]));
             }
 
             WillowTerrainSettings.spawnableObjects.Clear();
-            int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
+            int spawnablesAmount = Convert.ToInt32(lines[6 + layerAmount * 2 + 1]);
             WillowTerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
             int line;
-            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
+            for (line = 7 + layerAmount * 2 + 1; line < 7 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
                 SpawnableObject obj = new SpawnableObject();
                 if (lines[line] == "null")
                     obj.Object = null;
                 else
-                    obj.Object = AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath + $"{lines[line].Replace("\r", "")}.prefab", typeof(GameObject)) as GameObject;
-
-                obj.Spawn = Convert.ToBoolean(lines[line + 1].Replace("\r", "").Replace("\n", ""));
+                    obj.Object = AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath.PrepareForFile() + $"{lines[line].PrepareForFile()}.prefab", typeof(GameObject)) as GameObject;
+                obj.Spawn = Convert.ToBoolean(lines[line + 1].PrepareForFile());
                 obj.SpawnChance = Convert.ToInt32(lines[line + 2]);
                 obj.CustomParent = Convert.ToBoolean(lines[line + 3]);
 
                 if (lines[line + 4].Replace("\r", "") == "null") obj.Parent = null;
-                else obj.Parent = GameObject.Find(lines[line + 4].Replace("\r", "")).transform;
+                else obj.Parent = GameObject.Find(lines[line + 4].PrepareForFile()).transform;
 
                 obj.CenterObject = Convert.ToBoolean(lines[line + 5]);
 
                 obj.RotationType = ParseEnum<RotationType>(lines[line + 6]);
                 obj.RotationAxis = ParseEnum<Axis>(lines[line + 7]);
-                //Enum.TryParse(lines[line + 6], out obj.RotationType);
-                //Enum.TryParse(lines[line + 7], out obj.RotationAxis);
-
 
                 obj.CustomEulersRotation = ParseVector(lines[line + 8]);
                 obj.LerpValue = lines[line + 9].ToFloat();
@@ -206,7 +207,8 @@ public static class WillowFileManager
 
             WillowTerrainSettings.spawnedObjects.Clear();
             line++;
-            WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].Replace("\r", "").Replace("\n", "")));
+            Debug.Log(line + 1 + lines[line]);
+            WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].PrepareForFile()));
             int l;
             for (l = line + 1; l < WillowTerrainSettings.spawnedObjects.Capacity + line + 1; l++)
             {

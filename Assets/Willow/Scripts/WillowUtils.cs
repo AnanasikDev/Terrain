@@ -99,4 +99,13 @@ public static class WillowUtils
     {
         return (float)System.Convert.ToDouble(input);
     }
+    /// <summary>
+    /// Removes \r and \n
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns>Ready-to-write string</returns>
+    public static string PrepareForFile(this string input)
+    {
+        return input.Replace("\r", "").Replace("\n", "");
+    }
 }

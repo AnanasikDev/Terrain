@@ -1,4 +1,5 @@
-True
+Assets\RTP Vol.1\prefabs\
+False
 4
 25
 null
@@ -7,9 +8,9 @@ onTerrainOnly
 default
 True
 1
-null
+tree2 pre
 True
-4
+1
 False
 null
 False
@@ -24,14 +25,14 @@ False
 (0.0, 0.0, 0.0)
 (360.0, 360.0, 360.0)
 True
-3,31
+35
 False
 (0.0, 0.0, 0.0)
 False
 Object
 AsPrefab
 XYZ
-True
+False
 (1.0, 1.0, 1.0)
 (0.9, 0.9, 0.9)
 1
