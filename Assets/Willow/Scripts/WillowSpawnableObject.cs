@@ -40,9 +40,9 @@ public sealed class SpawnableObject
     public bool ModifyScale = false;
     public Vector3 CustomScale = Vector3.one;
     public Vector3 ScaleMinSeparated = new Vector3(0.9f, 0.9f, 0.9f);
-    public float ScaleMin = 1;
+    public float ScaleMin = 0.9f;
     public Vector3 ScaleMaxSeparated = new Vector3(1.1f, 1.1f, 1.1f);
-    public float ScaleMax = 1;
+    public float ScaleMax = 1.15f;
     public bool SeparateScaleAxis = true;
 
     public bool Hidden = false;

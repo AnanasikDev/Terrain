@@ -81,11 +81,7 @@ public static class WillowObjectsController
                     break;
             }
 
-            if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) &&
-
-                ((WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && hit.collider.gameObject.GetComponent<WillowTerrainSettings>() != null) ||
-                (WillowTerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && hit.collider.gameObject.GetComponent<WillowTerrainSettings>() == null) ||
-                (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects)))
+            if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) && CheckSurface(hit.collider.gameObject))
             {
 
                 GameObject temp = Object.Instantiate(spawnableObject.Object, hit.point, Quaternion.identity);
@@ -374,5 +370,11 @@ public static class WillowObjectsController
                 break;
         }
         return scale;
+    }
+    public static bool CheckSurface(GameObject gameObject)
+    {
+        return ((WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && gameObject.GetComponent<WillowTerrainSettings>() != null) ||
+                (WillowTerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && gameObject.GetComponent<WillowTerrainSettings>() == null) ||
+                (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects));
     }
 }

@@ -1,51 +1,63 @@
 Assets\RTP Vol.1\prefabs\
-False
+True
 4
 25
-null
+Terrain
 onTerrainOnly
 1
-default
+Tree
 True
 1
-tree2 pre
+tree1a pre
 True
-1
+2
+True
+Trees (1)
 False
-null
-False
-AsPrefab
+LerpedRandomAsNormal
 Y
 (0.0, 0.0, 0.0)
 0,15
 0,1
 0,2
 False
-False
+True
 (0.0, 0.0, 0.0)
 (360.0, 360.0, 360.0)
 True
 35
-False
+True
 (0.0, 0.0, 0.0)
-False
-Object
-AsPrefab
+True
+Tree
+Random
 XYZ
-False
+True
 (1.0, 1.0, 1.0)
 (0.9, 0.9, 0.9)
-1
+0,9
 (1.1, 1.1, 1.1)
-1
-True
-default
+1,15
+False
+Tree
 0
-(0.0, 0.0, 0.0)
-0
+(-90.0, 0.0, 0.0)
+12
+Tree (218 clone)
+Tree (219 clone)
+Tree (220 clone)
+Tree (221 clone)
+Tree (222 clone)
+Tree (223 clone)
+Tree (224 clone)
+Tree (225 clone)
+Tree (226 clone)
+Tree (227 clone)
+Tree (228 clone)
+Tree (229 clone)
 True
  ({0} clone)
-0
+230
 0
 False
 True

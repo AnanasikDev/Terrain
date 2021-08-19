@@ -472,10 +472,10 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void DrawSpawnableObject(int index)
     {
-        DrawSpawnableUI(index);
+        if (!DrawSpawnableUI(index)) return;
         DrawSpawnableSettings(index);
     }
-    private void DrawSpawnableUI(int index)
+    private bool DrawSpawnableUI(int index)
     {
         EditorGUILayout.BeginHorizontal("box");
         EditorGUILayout.BeginVertical("box");
@@ -490,8 +490,7 @@ public sealed class WillowTerrainEditor : EditorWindow
                 WillowTerrainSettings.spawnableObjects[index].Hidden = true;
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
-                return;
-                //continue;
+                return false;
             }
         }
         else
@@ -508,8 +507,7 @@ public sealed class WillowTerrainEditor : EditorWindow
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
-                return;
-                //continue;
+                return false;
             }
 
         }
@@ -520,12 +518,19 @@ public sealed class WillowTerrainEditor : EditorWindow
                 WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index - 1];
                 WillowTerrainSettings.spawnableObjects[index - 1] = temp;
             }
+
+        Color bgc = GUI.backgroundColor;
+
+        GUI.backgroundColor = new Color(0.9f, 0.45f, 0.44f);
+
         if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
         {
             WillowTerrainSettings.spawnableObjects.RemoveAt(index);
-            return;
-            //continue;
+            return false;
         }
+
+        GUI.backgroundColor = bgc;
+
         if (index < WillowTerrainSettings.spawnableObjects.Count - 1)
             if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
             {
@@ -533,11 +538,19 @@ public sealed class WillowTerrainEditor : EditorWindow
                 WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index + 1];
                 WillowTerrainSettings.spawnableObjects[index + 1] = temp;
             }
+
+        GUI.backgroundColor = new Color(0.35f, 0.85f, 0.32f);
+
         if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
         {
             WillowTerrainSettings.spawnableObjects.Insert(index, new SpawnableObject(WillowTerrainSettings.spawnableObjects[index]));
         }
+
+        GUI.backgroundColor = bgc;
+        
         EditorGUILayout.EndVertical();
+
+        return true;
     }
     private void DrawSpawnableSettings(int index)
     {
@@ -705,6 +718,10 @@ public sealed class WillowTerrainEditor : EditorWindow
         }
         GUILayout.EndScrollView();
     }
+    private void OnValidate()
+    {
+        OnEnable();
+    }
     private void OnEnable()
     {
         WillowFileManager.Read();
@@ -732,7 +749,6 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void RecalculatePositionsSelected(GameObject[] spawnedObjects)
     {
-        Debug.Log(string.Join<GameObject>(", ", spawnedObjects));
         foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
         {
             obj.GetComponent<WillowSpawnedObject>().RecalculateObjectPosition();
