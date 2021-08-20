@@ -13,7 +13,7 @@ public static class WillowFileManager
     {
         StringBuilder output = new StringBuilder();
 
-        output.AppendLine(WillowTerrainSettings.PrefabsPath.PrepareForFile());
+        output.AppendLine(WillowTerrainSettings.PrefabsPath.RemoveSlashN().RemoveSlashR());
 
         output.AppendLine(WillowTerrainSettings.active.ToString());
         output.AppendLine(WillowTerrainSettings.density.ToString());
@@ -25,7 +25,7 @@ public static class WillowFileManager
         output.AppendLine(WillowTerrainSettings.layersName.Count.ToString());
         for (int layer = 0; layer < WillowTerrainSettings.layersName.Count; layer++)
         {
-            output.AppendLine(WillowTerrainSettings.layersName[layer].PrepareForFile());
+            output.AppendLine(WillowTerrainSettings.layersName[layer].RemoveSlashN().RemoveSlashR());
             output.AppendLine(WillowTerrainSettings.layersState[layer].ToString());
         }
 
@@ -60,7 +60,7 @@ public static class WillowFileManager
             output.AppendLine(obj.PositionAddition.ToString());
 
             output.AppendLine(obj.RenameObject.ToString());
-            output.AppendLine(obj.NewObjectName.PrepareForFile());
+            output.AppendLine(obj.NewObjectName.RemoveSlashR());
             //22
 
             output.AppendLine(obj.ScaleType.ToString());
@@ -73,7 +73,7 @@ public static class WillowFileManager
             output.AppendLine(obj.ScaleMax.ToString());
             output.AppendLine(obj.SeparateScaleAxis.ToString());
             //31
-            output.AppendLine(obj.Layer.PrepareForFile());
+            output.AppendLine(obj.Layer.RemoveSlashR());
             output.AppendLine(obj.LayerIndex.ToString());
 
             output.AppendLine(obj.RotationEulerAddition.ToString());
@@ -82,11 +82,11 @@ public static class WillowFileManager
         output.AppendLine(WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
         foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
-            output.AppendLine(spawnedObj.name.PrepareForFile());
+            output.AppendLine(spawnedObj.name.RemoveSlashR());
         }
 
         output.AppendLine(WillowTerrainSettings.indexObjects.ToString());
-        output.AppendLine(WillowTerrainSettings.indexFormat.PrepareForFile());
+        output.AppendLine(WillowTerrainSettings.indexFormat.RemoveSlashR());
         output.AppendLine(WillowTerrainSettings.spawnedIndecies.ToString());
 
         output.AppendLine(WillowTerrainSettings.eraseSmoothness.ToString());
@@ -107,20 +107,22 @@ public static class WillowFileManager
     }
     public static void Read()
     {
+        //Debug.Log(GameObject.Find("tree1a (clone)".PrepareForFile()) as GameObject);
+
         string[] lines;
 
         using (StreamReader reader = new StreamReader(path))
         {
             lines = reader.ReadToEnd().Split('\n');
 
-            WillowTerrainSettings.PrefabsPath = lines[0];
+            WillowTerrainSettings.PrefabsPath = lines[0].Replace("\r", "").Replace("\n", "");
 
             WillowTerrainSettings.active = Convert.ToBoolean(lines[1]);
             WillowTerrainSettings.density = Convert.ToInt32(lines[2]);
             WillowTerrainSettings.brushSize = Convert.ToInt32(lines[3]);
 
-            if (lines[4].PrepareForFile() == "null") WillowTerrainSettings.parent = null;
-            else WillowTerrainSettings.parent = GameObject.Find(lines[4].PrepareForFile()).transform;
+            if (lines[4].Replace("\r", "") == "null") WillowTerrainSettings.parent = null;
+            else WillowTerrainSettings.parent = GameObject.Find(lines[4].Replace("\r", "")).transform;
 
             Enum.TryParse(lines[5], out WillowTerrainSettings.placementType);
 
@@ -146,13 +148,13 @@ public static class WillowFileManager
                 if (lines[line] == "null")
                     obj.Object = null;
                 else
-                    obj.Object = AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath.PrepareForFile() + $"{lines[line].PrepareForFile()}.prefab", typeof(GameObject)) as GameObject;
-                obj.Spawn = Convert.ToBoolean(lines[line + 1].PrepareForFile());
+                    obj.Object = AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath + $"{lines[line].RemoveSlashR()}.prefab", typeof(GameObject)) as GameObject;
+                obj.Spawn = Convert.ToBoolean(lines[line + 1].RemoveSlashR().RemoveSlashN());
                 obj.SpawnChance = Convert.ToInt32(lines[line + 2]);
                 obj.CustomParent = Convert.ToBoolean(lines[line + 3]);
 
                 if (lines[line + 4].Replace("\r", "") == "null") obj.Parent = null;
-                else obj.Parent = GameObject.Find(lines[line + 4].PrepareForFile()).transform;
+                else obj.Parent = GameObject.Find(lines[line + 4].RemoveSlashR()).transform;
 
                 obj.CenterObject = Convert.ToBoolean(lines[line + 5]);
 
@@ -207,12 +209,14 @@ public static class WillowFileManager
 
             WillowTerrainSettings.spawnedObjects.Clear();
             line++;
-            Debug.Log(line + 1 + lines[line]);
-            WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].PrepareForFile()));
+            WillowTerrainSettings.spawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].RemoveSlashN()));
             int l;
             for (l = line + 1; l < WillowTerrainSettings.spawnedObjects.Capacity + line + 1; l++)
             {
-                var g = GameObject.Find(lines[l]);
+                
+                //Debug.Log(lines[l].PrepareForFile());
+                var g = GameObject.Find(lines[l]);//lines[l]); //lines[l].PrepareForFile()
+                //"Tree (53 clone)" "Tree (87 clone)"
                 WillowTerrainSettings.spawnedObjects.Add(g);
             }
 

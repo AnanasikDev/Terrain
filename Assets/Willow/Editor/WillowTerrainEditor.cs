@@ -724,6 +724,8 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void OnEnable()
     {
+        //Debug.Log(GameObject.Find("F".PrepareForFile()) as GameObject);
+
         WillowFileManager.Read();
         
         if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Willow started!", "#00FF00FF"));

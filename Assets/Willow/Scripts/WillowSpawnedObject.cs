@@ -15,10 +15,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     private bool GetHit()
     {
-        /*bool result = Physics.Raycast(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, out RaycastHit _hit, WillowTerrainSettings.RecalculatingLength * 2);
-        hit = _hit;
-        return result;*/
-
         Physics.RaycastNonAlloc(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, hits);
 
         return hits.Where(x => x.collider != null).ToArray().Length != 0;
@@ -26,13 +22,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     private bool GetNewPosition(out Vector3 position)
     {
-        /*bool result = GetHit(out RaycastHit hit);
-
-        position = hit.point;
-
-        return result;*/
-
-        bool res = GetHit();
+       GetHit();
 
         foreach (var hit in hits)
         {
@@ -46,18 +36,10 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         position = transform.position;
 
         return false;
-
-        //return hit.collider.GetComponent<WillowTerrainSettings>() != null;
     }
     private bool GetNewRotation(out Vector3 normal)
     {
-        /*bool result = GetHit(out RaycastHit hit);
-
-        position = hit.point;
-
-        return result;*/
-
-        bool res = GetHit();
+        GetHit();
 
         foreach (var hit in hits)
         {
@@ -71,15 +53,12 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         normal = transform.up;
 
         return false;
-
-        //return hit.collider.GetComponent<WillowTerrainSettings>() != null;
     }
     public void RecalculateObjectPosition()
     {
         Vector3 result = transform.position;
         if (GetNewPosition(out Vector3 newPosition))
         {
-            Debug.Log("RAYCAST");
             result = newPosition;
         }
 
@@ -96,7 +75,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void RecalculateObjectRotation()
     {
-        GetNewPosition(out Vector3 normal);
+        GetNewRotation(out Vector3 normal);
 
         WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, normal, SpawnableObject.CustomEulersRotation);
     }

@@ -105,6 +105,9 @@ public static class WillowObjectsController
 
                 if (WillowTerrainSettings.indexObjects)
                     temp.name += string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies);
+
+                //temp.name.PrepareForFile();
+
                 WillowTerrainSettings.spawnedIndecies++;
 
                 if (spawnableObject.CenterObject)
