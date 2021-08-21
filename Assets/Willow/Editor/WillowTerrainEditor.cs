@@ -13,6 +13,8 @@ public sealed class WillowTerrainEditor : EditorWindow
     private string newLayerName = "defaultLayer";
     private Vector2 scrollPos = Vector2.zero;
 
+    GUIStyle labelStyle = GUIStyle.none;
+
     [MenuItem(Path + "Prefab brush")]
     public static void ShowWindow()
     {
@@ -46,12 +48,18 @@ public sealed class WillowTerrainEditor : EditorWindow
         SceneView.RepaintAll();
     }
 
+    private void InitializeStyles()
+    {
+        labelStyle.alignment = TextAnchor.MiddleCenter;
+        labelStyle.fontSize = 12;
+    }
+
     private void Enable()
     {
-
         WillowTerrainSettings.active = true;
 
         Selection.activeObject = null;
+        InitializeStyles();
     }
     private void Disable()
     {
@@ -303,10 +311,12 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowTerrainSettings.PrefabsPath = EditorGUILayout.TextField("Prefabs path", WillowTerrainSettings.PrefabsPath);
 
         WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
+        
         if (GUILayout.Button("Recalculate all"))
         {
             RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
             RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
+            RecalculateScalesSelected(WillowTerrainSettings.spawnedObjects.ToArray());
         }
 
         // General Info
@@ -458,16 +468,12 @@ public sealed class WillowTerrainEditor : EditorWindow
         }
         EditorGUILayout.EndHorizontal();
     }
-    private void DrawLabel(string text)
+    private void DrawLabel(string text, int offstep = 12)
     {
-        GUIStyle labelStyle = GUIStyle.none;
-        labelStyle.alignment = TextAnchor.MiddleCenter;
-        labelStyle.fontSize = 12;
-
         EditorGUILayout.EndVertical();
-        EditorGUILayout.Space(12);
+        EditorGUILayout.Space(offstep);
         EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>{text}</color></b>", labelStyle);
-        EditorGUILayout.Space(12);
+        EditorGUILayout.Space(offstep);
         EditorGUILayout.BeginVertical("box");
     }
     private void DrawSpawnableObject(int index)
@@ -592,17 +598,33 @@ public sealed class WillowTerrainEditor : EditorWindow
         if (spawnableObject.SpawnChance < 0) spawnableObject.SpawnChance = 0;
 
 
+        EditorGUILayout.BeginVertical("box");
+
+        DrawLabel("Recalculate", 2);
+
         EditorGUILayout.BeginHorizontal("box");
-        if (GUILayout.Button("Recalculate position"))
+
+        if (GUILayout.Button("Position"))
         {
-            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
+            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects
+                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
 
         }
-        if (GUILayout.Button("Recalculate rotation"))
+        if (GUILayout.Button("Rotation"))
         {
-            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
+            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects
+                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
         }
+        if (GUILayout.Button("Scale"))
+        {
+            RecalculateScalesSelected(WillowTerrainSettings.spawnedObjects
+                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
+        }
+
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndVertical();
+
 
         DrawLabel("Rotation");
 
@@ -761,6 +783,13 @@ public sealed class WillowTerrainEditor : EditorWindow
         foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
         {
             obj.GetComponent<WillowSpawnedObject>().RecalculateObjectRotation();
+        }
+    }
+    private void RecalculateScalesSelected(GameObject[] spawnedObjects)
+    {
+        foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
+        {
+            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectScale();
         }
     }
 }

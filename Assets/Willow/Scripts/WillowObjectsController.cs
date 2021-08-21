@@ -374,6 +374,7 @@ public static class WillowObjectsController
         }
         return scale;
     }
+
     public static bool CheckSurface(GameObject gameObject)
     {
         return ((WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && gameObject.GetComponent<WillowTerrainSettings>() != null) ||

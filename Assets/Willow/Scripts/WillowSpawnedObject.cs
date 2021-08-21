@@ -79,4 +79,8 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
         WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, normal, SpawnableObject.CustomEulersRotation);
     }
+    public void RecalculateObjectScale()
+    {
+        transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);
+    }
 }
