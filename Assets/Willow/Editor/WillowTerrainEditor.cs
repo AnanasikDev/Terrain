@@ -1,19 +1,18 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 using static WillowUtils;
 using static WillowObjectsController;
 using static WillowGlobalConfig;
-
+using static WillowObjectsRecalculation;
+using static WillowStyles;
+using static WillowUndo;
 public sealed class WillowTerrainEditor : EditorWindow
 {
     private bool sceneview = true;
     private string newLayerName = "defaultLayer";
     private Vector2 scrollPos = Vector2.zero;
-
-    GUIStyle labelStyle = GUIStyle.none;
 
     [MenuItem(Path + "Prefab brush")]
     public static void ShowWindow()
@@ -21,18 +20,11 @@ public sealed class WillowTerrainEditor : EditorWindow
         GetWindow<WillowTerrainEditor>("Terrain++");
     }
 
-    private void InitializeStyles()
-    {
-        labelStyle.alignment = TextAnchor.MiddleCenter;
-        labelStyle.fontSize = 12;
-    }
-
     private void Enable()
     {
         WillowTerrainSettings.active = true;
 
         Selection.activeObject = null;
-        InitializeStyles();
     }
     private void Disable()
     {
@@ -89,6 +81,7 @@ public sealed class WillowTerrainEditor : EditorWindow
                 Event.current.Use();
 
                 Undo();
+                Repaint();
             }
         }
 
@@ -102,64 +95,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         if (Event.current != null) 
             WillowBrushVis.BrushVis();
 
-        EditorApplication.RepaintHierarchyWindow();
-    }
-
-    private void Undo()
-    {
-        if (WillowTerrainSettings.changelog.Count == 0)
-        {
-            if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("Undo stack is empty!"));
-            return;
-        }
-
-        int controlId = GUIUtility.GetControlID(FocusType.Passive);
-        Change lastChange = WillowTerrainSettings.changelog.Pop();
-        if (lastChange.type == ChangeType.Placement)
-        {
-            GameObject[] changedObjsTemp = lastChange.spawnedObjects.ToArray();
-            foreach (GameObject obj in changedObjsTemp)
-            {
-                obj.gameObject.hideFlags = hidden;
-                obj.SetActive(false);
-                WillowTerrainSettings.spawnedObjects.Remove(obj);
-                WillowTerrainSettings.destroyedObjects.Add(obj);
-            }
-        }
-        else if (lastChange.type == ChangeType.Erasure)
-        {
-            GameObject[] changedObjsTemp = lastChange.destroyedObjects.ToArray();
-            foreach (GameObject obj in changedObjsTemp)
-            {
-                obj.hideFlags = active;
-                obj.SetActive(true);
-                WillowTerrainSettings.destroyedObjects.Remove(obj);
-                WillowTerrainSettings.spawnedObjects.Add(obj);
-            }
-            GUIUtility.hotControl = controlId;
-            Event.current.Use();
-        }
-        else if (lastChange.type == ChangeType.Exchange)
-        {
-            GameObject[] destroyedObjsTemp = lastChange.destroyedObjects.ToArray();
-            foreach (GameObject obj in destroyedObjsTemp)
-            {
-                obj.hideFlags = active;
-                obj.SetActive(true);
-                WillowTerrainSettings.destroyedObjects.Remove(obj);
-                WillowTerrainSettings.spawnedObjects.Add(obj);
-            }
-
-            GameObject[] spawnedObjsTemp = lastChange.spawnedObjects.ToArray();
-            foreach (GameObject obj in spawnedObjsTemp)
-            {
-                obj.hideFlags = hidden;
-                obj.SetActive(false);
-                WillowTerrainSettings.spawnedObjects.Remove(obj);
-                WillowTerrainSettings.destroyedObjects.Add(obj);
-            }
-        }
-        Repaint();
         EditorApplication.RepaintHierarchyWindow();
     }
 
@@ -716,6 +651,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void OnValidate()
     {
+        InitializeStyles();
         OnEnable();
     }
     private void OnEnable()
@@ -744,26 +680,5 @@ public sealed class WillowTerrainEditor : EditorWindow
     private void OnSceneGUI(SceneView sceneView)
     {
         SceneGUI();
-    }
-    private void RecalculatePositionsSelected(GameObject[] spawnedObjects)
-    {
-        foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
-        {
-            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectPosition();
-        }
-    }
-    private void RecalculateRotationsSelected(GameObject[] spawnedObjects)
-    {
-        foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
-        {
-            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectRotation();
-        }
-    }
-    private void RecalculateScalesSelected(GameObject[] spawnedObjects)
-    {
-        foreach (GameObject obj in spawnedObjects.Where(obj => obj != null))
-        {
-            obj.GetComponent<WillowSpawnedObject>().RecalculateObjectScale();
-        }
-    }
+    }   
 }
