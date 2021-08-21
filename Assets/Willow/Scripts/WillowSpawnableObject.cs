@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public sealed class SpawnableObject
+public sealed class WillowSpawnableObject
 {
     public bool Spawn = true;
     public GameObject Object;
@@ -47,11 +47,11 @@ public sealed class SpawnableObject
 
     public bool Hidden = false;
 
-    public SpawnableObject()
+    public WillowSpawnableObject()
     {
 
     }
-    public SpawnableObject(SpawnableObject clone)
+    public WillowSpawnableObject(WillowSpawnableObject clone)
     {
         Spawn = clone.Spawn;
         CenterObject = clone.CenterObject;

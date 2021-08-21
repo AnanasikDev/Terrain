@@ -20,33 +20,6 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         GetWindow<WillowTerrainEditor>("Terrain++");
     }
-    private void _DrawBrush(Vector3 pos, float size)
-    {
-        Color c = new Color(0.1f, 0.1f, 0.2f, 0.5f);
-        Handles.color = c;
-        if (WillowTerrainSettings.brushShape == BrushShape.Circle)
-            Handles.DrawSolidDisc(pos, Vector3.up, size);
-        else if (WillowTerrainSettings.brushShape == BrushShape.Square)
-        {
-            float normSize = size * 1.6f;
-            Handles.DrawSolidRectangleWithOutline(new Vector3[4] {
-                new Vector3(pos.x - normSize/2, pos.y, pos.z - normSize / 2),
-                new Vector3(pos.x - normSize/2, pos.y, pos.z + normSize / 2),
-                new Vector3(pos.x + normSize/2, pos.y, pos.z + normSize / 2),
-                new Vector3(pos.x + normSize/2, pos.y, pos.z - normSize / 2)
-            },  new Color(0.1f, 0.1f, 0.2f, 0.8f), c);
-        }
-    }
-    private void BrushVis()
-    {
-        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        RaycastHit screenHit;
-        Physics.Raycast(ray, out screenHit);
-
-        _DrawBrush(screenHit.point, WillowTerrainSettings.brushSize);
-
-        SceneView.RepaintAll();
-    }
 
     private void InitializeStyles()
     {
@@ -126,7 +99,8 @@ public sealed class WillowTerrainEditor : EditorWindow
             WillowFileManager.Write();
         }
         
-        if (Event.current != null) BrushVis();
+        if (Event.current != null) 
+            WillowBrushVis.BrushVis();
 
         EditorApplication.RepaintHierarchyWindow();
     }
@@ -464,7 +438,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         GUILayout.Label(WillowTerrainSettings.spawnableObjects.Count.ToString());
         if (GUILayout.Button("Add"))
         {
-            WillowTerrainSettings.spawnableObjects.Add(new SpawnableObject());
+            WillowTerrainSettings.spawnableObjects.Add(new WillowSpawnableObject());
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -549,7 +523,7 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
         {
-            WillowTerrainSettings.spawnableObjects.Insert(index, new SpawnableObject(WillowTerrainSettings.spawnableObjects[index]));
+            WillowTerrainSettings.spawnableObjects.Insert(index, new WillowSpawnableObject(WillowTerrainSettings.spawnableObjects[index]));
         }
 
         GUI.backgroundColor = bgc;
@@ -560,7 +534,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void DrawSpawnableSettings(int index)
     {
-        SpawnableObject spawnableObject = WillowTerrainSettings.spawnableObjects[index];
+        WillowSpawnableObject spawnableObject = WillowTerrainSettings.spawnableObjects[index];
 
         EditorGUILayout.BeginVertical("box");
 

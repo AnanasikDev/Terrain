@@ -5,11 +5,11 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public Renderer[] Renderers;
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
-    public SpawnableObject SpawnableObject;
+    public WillowSpawnableObject SpawnableObject;
 
     private RaycastHit[] hits = new RaycastHit[12];
 
-    public void Init(SpawnableObject spawnableObject)
+    public void Init(WillowSpawnableObject spawnableObject)
     {
         SpawnableObject = spawnableObject;
     }
@@ -81,6 +81,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void RecalculateObjectScale()
     {
-        transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);
+        Debug.Log(SpawnableObject.CustomScale);
+        transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);//
     }
 }

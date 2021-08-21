@@ -30,7 +30,7 @@ public static class WillowFileManager
         }
 
         output.AppendLine(WillowTerrainSettings.spawnableObjects.Count.ToString());
-        foreach (SpawnableObject obj in WillowTerrainSettings.spawnableObjects)
+        foreach (WillowSpawnableObject obj in WillowTerrainSettings.spawnableObjects)
         {
             output.AppendLine(obj.Object == null ? "null" : obj.Object.name);
             output.AppendLine(obj.Spawn.ToString());
@@ -140,11 +140,11 @@ public static class WillowFileManager
 
             WillowTerrainSettings.spawnableObjects.Clear();
             int spawnablesAmount = Convert.ToInt32(lines[6 + layerAmount * 2 + 1]);
-            WillowTerrainSettings.spawnableObjects = new List<SpawnableObject>(spawnablesAmount);
+            WillowTerrainSettings.spawnableObjects = new List<WillowSpawnableObject>(spawnablesAmount);
             int line;
             for (line = 7 + layerAmount * 2 + 1; line < 7 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
-                SpawnableObject obj = new SpawnableObject();
+                WillowSpawnableObject obj = new WillowSpawnableObject();
                 if (lines[line] == "null")
                     obj.Object = null;
                 else
@@ -218,6 +218,7 @@ public static class WillowFileManager
                 var g = GameObject.Find(lines[l]);//lines[l]); //lines[l].PrepareForFile()
                 //"Tree (53 clone)" "Tree (87 clone)"
                 WillowTerrainSettings.spawnedObjects.Add(g);
+                Debug.Log("S[dfds" + g.GetComponent<WillowSpawnedObject>().SpawnableObject);
             }
 
             WillowTerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);

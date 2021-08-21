@@ -31,7 +31,7 @@ public class WillowTerrainSettings : MonoBehaviour
     static public bool erase = false;
     static public int eraseSmoothness = 0;
 
-    static public List<SpawnableObject> spawnableObjects = new List<SpawnableObject>();
+    static public List<WillowSpawnableObject> spawnableObjects = new List<WillowSpawnableObject>();
     static public List<GameObject> spawnedObjects = new List<GameObject>();
     static public List<GameObject> destroyedObjects = new List<GameObject>();
 

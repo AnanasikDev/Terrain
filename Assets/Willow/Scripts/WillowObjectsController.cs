@@ -16,7 +16,7 @@ public static class WillowObjectsController
 
         if (!ableToSpawn) return;
 
-        List<SpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
+        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
         if (WillowTerrainSettings.ignoreInactiveLayers)
             spawnableObjects = spawnableObjects
                 .Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)])
@@ -34,7 +34,7 @@ public static class WillowObjectsController
 
         for (int i = 0; i < WillowTerrainSettings.density; i++)
         {
-            SpawnableObject spawnableObject = GetObject(spawnableObjects);
+            WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
             if (spawnableObject == null) continue;
 
             RaycastHit hit;
@@ -173,7 +173,7 @@ public static class WillowObjectsController
             .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= WillowTerrainSettings.brushSize * WillowTerrainSettings.brushSize))
             .ToArray();
 
-        List<SpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
+        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
         if (WillowTerrainSettings.ignoreInactiveLayers)
         {
             objsToExchange = objsToExchange.Where(gameObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
@@ -186,7 +186,7 @@ public static class WillowObjectsController
             {
                 if (o != null)
                 {
-                    SpawnableObject spawnableObject = GetObject(spawnableObjects);
+                    WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
                     Vector3 position = WillowTerrainSettings.exchangePosition ? o.transform.position : o.transform.position - o.GetComponent<WillowSpawnedObject>().PositionAdd + GetObjectPositionAdd(spawnableObject);
                     RaycastHit normalHit;
                     bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
@@ -229,7 +229,7 @@ public static class WillowObjectsController
         EditorApplication.DirtyHierarchyWindowSorting();
     }
 
-    public static SpawnableObject GetObject(List<SpawnableObject> spawnableObjects)
+    public static WillowSpawnableObject GetObject(List<WillowSpawnableObject> spawnableObjects)
     {
         int[] chances = new int[spawnableObjects.Count];
         bool ableToSpawn = false;
@@ -241,7 +241,7 @@ public static class WillowObjectsController
         if (!ableToSpawn) return null;
         return spawnableObjects[GetChance(chances)]; //new SpawnableObject(spawnableObjects[GetChance(chances)]);
     }
-    public static void SetObjectRotation(SpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
+    public static void SetObjectRotation(WillowSpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {
         if (spawnableObject.RotationType == RotationType.Static)
         {
@@ -327,16 +327,16 @@ public static class WillowObjectsController
             }
         }
     }
-    public static Transform GetObjectParent(SpawnableObject obj)
+    public static Transform GetObjectParent(WillowSpawnableObject obj)
     {
         if (obj.CustomParent) return obj.Parent;
         else return WillowTerrainSettings.parent;
     }
-    public static Vector3 GetObjectPositionAdd(SpawnableObject obj)
+    public static Vector3 GetObjectPositionAdd(WillowSpawnableObject obj)
     {
         return obj.ModifyPosition ? obj.PositionAddition : Vector3.zero;
     }
-    public static Vector3 GetObjectScale(SpawnableObject spawnableObject)
+    public static Vector3 GetObjectScale(WillowSpawnableObject spawnableObject)
     {
         Vector3 scale = Vector3.one;
         switch (spawnableObject.ScaleType)
