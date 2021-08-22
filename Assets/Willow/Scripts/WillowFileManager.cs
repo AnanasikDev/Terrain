@@ -141,7 +141,7 @@ public static class WillowFileManager
             WillowTerrainSettings.spawnableObjects.Clear();
             int spawnablesAmount = Convert.ToInt32(lines[6 + layerAmount * 2 + 1]);
             WillowTerrainSettings.spawnableObjects = new List<WillowSpawnableObject>(spawnablesAmount);
-            int line;
+            int line;//
             for (line = 7 + layerAmount * 2 + 1; line < 7 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
                 WillowSpawnableObject obj = new WillowSpawnableObject();
@@ -205,6 +205,7 @@ public static class WillowFileManager
                 obj.RotationEulerAddition = ParseVector(lines[line + 33]);
 
                 WillowTerrainSettings.spawnableObjects.Add(obj);
+                Debug.Log("Spawbable " + obj);//
             }
 
             WillowTerrainSettings.spawnedObjects.Clear();
@@ -216,11 +217,15 @@ public static class WillowFileManager
                 
                 //Debug.Log(lines[l].PrepareForFile());
                 var g = GameObject.Find(lines[l]);//lines[l]); //lines[l].PrepareForFile()
-                //"Tree (53 clone)" "Tree (87 clone)"
+                //"Tree (53 clone)" "Tree (87 clone)"/
+                g.GetComponent<WillowSpawnedObject>().SpawnableObject = g.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
                 WillowTerrainSettings.spawnedObjects.Add(g);
-                Debug.Log("S[dfds" + g.GetComponent<WillowSpawnedObject>().SpawnableObject);
+                Debug.Log("Spawnable in spawned " + g.GetComponent<WillowSpawnedObject>().SpawnableObject);
             }
 
+            Debug.Log(WillowTerrainSettings.spawnableObjects[0].Equals(WillowTerrainSettings.spawnedObjects[0].GetComponent<WillowSpawnedObject>().SpawnableObject));
+            Debug.Log(WillowTerrainSettings.spawnedObjects[1].GetComponent<WillowSpawnedObject>().SpawnableObject.Equals(WillowTerrainSettings.spawnedObjects[0].GetComponent<WillowSpawnedObject>().SpawnableObject));
+            
             WillowTerrainSettings.indexObjects = Convert.ToBoolean(lines[l]);
             WillowTerrainSettings.indexFormat = lines[l + 1];
             WillowTerrainSettings.spawnedIndecies = Convert.ToInt64(lines[l + 2]);

@@ -9,10 +9,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
     private RaycastHit[] hits = new RaycastHit[12];
 
-    public void Init(WillowSpawnableObject spawnableObject)
-    {
-        SpawnableObject = spawnableObject;
-    }
     private bool GetHit()
     {
         Physics.RaycastNonAlloc(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, hits);

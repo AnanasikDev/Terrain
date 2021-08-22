@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
 public sealed class WillowSpawnableObject
@@ -91,5 +92,34 @@ public sealed class WillowSpawnableObject
         ScaleMax = clone.ScaleMax;
         ScaleMinSeparated = clone.ScaleMinSeparated;
         ScaleMaxSeparated = clone.ScaleMaxSeparated;
+    }
+    public bool DeepEquals(WillowSpawnableObject spawnableObject)
+    {
+        /*FieldInfo[] fields = typeof(WillowSpawnableObject).GetFields();
+        fields[0].*/
+        var properties1 = this.GetType().GetProperties().ToList();
+        var properties2 = spawnableObject.GetType().GetProperties().ToList();
+        for (int i = 0; i < properties1.Count; i++)
+        {
+            if (properties1[i].GetValue(spawnableObject) == properties2[i].GetValue(this))
+            { 
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public WillowSpawnableObject GetOriginal()
+    {
+        foreach (WillowSpawnableObject spawnable in WillowTerrainSettings.spawnableObjects)
+        {
+            if (spawnable.DeepEquals(this))
+            {
+                return spawnable;
+            }
+        }
+        return null;
     }
 }
