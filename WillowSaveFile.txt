@@ -32,7 +32,7 @@ False
 Object
 Random
 XYZ
-True
+False
 (1.0, 1.0, 1.0)
 (0.1, 0.9, 0.9)
 1
@@ -41,8 +41,8 @@ True
 False
 default
 0
-(90.0, 0.0, 0.0)
-29
+(-90.0, 0.0, 0.0)
+79
 tree1a pre (25 clone)
 tree1a pre (26 clone)
 tree1a pre (27 clone)
@@ -72,9 +72,59 @@ tree1a pre (50 clone)
 tree1a pre (51 clone)
 tree1a pre (52 clone)
 tree1a pre (53 clone)
+tree1a pre (54 clone)
+tree1a pre (55 clone)
+tree1a pre (56 clone)
+tree1a pre (57 clone)
+tree1a pre (58 clone)
+tree1a pre (59 clone)
+tree1a pre (60 clone)
+tree1a pre (61 clone)
+tree1a pre (62 clone)
+tree1a pre (63 clone)
+tree1a pre (64 clone)
+tree1a pre (65 clone)
+tree1a pre (66 clone)
+tree1a pre (67 clone)
+tree1a pre (68 clone)
+tree1a pre (69 clone)
+tree1a pre (70 clone)
+tree1a pre (71 clone)
+tree1a pre (72 clone)
+tree1a pre (73 clone)
+tree1a pre (74 clone)
+tree1a pre (75 clone)
+tree1a pre (76 clone)
+tree1a pre (77 clone)
+tree1a pre (78 clone)
+tree1a pre (79 clone)
+tree1a pre (80 clone)
+tree1a pre (81 clone)
+tree1a pre (82 clone)
+tree1a pre (83 clone)
+tree1a pre (84 clone)
+tree1a pre (85 clone)
+tree1a pre (86 clone)
+tree1a pre (87 clone)
+tree1a pre (88 clone)
+tree1a pre (89 clone)
+tree1a pre (90 clone)
+tree1a pre (91 clone)
+tree1a pre (92 clone)
+tree1a pre (93 clone)
+tree1a pre (94 clone)
+tree1a pre (95 clone)
+tree1a pre (96 clone)
+tree1a pre (97 clone)
+tree1a pre (98 clone)
+tree1a pre (99 clone)
+tree1a pre (100 clone)
+tree1a pre (101 clone)
+tree1a pre (102 clone)
+tree1a pre (103 clone)
 True
  ({0} clone)
-54
+104
 0
 False
 True

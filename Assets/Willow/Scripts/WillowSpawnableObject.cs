@@ -95,8 +95,6 @@ public sealed class WillowSpawnableObject
     }
     public bool DeepEquals(WillowSpawnableObject spawnableObject)
     {
-        /*FieldInfo[] fields = typeof(WillowSpawnableObject).GetFields();
-        fields[0].*/
         var properties1 = this.GetType().GetProperties().ToList();
         var properties2 = spawnableObject.GetType().GetProperties().ToList();
         for (int i = 0; i < properties1.Count; i++)

@@ -77,7 +77,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void RecalculateObjectScale()
     {
-        Debug.Log(SpawnableObject.CustomScale);
-        transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);//
+        transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);
     }
 }
