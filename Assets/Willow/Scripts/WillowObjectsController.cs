@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static WillowUtils;
 using static WillowGlobalConfig;
+using static WillowDebug;
 public static class WillowObjectsController
 {
     public static event System.Action OnRepaint;
@@ -28,14 +29,16 @@ public static class WillowObjectsController
 
         if (!(WillowTerrainSettings.spawnableObjects.Count > 0 && anySpawnableObjects))
         {
-            if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("There are no objects to spawn!"));
+            Log("There are no objects to spawn!", Yellow, Debug.LogError);
             return;
         }
 
         for (int i = 0; i < WillowTerrainSettings.density; i++)
         {
             WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
-            if (spawnableObject == null) continue;
+            
+            if (spawnableObject == null) 
+                continue;
 
             RaycastHit hit;
 
@@ -97,7 +100,7 @@ public static class WillowObjectsController
 
                 temp.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.Layer;
 
-                temp.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject; //Init(spawnableObject);
+                temp.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
 
                 temp.name = spawnableObject.Object.name;
                 if (spawnableObject.RenameObject)
@@ -105,8 +108,6 @@ public static class WillowObjectsController
 
                 if (WillowTerrainSettings.indexObjects)
                     temp.name += string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies);
-
-                //temp.name.PrepareForFile();
 
                 WillowTerrainSettings.spawnedIndecies++;
 
@@ -239,7 +240,7 @@ public static class WillowObjectsController
             if (chances[i] > 0) ableToSpawn = true;
         }
         if (!ableToSpawn) return null;
-        return spawnableObjects[GetChance(chances)]; //new SpawnableObject(spawnableObjects[GetChance(chances)]);
+        return spawnableObjects[GetChance(chances)];
     }
     public static void SetObjectRotation(WillowSpawnableObject spawnableObject, GameObject spawnedObject, Vector3 normal, Vector3 custom)
     {

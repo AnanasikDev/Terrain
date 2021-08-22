@@ -8,6 +8,7 @@ using static WillowGlobalConfig;
 using static WillowObjectsRecalculation;
 using static WillowStyles;
 using static WillowUndo;
+using static WillowDebug;
 public sealed class WillowTerrainEditor : EditorWindow
 {
     private bool sceneview = true;
@@ -289,14 +290,14 @@ public sealed class WillowTerrainEditor : EditorWindow
                     }
                     if (dependedAmount > 0)
                     {
-                        if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog($"Impossible to remove the layer: {dependedAmount} objects depend on it."));
+                        Log($"Impossible to remove the layer: {dependedAmount} objects depend on it.", Yellow);
                     }
                     else
                         WillowTerrainSettings.layersName[layerId] = "";
                 }
                 else
                 {
-                    if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("Impossible to remove the last layer."));
+                    Log("Impossible to remove the last layer.", Yellow, Debug.LogError);
                 }
             }
             GUI.backgroundColor = oldBgColor;
@@ -336,7 +337,7 @@ public sealed class WillowTerrainEditor : EditorWindow
                 if (WillowTerrainSettings.layersName.FindAll(x => x == WillowTerrainSettings.layersName[layerId]).Count > 1)
                 {
                     WillowTerrainSettings.layersName[layerId] = lastLayerName;
-                    if (WillowTerrainSettings.debugMode) Debug.LogWarning(WillowUtils.FormatLog("Impossible to hold several layers with the same name."));
+                    Log("Impossible to hold several layers with the same name.", Yellow, Debug.LogWarning);
                 }
                 else foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects)
                 {
@@ -654,13 +655,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowFileManager.Read();
         InitializeStyles();
         OnEnable();
-    }//
+    }
     private void OnEnable()
     {
-        //Debug.Log(GameObject.Find("F".PrepareForFile()) as GameObject);
-
-        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Willow started!", "#00FF00FF"));
-
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
         EditorApplication.quitting += WillowFileManager.Write;
@@ -669,7 +666,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         WillowFileManager.Write();
         
-        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Willow ended..", "#00FF00FF"));
+        Log("Willow ended..", Green);
 
         SceneView.duringSceneGui -= OnSceneGUI;
         WillowObjectsController.OnRepaint -= Repaint;

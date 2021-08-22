@@ -2,13 +2,14 @@
 using UnityEditor;
 using static WillowUtils;
 using static WillowGlobalConfig;
+using static WillowDebug;
 public static class WillowUndo
 {
     public static void Undo()
     {
         if (WillowTerrainSettings.changelog.Count == 0)
         {
-            if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("Undo stack is empty!"));
+            Log("Undo stack is empty!", Yellow, Debug.LogError);
             return;
         }
 

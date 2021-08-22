@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Linq;
 using static WillowGlobalConfig;
+using static WillowDebug;
 public class WillowClearCache : Editor
 {
     [MenuItem(Path + "Clear Change Log")]
@@ -13,14 +14,14 @@ public class WillowClearCache : Editor
         {
             DestroyImmediate(obj);
         }
-        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Changelog cleared", "#00FF00FF"));
+        Log("Changelog cleared", Green);
     }
     [MenuItem(Path + "Enable Destoryed Objects")]
     public static void EnableDestroyedObjects()
     {
         if (WillowTerrainSettings.destroyedObjects.Count == 0)
         {
-            if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("There are no destroyed objects!"));
+            Log("There are no destroyed objects!", Yellow, Debug.LogError);
         }
         else foreach (GameObject obj in WillowTerrainSettings.destroyedObjects.Where(x => x != null))
         {
@@ -34,7 +35,7 @@ public class WillowClearCache : Editor
     {
         if (WillowTerrainSettings.destroyedObjects.Count == 0)
         {
-            if (WillowTerrainSettings.debugMode) Debug.LogError(WillowUtils.FormatLog("There are no destroyed objects!"));
+            Log("There are no destroyed objects!", Yellow, Debug.LogError);
         }
         else foreach (GameObject obj in WillowTerrainSettings.destroyedObjects.Where(x => x != null))
         {
@@ -46,8 +47,8 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Reset indecies")]
     public static void ResetIndecies()
     {
-        WillowTerrainSettings.spawnedIndecies = 0;
-        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Indecies reseted.", "#00FF00FF"));
+        WillowTerrainSettings.spawnedIndecies = 0;//
+        Log("Indecies reseted.", Green);
     }
     [MenuItem(Path + "Save")]
     public static void Save()

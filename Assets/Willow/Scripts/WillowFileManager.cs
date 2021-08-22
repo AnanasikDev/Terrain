@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using static WillowUtils;
+using static WillowDebug;
 public static class WillowFileManager
 {
     public static string path = "./WillowSaveFile.txt";
@@ -103,7 +104,7 @@ public static class WillowFileManager
             writer.Write(output);
         }
 
-        LogSaved();
+        Log("Templates saved!", Green);
     }
     public static void Read()
     {
@@ -242,10 +243,6 @@ public static class WillowFileManager
         return t;
     }
 
-    private static void LogSaved()
-    {
-        if (WillowTerrainSettings.debugMode) Debug.Log(WillowUtils.FormatLog("Templates saved!", "#00FF00FF"));
-    }
     private static GameObject LoadPrefab(string name)
     {
         return AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath + $"{name.RemoveSlashR()}.prefab", typeof(GameObject)) as GameObject;
