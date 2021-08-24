@@ -14,6 +14,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     private bool sceneview = true;
     private string newLayerName = "defaultLayer";
     private Vector2 scrollPos = Vector2.zero;
+    private bool Quited = false;
 
     [MenuItem(Path + "Prefab brush")]
     public static void ShowWindow()
@@ -652,27 +653,44 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void OnValidate()
     {
-        WillowFileManager.Read();
         InitializeStyles();
         OnEnable();
     }
     private void OnEnable()
     {
+        WillowFileManager.Read();
+
+        Log("Willow started..", Green);
+
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
-        EditorApplication.quitting += WillowFileManager.Write;
+        //EditorApplication.quitting += WillowFileManager.Write;
+        Application.quitting += Quit;
+        EditorApplication.update += SceneAutoSave;
+        //UnityEditor.EventSystems.EventSystemEditor.
+    }
+    private void SceneAutoSave()
+    {
+        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
     }
     private void OnDisable()
     {
-        WillowFileManager.Write();
+        if (Quited) return;
+
+        //WillowFileManager.Write();
         
         Log("Willow ended..", Green);
 
         SceneView.duringSceneGui -= OnSceneGUI;
         WillowObjectsController.OnRepaint -= Repaint;
-        EditorApplication.quitting -= WillowFileManager.Write;
+        //EditorApplication.quitting -= WillowFileManager.Write;
+        Application.quitting -= Quit;
+        EditorApplication.update -= SceneAutoSave;
     }
-
+    private void Quit()
+    {
+        Quited = true;
+    }
     private void OnSceneGUI(SceneView sceneView)
     {
         SceneGUI();

@@ -118,7 +118,7 @@ public static class WillowFileManager
 
             WillowTerrainSettings.active = Convert.ToBoolean(lines[1]);
             WillowTerrainSettings.density = Convert.ToInt32(lines[2]);
-            WillowTerrainSettings.brushSize = Convert.ToInt32(lines[3]);
+            WillowTerrainSettings.brushSize = Convert.ToSingle(lines[3]);
 
             if (lines[4].RemoveSlashR() == "null") WillowTerrainSettings.parent = null;
             else WillowTerrainSettings.parent = GameObject.Find(lines[4].RemoveSlashR()).transform;
@@ -148,6 +148,7 @@ public static class WillowFileManager
                     obj.Object = null;
                 else
                     obj.Object = LoadPrefab(lines[line]);
+
                 obj.Spawn = Convert.ToBoolean(lines[line + 1].RemoveSlashR().RemoveSlashN());
                 obj.SpawnChance = Convert.ToInt32(lines[line + 2]);
                 obj.CustomParent = Convert.ToBoolean(lines[line + 3]);

@@ -5,7 +5,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public Renderer[] Renderers;
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
-    public WillowSpawnableObject SpawnableObject;
+    [HideInInspector] public WillowSpawnableObject SpawnableObject;
 
     private RaycastHit[] hits = new RaycastHit[12];
 

@@ -86,7 +86,6 @@ public static class WillowObjectsController
 
             if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) && CheckSurface(hit.collider.gameObject))
             {
-
                 GameObject temp = Object.Instantiate(spawnableObject.Object, hit.point, Quaternion.identity);
 
                 SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.CustomEulersRotation);
@@ -117,9 +116,13 @@ public static class WillowObjectsController
                 WillowTerrainSettings.spawnedObjects.Add(temp);
 
                 spawnedObjs.Add(temp);
+
+                EditorUtility.SetDirty(temp);
             }
         }
 
+        //UnityEditor.EditorApplication.MarkSceneDirty();
+        
         if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
         WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Placement, spawnedObjs, null));
         OnRepaint?.Invoke();
@@ -149,6 +152,8 @@ public static class WillowObjectsController
                     o.SetActive(false);
                     spawnedObjectsTemp.Remove(o);
                     WillowTerrainSettings.destroyedObjects.Add(o);
+
+                    //EditorUtility.SetDirty(o);
 
                     EditorApplication.RepaintHierarchyWindow();
                 }
@@ -218,6 +223,9 @@ public static class WillowObjectsController
                     o.gameObject.hideFlags = hidden;
                     o.SetActive(false);
                     WillowTerrainSettings.destroyedObjects.Add(o);
+
+                    EditorUtility.SetDirty(o);
+                    EditorUtility.SetDirty(spawned);
                 }
             }
         }
