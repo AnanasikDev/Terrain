@@ -25,9 +25,9 @@ There are 3 actions you can do:
   <p>
 	<h3>I cant spawn objects, what may be wrong?</h3>
 	1. Make sure Willow is enabled.<br>
-	1. Make sure your surface that you want to spawn objects on contains WillowTerrainSettings component. It is important!<br>
-	1. Make sure you have at least one active spawnable object with setted Object.<br>
-	1. Make sure parameter Placement Type of global settings is OnlyOnTerrain or OnTerrainAndObjects, otherwise it is only possible to spawn objects on other objects.<br>
-	1. Make sure brush size is setted above 0.<br>
+	2. Make sure your surface that you want to spawn objects on contains WillowTerrainSettings component. It is important!<br>
+	3. Make sure you have at least one active spawnable object with setted Object.<br>
+	4. Make sure parameter Placement Type of global settings is OnlyOnTerrain or OnTerrainAndObjects, otherwise it is only possible to spawn objects on other objects.<br>
+	5. Make sure brush size is setted above 0.<br>
   </p>
 </details>
