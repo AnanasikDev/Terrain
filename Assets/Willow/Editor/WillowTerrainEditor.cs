@@ -102,32 +102,48 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void DrawHeader()
     {
-        Color oldBackgroundColor = GUI.backgroundColor;
-        Color oldContentColor = GUI.contentColor;
-        GUI.backgroundColor = new Color(0.3f, 1f, 0.3f, 1);
-        GUI.contentColor = new Color(0.9f, 0.9f, 0.95f, 1);
+        GUILayout.BeginHorizontal("box");
+
+        GUI.backgroundColor = GreenColor;
+        GUI.contentColor = TextColor;
         if (GUILayout.Button("Save"))
         {
             WillowFileManager.Write();
         }
 
+        GUI.backgroundColor = RedColor;
+        GUI.contentColor = TextColor;
+        
+        if (GUILayout.Button("Revert", GUILayout.Width(60)))
+        {
+            if (EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session?", "Revert", "Cancel"))
+            {
+                WillowFileManager.Read();
+            }
+        }
+
+        GUILayout.EndHorizontal();
+        
         GUILayout.Space(20);
+
 
         if (WillowTerrainSettings.active)
         {
-            GUI.backgroundColor = new Color(0.4f, 1f, 0.4f, 1);
-            GUI.contentColor = new Color(0.9f, 0.6f, 0.6f, 1);
+            GUI.backgroundColor = LiteGreenColor;
+            GUI.contentColor = RedTextColor;
             if (GUILayout.Button("Disable")) Disable();
         }
         if (!WillowTerrainSettings.active)
         {
-            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f, 1);
-            GUI.contentColor = new Color(0.6f, 0.9f, 0.6f, 1);
+            GUI.backgroundColor = LiteRedColor;
+            GUI.contentColor = GreenTextColor;
             if (GUILayout.Button("Enable")) Enable();
         }
 
-        GUI.contentColor = oldContentColor;
-        GUI.backgroundColor = oldBackgroundColor;
+
+        GUI.contentColor = DefaultContentColor;
+        GUI.backgroundColor = DefaultBackGroundColor;
+
 
         DrawBrushTabs();
 
