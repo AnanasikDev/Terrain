@@ -93,4 +93,13 @@ public static class WillowUtils
     {
         return input.Replace("\r", "");
     }
+
+    public static int RandomSign()
+    {
+        return RandomBool() ? 1 : -1;
+    }
+    public static bool RandomBool()
+    {
+        return UnityEngine.Random.value > 0.5f;
+    }
 }

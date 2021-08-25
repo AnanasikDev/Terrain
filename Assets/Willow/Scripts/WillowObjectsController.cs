@@ -42,88 +42,19 @@ public static class WillowObjectsController
 
             RaycastHit hit;
 
-            Vector3 position = Vector3.zero;
-            switch (WillowTerrainSettings.brushShape)
-            {
-                case BrushShape.Circle:
-
-                    float a = UnityEngine.Random.Range(0f, 360f);
-                    float r = WillowTerrainSettings.brushSize;
-                    if (WillowTerrainSettings.fillBrush) r = UnityEngine.Random.Range(0, WillowTerrainSettings.brushSize);
-                    position = new Vector3(Mathf.Sin(a) * r, 0, Mathf.Cos(a) * r);
-
-                    break;
-
-                case BrushShape.Square:
-
-                    float size = WillowTerrainSettings.brushSize * 0.75f;
-                    float x = 0;
-                    float z = 0;
-                    if (WillowTerrainSettings.fillBrush)
-                    {
-                        x = UnityEngine.Random.Range(-size, size);
-                        z = UnityEngine.Random.Range(-size, size);
-                    }
-                    else
-                    {
-                        var lims = new float[2] { -size, size };
-                        bool g = UnityEngine.Random.value > 0.5f;
-                        if (g)
-                        {
-                            x = UnityEngine.Random.Range(-size, size);
-                            z = lims[UnityEngine.Random.Range(0, 2)];
-                        }
-                        else
-                        {
-                            z = UnityEngine.Random.Range(-size, size);
-                            x = lims[UnityEngine.Random.Range(0, 2)];
-                        }
-                    }
-                    position = new Vector3(x, 0, z);
-
-                    break;
-            }
+            Vector3 position = GetRandomPointOnBrush();
 
             if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) && CheckSurface(hit.collider.gameObject))
             {
-                GameObject temp = Object.Instantiate(spawnableObject.Object, hit.point, Quaternion.identity);
+                GameObject spawned = SpawnObject(spawnableObject, hit);
 
-                SetObjectRotation(spawnableObject, temp, hit.normal, spawnableObject.CustomEulersRotation);
-                SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, temp.GetComponent<WillowSpawnedObject>().Renderers);
-                temp.transform.localPosition += GetObjectPositionAdd(spawnableObject);
-                temp.transform.parent = GetObjectParent(spawnableObject);
-                temp.transform.localScale = GetObjectScale(spawnableObject);
+                spawnedObjs.Add(spawned);
 
-                temp.GetComponent<WillowSpawnedObject>().PositionAdd =
-                    spawnableObject.ModifyPosition ? spawnableObject.PositionAddition : Vector3.zero;
-
-                temp.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.Layer;
-
-                temp.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
-
-                temp.name = spawnableObject.Object.name;
-                if (spawnableObject.RenameObject)
-                    temp.name = spawnableObject.NewObjectName;
-
-                if (WillowTerrainSettings.indexObjects)
-                    temp.name += string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies);
-
-                WillowTerrainSettings.spawnedIndecies++;
-
-                if (spawnableObject.CenterObject)
-                    temp.transform.localPosition += new Vector3(0, spawnableObject.Object.transform.localScale.y / 2, 0);
-
-                WillowTerrainSettings.spawnedObjects.Add(temp);
-
-                spawnedObjs.Add(temp);
-
-                EditorUtility.SetDirty(temp);
+                EditorUtility.SetDirty(spawned);
             }
         }
 
-        //UnityEditor.EditorApplication.MarkSceneDirty();
-        
-        if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
+        AutoSave();
         WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Placement, spawnedObjs, null));
         OnRepaint?.Invoke();
     }
@@ -144,7 +75,7 @@ public static class WillowObjectsController
 
         foreach (GameObject o in objsToDestroy)
         {
-            if (UnityEngine.Random.Range(0, WillowTerrainSettings.eraseSmoothness + 1) == WillowTerrainSettings.eraseSmoothness || WillowTerrainSettings.eraseSmoothness == 0)
+            if (DecideIfSmooth(WillowTerrainSettings.eraseSmoothness))
             {
                 if (o != null)
                 {
@@ -153,8 +84,8 @@ public static class WillowObjectsController
                     spawnedObjectsTemp.Remove(o);
                     WillowTerrainSettings.destroyedObjects.Add(o);
 
-                    //EditorUtility.SetDirty(o);
-
+                    EditorUtility.SetDirty(o);
+                    
                     EditorApplication.RepaintHierarchyWindow();
                 }
             }
@@ -162,10 +93,11 @@ public static class WillowObjectsController
         spawnedObjectsTemp.RemoveAll(o => o == null);
         WillowTerrainSettings.spawnedObjects = spawnedObjectsTemp;
 
-        if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
+        AutoSave();
         WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Erasure, null, objsToDestroy.ToList()));
         OnRepaint?.Invoke();
-        EditorApplication.RepaintHierarchyWindow();
+        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
+        //EditorApplication.RepaintHierarchyWindow();
     }
     public static void ExchangeObjects()
     {
@@ -188,7 +120,7 @@ public static class WillowObjectsController
 
         foreach (GameObject o in objsToExchange)
         {
-            if (UnityEngine.Random.Range(0, WillowTerrainSettings.exchangeSmoothness + 1) == WillowTerrainSettings.exchangeSmoothness || WillowTerrainSettings.exchangeSmoothness == 0)
+            if (DecideIfSmooth(WillowTerrainSettings.exchangeSmoothness))
             {
                 if (o != null)
                 {
@@ -232,7 +164,7 @@ public static class WillowObjectsController
         WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Exchange, spawnedObjectsTemp.ToList(), objsToExchange.ToList()));
         spawnedObjectsTemp.RemoveAll(o => o == null);
         WillowTerrainSettings.spawnedObjects = spawnedObjectsTemp;
-        if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
+        AutoSave();
         OnRepaint?.Invoke();
         EditorApplication.RepaintHierarchyWindow();
         EditorApplication.DirtyHierarchyWindowSorting();
@@ -389,5 +321,91 @@ public static class WillowObjectsController
         return ((WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && gameObject.GetComponent<WillowTerrainSettings>() != null) ||
                 (WillowTerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && gameObject.GetComponent<WillowTerrainSettings>() == null) ||
                 (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects));
+    }
+    private static bool DecideIfSmooth(float smoothness)
+    {
+        return UnityEngine.Random.Range(0, smoothness + 1) == smoothness || smoothness == 0;
+    }
+    private static void AutoSave()
+    {
+        if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
+    }
+    private static GameObject SpawnObject(WillowSpawnableObject spawnableObject, RaycastHit hit)
+    {
+        GameObject spawned = Object.Instantiate(spawnableObject.Object, hit.point, Quaternion.identity);
+
+        SetObjectRotation(spawnableObject, spawned, hit.normal, spawnableObject.CustomEulersRotation);
+        SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers);
+        spawned.transform.localPosition += GetObjectPositionAdd(spawnableObject);
+        spawned.transform.parent = GetObjectParent(spawnableObject);
+        spawned.transform.localScale = GetObjectScale(spawnableObject);
+
+        spawned.GetComponent<WillowSpawnedObject>().PositionAdd =
+            spawnableObject.ModifyPosition ? spawnableObject.PositionAddition : Vector3.zero;
+
+        spawned.GetComponent<WillowSpawnedObject>().Layer = spawnableObject.Layer;
+
+        spawned.GetComponent<WillowSpawnedObject>().SpawnableObject = spawnableObject;
+
+        spawned.name = spawnableObject.Object.name;
+        if (spawnableObject.RenameObject)
+            spawned.name = spawnableObject.NewObjectName;
+
+        if (WillowTerrainSettings.indexObjects)
+            spawned.name += IndexName();
+
+        if (spawnableObject.CenterObject)
+            spawned.transform.localPosition += new Vector3(0, spawnableObject.Object.transform.localScale.y / 2, 0);
+
+        WillowTerrainSettings.spawnedObjects.Add(spawned);
+
+        return spawned;
+    }
+    private static string IndexName()
+    {
+        return string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies++);
+    }
+    private static Vector3 GetRandomPointOnBrush()
+    {
+        Vector3 position = Vector3.zero;
+        switch (WillowTerrainSettings.brushShape)
+        {
+            case BrushShape.Circle:
+
+                float angle = UnityEngine.Random.Range(0f, 360f);
+                float radius = WillowTerrainSettings.brushSize;
+                if (WillowTerrainSettings.fillBrush) 
+                    radius = UnityEngine.Random.Range(0f, WillowTerrainSettings.brushSize);
+                position = new Vector3(Mathf.Sin(angle) * radius, 0f, Mathf.Cos(angle) * radius);
+                break;
+
+            case BrushShape.Square:
+
+                float size = WillowTerrainSettings.brushSize * 0.75f;
+                float x, z;
+                if (WillowTerrainSettings.fillBrush)
+                {
+                    x = UnityEngine.Random.Range(-size, size);
+                    z = UnityEngine.Random.Range(-size, size);
+                }
+                else
+                {
+                    if (WillowUtils.RandomBool())
+                    {
+                        x = UnityEngine.Random.Range(-size, size);
+                        z = WillowUtils.RandomSign() * size;
+                    }
+                    else
+                    {
+                        x = WillowUtils.RandomSign() * size;
+                        z = UnityEngine.Random.Range(-size, size);
+                    }
+                }
+
+                position = new Vector3(x, 0f, z);
+                break;
+        }
+        
+        return position;
     }
 }

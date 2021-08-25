@@ -665,7 +665,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
         //EditorApplication.quitting += WillowFileManager.Write;
-        Application.quitting += Quit;
+        //UnityEditor.
+        EditorApplication.quitting += Quit;
+        EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
         EditorApplication.update += SceneAutoSave;
         //UnityEditor.EventSystems.EventSystemEditor.
     }
@@ -684,8 +686,10 @@ public sealed class WillowTerrainEditor : EditorWindow
         SceneView.duringSceneGui -= OnSceneGUI;
         WillowObjectsController.OnRepaint -= Repaint;
         //EditorApplication.quitting -= WillowFileManager.Write;
-        Application.quitting -= Quit;
+        EditorApplication.quitting -= Quit;
+        EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
         EditorApplication.update -= SceneAutoSave;
+
     }
     private void Quit()
     {
