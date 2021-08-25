@@ -20,7 +20,13 @@ There are 3 actions you can do:
 - Erase
 - Exchange
 
-###<details><summary>FAQ</summary>
+<details>
+
+<summary>
+
+### FAQ
+
+</summary>
   
 	<h3>What is the minimum Unity version to use Willow?</h3>
 	<p>
