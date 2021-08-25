@@ -322,7 +322,7 @@ public static class WillowObjectsController
                 (WillowTerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && gameObject.GetComponent<WillowTerrainSettings>() == null) ||
                 (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects));
     }
-    private static bool DecideIfSmooth(float smoothness)
+    private static bool DecideIfSmooth(int smoothness)
     {
         return UnityEngine.Random.Range(0, smoothness + 1) == smoothness || smoothness == 0;
     }

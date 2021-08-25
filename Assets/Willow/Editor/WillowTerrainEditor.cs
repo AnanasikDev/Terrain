@@ -10,13 +10,15 @@ using static WillowStyles;
 using static WillowUndo;
 using static WillowDebug;
 using static WillowSpawnableObjectManager;
+using System.IO;
+
 public sealed class WillowTerrainEditor : EditorWindow
 {
     private bool sceneview = true;
     private Vector2 scrollPos = Vector2.zero;
     private bool Quited = false;
 
-    [MenuItem(Path + "Prefab brush")]
+    [MenuItem(WillowGlobalConfig.Path + "Prefab brush")]
     public static void ShowWindow()
     {
         GetWindow<WillowTerrainEditor>("Terrain++");
@@ -311,13 +313,17 @@ public sealed class WillowTerrainEditor : EditorWindow
         //EditorApplication.quitting += WillowFileManager.Write;
         //UnityEditor.
         EditorApplication.quitting += Quit;
-        EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
-        EditorApplication.update += SceneAutoSave;
+        //EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
+        //EditorApplication.update += SceneAutoSave;
         //UnityEditor.EventSystems.EventSystemEditor.
     }
     private void OnDisable()
     {
-        if (Quited) return;
+        if (Quited)
+        {
+            WillowClearingDestroyed.ClearDestroyedObjects();
+            return;
+        }
 
         //WillowFileManager.Write();
         
@@ -327,14 +333,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowObjectsController.OnRepaint -= Repaint;
         //EditorApplication.quitting -= WillowFileManager.Write;
         EditorApplication.quitting -= Quit;
-        EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
-        EditorApplication.update -= SceneAutoSave;
+        //EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
+        //EditorApplication.update -= SceneAutoSave;
 
-    }
-
-    private void SceneAutoSave()
-    {
-        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
     }
     private void Quit() => Quited = true;
     private void OnSceneGUI(SceneView sceneView) => SceneGUI();
