@@ -22,11 +22,7 @@ There are 3 actions you can do:
 
 <details>
 
-<summary>
-
-### FAQ
-
-</summary>
+<summary><strong>FAQ</strong></summary>
   
 	<h3>What is the minimum Unity version to use Willow?</h3>
 	<p>
