@@ -18,18 +18,23 @@ public static class WillowObjectsController
         if (!ableToSpawn) return;
 
         List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
+
+        spawnableObjects = spawnableObjects
+            .Where(spawnableObject => spawnableObject.Spawn && spawnableObject.Object != null)
+            .ToList();
+
         if (WillowTerrainSettings.ignoreInactiveLayers)
-            spawnableObjects = spawnableObjects
-                .Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)])
-                .Where(spawnableObject => spawnableObject.Spawn && spawnableObject.Object != null)
-                .ToList();
+        {
+            spawnableObjects = 
+                spawnableObjects.Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)]).ToList();
+        }
 
 
         bool anySpawnableObjects = spawnableObjects.Any();
 
-        if (!(WillowTerrainSettings.spawnableObjects.Count > 0 && anySpawnableObjects))
+        if (WillowTerrainSettings.spawnableObjects.Count == 0 || !anySpawnableObjects)
         {
-            Log("There are no objects to spawn!", Yellow, Debug.LogError);
+            Log("There are no objects to spawn! Make sure you have active spawnable objects", Yellow, Debug.LogError);
             return;
         }
 

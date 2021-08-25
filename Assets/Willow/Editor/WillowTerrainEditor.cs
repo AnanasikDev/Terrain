@@ -116,7 +116,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         
         if (GUILayout.Button("Revert", GUILayout.Width(60)))
         {
-            if (EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session?", "Revert", "Cancel"))
+            if (EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session? You can not undo this action.", "Revert", "Cancel"))
             {
                 WillowFileManager.Read();
             }
@@ -267,16 +267,25 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         EditorGUILayout.BeginHorizontal("box");
         bool add = false;
-        if (GUILayout.Button("Add"))
+
+        GUI.backgroundColor = GreenColor;
+
+        if (GUILayout.Button("Create"))
             add = true;
+
+        GUI.backgroundColor = DefaultBackGroundColor;
 
         newLayerName = EditorGUILayout.TextField("New layer name: ", newLayerName);
         if (add && newLayerName != "")
         {
-            if (!WillowTerrainSettings.layersName.Contains(newLayerName))
+            if (!WillowTerrainSettings.layersName.Contains(newLayerName)) // If this name is free
             {
                 WillowTerrainSettings.layersName.Add(newLayerName);
                 WillowTerrainSettings.layersState.Add(true);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Willow Error", $"You can not create layer with already taken name {newLayerName}.", "Ok");
             }
         }
 
@@ -307,14 +316,14 @@ public sealed class WillowTerrainEditor : EditorWindow
                     }
                     if (dependedAmount > 0)
                     {
-                        Log($"Impossible to remove the layer: {dependedAmount} objects depend on it.", Yellow);
+                        EditorUtility.DisplayDialog("Willow Error", $"Impossible to remove the layer: {dependedAmount} objects depend on it.", "Ok");
                     }
                     else
                         WillowTerrainSettings.layersName[layerId] = "";
                 }
                 else
                 {
-                    Log("Impossible to remove the last layer.", Yellow, Debug.LogError);
+                    EditorUtility.DisplayDialog("Willow Error", "Impossible to remove the last layer.", "Ok");
                 }
             }
             GUI.backgroundColor = oldBgColor;
@@ -389,10 +398,26 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorGUILayout.Space(20);
         EditorGUILayout.BeginHorizontal("box");
         GUILayout.Label(WillowTerrainSettings.spawnableObjects.Count.ToString());
-        if (GUILayout.Button("Add"))
+
+        GUI.backgroundColor = GreenColor;
+
+        if (GUILayout.Button("Create new", GUILayout.Width(120)))
         {
             WillowTerrainSettings.spawnableObjects.Add(new WillowSpawnableObject());
         }
+
+        GUI.backgroundColor = RedColor;
+
+        if (GUILayout.Button("Reset", GUILayout.Width(60)))
+        {
+            if (EditorUtility.DisplayDialog("Reset all spawnable objects", "Are you sure to RESET all spawnable objects info? You can not undo this action.", "Reset all", "Cancel"))
+            {
+                ResetAllSpawnableObjects();
+            }
+        }
+
+        GUI.backgroundColor = DefaultBackGroundColor;
+
         EditorGUILayout.EndHorizontal();
     }
     private void DrawLabel(string text, int offstep = 12)
@@ -491,7 +516,7 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         EditorGUILayout.BeginVertical("box");
 
-        spawnableObject.Spawn = EditorGUILayout.Toggle("Spawn", spawnableObject.Spawn);
+        spawnableObject.Spawn = EditorGUILayout.Toggle("Active", spawnableObject.Spawn);
         if (!spawnableObject.Spawn)
         {
             EditorGUILayout.EndHorizontal();
@@ -715,4 +740,8 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         SceneGUI();
     }   
+    private void ResetAllSpawnableObjects()
+    {
+        WillowTerrainSettings.spawnableObjects.Clear();
+    }
 }
