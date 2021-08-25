@@ -22,7 +22,7 @@ There are 3 actions you can do:
 
 <details>
 
-## <summary><strong>FAQ</strong></summary>
+<summary><strong><h3>FAQ</h3></strong></summary>
   
 #### What is the minimum Unity version to use Willow?
 
