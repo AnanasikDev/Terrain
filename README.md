@@ -12,6 +12,7 @@ There are 3 actions you can do:
 <summary>Place</summary>
 Instantiating objects on the surface.
 There are three types of detecting surfaces to spawn on:
+	
 - Only on Terrain
 - Only on Objects
 - Both on Terrain and Objects
@@ -21,19 +22,14 @@ There are three types of detecting surfaces to spawn on:
 <details>
 <summary>Erase</summary>
 	
-Erasing (removing) objects that have been spawned by *Willow*
-It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***
-Further you can simply disable them by using ***Tools -> Willow -> Disable Destroyed Objects***
+Erasing (removing) objects that have been spawned by *Willow*<br>
+It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***<br>
+Further you can simply disable them by using ***Tools -> Willow -> Disable Destroyed Objects***<br>
 
 </details>
 
 <details>
   <summary>Exchange</summary>
-	Instantiating objects on the surface.
-	There are three types of detecting surfaces to spawn on:
-		- Only on Terrain
-		- Only on Objects
-		- Both on Terrain and Objects
 </details>
 
 <hr>
