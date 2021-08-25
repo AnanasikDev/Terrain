@@ -9,7 +9,7 @@ Note: Further in the documentation, GameObject with WillowTerrainSettings is rep
 There are 3 actions you can do:
 
 <details>
-<summary>Place</summary>
+<summary><strong>Place</strong></summary>
 Instantiating objects on the surface.
 There are three types of detecting surfaces to spawn on:
 	
@@ -20,7 +20,7 @@ There are three types of detecting surfaces to spawn on:
 </details>
 
 <details>
-<summary>Erase</summary>
+<summary><strong>Erase</strong></summary>
 	
 Erasing (removing) objects that have been spawned by *Willow*<br>
 It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***<br>
@@ -29,7 +29,7 @@ Further you can simply disable them by using ***Tools -> Willow -> Disable Destr
 </details>
 
 <details>
-  <summary>Exchange</summary>
+  <summary><strong>Exchange</strong></summary>
 This mode allows you to recalculate some parameters, like color, rotation, scale and other. It can be used to get next random rotation, scale, etc.<br>
 Also it may change object to another one from spawnable objects list.<br>
 You can exchange:<br>
