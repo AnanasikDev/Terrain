@@ -9,17 +9,24 @@ Note: Further in the documentation, GameObject with WillowTerrainSettings is rep
 There are 3 actions you can do:
 
 <details>
-  <summary>Place</summary>
-	Instantiating objects on the surface.
-	There are three types of detecting surfaces to spawn on:
-		- Only on Terrain
-		- Only on Objects
-		- Both on Terrain and Objects
+<summary>Place</summary>
+Instantiating objects on the surface.
+There are three types of detecting surfaces to spawn on:
+- Only on Terrain
+- Only on Objects
+- Both on Terrain and Objects
+	
 </details>
+
 <details>
-  <summary>Erase</summary>
-	Erasing (removing) objects that have been spawned by *Willow*
+<summary>Erase</summary>
+	
+Erasing (removing) objects that have been spawned by *Willow*
+It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***
+Further you can simply disable them by using ***Tools -> Willow -> Disable Destroyed Objects***
+
 </details>
+
 <details>
   <summary>Exchange</summary>
 	Instantiating objects on the surface.
