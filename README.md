@@ -30,6 +30,18 @@ Further you can simply disable them by using ***Tools -> Willow -> Disable Destr
 
 <details>
   <summary>Exchange</summary>
+This mode allows you to recalculate some parameters, like color, rotation, scale and other. It can be used to get next random rotation, scale, etc.<br>
+Also it may change object to another one from spawnable objects list.<br>
+You can exchange:<br>
+
+- Position
+- Rotation
+- Scale
+- Parent
+- Color
+
+Also it supports *smoothness* - the rarity of applying to object. More smoothnes less chance object will be exchanged by new one
+	
 </details>
 
 <hr>
