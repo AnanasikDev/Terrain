@@ -10,9 +10,8 @@ public static class WillowObjectsController
     public static event System.Action OnRepaint;
     public static void PlaceObjects()
     {
-        RaycastHit screenHit;
-        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        bool ableToSpawn = Physics.Raycast(ray, out screenHit);
+        bool ableToSpawn = RaycastFromCursor(out RaycastHit screenHit);
+
         List<GameObject> spawnedObjs = new List<GameObject>();
 
         if (!ableToSpawn) return;
@@ -65,9 +64,7 @@ public static class WillowObjectsController
     }
     public static void EraseObjects()
     {
-        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        RaycastHit hit = new RaycastHit();
-        Physics.Raycast(ray, out hit);
+        RaycastFromCursor(out RaycastHit hit);
 
         List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.spawnedObjects;
         GameObject[] objsToDestroy =
@@ -106,9 +103,7 @@ public static class WillowObjectsController
     }
     public static void ExchangeObjects()
     {
-        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-        RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        RaycastFromCursor(out RaycastHit hit);
 
         List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.spawnedObjects;
         GameObject[] objsToExchange =
@@ -412,5 +407,11 @@ public static class WillowObjectsController
         }
         
         return position;
+    }
+
+    private static bool RaycastFromCursor(out RaycastHit hit)
+    {
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        return Physics.Raycast(ray, out hit);
     }
 }

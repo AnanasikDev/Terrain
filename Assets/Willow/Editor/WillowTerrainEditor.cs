@@ -9,10 +9,10 @@ using static WillowObjectsRecalculation;
 using static WillowStyles;
 using static WillowUndo;
 using static WillowDebug;
+using static WillowSpawnableObjectManager;
 public sealed class WillowTerrainEditor : EditorWindow
 {
     private bool sceneview = true;
-    private string newLayerName = "defaultLayer";
     private Vector2 scrollPos = Vector2.zero;
     private bool Quited = false;
 
@@ -22,13 +22,13 @@ public sealed class WillowTerrainEditor : EditorWindow
         GetWindow<WillowTerrainEditor>("Terrain++");
     }
 
-    private void Enable()
+    private void EnableWillow()
     {
         WillowTerrainSettings.active = true;
 
         Selection.activeObject = null;
     }
-    private void Disable()
+    private void DisableWillow()
     {
         WillowTerrainSettings.active = false;
     }
@@ -131,13 +131,13 @@ public sealed class WillowTerrainEditor : EditorWindow
         {
             GUI.backgroundColor = LiteGreenColor;
             GUI.contentColor = RedTextColor;
-            if (GUILayout.Button("Disable")) Disable();
+            if (GUILayout.Button("Disable")) DisableWillow();
         }
         if (!WillowTerrainSettings.active)
         {
             GUI.backgroundColor = LiteRedColor;
             GUI.contentColor = GreenTextColor;
-            if (GUILayout.Button("Enable")) Enable();
+            if (GUILayout.Button("Enable")) EnableWillow();
         }
 
 
@@ -156,10 +156,13 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         EditorGUILayout.Space(20);
     }
-
     private void DrawBrushTabs()
     {
         WillowTerrainSettings.brushTabSelectedId = GUILayout.Toolbar(WillowTerrainSettings.brushTabSelectedId, WillowTerrainSettings.brushTabs);
+        if (WillowTerrainSettings.brushTabSelectedId == 0) // Placing
+        {
+            
+        }
         if (WillowTerrainSettings.brushTabSelectedId == 1) // Erasing
         {
             DrawErasingTab();
@@ -169,6 +172,7 @@ public sealed class WillowTerrainEditor : EditorWindow
             DrawExchangingTab();
         }
     }
+
     // BRUSHES TABS
     private void DrawErasingTab()
     {
@@ -192,6 +196,7 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         EditorGUILayout.EndVertical();
     }
+
     // OPTIONS TABS
     private void DrawTabs()
     {
@@ -203,7 +208,7 @@ public sealed class WillowTerrainEditor : EditorWindow
                 DrawSettingsTab();
                 break;
             case 1:
-                DrawLayersTab();
+                WillowLayers.DrawLayersTab();
                 break;
             case 2:
                 DrawObjectsTab();
@@ -263,418 +268,15 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Total spawnable objects: " + WillowTerrainSettings.spawnableObjects.Count);
 
     }
-    private void DrawLayersTab()
-    {
-        EditorGUILayout.BeginHorizontal("box");
-        bool add = false;
-
-        GUI.backgroundColor = GreenColor;
-
-        if (GUILayout.Button("Create"))
-            add = true;
-
-        GUI.backgroundColor = DefaultBackGroundColor;
-
-        newLayerName = EditorGUILayout.TextField("New layer name: ", newLayerName);
-        if (add && newLayerName != "")
-        {
-            if (!WillowTerrainSettings.layersName.Contains(newLayerName)) // If this name is free
-            {
-                WillowTerrainSettings.layersName.Add(newLayerName);
-                WillowTerrainSettings.layersState.Add(true);
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Willow Error", $"You can not create layer with already taken name {newLayerName}.", "Ok");
-            }
-        }
-
-        EditorGUILayout.EndHorizontal();
-
-        DrawLayersArray();
-    }
-    private void DrawLayersArray()
-    {
-        WillowTerrainSettings.layersName.RemoveAll(layerName => layerName == "");
-        for (int layerId = 0; layerId < WillowTerrainSettings.layersName.Count; layerId++)
-        {
-            EditorGUILayout.BeginHorizontal("box");
-            EditorGUILayout.BeginHorizontal("box");
-            Color oldBgColor = GUI.backgroundColor;
-            GUI.backgroundColor = new Color(1f, 0.5f, 0.5f, 1f);
-            if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(18)))
-            {
-                if (WillowTerrainSettings.layersName.Count > 1)
-                {
-                    int dependedAmount = 0;
-                    foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects)
-                    {
-                        if (spawnedObj.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.layersName[layerId])
-                        {
-                            dependedAmount++;
-                        }
-                    }
-                    if (dependedAmount > 0)
-                    {
-                        EditorUtility.DisplayDialog("Willow Error", $"Impossible to remove the layer: {dependedAmount} objects depend on it.", "Ok");
-                    }
-                    else
-                        WillowTerrainSettings.layersName[layerId] = "";
-                }
-                else
-                {
-                    EditorUtility.DisplayDialog("Willow Error", "Impossible to remove the last layer.", "Ok");
-                }
-            }
-            GUI.backgroundColor = oldBgColor;
-            EditorGUILayout.EndHorizontal();
-
-
-            EditorGUILayout.BeginVertical("box");
-
-            bool layerActiveBefore = WillowTerrainSettings.layersState[layerId];
-            WillowTerrainSettings.layersState[layerId] = EditorGUILayout.Toggle("Active", WillowTerrainSettings.layersState[layerId]);
-
-            if (layerActiveBefore != WillowTerrainSettings.layersState[layerId]) // Toggle value changed
-            {
-                List<GameObject> spawned = WillowTerrainSettings.spawnedObjects.Where(
-                                    o => o != null && 
-                                    o.hideFlags == active && 
-                                    o.GetComponent<WillowSpawnedObject>().Layer == WillowTerrainSettings.layersName[layerId]).ToList();
-
-                if (WillowTerrainSettings.layersState[layerId]) // If active
-                    foreach (GameObject spawnedObj in spawned)
-                    {
-                        spawnedObj.SetActive(true);
-                    }
-                if (!WillowTerrainSettings.layersState[layerId]) // If inactive
-                    foreach (GameObject spawnedObj in spawned)
-                    {
-                        spawnedObj.SetActive(false);
-                    }
-            }
-
-            string lastLayerName = WillowTerrainSettings.layersName[layerId];
-            WillowTerrainSettings.layersName[layerId] = EditorGUILayout.TextField("Name: ", WillowTerrainSettings.layersName[layerId]);
-
-            if (lastLayerName != WillowTerrainSettings.layersName[layerId]) // Layer was renamed
-            {
-                if (WillowTerrainSettings.layersName[layerId] == "") WillowTerrainSettings.layersName[layerId] += "layer";
-                if (WillowTerrainSettings.layersName.FindAll(x => x == WillowTerrainSettings.layersName[layerId]).Count > 1)
-                {
-                    WillowTerrainSettings.layersName[layerId] = lastLayerName;
-                    Log("Impossible to hold several layers with the same name.", Yellow, Debug.LogWarning);
-                }
-                else foreach (GameObject spawnedObj in WillowTerrainSettings.spawnedObjects)
-                {
-                    if (spawnedObj != null && spawnedObj.hideFlags == active)
-                    {
-                        WillowSpawnedObject spawnedObjectSc = spawnedObj.GetComponent<WillowSpawnedObject>();
-                        if (spawnedObjectSc != null && spawnedObjectSc.Layer == lastLayerName)
-                        {
-                            spawnedObjectSc.Layer = WillowTerrainSettings.layersName[layerId];
-                        }
-                    }
-                }
-            }
-
-            EditorGUILayout.EndVertical();
-            EditorGUILayout.EndHorizontal();
-        }
-    }
     private void DrawObjectsTab()
     {
         DrawSpawnablesAddButton();
 
         for (int i = 0; i < WillowTerrainSettings.spawnableObjects.Count; i++)
         {
-            DrawSpawnableObject(i);
+            WillowSpawnableObjectManager.DrawSpawnableObject(i);
         }
         EditorGUILayout.Space();
-    }
-
-    private void DrawSpawnablesAddButton()
-    {
-        EditorGUILayout.Space(20);
-        EditorGUILayout.BeginHorizontal("box");
-        GUILayout.Label(WillowTerrainSettings.spawnableObjects.Count.ToString());
-
-        GUI.backgroundColor = GreenColor;
-
-        if (GUILayout.Button("Create new", GUILayout.Width(120)))
-        {
-            WillowTerrainSettings.spawnableObjects.Add(new WillowSpawnableObject());
-        }
-
-        GUI.backgroundColor = RedColor;
-
-        if (GUILayout.Button("Reset", GUILayout.Width(60)))
-        {
-            if (EditorUtility.DisplayDialog("Reset all spawnable objects", "Are you sure to RESET all spawnable objects info? You can not undo this action.", "Reset all", "Cancel"))
-            {
-                ResetAllSpawnableObjects();
-            }
-        }
-
-        GUI.backgroundColor = DefaultBackGroundColor;
-
-        EditorGUILayout.EndHorizontal();
-    }
-    private void DrawLabel(string text, int offstep = 12)
-    {
-        EditorGUILayout.EndVertical();
-        EditorGUILayout.Space(offstep);
-        EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>{text}</color></b>", labelStyle);
-        EditorGUILayout.Space(offstep);
-        EditorGUILayout.BeginVertical("box");
-    }
-    private void DrawSpawnableObject(int index)
-    {
-        if (!DrawSpawnableUI(index)) return;
-        DrawSpawnableSettings(index);
-    }
-    private bool DrawSpawnableUI(int index)
-    {
-        EditorGUILayout.BeginHorizontal("box");
-        EditorGUILayout.BeginVertical("box");
-
-        int removeBtnHeight = 40;
-        if (index < WillowTerrainSettings.spawnableObjects.Count - 1 || index == 0) removeBtnHeight = 60;
-        if (!WillowTerrainSettings.spawnableObjects[index].Hidden)
-        {
-            if (GUILayout.Button("‹", GUILayout.Width(18), GUILayout.Height(18)))
-            {
-
-                WillowTerrainSettings.spawnableObjects[index].Hidden = true;
-                EditorGUILayout.EndVertical();
-                EditorGUILayout.EndHorizontal();
-                return false;
-            }
-        }
-        else
-        {
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("›", GUILayout.Width(18), GUILayout.Height(18)))
-            {
-                WillowTerrainSettings.spawnableObjects[index].Hidden = false;
-                EditorGUILayout.EndHorizontal();
-            }
-            else
-            {
-                GUILayout.Label(WillowTerrainSettings.spawnableObjects[index].Object != null ? (WillowTerrainSettings.spawnableObjects[index].RenameObject ? WillowTerrainSettings.spawnableObjects[index].NewObjectName : WillowTerrainSettings.spawnableObjects[index].Object.name) : "null");
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.EndVertical();
-                return false;
-            }
-
-        }
-        if (index > 0)
-            if (GUILayout.Button("˄", GUILayout.Width(18), GUILayout.Height(18)))
-            {
-                var temp = WillowTerrainSettings.spawnableObjects[index];
-                WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index - 1];
-                WillowTerrainSettings.spawnableObjects[index - 1] = temp;
-            }
-
-        Color bgc = GUI.backgroundColor;
-
-        GUI.backgroundColor = new Color(0.9f, 0.45f, 0.44f);
-
-        if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
-        {
-            WillowTerrainSettings.spawnableObjects.RemoveAt(index);
-            return false;
-        }
-
-        GUI.backgroundColor = bgc;
-
-        if (index < WillowTerrainSettings.spawnableObjects.Count - 1)
-            if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
-            {
-                var temp = WillowTerrainSettings.spawnableObjects[index];
-                WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index + 1];
-                WillowTerrainSettings.spawnableObjects[index + 1] = temp;
-            }
-
-        GUI.backgroundColor = new Color(0.35f, 0.85f, 0.32f);
-
-        if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
-        {
-            WillowTerrainSettings.spawnableObjects.Insert(index, new WillowSpawnableObject(WillowTerrainSettings.spawnableObjects[index]));
-        }
-
-        GUI.backgroundColor = bgc;
-        
-        EditorGUILayout.EndVertical();
-
-        return true;
-    }
-    private void DrawSpawnableSettings(int index)
-    {
-        WillowSpawnableObject spawnableObject = WillowTerrainSettings.spawnableObjects[index];
-
-        EditorGUILayout.BeginVertical("box");
-
-        spawnableObject.Spawn = EditorGUILayout.Toggle("Active", spawnableObject.Spawn);
-        if (!spawnableObject.Spawn)
-        {
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.EndVertical();
-            return;
-            //continue;
-        }
-        EditorGUILayout.BeginVertical("box");
-
-        DrawLabel("GameObject");
-
-        spawnableObject.Object = (GameObject)EditorGUILayout.ObjectField("GameObject", spawnableObject.Object, typeof(GameObject), true);
-
-        spawnableObject.RenameObject = EditorGUILayout.Toggle("Rename object", spawnableObject.RenameObject);
-        if (spawnableObject.RenameObject)
-            spawnableObject.NewObjectName = EditorGUILayout.TextField("  Name ", spawnableObject.NewObjectName);
-
-        spawnableObject.CenterObject = EditorGUILayout.Toggle("Center Object", spawnableObject.CenterObject);
-
-        spawnableObject.CustomParent = EditorGUILayout.Toggle("Custom parent", spawnableObject.CustomParent);
-        if (spawnableObject.CustomParent)
-            spawnableObject.Parent = (Transform)EditorGUILayout.ObjectField("  Parent", spawnableObject.Parent, typeof(Transform), true);
-
-        spawnableObject.LayerIndex = EditorGUILayout.Popup("Layer ", spawnableObject.LayerIndex, WillowTerrainSettings.layersName.ToArray());
-        if (spawnableObject.LayerIndex >= WillowTerrainSettings.layersName.Count)
-            spawnableObject.Layer = WillowTerrainSettings.layersName[0];
-        else
-            spawnableObject.Layer = WillowTerrainSettings.layersName[spawnableObject.LayerIndex];
-
-        spawnableObject.SpawnChance = EditorGUILayout.IntField("Chance", spawnableObject.SpawnChance); //objs[i].spawnChance
-        if (spawnableObject.SpawnChance < 0) spawnableObject.SpawnChance = 0;
-
-
-        EditorGUILayout.BeginVertical("box");
-
-        DrawLabel("Recalculate", 2);
-
-        EditorGUILayout.BeginHorizontal("box");
-
-        if (GUILayout.Button("Position"))
-        {
-            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects
-                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
-
-        }
-        if (GUILayout.Button("Rotation"))
-        {
-            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects
-                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
-        }
-        if (GUILayout.Button("Scale"))
-        {
-            RecalculateScalesSelected(WillowTerrainSettings.spawnedObjects
-                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
-        }
-
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.EndVertical();
-
-
-        DrawLabel("Rotation");
-
-        spawnableObject.RotationType = (RotationType)EditorGUILayout.EnumPopup("Rotation", spawnableObject.RotationType);
-        if (spawnableObject.RotationType == RotationType.Random ||
-            spawnableObject.RotationType == RotationType.RandomAsNormal ||
-            spawnableObject.RotationType == RotationType.LerpedRandomAsNormal)
-        {
-            spawnableObject.MultiRotationAxis = EditorGUILayout.Toggle("Multi axis", spawnableObject.MultiRotationAxis);
-            if (spawnableObject.MultiRotationAxis)
-            {
-                spawnableObject.RandomMinRotation = EditorGUILayout.Vector3Field("  Min rotation", spawnableObject.RandomMinRotation);
-                spawnableObject.RandomMaxRotation = EditorGUILayout.Vector3Field("  Max rotation", spawnableObject.RandomMaxRotation);
-            }
-            else
-                spawnableObject.RotationAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", spawnableObject.RotationAxis);
-        }
-
-        if (spawnableObject.RotationType == RotationType.Static ||
-            spawnableObject.RotationType == RotationType.StaticAsNormal ||
-            spawnableObject.RotationType == RotationType.LerpedStaticAsNormal)
-            spawnableObject.CustomEulersRotation = EditorGUILayout.Vector3Field("  Custom Euler Rotation", spawnableObject.CustomEulersRotation);
-
-        if (spawnableObject.RotationType == RotationType.LerpedRandomAsNormal)
-        {
-            spawnableObject.RandomizeLerpValue = EditorGUILayout.Toggle("  Randomize lerp value", spawnableObject.RandomizeLerpValue);
-            if (spawnableObject.RandomizeLerpValue)
-            {
-                spawnableObject.MinLerpValue = EditorGUILayout.FloatField("  Min lerp value", spawnableObject.MinLerpValue);
-                spawnableObject.MaxLerpValue = EditorGUILayout.FloatField("  Max lerp value", spawnableObject.MaxLerpValue);
-            }
-            else
-            {
-                spawnableObject.LerpValue = EditorGUILayout.FloatField("  Lerp value", spawnableObject.LerpValue);
-            }
-        }
-        if (spawnableObject.RotationType == RotationType.LerpedStaticAsNormal ||
-            spawnableObject.RotationType == RotationType.LerpedAsPrefabAsNormal)
-            spawnableObject.LerpValue = EditorGUILayout.FloatField("  Lerp value", spawnableObject.LerpValue);
-
-        spawnableObject.RotationEulerAddition = EditorGUILayout.Vector3Field("Add eulers", spawnableObject.RotationEulerAddition);
-
-        DrawLabel("Position");
-
-        spawnableObject.ModifyPosition = EditorGUILayout.Toggle("Modify position", spawnableObject.ModifyPosition);
-        if (spawnableObject.ModifyPosition)
-            spawnableObject.PositionAddition = EditorGUILayout.Vector3Field("  Position addition", spawnableObject.PositionAddition);
-
-        DrawLabel("Scale");
-
-        spawnableObject.ModifyScale = EditorGUILayout.Toggle("Modify scale", spawnableObject.ModifyScale);
-        if (spawnableObject.ModifyScale)
-        {
-            spawnableObject.ScaleType = (ScaleType)EditorGUILayout.EnumPopup("Scale", spawnableObject.ScaleType);
-
-            if (spawnableObject.ScaleType == ScaleType.Random)
-            {
-                spawnableObject.SeparateScaleAxis = EditorGUILayout.Toggle("  Separate axis", spawnableObject.SeparateScaleAxis);
-                spawnableObject.ScaleAxis = (Axis)EditorGUILayout.EnumPopup("  Axis", spawnableObject.ScaleAxis);
-                if (spawnableObject.SeparateScaleAxis)
-                {
-                    spawnableObject.ScaleMinSeparated = EditorGUILayout.Vector3Field("  Min scale", spawnableObject.ScaleMinSeparated);
-                    spawnableObject.ScaleMaxSeparated = EditorGUILayout.Vector3Field("  Max scale", spawnableObject.ScaleMaxSeparated);
-                }
-                else
-                {
-                    spawnableObject.ScaleMin = EditorGUILayout.FloatField("  Min scale", spawnableObject.ScaleMin);
-                    spawnableObject.ScaleMax = EditorGUILayout.FloatField("  Max scale", spawnableObject.ScaleMax);
-                }
-            }
-            if (spawnableObject.ScaleType == ScaleType.Static)
-            {
-                spawnableObject.SeparateScaleAxis = EditorGUILayout.Toggle("  Separate axis", spawnableObject.SeparateScaleAxis);
-                if (spawnableObject.SeparateScaleAxis)
-                    spawnableObject.CustomScale = EditorGUILayout.Vector3Field("  Custom scale", spawnableObject.CustomScale);
-                else
-                {
-                    spawnableObject.CustomScale = new Vector3(1, 1, 1);
-                    float scale = EditorGUILayout.FloatField("  Scale", spawnableObject.CustomScale.x);
-                    spawnableObject.CustomScale = new Vector3(scale, scale, scale);
-                }
-            }
-
-        }
-
-        DrawLabel("Color");
-
-        spawnableObject.ModifyColor = EditorGUILayout.Toggle("Modify color", spawnableObject.ModifyColor);
-
-        if (spawnableObject.ModifyColor)
-        {
-            spawnableObject.ColorModPercentage = EditorGUILayout.FloatField("  Color modification %", spawnableObject.ColorModPercentage);
-            if (spawnableObject.ColorModPercentage < 0) spawnableObject.ColorModPercentage = 0;
-        }
-
-        EditorGUILayout.EndVertical();
-        EditorGUILayout.EndVertical();
-        EditorGUILayout.EndHorizontal();
     }
 
     private void OnGUI()
@@ -692,6 +294,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         }
         GUILayout.EndScrollView();
     }
+
     private void OnValidate()
     {
         InitializeStyles();
@@ -712,10 +315,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorApplication.update += SceneAutoSave;
         //UnityEditor.EventSystems.EventSystemEditor.
     }
-    private void SceneAutoSave()
-    {
-        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
-    }
     private void OnDisable()
     {
         if (Quited) return;
@@ -732,16 +331,11 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorApplication.update -= SceneAutoSave;
 
     }
-    private void Quit()
+
+    private void SceneAutoSave()
     {
-        Quited = true;
+        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
     }
-    private void OnSceneGUI(SceneView sceneView)
-    {
-        SceneGUI();
-    }   
-    private void ResetAllSpawnableObjects()
-    {
-        WillowTerrainSettings.spawnableObjects.Clear();
-    }
+    private void Quit() => Quited = true;
+    private void OnSceneGUI(SceneView sceneView) => SceneGUI();
 }
