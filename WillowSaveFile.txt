@@ -42,10 +42,20 @@ True
 defaultLayer
 0
 (0.0, 0.0, 0.0)
-0
+10
+tree1a pre (27 clone)
+tree1a pre (28 clone)
+tree1a pre (29 clone)
+tree1a pre (30 clone)
+tree1a pre (31 clone)
+tree1a pre (33 clone)
+tree1a pre (34 clone)
+tree1a pre (35 clone)
+tree1a pre (37 clone)
+tree1a pre (40 clone)
 True
  ({0} clone)
-0
+44
 0
 False
 True

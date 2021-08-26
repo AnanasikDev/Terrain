@@ -10,6 +10,9 @@ using static WillowStyles;
 using static WillowUndo;
 using static WillowDebug;
 using static WillowSpawnableObjectManager;
+using System.IO;
+using UnityEditor.SceneManagement;
+
 public sealed class WillowTerrainEditor : EditorWindow
 {
     private bool sceneview = true;
@@ -306,6 +309,8 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         Log("Willow started..", Green);
 
+        EditorSceneManager.sceneOpened += Read;
+
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
         //EditorApplication.quitting += WillowFileManager.Write;
@@ -320,6 +325,8 @@ public sealed class WillowTerrainEditor : EditorWindow
         if (Quited) return;
 
         //WillowFileManager.Write();
+
+        EditorSceneManager.sceneOpened -= Read;
         
         Log("Willow ended..", Green);
 
@@ -331,10 +338,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorApplication.update -= SceneAutoSave;
 
     }
-
-    private void SceneAutoSave()
+    private void Read(UnityEngine.SceneManagement.Scene newScene, OpenSceneMode mode)
     {
-        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
+        WillowFileManager.TryRead();
     }
     private void Quit() => Quited = true;
     private void OnSceneGUI(SceneView sceneView) => SceneGUI();

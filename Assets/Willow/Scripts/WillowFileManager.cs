@@ -232,6 +232,19 @@ public static class WillowFileManager
             WillowTerrainSettings.exchangeSmoothness = Convert.ToInt32(lines[l + 9]);
         }
     }
+    public static bool TryRead()
+    {
+        try
+        {
+            Read();
+            return true;
+        }
+        catch (NullReferenceException)
+        {
+            Log("Impossible to read.", Yellow, Debug.LogWarning);
+        }
+        return false;
+    }
     private static Vector3 ParseVector(string input)
     {
         List<string> s = input.Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();
