@@ -3,6 +3,7 @@ using UnityEngine;
 using static WillowUtils;
 using static WillowStyles;
 using static WillowObjectsRecalculation;
+using static WillowDebug;
 using System.Linq;
 public static class WillowSpawnableObjectManager
 {
@@ -61,6 +62,11 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
         {
+            if (SpawnedDependsOnSpawnable(WillowTerrainSettings.spawnableObjects[index], out int amount))
+            {
+                EditorUtility.DisplayDialog("Willow Error", $"Unable to remove spawnable object. {amount} spawned objects depend on it.", "Ok");
+                return false;
+            }
             WillowTerrainSettings.spawnableObjects.RemoveAt(index);
             return false;
         }
@@ -292,5 +298,22 @@ public static class WillowSpawnableObjectManager
         GUI.backgroundColor = DefaultBackGroundColor;
 
         EditorGUILayout.EndHorizontal();
+    }
+
+    private static bool SpawnedDependsOnSpawnable(WillowSpawnableObject spawnableObject, out int amount)
+    {
+        amount = 0;
+        foreach (GameObject spawned in WillowTerrainSettings.spawnedObjects)
+        {
+            if (spawned.GetComponent<WillowSpawnedObject>().SpawnableObject == spawnableObject)
+            {
+                amount++;
+            }
+        }
+        if (amount > 0)
+        {
+            return true; // DEPENDS, UNABLE TO REMOVE
+        }
+        return false;
     }
 }

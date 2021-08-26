@@ -1,7 +1,7 @@
 Assets/RTP Vol.1/prefabs/
 True
-11
-20,18
+2
+2
 null
 onTerrainOnly
 1
@@ -24,7 +24,7 @@ False
 False
 (0.0, 0.0, 0.0)
 (360.0, 360.0, 360.0)
-False
+True
 35
 False
 (0.0, 0.0, 0.0)
@@ -42,10 +42,19 @@ True
 defaultLayer
 0
 (0.0, 0.0, 0.0)
-0
+9
+tree1a pre (499 clone)
+tree1a pre (500 clone)
+tree1a pre (501 clone)
+tree1a pre (502 clone)
+tree1a pre (503 clone)
+tree1a pre (504 clone)
+tree1a pre (505 clone)
+tree1a pre (506 clone)
+tree1a pre (507 clone)
 True
  ({0} clone)
-0
+508
 0
 False
 True

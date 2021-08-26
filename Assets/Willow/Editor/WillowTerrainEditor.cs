@@ -121,7 +121,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         {
             if (EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session? You can not undo this action.", "Revert", "Cancel"))
             {
-                WillowFileManager.Read();
+                WillowFileManager.TryRead();
             }
         }
 
@@ -300,11 +300,11 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnValidate()
     {
-        InitializeStyles();
         OnEnable();
     }
     private void OnEnable()
     {
+        InitializeStyles();
         WillowFileManager.Read();
 
         Log("Willow started..", Green);
