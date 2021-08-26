@@ -19,7 +19,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     private Vector2 scrollPos = Vector2.zero;
     private bool Quited = false;
 
-    [MenuItem(Path + "Prefab brush")]
+    [MenuItem(WillowGlobalConfig.Path + "Prefab brush")]
     public static void ShowWindow()
     {
         GetWindow<WillowTerrainEditor>("Terrain++");
@@ -317,7 +317,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         //UnityEditor.
         EditorApplication.quitting += Quit;
         EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
-        EditorApplication.update += SceneAutoSave;
         //UnityEditor.EventSystems.EventSystemEditor.
     }
     private void OnDisable()
@@ -335,7 +334,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         //EditorApplication.quitting -= WillowFileManager.Write;
         EditorApplication.quitting -= Quit;
         EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
-        EditorApplication.update -= SceneAutoSave;
 
     }
     private void Read(UnityEngine.SceneManagement.Scene newScene, OpenSceneMode mode)
