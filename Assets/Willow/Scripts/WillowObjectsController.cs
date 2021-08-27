@@ -83,10 +83,12 @@ public static class WillowObjectsController
                 {
                     o.gameObject.hideFlags = hidden;
                     o.SetActive(false);
+                    
+                    EditorUtility.SetDirty(o.gameObject);
+
                     spawnedObjectsTemp.Remove(o);
                     WillowTerrainSettings.destroyedObjects.Add(o);
 
-                    EditorUtility.SetDirty(o);
                     
                     EditorApplication.RepaintHierarchyWindow();
                 }
@@ -98,8 +100,6 @@ public static class WillowObjectsController
         AutoSave();
         WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Erasure, null, objsToDestroy.ToList()));
         OnRepaint?.Invoke();
-        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
-        //EditorApplication.RepaintHierarchyWindow();
     }
     public static void ExchangeObjects()
     {

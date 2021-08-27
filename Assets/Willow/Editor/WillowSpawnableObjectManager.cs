@@ -238,9 +238,9 @@ public static class WillowSpawnableObjectManager
                     spawnableObject.CustomScale = EditorGUILayout.Vector3Field("  Custom scale", spawnableObject.CustomScale);
                 else
                 {
-                    spawnableObject.CustomScale = new Vector3(1, 1, 1);
-                    float scale = EditorGUILayout.FloatField("  Scale", spawnableObject.CustomScale.x);
-                    spawnableObject.CustomScale = new Vector3(scale, scale, scale);
+                    spawnableObject.CustomScale.x = EditorGUILayout.FloatField("  Scale", spawnableObject.CustomScale.x);
+                    float scale = spawnableObject.CustomScale.x;
+                    spawnableObject.CustomScale = Vector3.one * scale;
                 }
             }
 

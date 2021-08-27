@@ -44,6 +44,22 @@ public class WillowClearCache : Editor
         }
         SceneView.RepaintAll();
     }
+    [MenuItem(Path + "Destroy Destoryed Objects")]
+    public static void DestroyDestroyedObjects()
+    {
+        if (WillowTerrainSettings.destroyedObjects.Count == 0)
+        {
+            Log("There are no destroyed objects!", Yellow, Debug.LogError);
+        }
+        else for (int i = 0; i < WillowTerrainSettings.destroyedObjects.Count; i++)
+        {
+            if (WillowTerrainSettings.destroyedObjects[i] != null)
+            {
+                Object.DestroyImmediate(WillowTerrainSettings.destroyedObjects[i].gameObject);
+            }
+        }
+        SceneView.RepaintAll();
+    }
     [MenuItem(Path + "Reset indecies")]
     public static void ResetIndecies()
     {

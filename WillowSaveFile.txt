@@ -30,31 +30,22 @@ False
 (0.0, 0.0, 0.0)
 False
 Object
-AsPrefab
+Static
 XYZ
-False
-(1.0, 1.0, 1.0)
+True
+(0.5, 0.5, 0.5)
 (0.9, 0.9, 0.9)
 0,9
 (1.1, 1.1, 1.1)
 1,15
-True
+False
 defaultLayer
 0
 (0.0, 0.0, 0.0)
-9
-tree1a pre (499 clone)
-tree1a pre (500 clone)
-tree1a pre (501 clone)
-tree1a pre (502 clone)
-tree1a pre (503 clone)
-tree1a pre (504 clone)
-tree1a pre (505 clone)
-tree1a pre (506 clone)
-tree1a pre (507 clone)
+0
 True
  ({0} clone)
-508
+598
 0
 False
 True
