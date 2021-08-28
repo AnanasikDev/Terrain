@@ -1,7 +1,7 @@
 Assets/RTP Vol.1/prefabs/
 True
 2
-12,05
+7,85
 null
 onTerrainOnly
 1
@@ -45,7 +45,7 @@ defaultLayer
 0
 True
  ({0} clone)
-607
+612
 0
 False
 True

@@ -5,7 +5,6 @@ using static WillowUtils;
 public class WillowTerrainSettings : MonoBehaviour
 {
     static public bool Validated = false;
-    //static public WillowTerrainSettings TerrainInstance;
 
     static public int BrushDensity = 4;
     static public float BrushSize = 25;

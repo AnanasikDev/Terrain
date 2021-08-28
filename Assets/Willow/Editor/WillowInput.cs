@@ -6,24 +6,33 @@ using static WillowObjectsController;
 using static WillowUndo;
 public static class WillowInput
 {
-    // Events
-    public static event Func<BrushMode> OnBrushModeChanged;
-    public static event Func<float> OnBrushSizeChanged;
-    public static event Action OnEnabled;
-    public static event Action OnDisabled;
-    public static event Action OnSaved;
-
     // Keys
     public static KeyCode PlaceModeKey = KeyCode.C;
     public static KeyCode EraseModeKey = KeyCode.V;
     public static KeyCode ExchangeModeKey = KeyCode.B;
     public static KeyCode BrushSizeModeKey = KeyCode.F;
+    public static KeyCode EnableKey = KeyCode.E;
 
     public static float MouseScrollSensitivity = 0.2f;
 
     private static bool SceneView = true;
     private static bool BrushSizeKeyHeld = false;
 
+    public static void GetInput()
+    {
+        bool active = GetEnableChange();
+        if (active)
+            WillowTerrainEditor.EnableWillow();
+        else
+            WillowTerrainEditor.DisableWillow();
+
+
+        if (!WillowTerrainSettings.IsActive) 
+            return;
+
+        WillowTerrainSettings.BrushMode = GetPlaceModeInput();
+        WillowTerrainSettings.BrushSize = (float)System.Math.Round(Mathf.Clamp(WillowTerrainSettings.BrushSize + GetBrushSizeChange(), 0.05f, 1024f), 2);
+    }
     private static BrushMode GetPlaceModeInput()
     {
         BrushMode mode = WillowTerrainSettings.BrushMode;
@@ -44,11 +53,8 @@ public static class WillowInput
             mode = BrushMode.Exchange;
         }
 
-        OnBrushModeChanged?.Invoke();
-
         return mode;
     }
-
     private static float GetBrushSizeChange()
     {
         // s + mouse scroll
@@ -72,12 +78,24 @@ public static class WillowInput
 
         return 0;
     }
+    private static bool GetEnableChange()
+    {
+        // ctrl + e
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == EnableKey)
+        {
+            if (Event.current.modifiers == EventModifiers.Control)
+            {
+                return !WillowTerrainSettings.IsActive;
+            }
+        }
+        return WillowTerrainSettings.IsActive;
+    }
 
     public static void SceneGUI()
     {
+        GetInput();
 
         if (!WillowTerrainSettings.IsActive) return;
-
 
         if (Event.current.type == EventType.MouseLeaveWindow)
             SceneView = false;
@@ -91,8 +109,6 @@ public static class WillowInput
             return;
         }
 
-        WillowTerrainSettings.BrushMode = GetPlaceModeInput();
-        WillowTerrainSettings.BrushSize = (float)System.Math.Round(Mathf.Clamp(WillowTerrainSettings.BrushSize + GetBrushSizeChange(), 0.05f, 1024f), 2);
 
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
 
@@ -131,28 +147,32 @@ public static class WillowInput
         }
 
         // Undo
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Z)
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Z)
         {
             if (Event.current.modifiers == EventModifiers.Control)
             {
+                Undo();
+
                 GUIUtility.hotControl = controlId;
                 Event.current.Use();
-
-                Undo();
             }
         }
 
         // Saving
+
+        GetSaving();
+
+        // Brush visualization
+        WillowBrushVis.BrushVis();
+
+        EditorApplication.RepaintHierarchyWindow();
+    }
+    private static void GetSaving()
+    {
         if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S &&
             Event.current.modifiers == EventModifiers.Control)
         {
             WillowFileManager.Write();
         }
-
-        // Brush visualization
-        if (Event.current != null)
-            WillowBrushVis.BrushVis();
-
-        EditorApplication.RepaintHierarchyWindow();
     }
 }

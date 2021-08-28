@@ -25,17 +25,16 @@ public sealed class WillowTerrainEditor : EditorWindow
         GetWindow<WillowTerrainEditor>("Terrain++");
     }
 
-    private void EnableWillow()
+    public static void EnableWillow()
     {
         WillowTerrainSettings.IsActive = true;
 
         Selection.activeObject = null;
     }
-    private void DisableWillow()
+    public static void DisableWillow()
     {
         WillowTerrainSettings.IsActive = false;
     }
-
     
 
     private void DrawHeader()
@@ -69,13 +68,17 @@ public sealed class WillowTerrainEditor : EditorWindow
         {
             GUI.backgroundColor = LiteGreenColor;
             GUI.contentColor = RedTextColor;
-            if (GUILayout.Button("Disable")) DisableWillow();
+
+            if (GUILayout.Button("Disable")) 
+                DisableWillow();
         }
         if (!WillowTerrainSettings.IsActive)
         {
             GUI.backgroundColor = LiteRedColor;
             GUI.contentColor = GreenTextColor;
-            if (GUILayout.Button("Enable")) EnableWillow();
+
+            if (GUILayout.Button("Enable")) 
+                EnableWillow();
         }
 
 
@@ -222,6 +225,8 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnGUI()
     {
+        //GetInput();
+
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         
         DrawHeader();
@@ -238,7 +243,7 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnValidate()
     {
-        OnEnable();
+        //OnEnable();/
     }
     private void OnEnable()
     {
@@ -272,6 +277,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         WillowFileManager.TryRead();
     }
+    
     private void Quit() => Quited = true;
     private void OnSceneGUI(SceneView sceneView)
     {
