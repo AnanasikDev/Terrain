@@ -225,26 +225,16 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnGUI()
     {
-        //GetInput();
 
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         
         DrawHeader();
-
         DrawTabs();
-        
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && Event.current.modifiers == EventModifiers.Control)
-        {
-            // Save
-            WillowFileManager.Write();
-        }
+
         GUILayout.EndScrollView();
+        GetInput();
     }
 
-    private void OnValidate()
-    {
-        //OnEnable();/
-    }
     private void OnEnable()
     {
         InitializeStyles();

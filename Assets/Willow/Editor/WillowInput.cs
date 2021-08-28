@@ -26,7 +26,6 @@ public static class WillowInput
         else
             WillowTerrainEditor.DisableWillow();
 
-
         if (!WillowTerrainSettings.IsActive) 
             return;
 
