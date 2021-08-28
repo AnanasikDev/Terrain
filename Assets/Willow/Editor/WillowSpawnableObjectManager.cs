@@ -18,13 +18,13 @@ public static class WillowSpawnableObjectManager
         EditorGUILayout.BeginVertical("box");
 
         int removeBtnHeight = 40;
-        if (index < WillowTerrainSettings.spawnableObjects.Count - 1 || index == 0) removeBtnHeight = 60;
-        if (!WillowTerrainSettings.spawnableObjects[index].Hidden)
+        if (index < WillowTerrainSettings.SpawnableObjects.Count - 1 || index == 0) removeBtnHeight = 60;
+        if (!WillowTerrainSettings.SpawnableObjects[index].Hidden)
         {
             if (GUILayout.Button("‹", GUILayout.Width(18), GUILayout.Height(18)))
             {
 
-                WillowTerrainSettings.spawnableObjects[index].Hidden = true;
+                WillowTerrainSettings.SpawnableObjects[index].Hidden = true;
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
                 return false;
@@ -35,12 +35,12 @@ public static class WillowSpawnableObjectManager
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("›", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                WillowTerrainSettings.spawnableObjects[index].Hidden = false;
+                WillowTerrainSettings.SpawnableObjects[index].Hidden = false;
                 EditorGUILayout.EndHorizontal();
             }
             else
             {
-                GUILayout.Label(WillowTerrainSettings.spawnableObjects[index].Object != null ? (WillowTerrainSettings.spawnableObjects[index].RenameObject ? WillowTerrainSettings.spawnableObjects[index].NewObjectName : WillowTerrainSettings.spawnableObjects[index].Object.name) : "null");
+                GUILayout.Label(WillowTerrainSettings.SpawnableObjects[index].Object != null ? (WillowTerrainSettings.SpawnableObjects[index].RenameObject ? WillowTerrainSettings.SpawnableObjects[index].NewObjectName : WillowTerrainSettings.SpawnableObjects[index].Object.name) : "null");
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
@@ -51,9 +51,9 @@ public static class WillowSpawnableObjectManager
         if (index > 0)
             if (GUILayout.Button("˄", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                var temp = WillowTerrainSettings.spawnableObjects[index];
-                WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index - 1];
-                WillowTerrainSettings.spawnableObjects[index - 1] = temp;
+                var temp = WillowTerrainSettings.SpawnableObjects[index];
+                WillowTerrainSettings.SpawnableObjects[index] = WillowTerrainSettings.SpawnableObjects[index - 1];
+                WillowTerrainSettings.SpawnableObjects[index - 1] = temp;
             }
 
         Color bgc = GUI.backgroundColor;
@@ -62,30 +62,30 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(removeBtnHeight)))
         {
-            if (SpawnedDependsOnSpawnable(WillowTerrainSettings.spawnableObjects[index], out int amount))
+            if (SpawnedDependsOnSpawnable(WillowTerrainSettings.SpawnableObjects[index], out int amount))
             {
                 EditorUtility.DisplayDialog("Willow Error", $"Unable to remove spawnable object. {amount} spawned objects depend on it.", "Ok");
                 return false;
             }
-            WillowTerrainSettings.spawnableObjects.RemoveAt(index);
+            WillowTerrainSettings.SpawnableObjects.RemoveAt(index);
             return false;
         }
 
         GUI.backgroundColor = bgc;
 
-        if (index < WillowTerrainSettings.spawnableObjects.Count - 1)
+        if (index < WillowTerrainSettings.SpawnableObjects.Count - 1)
             if (GUILayout.Button("˅", GUILayout.Width(18), GUILayout.Height(18)))
             {
-                var temp = WillowTerrainSettings.spawnableObjects[index];
-                WillowTerrainSettings.spawnableObjects[index] = WillowTerrainSettings.spawnableObjects[index + 1];
-                WillowTerrainSettings.spawnableObjects[index + 1] = temp;
+                var temp = WillowTerrainSettings.SpawnableObjects[index];
+                WillowTerrainSettings.SpawnableObjects[index] = WillowTerrainSettings.SpawnableObjects[index + 1];
+                WillowTerrainSettings.SpawnableObjects[index + 1] = temp;
             }
 
         GUI.backgroundColor = new Color(0.35f, 0.85f, 0.32f);
 
         if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
         {
-            WillowTerrainSettings.spawnableObjects.Insert(index + 1, new WillowSpawnableObject(WillowTerrainSettings.spawnableObjects[index]));
+            WillowTerrainSettings.SpawnableObjects.Insert(index + 1, new WillowSpawnableObject(WillowTerrainSettings.SpawnableObjects[index]));
         }
 
         GUI.backgroundColor = bgc;
@@ -96,7 +96,7 @@ public static class WillowSpawnableObjectManager
     }
     private static void DrawSpawnableSettings(int index)
     {
-        WillowSpawnableObject spawnableObject = WillowTerrainSettings.spawnableObjects[index];
+        WillowSpawnableObject spawnableObject = WillowTerrainSettings.SpawnableObjects[index];
 
         EditorGUILayout.BeginVertical("box");
 
@@ -124,11 +124,11 @@ public static class WillowSpawnableObjectManager
         if (spawnableObject.CustomParent)
             spawnableObject.Parent = (Transform)EditorGUILayout.ObjectField("  Parent", spawnableObject.Parent, typeof(Transform), true);
 
-        spawnableObject.LayerIndex = EditorGUILayout.Popup("Layer ", spawnableObject.LayerIndex, WillowTerrainSettings.layersName.ToArray());
-        if (spawnableObject.LayerIndex >= WillowTerrainSettings.layersName.Count)
-            spawnableObject.Layer = WillowTerrainSettings.layersName[0];
+        spawnableObject.LayerIndex = EditorGUILayout.Popup("Layer ", spawnableObject.LayerIndex, WillowTerrainSettings.LayersName.ToArray());
+        if (spawnableObject.LayerIndex >= WillowTerrainSettings.LayersName.Count)
+            spawnableObject.Layer = WillowTerrainSettings.LayersName[0];
         else
-            spawnableObject.Layer = WillowTerrainSettings.layersName[spawnableObject.LayerIndex];
+            spawnableObject.Layer = WillowTerrainSettings.LayersName[spawnableObject.LayerIndex];
 
         spawnableObject.SpawnChance = EditorGUILayout.IntField("Chance", spawnableObject.SpawnChance); //objs[i].spawnChance
         if (spawnableObject.SpawnChance < 0) spawnableObject.SpawnChance = 0;
@@ -142,18 +142,18 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("Position"))
         {
-            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects
+            RecalculatePositionsSelected(WillowTerrainSettings.SpawnedObjects
                 .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
 
         }
         if (GUILayout.Button("Rotation"))
         {
-            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects
+            RecalculateRotationsSelected(WillowTerrainSettings.SpawnedObjects
                 .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
         }
         if (GUILayout.Button("Scale"))
         {
-            RecalculateScalesSelected(WillowTerrainSettings.spawnedObjects
+            RecalculateScalesSelected(WillowTerrainSettings.SpawnedObjects
                 .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
         }
 
@@ -270,19 +270,19 @@ public static class WillowSpawnableObjectManager
     }
     public static void ResetAllSpawnableObjects()
     {
-        WillowTerrainSettings.spawnableObjects.Clear();
+        WillowTerrainSettings.SpawnableObjects.Clear();
     }
     public static void DrawSpawnablesAddButton()
     {
         EditorGUILayout.Space(20);
         EditorGUILayout.BeginHorizontal("box");
-        GUILayout.Label(WillowTerrainSettings.spawnableObjects.Count.ToString());
+        GUILayout.Label(WillowTerrainSettings.SpawnableObjects.Count.ToString());
 
         GUI.backgroundColor = GreenColor;
 
         if (GUILayout.Button("Create new", GUILayout.Width(120)))
         {
-            WillowTerrainSettings.spawnableObjects.Add(new WillowSpawnableObject());
+            WillowTerrainSettings.SpawnableObjects.Add(new WillowSpawnableObject());
         }
 
         GUI.backgroundColor = RedColor;
@@ -303,7 +303,7 @@ public static class WillowSpawnableObjectManager
     private static bool SpawnedDependsOnSpawnable(WillowSpawnableObject spawnableObject, out int amount)
     {
         amount = 0;
-        foreach (GameObject spawned in WillowTerrainSettings.spawnedObjects)
+        foreach (GameObject spawned in WillowTerrainSettings.SpawnedObjects)
         {
             if (spawned.GetComponent<WillowSpawnedObject>().SpawnableObject == spawnableObject)
             {

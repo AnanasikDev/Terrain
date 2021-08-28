@@ -16,28 +16,28 @@ public static class WillowObjectsController
 
         if (!ableToSpawn) return;
 
-        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
+        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.SpawnableObjects;
 
         spawnableObjects = spawnableObjects
             .Where(spawnableObject => spawnableObject.Spawn && spawnableObject.Object != null)
             .ToList();
 
-        if (WillowTerrainSettings.ignoreInactiveLayers)
+        if (WillowTerrainSettings.IgnoreInactiveLayers)
         {
             spawnableObjects = 
-                spawnableObjects.Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)]).ToList();
+                spawnableObjects.Where(spawnableObject => WillowTerrainSettings.LayersState[WillowTerrainSettings.LayersName.IndexOf(spawnableObject.Layer)]).ToList();
         }
 
 
         bool anySpawnableObjects = spawnableObjects.Any();
 
-        if (WillowTerrainSettings.spawnableObjects.Count == 0 || !anySpawnableObjects)
+        if (WillowTerrainSettings.SpawnableObjects.Count == 0 || !anySpawnableObjects)
         {
             Log("There are no objects to spawn! Make sure you have active spawnable objects", Yellow, Debug.LogError);
             return;
         }
 
-        for (int i = 0; i < WillowTerrainSettings.density; i++)
+        for (int i = 0; i < WillowTerrainSettings.BrushDensity; i++)
         {
             WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
             
@@ -59,25 +59,25 @@ public static class WillowObjectsController
         }
 
         AutoSave();
-        WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Placement, spawnedObjs, null));
+        WillowTerrainSettings.ChangeLog.Push(new Change(WillowUtils.BrushMode.Place, spawnedObjs, null));
         OnRepaint?.Invoke();
     }
     public static void EraseObjects()
     {
         RaycastFromCursor(out RaycastHit hit);
 
-        List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.spawnedObjects;
+        List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.SpawnedObjects;
         GameObject[] objsToDestroy =
             spawnedObjectsTemp
-            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= WillowTerrainSettings.brushSize * WillowTerrainSettings.brushSize))
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= WillowTerrainSettings.BrushSize * WillowTerrainSettings.BrushSize))
             .ToArray();
 
-        if (WillowTerrainSettings.ignoreInactiveLayers)
-            objsToDestroy = objsToDestroy.Where(gameObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
+        if (WillowTerrainSettings.IgnoreInactiveLayers)
+            objsToDestroy = objsToDestroy.Where(gameObject => WillowTerrainSettings.LayersState[WillowTerrainSettings.LayersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
 
         foreach (GameObject o in objsToDestroy)
         {
-            if (DecideIfSmooth(WillowTerrainSettings.eraseSmoothness))
+            if (DecideIfSmooth(WillowTerrainSettings.EraseSmoothness))
             {
                 if (o != null)
                 {
@@ -87,57 +87,57 @@ public static class WillowObjectsController
                     EditorUtility.SetDirty(o.gameObject);
 
                     spawnedObjectsTemp.Remove(o);
-                    WillowTerrainSettings.destroyedObjects.Add(o);
-
+                    WillowTerrainSettings.DestroyedObjects.Add(o);
                     
                     EditorApplication.RepaintHierarchyWindow();
                 }
             }
         }
         spawnedObjectsTemp.RemoveAll(o => o == null);
-        WillowTerrainSettings.spawnedObjects = spawnedObjectsTemp;
+        WillowTerrainSettings.SpawnedObjects = spawnedObjectsTemp;
 
         AutoSave();
-        WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Erasure, null, objsToDestroy.ToList()));
+        WillowTerrainSettings.ChangeLog.Push(new Change(WillowUtils.BrushMode.Erase, null, objsToDestroy.ToList()));
         OnRepaint?.Invoke();
+        EditorApplication.RepaintHierarchyWindow();
     }
     public static void ExchangeObjects()
     {
         RaycastFromCursor(out RaycastHit hit);
 
-        List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.spawnedObjects;
+        List<GameObject> spawnedObjectsTemp = WillowTerrainSettings.SpawnedObjects;
         GameObject[] objsToExchange =
             spawnedObjectsTemp
-            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= WillowTerrainSettings.brushSize * WillowTerrainSettings.brushSize))
+            .Where(gameObject => gameObject != null && ((hit.point - gameObject.transform.position).sqrMagnitude <= WillowTerrainSettings.BrushSize * WillowTerrainSettings.BrushSize))
             .ToArray();
 
-        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.spawnableObjects;
-        if (WillowTerrainSettings.ignoreInactiveLayers)
+        List<WillowSpawnableObject> spawnableObjects = WillowTerrainSettings.SpawnableObjects;
+        if (WillowTerrainSettings.IgnoreInactiveLayers)
         {
-            objsToExchange = objsToExchange.Where(gameObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
-            spawnableObjects = spawnableObjects.Where(spawnableObject => WillowTerrainSettings.layersState[WillowTerrainSettings.layersName.IndexOf(spawnableObject.Layer)]).ToList();
+            objsToExchange = objsToExchange.Where(gameObject => WillowTerrainSettings.LayersState[WillowTerrainSettings.LayersName.IndexOf(gameObject.GetComponent<WillowSpawnedObject>().Layer)]).ToArray();
+            spawnableObjects = spawnableObjects.Where(spawnableObject => WillowTerrainSettings.LayersState[WillowTerrainSettings.LayersName.IndexOf(spawnableObject.Layer)]).ToList();
         }
 
         foreach (GameObject o in objsToExchange)
         {
-            if (DecideIfSmooth(WillowTerrainSettings.exchangeSmoothness))
+            if (DecideIfSmooth(WillowTerrainSettings.ExchangeSmoothness))
             {
                 if (o != null)
                 {
                     WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
-                    Vector3 position = WillowTerrainSettings.exchangePosition ? o.transform.position : o.transform.position - o.GetComponent<WillowSpawnedObject>().PositionAdd + GetObjectPositionAdd(spawnableObject);
+                    Vector3 position = WillowTerrainSettings.ExchangePosition ? o.transform.position : o.transform.position - o.GetComponent<WillowSpawnedObject>().PositionAdd + GetObjectPositionAdd(spawnableObject);
                     RaycastHit normalHit;
                     bool normalCasted = Physics.Raycast(position, -o.transform.up, out normalHit, 3);
                     Vector3 normal = normalCasted ? normalHit.normal : Vector3.up;
-                    Transform parent = WillowTerrainSettings.exchangeParent ? o.transform.parent : spawnableObject.Parent;
+                    Transform parent = WillowTerrainSettings.ExchangeParent ? o.transform.parent : spawnableObject.Parent;
                     GameObject spawned = Object.Instantiate(spawnableObject.Object, position, Quaternion.identity, parent);
                     spawned.name = o.name;
 
-                    if (WillowTerrainSettings.exchangeRotation)
+                    if (WillowTerrainSettings.ExchangeRotation)
                         spawned.transform.localRotation = o.transform.localRotation;
                     else
                         SetObjectRotation(spawnableObject, spawned, normal, spawnableObject.CustomEulersRotation);
-                    if (WillowTerrainSettings.exchangeColor)    
+                    if (WillowTerrainSettings.ExchangeColor)    
                         SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers, o.GetComponent<WillowSpawnedObject>().Renderers[0].sharedMaterial.color);
                     else 
                         SetObjectColor(spawnableObject.ModifyColor, spawnableObject.ColorModPercentage, spawned.GetComponent<WillowSpawnedObject>().Renderers);
@@ -147,23 +147,23 @@ public static class WillowObjectsController
                     spawned.GetComponent<WillowSpawnedObject>().PositionAdd =
                         spawnableObject.ModifyPosition ? spawnableObject.PositionAddition : Vector3.zero;
 
-                    spawned.transform.localScale = WillowTerrainSettings.exchangeScale ? o.transform.localScale : GetObjectScale(spawnableObject);
+                    spawned.transform.localScale = WillowTerrainSettings.ExchangeScale ? o.transform.localScale : GetObjectScale(spawnableObject);
 
                     spawnedObjectsTemp.Remove(o);
                     spawnedObjectsTemp.Add(spawned);
 
                     o.gameObject.hideFlags = hidden;
                     o.SetActive(false);
-                    WillowTerrainSettings.destroyedObjects.Add(o);
+                    WillowTerrainSettings.DestroyedObjects.Add(o);
 
                     EditorUtility.SetDirty(o);
                     EditorUtility.SetDirty(spawned);
                 }
             }
         }
-        WillowTerrainSettings.changelog.Push(new Change(WillowUtils.ChangeType.Exchange, spawnedObjectsTemp.ToList(), objsToExchange.ToList()));
+        WillowTerrainSettings.ChangeLog.Push(new Change(WillowUtils.BrushMode.Exchange, spawnedObjectsTemp.ToList(), objsToExchange.ToList()));
         spawnedObjectsTemp.RemoveAll(o => o == null);
-        WillowTerrainSettings.spawnedObjects = spawnedObjectsTemp;
+        WillowTerrainSettings.SpawnedObjects = spawnedObjectsTemp;
         AutoSave();
         OnRepaint?.Invoke();
         EditorApplication.RepaintHierarchyWindow();
@@ -271,7 +271,7 @@ public static class WillowObjectsController
     public static Transform GetObjectParent(WillowSpawnableObject obj)
     {
         if (obj.CustomParent) return obj.Parent;
-        else return WillowTerrainSettings.parent;
+        else return WillowTerrainSettings.BaseParent;
     }
     public static Vector3 GetObjectPositionAdd(WillowSpawnableObject obj)
     {
@@ -318,9 +318,9 @@ public static class WillowObjectsController
 
     public static bool CheckSurface(GameObject gameObject)
     {
-        return ((WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainOnly && gameObject.GetComponent<WillowTerrainSettings>() != null) ||
-                (WillowTerrainSettings.placementType == SpawnPlaceType.onObjectsOnly && gameObject.GetComponent<WillowTerrainSettings>() == null) ||
-                (WillowTerrainSettings.placementType == SpawnPlaceType.onTerrainAndObjects));
+        return ((WillowTerrainSettings.PlacementType == SpawnPlaceType.onTerrainOnly && gameObject.GetComponent<WillowTerrainSettings>() != null) ||
+                (WillowTerrainSettings.PlacementType == SpawnPlaceType.onObjectsOnly && gameObject.GetComponent<WillowTerrainSettings>() == null) ||
+                (WillowTerrainSettings.PlacementType == SpawnPlaceType.onTerrainAndObjects));
     }
     private static bool DecideIfSmooth(int smoothness)
     {
@@ -328,7 +328,7 @@ public static class WillowObjectsController
     }
     private static void AutoSave()
     {
-        if (WillowTerrainSettings.autoSave) WillowFileManager.Write();
+        if (WillowTerrainSettings.AutoSave) WillowFileManager.Write();
     }
     private static GameObject SpawnObject(WillowSpawnableObject spawnableObject, RaycastHit hit)
     {
@@ -351,39 +351,39 @@ public static class WillowObjectsController
         if (spawnableObject.RenameObject)
             spawned.name = spawnableObject.NewObjectName;
 
-        if (WillowTerrainSettings.indexObjects)
+        if (WillowTerrainSettings.IndexObjects)
             spawned.name += IndexName();
 
         if (spawnableObject.CenterObject)
             spawned.transform.localPosition += new Vector3(0, spawnableObject.Object.transform.localScale.y / 2, 0);
 
-        WillowTerrainSettings.spawnedObjects.Add(spawned);
+        WillowTerrainSettings.SpawnedObjects.Add(spawned);
 
         return spawned;
     }
     private static string IndexName()
     {
-        return string.Format(WillowTerrainSettings.indexFormat, WillowTerrainSettings.spawnedIndecies++);
+        return string.Format(WillowTerrainSettings.IndexFormat, WillowTerrainSettings.SpawnedIndecies++);
     }
     private static Vector3 GetRandomPointOnBrush()
     {
         Vector3 position = Vector3.zero;
-        switch (WillowTerrainSettings.brushShape)
+        switch (WillowTerrainSettings.BrushShape)
         {
             case BrushShape.Circle:
 
                 float angle = UnityEngine.Random.Range(0f, 360f);
-                float radius = WillowTerrainSettings.brushSize;
-                if (WillowTerrainSettings.fillBrush) 
-                    radius = UnityEngine.Random.Range(0f, WillowTerrainSettings.brushSize);
+                float radius = WillowTerrainSettings.BrushSize;
+                if (WillowTerrainSettings.FillBrush) 
+                    radius = UnityEngine.Random.Range(0f, WillowTerrainSettings.BrushSize);
                 position = new Vector3(Mathf.Sin(angle) * radius, 0f, Mathf.Cos(angle) * radius);
                 break;
 
             case BrushShape.Square:
 
-                float size = WillowTerrainSettings.brushSize * 0.75f;
+                float size = WillowTerrainSettings.BrushSize * 0.75f;
                 float x, z;
-                if (WillowTerrainSettings.fillBrush)
+                if (WillowTerrainSettings.FillBrush)
                 {
                     x = UnityEngine.Random.Range(-size, size);
                     z = UnityEngine.Random.Range(-size, size);

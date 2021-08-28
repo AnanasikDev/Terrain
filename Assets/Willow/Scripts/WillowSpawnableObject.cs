@@ -111,7 +111,7 @@ public sealed class WillowSpawnableObject
     }
     public WillowSpawnableObject GetOriginal()
     {
-        foreach (WillowSpawnableObject spawnable in WillowTerrainSettings.spawnableObjects)
+        foreach (WillowSpawnableObject spawnable in WillowTerrainSettings.SpawnableObjects)
         {
             if (spawnable.DeepEquals(this))
             {

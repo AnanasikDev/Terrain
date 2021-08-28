@@ -8,9 +8,9 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Clear Change Log")]
     public static void ClearChangeLog()
     {
-        WillowTerrainSettings.changelog.Clear();
+        WillowTerrainSettings.ChangeLog.Clear();
 
-        foreach (GameObject obj in WillowTerrainSettings.destroyedObjects)
+        foreach (GameObject obj in WillowTerrainSettings.DestroyedObjects)
         {
             DestroyImmediate(obj);
         }
@@ -19,11 +19,11 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Enable Destoryed Objects")]
     public static void EnableDestroyedObjects()
     {
-        if (WillowTerrainSettings.destroyedObjects.Count == 0)
+        if (WillowTerrainSettings.DestroyedObjects.Count == 0)
         {
             Log("There are no destroyed objects!", Yellow, Debug.LogError);
         }
-        else foreach (GameObject obj in WillowTerrainSettings.destroyedObjects.Where(x => x != null))
+        else foreach (GameObject obj in WillowTerrainSettings.DestroyedObjects.Where(x => x != null))
         {
             obj.hideFlags = HideFlags.None;
             obj.SetActive(true);
@@ -33,11 +33,11 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Disable Destoryed Objects")]
     public static void DisableDestroyedObjects()
     {
-        if (WillowTerrainSettings.destroyedObjects.Count == 0)
+        if (WillowTerrainSettings.DestroyedObjects.Count == 0)
         {
             Log("There are no destroyed objects!", Yellow, Debug.LogError);
         }
-        else foreach (GameObject obj in WillowTerrainSettings.destroyedObjects.Where(x => x != null))
+        else foreach (GameObject obj in WillowTerrainSettings.DestroyedObjects.Where(x => x != null))
         {
             obj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector | HideFlags.DontSave;
             obj.SetActive(false);
@@ -47,15 +47,15 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Destroy Destoryed Objects")]
     public static void DestroyDestroyedObjects()
     {
-        if (WillowTerrainSettings.destroyedObjects.Count == 0)
+        if (WillowTerrainSettings.DestroyedObjects.Count == 0)
         {
             Log("There are no destroyed objects!", Yellow, Debug.LogError);
         }
-        else for (int i = 0; i < WillowTerrainSettings.destroyedObjects.Count; i++)
+        else for (int i = 0; i < WillowTerrainSettings.DestroyedObjects.Count; i++)
         {
-            if (WillowTerrainSettings.destroyedObjects[i] != null)
+            if (WillowTerrainSettings.DestroyedObjects[i] != null)
             {
-                Object.DestroyImmediate(WillowTerrainSettings.destroyedObjects[i].gameObject);
+                Object.DestroyImmediate(WillowTerrainSettings.DestroyedObjects[i].gameObject);
             }
         }
         SceneView.RepaintAll();
@@ -63,7 +63,7 @@ public class WillowClearCache : Editor
     [MenuItem(Path + "Reset indecies")]
     public static void ResetIndecies()
     {
-        WillowTerrainSettings.spawnedIndecies = 0;//
+        WillowTerrainSettings.SpawnedIndecies = 0;//
         Log("Indecies reseted.", Green);
     }
     [MenuItem(Path + "Save")]

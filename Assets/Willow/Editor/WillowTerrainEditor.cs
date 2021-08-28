@@ -10,12 +10,12 @@ using static WillowStyles;
 using static WillowUndo;
 using static WillowDebug;
 using static WillowSpawnableObjectManager;
+using static WillowInput;
 using System.IO;
 using UnityEditor.SceneManagement;
 
 public sealed class WillowTerrainEditor : EditorWindow
 {
-    private bool sceneview = true;
     private Vector2 scrollPos = Vector2.zero;
     private bool Quited = false;
 
@@ -27,81 +27,16 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void EnableWillow()
     {
-        WillowTerrainSettings.active = true;
+        WillowTerrainSettings.IsActive = true;
 
         Selection.activeObject = null;
     }
     private void DisableWillow()
     {
-        WillowTerrainSettings.active = false;
+        WillowTerrainSettings.IsActive = false;
     }
 
-    private void SceneGUI()
-    {
-        if (!WillowTerrainSettings.active) return;
-
-        if (Event.current.type == EventType.MouseLeaveWindow)
-            sceneview = false;
-        else if (Event.current.type == EventType.MouseEnterWindow)
-            sceneview = true;
-        if (!sceneview)
-        {
-            EditorApplication.RepaintHierarchyWindow();
-            return;
-        }
-
-        int controlId = GUIUtility.GetControlID(FocusType.Passive);
-        if ((Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.control) ||
-            (Event.current.type == EventType.MouseDown && Event.current.button == 0 && WillowTerrainSettings.brushTabSelectedId == 1)) // Destroying objects
-        {
-            EraseObjects();
-
-            Repaint();
-            EditorApplication.RepaintHierarchyWindow();
-            EditorApplication.DirtyHierarchyWindowSorting();
-
-            GUIUtility.hotControl = controlId;
-            Event.current.Use();
-        }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && WillowTerrainSettings.brushTabSelectedId == 0) // Placing objects
-        {
-            PlaceObjects();
-
-            GUIUtility.hotControl = controlId;
-            Event.current.Use();
-        }
-        else if ((Event.current.type == EventType.MouseDown && Event.current.button == 0) && WillowTerrainSettings.brushTabSelectedId == 2) // Exchanging objects
-        {
-            ExchangeObjects();
-
-            GUIUtility.hotControl = controlId;
-            Event.current.Use();
-        }
-
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Z)
-        {
-            if (Event.current.modifiers == EventModifiers.Control)
-            {
-                GUIUtility.hotControl = controlId;
-                Event.current.Use();
-
-                Undo();
-                Repaint();
-            }
-        }
-
-        if (Event.current != null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.S && 
-            Event.current.modifiers == EventModifiers.Control)
-        {
-            // Save
-            WillowFileManager.Write();
-        }
-        
-        if (Event.current != null) 
-            WillowBrushVis.BrushVis();
-
-        EditorApplication.RepaintHierarchyWindow();
-    }
+    
 
     private void DrawHeader()
     {
@@ -130,13 +65,13 @@ public sealed class WillowTerrainEditor : EditorWindow
         GUILayout.Space(20);
 
 
-        if (WillowTerrainSettings.active)
+        if (WillowTerrainSettings.IsActive)
         {
             GUI.backgroundColor = LiteGreenColor;
             GUI.contentColor = RedTextColor;
             if (GUILayout.Button("Disable")) DisableWillow();
         }
-        if (!WillowTerrainSettings.active)
+        if (!WillowTerrainSettings.IsActive)
         {
             GUI.backgroundColor = LiteRedColor;
             GUI.contentColor = GreenTextColor;
@@ -150,10 +85,10 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         DrawBrushTabs();
 
-        if (WillowTerrainSettings.erase)
+        if (WillowTerrainSettings.Erase)
         {
             EditorGUILayout.BeginVertical("box");
-            WillowTerrainSettings.eraseSmoothness = EditorGUILayout.IntField("  Erase smoothness", WillowTerrainSettings.eraseSmoothness);
+            WillowTerrainSettings.EraseSmoothness = EditorGUILayout.IntField("  Erase smoothness", WillowTerrainSettings.EraseSmoothness);
             EditorGUILayout.EndVertical();
         }
 
@@ -161,16 +96,19 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void DrawBrushTabs()
     {
-        WillowTerrainSettings.brushTabSelectedId = GUILayout.Toolbar(WillowTerrainSettings.brushTabSelectedId, WillowTerrainSettings.brushTabs);
-        if (WillowTerrainSettings.brushTabSelectedId == 0) // Placing
+        int id = GUILayout.Toolbar((int)WillowTerrainSettings.BrushMode, WillowTerrainSettings.BrushTabs);
+
+        WillowTerrainSettings.BrushMode = (BrushMode)id;
+
+        if (WillowTerrainSettings.BrushMode == BrushMode.Place)
         {
             
         }
-        if (WillowTerrainSettings.brushTabSelectedId == 1) // Erasing
+        if (WillowTerrainSettings.BrushMode == BrushMode.Erase)
         {
             DrawErasingTab();
         }
-        if (WillowTerrainSettings.brushTabSelectedId == 2) // Exchanging
+        if (WillowTerrainSettings.BrushMode == BrushMode.Exchange)
         {
             DrawExchangingTab();
         }
@@ -181,7 +119,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         EditorGUILayout.BeginVertical("box");
 
-        WillowTerrainSettings.eraseSmoothness = EditorGUILayout.IntField("Erase smoothness", WillowTerrainSettings.eraseSmoothness);
+        WillowTerrainSettings.EraseSmoothness = EditorGUILayout.IntField("Erase smoothness", WillowTerrainSettings.EraseSmoothness);
 
         EditorGUILayout.EndVertical();
     }
@@ -189,13 +127,13 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         EditorGUILayout.BeginVertical("box");
 
-        WillowTerrainSettings.exchangeSmoothness = EditorGUILayout.IntField("Exchange smoothness", WillowTerrainSettings.exchangeSmoothness);
+        WillowTerrainSettings.ExchangeSmoothness = EditorGUILayout.IntField("Exchange smoothness", WillowTerrainSettings.ExchangeSmoothness);
 
-        WillowTerrainSettings.exchangePosition = EditorGUILayout.Toggle("Exchange position", WillowTerrainSettings.exchangePosition);
-        WillowTerrainSettings.exchangeRotation = EditorGUILayout.Toggle("Exchange rotation", WillowTerrainSettings.exchangeRotation);
-        WillowTerrainSettings.exchangeScale = EditorGUILayout.Toggle("Exchange scale", WillowTerrainSettings.exchangeScale);
-        WillowTerrainSettings.exchangeParent = EditorGUILayout.Toggle("Exchange parent", WillowTerrainSettings.exchangeParent);
-        WillowTerrainSettings.exchangeColor = EditorGUILayout.Toggle("Exchange color", WillowTerrainSettings.exchangeColor);
+        WillowTerrainSettings.ExchangePosition = EditorGUILayout.Toggle("Exchange position", WillowTerrainSettings.ExchangePosition);
+        WillowTerrainSettings.ExchangeRotation = EditorGUILayout.Toggle("Exchange rotation", WillowTerrainSettings.ExchangeRotation);
+        WillowTerrainSettings.ExchangeScale = EditorGUILayout.Toggle("Exchange scale", WillowTerrainSettings.ExchangeScale);
+        WillowTerrainSettings.ExchangeParent = EditorGUILayout.Toggle("Exchange parent", WillowTerrainSettings.ExchangeParent);
+        WillowTerrainSettings.ExchangeColor = EditorGUILayout.Toggle("Exchange color", WillowTerrainSettings.ExchangeColor);
 
         EditorGUILayout.EndVertical();
     }
@@ -203,9 +141,9 @@ public sealed class WillowTerrainEditor : EditorWindow
     // OPTIONS TABS
     private void DrawTabs()
     {
-        WillowTerrainSettings.optionsTabSelectedId = GUILayout.Toolbar(WillowTerrainSettings.optionsTabSelectedId, WillowTerrainSettings.optionsTabs);
+        WillowTerrainSettings.OptionsTabSelectedId = GUILayout.Toolbar(WillowTerrainSettings.OptionsTabSelectedId, WillowTerrainSettings.OptionsTabs);
         
-        switch (WillowTerrainSettings.optionsTabSelectedId)
+        switch (WillowTerrainSettings.OptionsTabSelectedId)
         {
             case 0:
                 DrawSettingsTab();
@@ -220,38 +158,38 @@ public sealed class WillowTerrainEditor : EditorWindow
     }
     private void DrawSettingsTab()
     {
-        WillowTerrainSettings.density = EditorGUILayout.IntField("Brush density", WillowTerrainSettings.density);
+        WillowTerrainSettings.BrushDensity = EditorGUILayout.IntField("Brush density", WillowTerrainSettings.BrushDensity);
         
-        if (WillowTerrainSettings.density < 0)
-            WillowTerrainSettings.density = 0;
-        WillowTerrainSettings.brushSize = EditorGUILayout.FloatField("Brush size", WillowTerrainSettings.brushSize);
-        if (WillowTerrainSettings.brushSize < 0) 
-            WillowTerrainSettings.brushSize = 0;
+        if (WillowTerrainSettings.BrushDensity < 0)
+            WillowTerrainSettings.BrushDensity = 0;
+        WillowTerrainSettings.BrushSize = EditorGUILayout.FloatField("Brush size", WillowTerrainSettings.BrushSize);
+        if (WillowTerrainSettings.BrushSize < 0) 
+            WillowTerrainSettings.BrushSize = 0;
 
-        WillowTerrainSettings.brushShape = (WillowUtils.BrushShape)EditorGUILayout.EnumPopup("Brush shape", WillowTerrainSettings.brushShape);
-        WillowTerrainSettings.fillBrush = EditorGUILayout.Toggle("Fill brush", WillowTerrainSettings.fillBrush);
+        WillowTerrainSettings.BrushShape = (WillowUtils.BrushShape)EditorGUILayout.EnumPopup("Brush shape", WillowTerrainSettings.BrushShape);
+        WillowTerrainSettings.FillBrush = EditorGUILayout.Toggle("Fill brush", WillowTerrainSettings.FillBrush);
 
-        WillowTerrainSettings.indexObjects = EditorGUILayout.Toggle("Index objects", WillowTerrainSettings.indexObjects);
-        if (WillowTerrainSettings.indexObjects)
-            WillowTerrainSettings.indexFormat = EditorGUILayout.TextField("Index format", WillowTerrainSettings.indexFormat);
+        WillowTerrainSettings.IndexObjects = EditorGUILayout.Toggle("Index objects", WillowTerrainSettings.IndexObjects);
+        if (WillowTerrainSettings.IndexObjects)
+            WillowTerrainSettings.IndexFormat = EditorGUILayout.TextField("Index format", WillowTerrainSettings.IndexFormat);
 
-        WillowTerrainSettings.parent = (Transform)EditorGUILayout.ObjectField("Parent", WillowTerrainSettings.parent, typeof(Transform), true);
-        WillowTerrainSettings.placementType = (WillowUtils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", WillowTerrainSettings.placementType);
+        WillowTerrainSettings.BaseParent = (Transform)EditorGUILayout.ObjectField("Parent", WillowTerrainSettings.BaseParent, typeof(Transform), true);
+        WillowTerrainSettings.PlacementType = (WillowUtils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", WillowTerrainSettings.PlacementType);
 
-        WillowTerrainSettings.ignoreInactiveLayers = EditorGUILayout.Toggle("Ignore inactive layers", WillowTerrainSettings.ignoreInactiveLayers);
+        WillowTerrainSettings.IgnoreInactiveLayers = EditorGUILayout.Toggle("Ignore inactive layers", WillowTerrainSettings.IgnoreInactiveLayers);
 
-        WillowTerrainSettings.debugMode = EditorGUILayout.Toggle("Debug mode", WillowTerrainSettings.debugMode);
+        WillowTerrainSettings.DebugMode = EditorGUILayout.Toggle("Debug mode", WillowTerrainSettings.DebugMode);
 
-        WillowTerrainSettings.autoSave = EditorGUILayout.Toggle("Auto save", WillowTerrainSettings.autoSave);
+        WillowTerrainSettings.AutoSave = EditorGUILayout.Toggle("Auto save", WillowTerrainSettings.AutoSave);
         WillowTerrainSettings.PrefabsPath = EditorGUILayout.TextField("Prefabs path", WillowTerrainSettings.PrefabsPath);
 
         WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
         
         if (GUILayout.Button("Recalculate all"))
         {
-            RecalculatePositionsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
-            RecalculateRotationsSelected(WillowTerrainSettings.spawnedObjects.ToArray());
-            RecalculateScalesSelected(WillowTerrainSettings.spawnedObjects.ToArray());
+            RecalculatePositionsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
+            RecalculateRotationsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
+            RecalculateScalesSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
         }
 
         // General Info
@@ -266,16 +204,16 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         EditorGUILayout.LabelField($"<b><color=#CCCCCCFF>General Info</color></b>", style);
         EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("Total spawned: " + WillowTerrainSettings.spawnedObjects.Where(o => o != null).ToArray().Length.ToString());
-        EditorGUILayout.LabelField("Layers amount: " + WillowTerrainSettings.layersName.Count.ToString());
-        EditorGUILayout.LabelField("Total spawnable objects: " + WillowTerrainSettings.spawnableObjects.Count);
+        EditorGUILayout.LabelField("Total spawned: " + WillowTerrainSettings.SpawnedObjects.Where(o => o != null).ToArray().Length.ToString());
+        EditorGUILayout.LabelField("Layers amount: " + WillowTerrainSettings.LayersName.Count.ToString());
+        EditorGUILayout.LabelField("Total spawnable objects: " + WillowTerrainSettings.SpawnableObjects.Count);
 
     }
     private void DrawObjectsTab()
     {
         DrawSpawnablesAddButton();
 
-        for (int i = 0; i < WillowTerrainSettings.spawnableObjects.Count; i++)
+        for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Count; i++)
         {
             WillowSpawnableObjectManager.DrawSpawnableObject(i);
         }
@@ -313,17 +251,12 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
-        //EditorApplication.quitting += WillowFileManager.Write;
-        //UnityEditor.
         EditorApplication.quitting += Quit;
         EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
-        //UnityEditor.EventSystems.EventSystemEditor.
     }
     private void OnDisable()
     {
         if (Quited) return;
-
-        //WillowFileManager.Write();
 
         EditorSceneManager.sceneOpened -= Read;
         
@@ -331,7 +264,6 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         SceneView.duringSceneGui -= OnSceneGUI;
         WillowObjectsController.OnRepaint -= Repaint;
-        //EditorApplication.quitting -= WillowFileManager.Write;
         EditorApplication.quitting -= Quit;
         EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
 
@@ -341,5 +273,10 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowFileManager.TryRead();
     }
     private void Quit() => Quited = true;
-    private void OnSceneGUI(SceneView sceneView) => SceneGUI();
+    private void OnSceneGUI(SceneView sceneView)
+    {
+        SceneGUI();
+
+        Repaint();
+    }
 }

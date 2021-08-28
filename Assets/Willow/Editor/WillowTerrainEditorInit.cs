@@ -2,13 +2,13 @@
 [CustomEditor(typeof(WillowTerrainSettings))]
 public class WillowTerrainEditorInit : Editor
 {
-    private void OnDisable()
+    /*private void OnDisable()
     {
-        WillowTerrainSettings.validated = false;
+        WillowTerrainSettings.Validated = false;
     }
     private void OnEnable()
     {
-        WillowTerrainSettings.instance = (WillowTerrainSettings)target;
-        WillowTerrainSettings.validated = true;
-    }
+        WillowTerrainSettings.TerrainInstance = (WillowTerrainSettings)target;
+        WillowTerrainSettings.Validated = true;
+    }*/
 }

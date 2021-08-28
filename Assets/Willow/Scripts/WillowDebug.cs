@@ -6,12 +6,12 @@ public static class WillowDebug
     public const string Yellow = "#FFFF00FF";
     public static void Log(string message, string color)
     {
-        if (WillowTerrainSettings.debugMode)
+        if (WillowTerrainSettings.DebugMode)
             Debug.Log(FormatLog(message, color));
     }
     public static void Log(string message, string color, System.Action<string> logFunction)
     {
-        if (WillowTerrainSettings.debugMode) 
+        if (WillowTerrainSettings.DebugMode) 
             logFunction(FormatLog(message, color));
     }
     public static string FormatLog(string message, string color)

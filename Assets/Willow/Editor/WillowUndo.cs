@@ -7,47 +7,47 @@ public static class WillowUndo
 {
     public static void Undo()
     {
-        if (WillowTerrainSettings.changelog.Count == 0)
+        if (WillowTerrainSettings.ChangeLog.Count == 0)
         {
             Log("Undo stack is empty!", Yellow, Debug.LogError);
             return;
         }
 
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
-        Change lastChange = WillowTerrainSettings.changelog.Pop();
-        if (lastChange.type == ChangeType.Placement)
+        Change lastChange = WillowTerrainSettings.ChangeLog.Pop();
+        if (lastChange.type == BrushMode.Place)
         {
             GameObject[] changedObjsTemp = lastChange.spawnedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
                 obj.gameObject.hideFlags = hidden;
                 obj.SetActive(false);
-                WillowTerrainSettings.spawnedObjects.Remove(obj);
-                WillowTerrainSettings.destroyedObjects.Add(obj);
+                WillowTerrainSettings.SpawnedObjects.Remove(obj);
+                WillowTerrainSettings.DestroyedObjects.Add(obj);
             }
         }
-        else if (lastChange.type == ChangeType.Erasure)
+        else if (lastChange.type == BrushMode.Erase)
         {
             GameObject[] changedObjsTemp = lastChange.destroyedObjects.ToArray();
             foreach (GameObject obj in changedObjsTemp)
             {
                 obj.hideFlags = active;
                 obj.SetActive(true);
-                WillowTerrainSettings.destroyedObjects.Remove(obj);
-                WillowTerrainSettings.spawnedObjects.Add(obj);
+                WillowTerrainSettings.DestroyedObjects.Remove(obj);
+                WillowTerrainSettings.SpawnedObjects.Add(obj);
             }
             GUIUtility.hotControl = controlId;
             Event.current.Use();
         }
-        else if (lastChange.type == ChangeType.Exchange)
+        else if (lastChange.type == BrushMode.Exchange)
         {
             GameObject[] destroyedObjsTemp = lastChange.destroyedObjects.ToArray();
             foreach (GameObject obj in destroyedObjsTemp)
             {
                 obj.hideFlags = active;
                 obj.SetActive(true);
-                WillowTerrainSettings.destroyedObjects.Remove(obj);
-                WillowTerrainSettings.spawnedObjects.Add(obj);
+                WillowTerrainSettings.DestroyedObjects.Remove(obj);
+                WillowTerrainSettings.SpawnedObjects.Add(obj);
             }
 
             GameObject[] spawnedObjsTemp = lastChange.spawnedObjects.ToArray();
@@ -55,8 +55,8 @@ public static class WillowUndo
             {
                 obj.hideFlags = hidden;
                 obj.SetActive(false);
-                WillowTerrainSettings.spawnedObjects.Remove(obj);
-                WillowTerrainSettings.destroyedObjects.Add(obj);
+                WillowTerrainSettings.SpawnedObjects.Remove(obj);
+                WillowTerrainSettings.DestroyedObjects.Add(obj);
             }
         }
         EditorApplication.RepaintHierarchyWindow();

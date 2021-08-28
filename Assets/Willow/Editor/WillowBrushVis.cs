@@ -8,9 +8,9 @@ public static class WillowBrushVis
     {
         Color c = new Color(0.1f, 0.1f, 0.2f, 0.5f);
         Handles.color = c;
-        if (WillowTerrainSettings.brushShape == BrushShape.Circle)
+        if (WillowTerrainSettings.BrushShape == BrushShape.Circle)
             Handles.DrawSolidDisc(pos, Vector3.up, size);
-        else if (WillowTerrainSettings.brushShape == BrushShape.Square)
+        else if (WillowTerrainSettings.BrushShape == BrushShape.Square)
         {
             float normSize = size * 1.6f;
             Handles.DrawSolidRectangleWithOutline(new Vector3[4] {
@@ -28,7 +28,7 @@ public static class WillowBrushVis
         if (!Physics.Raycast(ray, out screenHit))
             return; // Do not draw if no collision detected
 
-        _DrawBrush(screenHit.point, WillowTerrainSettings.brushSize);
+        _DrawBrush(screenHit.point, WillowTerrainSettings.BrushSize);
 
         SceneView.RepaintAll();
     }

@@ -36,10 +36,10 @@ public static class WillowUtils
         YZ,
         XYZ
     }
-    public enum ChangeType
+    public enum BrushMode
     {
-        Placement,
-        Erasure,
+        Place,
+        Erase,
         Exchange
     }
     public enum BrushShape
@@ -48,21 +48,6 @@ public static class WillowUtils
         Square
     }
 
-    public enum ParameterActionType
-    {
-        MultiplyByVector3,
-        MultiplyByNum,
-        
-        DivideByVector3,
-        DivideByNum,
-
-        AddVector3,
-
-        SubtractByVector3,
-
-        PowByNum,
-        PowByVector3
-    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;
