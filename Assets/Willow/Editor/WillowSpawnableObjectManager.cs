@@ -142,7 +142,6 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("Position"))
         {
-            Debug.Log(string.Join(", ", WillowTerrainSettings.SpawnedObjects));
             RecalculatePositionsSelected(WillowTerrainSettings.SpawnedObjects
                 .Where(o => o != null && o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
 

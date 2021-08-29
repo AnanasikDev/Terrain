@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
 
+[ExecuteInEditMode]
 public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script from spawned object if you need to edit terrain
 {
     public Renderer[] Renderers;
@@ -10,9 +11,16 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
     private RaycastHit[] hits = new RaycastHit[12];
 
+    private void Start()
+    {
+        var a = new GameObject();
+        a.transform.position = transform.position + transform.up * WillowTerrainSettings.RecalculatingLength;
+    }
+
     private bool GetHit()
     {
-        Physics.RaycastNonAlloc(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, hits);
+        
+        Physics.RaycastNonAlloc(transform.position + transform.up * WillowTerrainSettings.RecalculatingLength, -transform.up, hits);
 
         return hits.Where(x => x.collider != null).ToArray().Length != 0;
     }
@@ -25,7 +33,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
                 position = hit.point;
-                Debug.Log(position);
                 return true;
             }
         }
