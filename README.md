@@ -3,8 +3,8 @@
 Willow is **Unity** asset for working with instantiating objects on surfaces in **Editor**.<br>
 For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To start working you need to enable it in Editor window.<br>
 
-All surfaces that you want to spawn objects on must contain WillowTerrainSettings component and any type of collider.<br>
-Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for convenience<br>
+All surfaces that you want to spawn objects on must contain ***WillowTerrainSettings*** component and any type of collider.<br>
+Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for *convenience*<br>
 
 There are 3 actions you can do:
 
@@ -43,6 +43,9 @@ You can exchange:<br>
 Also it supports *smoothness* - the rarity of applying to object. More smoothnes less chance object will be exchanged by new one
 	
 </details>
+
+Willow ***saves*** your configuration and spawned objects, so it will read from file when you re-import scripts or re-enter Unity.
+The file is on the path *root/WillowSaveFile.txt*. You can change it in WillowFileManager.path.
 
 <hr>
 
