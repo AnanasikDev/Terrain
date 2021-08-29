@@ -184,7 +184,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowTerrainSettings.DebugMode = EditorGUILayout.Toggle("Debug mode", WillowTerrainSettings.DebugMode);
 
         WillowTerrainSettings.AutoSave = EditorGUILayout.Toggle("Auto save", WillowTerrainSettings.AutoSave);
-        WillowTerrainSettings.PrefabsPath = EditorGUILayout.TextField("Prefabs path", WillowTerrainSettings.PrefabsPath);
 
         WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
         

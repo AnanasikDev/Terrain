@@ -54,6 +54,4 @@ public class WillowTerrainSettings : MonoBehaviour
     static public Stack<Change> ChangeLog = new Stack<Change>();
 
     static public float RecalculatingLength = 50;
-
-    static public string PrefabsPath = "Willow/Examples/Prefabs/";
 }

@@ -14,8 +14,6 @@ public static class WillowFileManager
     {
         StringBuilder output = new StringBuilder();
 
-        output.AppendLine(WillowTerrainSettings.PrefabsPath.RemoveSlashN().RemoveSlashR());
-
         output.AppendLine(WillowTerrainSettings.IsActive.ToString());
         output.AppendLine(WillowTerrainSettings.BrushDensity.ToString());
         output.AppendLine(WillowTerrainSettings.BrushSize.ToString());
@@ -33,7 +31,8 @@ public static class WillowFileManager
         output.AppendLine(WillowTerrainSettings.SpawnableObjects.Count.ToString());
         foreach (WillowSpawnableObject obj in WillowTerrainSettings.SpawnableObjects)
         {
-            output.AppendLine(obj.Object == null ? "null" : obj.Object.name);
+            //output.AppendLine(obj.Object == null ? "null" : obj.Object.name);
+            output.AppendLine(obj.Object == null ? "null" : AssetDatabase.GetAssetPath(obj.Object));
             output.AppendLine(obj.Spawn.ToString());
             output.AppendLine(obj.SpawnChance.ToString());
             output.AppendLine(obj.CustomParent.ToString());
@@ -114,18 +113,16 @@ public static class WillowFileManager
         {
             lines = reader.ReadToEnd().Split('\n');
 
-            WillowTerrainSettings.PrefabsPath = lines[0].RemoveSlashR().RemoveSlashN();
+            WillowTerrainSettings.IsActive = Convert.ToBoolean(lines[0]);
+            WillowTerrainSettings.BrushDensity = Convert.ToInt32(lines[1]);
+            WillowTerrainSettings.BrushSize = Convert.ToSingle(lines[2]);
 
-            WillowTerrainSettings.IsActive = Convert.ToBoolean(lines[1]);
-            WillowTerrainSettings.BrushDensity = Convert.ToInt32(lines[2]);
-            WillowTerrainSettings.BrushSize = Convert.ToSingle(lines[3]);
+            if (lines[3].RemoveSlashR() == "null") WillowTerrainSettings.BaseParent = null;
+            else WillowTerrainSettings.BaseParent = GameObject.Find(lines[3].RemoveSlashR()).transform;
 
-            if (lines[4].RemoveSlashR() == "null") WillowTerrainSettings.BaseParent = null;
-            else WillowTerrainSettings.BaseParent = GameObject.Find(lines[4].RemoveSlashR()).transform;
+            Enum.TryParse(lines[4], out WillowTerrainSettings.PlacementType);
 
-            Enum.TryParse(lines[5], out WillowTerrainSettings.PlacementType);
-
-            int layerAmount = Convert.ToInt32(lines[6]);
+            int layerAmount = Convert.ToInt32(lines[5]);
             WillowTerrainSettings.LayersName.Clear();
             WillowTerrainSettings.LayersName = new List<string>(layerAmount);
             WillowTerrainSettings.LayersState.Clear();
@@ -133,15 +130,15 @@ public static class WillowFileManager
 
             for (int layer = 0; layer < layerAmount * 2; layer += 2)
             {
-                WillowTerrainSettings.LayersName.Add(lines[layer + 7]);
-                WillowTerrainSettings.LayersState.Add(Convert.ToBoolean(lines[layer + 8]));
+                WillowTerrainSettings.LayersName.Add(lines[layer + 6]);
+                WillowTerrainSettings.LayersState.Add(Convert.ToBoolean(lines[layer + 7]));
             }
 
             WillowTerrainSettings.SpawnableObjects.Clear();
-            int spawnablesAmount = Convert.ToInt32(lines[6 + layerAmount * 2 + 1]);
+            int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
             WillowTerrainSettings.SpawnableObjects = new List<WillowSpawnableObject>(spawnablesAmount);
             int line;
-            for (line = 7 + layerAmount * 2 + 1; line < 7 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
+            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
             {
                 WillowSpawnableObject obj = new WillowSpawnableObject();
                 if (lines[line] == "null")
@@ -231,6 +228,8 @@ public static class WillowFileManager
             WillowTerrainSettings.ExchangeScale = Convert.ToBoolean(lines[l + 8]);
             WillowTerrainSettings.ExchangeSmoothness = Convert.ToInt32(lines[l + 9]);
         }
+
+        Log("Templates read!", Green);
     }
     public static bool TryRead()
     {
@@ -259,6 +258,6 @@ public static class WillowFileManager
 
     private static GameObject LoadPrefab(string name)
     {
-        return AssetDatabase.LoadAssetAtPath(WillowTerrainSettings.PrefabsPath + $"{name.RemoveSlashR()}.prefab", typeof(GameObject)) as GameObject;
+        return AssetDatabase.LoadAssetAtPath($"{name.RemoveSlashR()}", typeof(GameObject)) as GameObject;
     }
 }

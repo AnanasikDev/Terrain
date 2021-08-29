@@ -1,22 +1,19 @@
-Assets/RTP Vol.1/prefabs/
-True
-1
-0,65
+False
+4
+25
 null
 onTerrainOnly
-2
-defaultLayer
-True
-defaultLayer1
+1
+default
 True
 1
-null
+Assets/Tree.prefab
 True
 1
 False
 null
-True
-AsNormal
+False
+AsPrefab
 Y
 (0.0, 0.0, 0.0)
 0,15
@@ -28,29 +25,26 @@ False
 (360.0, 360.0, 360.0)
 True
 35
-True
+False
 (0.0, 0.0, 0.0)
 False
 Object
 AsPrefab
 XYZ
-True
-(0.5, 0.5, 0.5)
+False
+(1.0, 1.0, 1.0)
 (0.9, 0.9, 0.9)
 0,9
 (1.1, 1.1, 1.1)
 1,15
-False
-defaultLayer
+True
+default
 0
 (0.0, 0.0, 0.0)
-3
-WillowExamplePrefab 1 (9 clone)
-WillowExamplePrefab 1 (10 clone)
-WillowExamplePrefab 1 (11 clone)
+0
 True
  ({0} clone)
-12
+0
 0
 False
 True

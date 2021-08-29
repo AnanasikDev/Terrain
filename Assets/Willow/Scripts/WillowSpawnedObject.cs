@@ -45,7 +45,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         GetHit();
 
-        foreach (var hit in hits)
+        foreach (var hit in hits.Where(h => h.collider != null))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {

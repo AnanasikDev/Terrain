@@ -149,12 +149,12 @@ public static class WillowSpawnableObjectManager
         if (GUILayout.Button("Rotation"))
         {
             RecalculateRotationsSelected(WillowTerrainSettings.SpawnedObjects
-                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
+                .Where(o => o != null && o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
         }
         if (GUILayout.Button("Scale"))
         {
             RecalculateScalesSelected(WillowTerrainSettings.SpawnedObjects
-                .Where(o => o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
+                .Where(o => o != null && o.GetComponent<WillowSpawnedObject>().Layer == spawnableObject.Layer).ToArray());
         }
 
         EditorGUILayout.EndHorizontal();

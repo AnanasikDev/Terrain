@@ -414,7 +414,6 @@ public static class WillowObjectsController
     private static bool RaycastBrush(out RaycastHit hit, RaycastHit screenHit)
     {
         Vector3 position = GetRandomPointOnBrush();
-        Debug.Log(-screenHit.normal);
         return Physics.Raycast(screenHit.point + position + screenHit.normal * 10, -screenHit.normal, out hit) && CheckSurface(hit.collider.gameObject);
     }
 }
