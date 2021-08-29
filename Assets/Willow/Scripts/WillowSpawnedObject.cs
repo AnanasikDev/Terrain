@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+
 public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script from spawned object if you need to edit terrain
 {
     public Renderer[] Renderers;
@@ -14,17 +15,17 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         Physics.RaycastNonAlloc(transform.position + Vector3.up * WillowTerrainSettings.RecalculatingLength, Vector3.down, hits);
 
         return hits.Where(x => x.collider != null).ToArray().Length != 0;
-
     }
     private bool GetNewPosition(out Vector3 position)
     {
-       GetHit();
+        GetHit();
 
-        foreach (var hit in hits)
+        foreach (var hit in hits.Where(h => h.collider != null))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
                 position = hit.point;
+                Debug.Log(position);
                 return true;
             }
         }
@@ -58,16 +59,17 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
             result = newPosition;
         }
 
+        transform.localPosition = result;
+
         if (SpawnableObject.CenterObject)
         {
-            result += Vector3.up * transform.localScale.y;
-        }
-        if (SpawnableObject.ModifyPosition)
-        {
-            result += SpawnableObject.PositionAddition;
+            transform.Translate(Vector3.up * transform.localScale.y / 2);
         }
 
-        transform.position = result;
+        if (SpawnableObject.ModifyPosition)
+        {
+            transform.Translate(SpawnableObject.PositionAddition);
+        }
     }
     public void RecalculateObjectRotation()
     {

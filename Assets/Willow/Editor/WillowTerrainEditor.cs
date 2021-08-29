@@ -225,13 +225,13 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnGUI()
     {
-
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         
         DrawHeader();
         DrawTabs();
 
         GUILayout.EndScrollView();
+
         GetInput();
     }
 
@@ -267,7 +267,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         WillowFileManager.TryRead();
     }
-    
+
     private void Quit() => Quited = true;
     private void OnSceneGUI(SceneView sceneView)
     {

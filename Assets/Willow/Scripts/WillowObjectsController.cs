@@ -44,11 +44,7 @@ public static class WillowObjectsController
             if (spawnableObject == null) 
                 continue;
 
-            RaycastHit hit;
-
-            Vector3 position = GetRandomPointOnBrush();
-
-            if (Physics.Raycast(screenHit.point + Vector3.up * 5 + position, Vector3.down, out hit) && CheckSurface(hit.collider.gameObject))
+            if (RaycastBrush(out RaycastHit hit, screenHit))
             {
                 GameObject spawned = SpawnObject(spawnableObject, hit);
 
@@ -227,7 +223,7 @@ public static class WillowObjectsController
             spawnedObject.transform.rotation = spawnableObject.Object.transform.rotation;
         }
 
-        spawnedObject.transform.eulerAngles += spawnableObject.RotationEulerAddition;
+        spawnedObject.transform.Rotate(spawnableObject.RotationEulerAddition);
 
         Vector3 GetRandomRotation()
         {
@@ -413,5 +409,12 @@ public static class WillowObjectsController
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         return Physics.Raycast(ray, out hit);
+    }
+
+    private static bool RaycastBrush(out RaycastHit hit, RaycastHit screenHit)
+    {
+        Vector3 position = GetRandomPointOnBrush();
+        Debug.Log(-screenHit.normal);
+        return Physics.Raycast(screenHit.point + position + screenHit.normal * 10, -screenHit.normal, out hit) && CheckSurface(hit.collider.gameObject);
     }
 }
