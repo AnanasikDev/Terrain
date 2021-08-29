@@ -60,11 +60,13 @@ Also it supports *smoothness* - the rarity of applying to object. More smoothnes
 <details><summary><strong>I want to get it, how do I import it into my project?</strong></summary>
 <br>
 - Instruction:
-	
+
 1. Download last [Release](https://github.com/AnanasikDev/Willow/releases)
-1. Go to your Unity project, go to Assets/Import Package/Custom Package and select the .unitypackage file you just downloaded
+1. Go to your Unity project, go to Assets -> Import Package -> Custom Package and select the .unitypackage file you just downloaded
 1. Click Import in the following window and wait for import.
 
+[Unity Instruction](https://unity3d.com/quick-guide-to-unity-asset-store#:~:text=Click%20the%20Go%20to%20My,assets%20you%20have%20already%20chosen.&text=Another%20way%20to%20import%20assets,your%20asset%20on%20your%20computer.)
+	
 </details>
 
 <details><summary><strong>I cant spawn objects, what may be wrong?</strong></summary>
@@ -83,5 +85,5 @@ Also it supports *smoothness* - the rarity of applying to object. More smoothnes
 - This is a temporary bug I am trying to fix. You need to close Willow window and open it again.
 
 </details>
-
+	
 </details>
