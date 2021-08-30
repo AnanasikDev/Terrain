@@ -46,6 +46,12 @@ public static class WillowObjectsController
 
             if (RaycastBrush(out RaycastHit hit, screenHit))
             {
+                if (spawnableObject.Object.GetComponent<WillowSpawnedObject>() == null)
+                {
+                    Log("It seems that object you are trying to spawn does not contain WillowSpawnedObject component. Please, add it.", Yellow, Debug.LogError);
+                    return;
+                }
+
                 GameObject spawned = SpawnObject(spawnableObject, hit);
 
                 spawnedObjs.Add(spawned);
