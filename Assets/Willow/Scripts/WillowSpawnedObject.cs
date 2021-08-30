@@ -11,20 +11,10 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
     private RaycastHit[] hits = new RaycastHit[12];
 
-    private void Start()
-    {
-        var a = new GameObject();
-        a.transform.position = transform.position + transform.up * WillowTerrainSettings.RecalculatingLength;
-    }
-
     private bool GetHit()
     {
         
         Physics.RaycastNonAlloc(transform.position + transform.up * WillowTerrainSettings.RecalculatingLength, -transform.up, hits, WillowTerrainSettings.RecalculatingLength * 2f);
-
-        //hits = hits.Reverse().ToArray();
-
-        foreach (var h in hits) Debug.Log(h.collider);
 
         return hits.Where(x => x.collider != null).ToArray().Length != 0;
     }
@@ -34,7 +24,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
         foreach (var hit in hits.Reverse().Where(h => h.collider != null))
         {
-            //Debug.Log(hit.collider + gameObject.name);
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
                 position = hit.point;
@@ -50,7 +39,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         GetHit();
 
-        foreach (var hit in hits.Where(h => h.collider != null))
+        foreach (var hit in hits.Reverse().Where(h => h.collider != null))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
