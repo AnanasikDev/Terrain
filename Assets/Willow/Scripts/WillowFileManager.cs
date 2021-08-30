@@ -10,6 +10,11 @@ using static WillowDebug;
 public static class WillowFileManager
 {
     public static string path = "./WillowSaveFile.txt";
+    
+    private static StringBuilder WriterStringBuilder = new StringBuilder();
+    private static int ReadLineIndex = 0;
+    private static string[] Lines;
+
     public static void Write()
     {
         StringBuilder output = new StringBuilder();
@@ -107,126 +112,125 @@ public static class WillowFileManager
     }
     public static void Read()
     {
-        string[] lines;
-
+        ReadFile();
         using (StreamReader reader = new StreamReader(path))
         {
-            lines = reader.ReadToEnd().Split('\n');
+            WillowTerrainSettings.IsActive = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.BrushDensity = Convert.ToInt32(Pull());
+            WillowTerrainSettings.BrushSize = Convert.ToSingle(Pull());
 
-            WillowTerrainSettings.IsActive = Convert.ToBoolean(lines[0]);
-            WillowTerrainSettings.BrushDensity = Convert.ToInt32(lines[1]);
-            WillowTerrainSettings.BrushSize = Convert.ToSingle(lines[2]);
+            string parent = Pull().RemoveSlashR();
+            if (parent == "null") WillowTerrainSettings.BaseParent = null;
+            else WillowTerrainSettings.BaseParent = GameObject.Find(parent).transform;
 
-            if (lines[3].RemoveSlashR() == "null") WillowTerrainSettings.BaseParent = null;
-            else WillowTerrainSettings.BaseParent = GameObject.Find(lines[3].RemoveSlashR()).transform;
+            Enum.TryParse(Pull(), out WillowTerrainSettings.PlacementType);
 
-            Enum.TryParse(lines[4], out WillowTerrainSettings.PlacementType);
-
-            int layerAmount = Convert.ToInt32(lines[5]);
+            int layerAmount = Convert.ToInt32(Pull());
             WillowTerrainSettings.LayersName.Clear();
             WillowTerrainSettings.LayersName = new List<string>(layerAmount);
             WillowTerrainSettings.LayersState.Clear();
             WillowTerrainSettings.LayersState = new List<bool>(layerAmount);
 
-            for (int layer = 0; layer < layerAmount * 2; layer += 2)
+            for (int layer = 0; layer < layerAmount; layer++)
             {
-                WillowTerrainSettings.LayersName.Add(lines[layer + 6]);
-                WillowTerrainSettings.LayersState.Add(Convert.ToBoolean(lines[layer + 7]));
+                WillowTerrainSettings.LayersName.Add(Pull());
+                WillowTerrainSettings.LayersState.Add(Convert.ToBoolean(Pull()));
             }
 
             WillowTerrainSettings.SpawnableObjects.Clear();
-            int spawnablesAmount = Convert.ToInt32(lines[5 + layerAmount * 2 + 1]);
+            int spawnablesAmount = Convert.ToInt32(Pull());
             WillowTerrainSettings.SpawnableObjects = new List<WillowSpawnableObject>(spawnablesAmount);
-            int line;
-            for (line = 6 + layerAmount * 2 + 1; line < 6 + layerAmount * 2 + 1 + spawnablesAmount * 33; line += 33)
+
+            for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Capacity; i++)
             {
-                WillowSpawnableObject obj = new WillowSpawnableObject();
-                if (lines[line] == "null")
-                    obj.Object = null;
+                WillowSpawnableObject spawnable = new WillowSpawnableObject();
+
+                string spawnObject = Pull();
+                if (spawnObject == "null")
+                    spawnable.Object = null;
                 else
-                    obj.Object = LoadPrefab(lines[line]);
+                    spawnable.Object = LoadPrefab(spawnObject);
 
-                obj.Spawn = Convert.ToBoolean(lines[line + 1].RemoveSlashR().RemoveSlashN());
-                obj.SpawnChance = Convert.ToInt32(lines[line + 2]);
-                obj.CustomParent = Convert.ToBoolean(lines[line + 3]);
+                spawnable.Spawn = Convert.ToBoolean(Pull());
+                spawnable.SpawnChance = Convert.ToInt32(Pull());
+                spawnable.CustomParent = Convert.ToBoolean(Pull());
 
-                if (lines[line + 4].RemoveSlashR() == "null") obj.Parent = null;
-                else obj.Parent = GameObject.Find(lines[line + 4].RemoveSlashR()).transform;
+                string customParent = Pull().RemoveSlashR();
+                if (customParent == "null") spawnable.Parent = null;
+                else spawnable.Parent = GameObject.Find(customParent).transform;
 
-                obj.CenterObject = Convert.ToBoolean(lines[line + 5]);
+                spawnable.CenterObject = Convert.ToBoolean(Pull());
 
-                obj.RotationType = ParseEnum<RotationType>(lines[line + 6]);
-                obj.RotationAxis = ParseEnum<Axis>(lines[line + 7]);
+                spawnable.RotationType = ParseEnum<RotationType>(Pull());
+                spawnable.RotationAxis = ParseEnum<Axis>(Pull());
 
-                obj.CustomEulersRotation = ParseVector(lines[line + 8]);
-                obj.LerpValue = lines[line + 9].ToFloat();
-                obj.MinLerpValue = lines[line + 10].ToFloat();
-                obj.MaxLerpValue = lines[line + 11].ToFloat();
-                obj.MultiRotationAxis = Convert.ToBoolean(lines[line + 12]);
-                obj.RandomizeLerpValue = Convert.ToBoolean(lines[line + 13]);
-                obj.RandomMinRotation = ParseVector(lines[line + 14]);
-                obj.RandomMaxRotation = ParseVector(lines[line + 15]);
+                spawnable.CustomEulersRotation = ParseVector(Pull());
+                spawnable.LerpValue = Pull().ToFloat();
+                spawnable.MinLerpValue = Pull().ToFloat();
+                spawnable.MaxLerpValue = Pull().ToFloat();
+                spawnable.MultiRotationAxis = Convert.ToBoolean(Pull());
+                spawnable.RandomizeLerpValue = Convert.ToBoolean(Pull());
+                spawnable.RandomMinRotation = ParseVector(Pull());
+                spawnable.RandomMaxRotation = ParseVector(Pull());
 
-                obj.ModifyColor = Convert.ToBoolean(lines[line + 16]);
-                obj.ColorModPercentage = lines[line + 17].ToFloat();
+                spawnable.ModifyColor = Convert.ToBoolean(Pull());
+                spawnable.ColorModPercentage = Pull().ToFloat();
 
-                obj.ModifyPosition = Convert.ToBoolean(lines[line + 18]);
+                spawnable.ModifyPosition = Convert.ToBoolean(Pull());
                 
-                obj.PositionAddition = ParseVector(lines[line + 19]);
+                spawnable.PositionAddition = ParseVector(Pull());
 
-                obj.RenameObject = Convert.ToBoolean(lines[line + 20]);
-                obj.NewObjectName = lines[line + 21];
+                spawnable.RenameObject = Convert.ToBoolean(Pull());
+                spawnable.NewObjectName = Pull();
 
-                obj.ScaleType = ParseEnum<ScaleType>(lines[line + 22]);
-                obj.ScaleAxis = ParseEnum<Axis>(lines[line + 23]);
+                spawnable.ScaleType = ParseEnum<ScaleType>(Pull());
+                spawnable.ScaleAxis = ParseEnum<Axis>(Pull());
 
-                obj.ModifyScale = Convert.ToBoolean(lines[line + 24]);
+                spawnable.ModifyScale = Convert.ToBoolean(Pull());
                 
-                obj.CustomScale = ParseVector(lines[line + 25]);
+                spawnable.CustomScale = ParseVector(Pull());
 
-                obj.ScaleMinSeparated = ParseVector(lines[line + 26]);
+                spawnable.ScaleMinSeparated = ParseVector(Pull());
 
-                obj.ScaleMin = lines[line + 27].ToFloat();
+                spawnable.ScaleMin = Pull().ToFloat();
 
 
-                obj.ScaleMaxSeparated = ParseVector(lines[line + 28]);
+                spawnable.ScaleMaxSeparated = ParseVector(Pull());
 
-                obj.ScaleMax = lines[line + 29].ToFloat();
+                spawnable.ScaleMax = Pull().ToFloat();
 
-                obj.SeparateScaleAxis = Convert.ToBoolean(lines[line + 30]);
+                spawnable.SeparateScaleAxis = Convert.ToBoolean(Pull());
 
-                obj.Layer = lines[line + 31];
-                obj.LayerIndex = Convert.ToInt32(lines[line + 32]);
+                spawnable.Layer = Pull();
+                spawnable.LayerIndex = Convert.ToInt32(Pull());
 
-                obj.RotationEulerAddition = ParseVector(lines[line + 33]);
+                spawnable.RotationEulerAddition = ParseVector(Pull());
 
-                WillowTerrainSettings.SpawnableObjects.Add(obj);
+                WillowTerrainSettings.SpawnableObjects.Add(spawnable);
             }
 
             WillowTerrainSettings.SpawnedObjects.Clear();
-            line++;
-            WillowTerrainSettings.SpawnedObjects = new List<GameObject>(Convert.ToInt32(lines[line].RemoveSlashN()));
-            int l;
-            for (l = line + 1; l < WillowTerrainSettings.SpawnedObjects.Capacity + line + 1; l++)
+            WillowTerrainSettings.SpawnedObjects = new List<GameObject>(Convert.ToInt32(Pull().RemoveSlashN()));
+            for (int l = 0; l < WillowTerrainSettings.SpawnedObjects.Capacity; l++)
             {
-                var g = GameObject.Find(lines[l]);
+                var g = GameObject.Find(Pull());
                 g.GetComponent<WillowSpawnedObject>().SpawnableObject = 
                     g.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
                 WillowTerrainSettings.SpawnedObjects.Add(g);
             }
 
-            WillowTerrainSettings.IndexObjects = Convert.ToBoolean(lines[l]);
-            WillowTerrainSettings.IndexFormat = lines[l + 1];
-            WillowTerrainSettings.SpawnedIndecies = Convert.ToInt64(lines[l + 2]);
+            WillowTerrainSettings.IndexObjects = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.IndexFormat = Pull();
+            WillowTerrainSettings.SpawnedIndecies = Convert.ToInt64(Pull());
 
-            WillowTerrainSettings.EraseSmoothness = Convert.ToInt32(lines[l + 3]);
+            WillowTerrainSettings.EraseSmoothness = Convert.ToInt32(Pull());
 
-            WillowTerrainSettings.ExchangeColor = Convert.ToBoolean(lines[l + 4]);
-            WillowTerrainSettings.ExchangeParent = Convert.ToBoolean(lines[l + 5]);
-            WillowTerrainSettings.ExchangePosition = Convert.ToBoolean(lines[l + 6]);
-            WillowTerrainSettings.ExchangeRotation = Convert.ToBoolean(lines[l + 7]);
-            WillowTerrainSettings.ExchangeScale = Convert.ToBoolean(lines[l + 8]);
-            WillowTerrainSettings.ExchangeSmoothness = Convert.ToInt32(lines[l + 9]);
+            WillowTerrainSettings.ExchangeColor = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.ExchangeParent = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.ExchangePosition = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.ExchangeRotation = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.ExchangeScale = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.ExchangeSmoothness = Convert.ToInt32(Pull());
         }
 
         Log("Templates read!", Green);
@@ -240,10 +244,30 @@ public static class WillowFileManager
         }
         catch (NullReferenceException)
         {
-            Log("Impossible to read.", Yellow, Debug.LogWarning);
+            Log("There is an error occured while reading. Impossible to read.", Yellow, Debug.LogWarning);
         }
         return false;
     }
+
+    private static void Push(object obj)
+    {
+        WriterStringBuilder.AppendLine(obj.ToString());
+    }
+    private static void ReadFile()
+    {
+        ReadLineIndex = 0;
+        using (StreamReader reader = new StreamReader(path))
+        {
+            Lines = reader.ReadToEnd().Split('\n');
+        }
+    }
+    private static string Pull()
+    {
+        //Debug.Log(ReadLineIndex);
+        ReadLineIndex += 1;
+        return Lines[ReadLineIndex - 1];
+    }
+
     private static Vector3 ParseVector(string input)
     {
         List<string> s = input.Replace(")", "").Replace("(", "").Replace(" ", "").Split(',').ToList();

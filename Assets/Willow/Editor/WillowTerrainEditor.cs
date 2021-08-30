@@ -237,7 +237,7 @@ public sealed class WillowTerrainEditor : EditorWindow
     private void OnEnable()
     {
         InitializeStyles();
-        WillowFileManager.Read();
+        WillowFileManager.TryRead();
 
         Log("Willow started..", Green);
 

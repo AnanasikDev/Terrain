@@ -29,6 +29,7 @@ public sealed class WillowSpawnableObject
     public bool CenterObject = false;
     public bool ModifyPosition = false;
     public Vector3 PositionAddition = Vector3.zero;
+    public Space PositionAdditionSpace = Space.Self;
 
     public string Layer = "default";
     public int LayerIndex = 0;
@@ -82,6 +83,7 @@ public sealed class WillowSpawnableObject
 
         ModifyPosition = clone.ModifyPosition;
         PositionAddition = clone.PositionAddition;
+        PositionAdditionSpace = clone.PositionAdditionSpace;
 
         ScaleType = clone.ScaleType;
         ScaleAxis = clone.ScaleAxis;

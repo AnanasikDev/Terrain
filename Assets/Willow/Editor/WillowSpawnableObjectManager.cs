@@ -207,7 +207,10 @@ public static class WillowSpawnableObjectManager
 
         spawnableObject.ModifyPosition = EditorGUILayout.Toggle("Modify position", spawnableObject.ModifyPosition);
         if (spawnableObject.ModifyPosition)
+        {
             spawnableObject.PositionAddition = EditorGUILayout.Vector3Field("  Position addition", spawnableObject.PositionAddition);
+            spawnableObject.PositionAdditionSpace = (Space)EditorGUILayout.EnumPopup("  Space", spawnableObject.PositionAdditionSpace);
+        }
 
         DrawLabel("Scale");
 

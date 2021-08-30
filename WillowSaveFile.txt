@@ -1,19 +1,19 @@
-True
-1
-0,65
+False
+4
+25
 null
 onTerrainOnly
 1
 default
 True
-1
-Assets/Willow/Example/Prefabs/WillowExamplePrefab 1.prefab
+2
+null
 True
 1
 False
 null
-True
-AsNormal
+False
+AsPrefab
 Y
 (0.0, 0.0, 0.0)
 0,15
@@ -25,7 +25,7 @@ False
 (360.0, 360.0, 360.0)
 True
 35
-True
+False
 (0.0, 0.0, 0.0)
 False
 Object
@@ -41,15 +41,44 @@ True
 default
 0
 (0.0, 0.0, 0.0)
-5
-WillowExamplePrefab 1 (23 clone)
-WillowExamplePrefab 1 (24 clone)
-WillowExamplePrefab 1 (25 clone)
-WillowExamplePrefab 1 (26 clone)
-WillowExamplePrefab 1 (27 clone)
+null
+True
+1
+False
+null
+False
+AsPrefab
+Y
+(0.0, 0.0, 0.0)
+0,15
+0,1
+0,2
+False
+False
+(0.0, 0.0, 0.0)
+(360.0, 360.0, 360.0)
+True
+35
+False
+(0.0, 0.0, 0.0)
+False
+Object
+AsPrefab
+XYZ
+False
+(1.0, 1.0, 1.0)
+(0.9, 0.9, 0.9)
+0,9
+(1.1, 1.1, 1.1)
+1,15
+True
+default
+0
+(0.0, 0.0, 0.0)
+0
 True
  ({0} clone)
-28
+0
 0
 False
 True

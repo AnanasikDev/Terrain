@@ -279,6 +279,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -579,6 +580,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -785,6 +787,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -916,6 +919,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -1374,6 +1378,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -1863,6 +1868,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -1994,6 +2000,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -2125,6 +2132,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -2256,6 +2264,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -3354,6 +3363,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -3560,6 +3570,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -3691,6 +3702,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -3849,6 +3861,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -4412,6 +4425,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -4577,6 +4591,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -4878,6 +4893,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -5253,6 +5269,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -5600,6 +5617,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -5758,6 +5776,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -6010,6 +6029,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -6393,6 +6413,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -6524,6 +6545,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -6761,6 +6783,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -6936,6 +6959,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -7067,6 +7091,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -7525,6 +7550,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -7657,6 +7683,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -7788,6 +7815,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -7922,6 +7950,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -8088,6 +8117,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -8219,6 +8249,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -8672,6 +8703,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -8939,6 +8971,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -9097,6 +9130,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -9228,6 +9262,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -9386,6 +9421,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -9520,6 +9556,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -9685,6 +9722,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -9760,138 +9798,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 79
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &349630293
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 349630297}
-  - component: {fileID: 349630296}
-  - component: {fileID: 349630295}
-  - component: {fileID: 349630294}
-  m_Layer: 0
-  m_Name: "WillowExamplePrefab 1 (27 clone)\r"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &349630294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349630293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderers: []
-  Layer: "default\r"
-  PositionAdd: {x: 0, y: 0, z: 0}
-  SpawnableObject:
-    Spawn: 1
-    Object: {fileID: 8280151589382765908, guid: b035086063ac676448d1d9cee411cbf2,
-      type: 3}
-    SpawnChance: 1
-    RotationType: 3
-    RotationAxis: 1
-    CustomEulersRotation: {x: 0, y: 0, z: 0}
-    LerpValue: 0.15
-    MinLerpValue: 0.1
-    MaxLerpValue: 0.2
-    RandomizeLerpValue: 0
-    RandomMinRotation: {x: 0, y: 0, z: 0}
-    RandomMaxRotation: {x: 360, y: 360, z: 360}
-    MultiRotationAxis: 0
-    RotationEulerAddition: {x: 0, y: 0, z: 0}
-    ModifyColor: 1
-    ColorModPercentage: 35
-    CustomParent: 0
-    Parent: {fileID: 0}
-    CenterObject: 1
-    ModifyPosition: 1
-    PositionAddition: {x: 0, y: 0, z: 0}
-    Layer: "default\r"
-    LayerIndex: 0
-    RenameObject: 0
-    NewObjectName: "Object\r"
-    ScaleType: 2
-    ScaleAxis: 6
-    ModifyScale: 0
-    CustomScale: {x: 1, y: 1, z: 1}
-    ScaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
-    ScaleMin: 0.9
-    ScaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    ScaleMax: 1.15
-    SeparateScaleAxis: 1
-    Hidden: 0
---- !u!23 &349630295
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349630293}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 05ec7f15b9bb4564f95c0c43dfc6e66f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &349630296
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349630293}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &349630297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349630293}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071067, w: 0.7071068}
-  m_LocalPosition: {x: -1.9000007, y: 25.189503, z: -4.616016}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 277
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &350509782
 GameObject:
   m_ObjectHideFlags: 3
@@ -9948,6 +9854,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -10154,6 +10061,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -10360,6 +10268,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -10566,6 +10475,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -10697,6 +10607,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -10872,6 +10783,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -11097,6 +11009,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -11255,6 +11168,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -11660,6 +11574,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -11866,6 +11781,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -12075,6 +11991,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -12240,6 +12157,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -12465,6 +12383,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -12596,6 +12515,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -12728,6 +12648,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -12934,6 +12855,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -13065,6 +12987,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -13215,138 +13138,6 @@ Material:
     m_Colors:
     - _Color: {r: 0.7564391, g: 0.21272933, b: 0, a: 0.7564391}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
---- !u!1 &460212867
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 460212871}
-  - component: {fileID: 460212870}
-  - component: {fileID: 460212869}
-  - component: {fileID: 460212868}
-  m_Layer: 0
-  m_Name: "WillowExamplePrefab 1 (26 clone)\r"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &460212868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460212867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderers: []
-  Layer: "default\r"
-  PositionAdd: {x: 0, y: 0, z: 0}
-  SpawnableObject:
-    Spawn: 1
-    Object: {fileID: 8280151589382765908, guid: b035086063ac676448d1d9cee411cbf2,
-      type: 3}
-    SpawnChance: 1
-    RotationType: 3
-    RotationAxis: 1
-    CustomEulersRotation: {x: 0, y: 0, z: 0}
-    LerpValue: 0.15
-    MinLerpValue: 0.1
-    MaxLerpValue: 0.2
-    RandomizeLerpValue: 0
-    RandomMinRotation: {x: 0, y: 0, z: 0}
-    RandomMaxRotation: {x: 360, y: 360, z: 360}
-    MultiRotationAxis: 0
-    RotationEulerAddition: {x: 0, y: 0, z: 0}
-    ModifyColor: 1
-    ColorModPercentage: 35
-    CustomParent: 0
-    Parent: {fileID: 0}
-    CenterObject: 1
-    ModifyPosition: 1
-    PositionAddition: {x: 0, y: 0, z: 0}
-    Layer: "default\r"
-    LayerIndex: 0
-    RenameObject: 0
-    NewObjectName: "Object\r"
-    ScaleType: 2
-    ScaleAxis: 6
-    ModifyScale: 0
-    CustomScale: {x: 1, y: 1, z: 1}
-    ScaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
-    ScaleMin: 0.9
-    ScaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    ScaleMax: 1.15
-    SeparateScaleAxis: 1
-    Hidden: 0
---- !u!23 &460212869
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460212867}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 05ec7f15b9bb4564f95c0c43dfc6e66f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &460212870
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460212867}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &460212871
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460212867}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2756107, y: 27.970003, z: -4.025322}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 276
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462493042
 GameObject:
   m_ObjectHideFlags: 3
@@ -13403,6 +13194,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -13609,6 +13401,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -13784,6 +13577,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -14009,6 +13803,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -14478,6 +14273,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -14897,6 +14693,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15028,6 +14825,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15159,6 +14957,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15365,6 +15164,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15496,6 +15296,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15702,6 +15503,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -15922,6 +15724,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -16056,6 +15859,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -16296,6 +16100,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -16430,6 +16235,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -16595,6 +16401,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -16828,6 +16635,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -16959,6 +16767,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -17165,6 +16974,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -17296,6 +17106,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -17428,6 +17239,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "default\r"
     LayerIndex: 0
     RenameObject: 0
@@ -17559,6 +17371,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -17693,6 +17506,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -17858,6 +17672,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -17989,6 +17804,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -18214,6 +18030,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -18372,6 +18189,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -18791,6 +18609,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -19222,6 +19041,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -19353,6 +19173,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -19485,6 +19306,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -19616,6 +19438,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -19778,6 +19601,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 1
     PositionAddition: {x: 0, y: 1, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -19987,6 +19811,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -20145,6 +19970,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -20354,6 +20180,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -20520,6 +20347,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -20654,6 +20482,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -20819,6 +20648,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21028,6 +20858,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -21193,6 +21024,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21324,6 +21156,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21455,6 +21288,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21586,6 +21420,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21744,6 +21579,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -21903,6 +21739,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -22061,6 +21898,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -22434,6 +22272,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -22940,6 +22779,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -23248,6 +23088,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -23454,6 +23295,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -23588,6 +23430,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -23797,6 +23640,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -24006,6 +23850,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -24246,6 +24091,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -24557,6 +24403,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -24725,6 +24572,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -24968,6 +24816,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -25238,6 +25087,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -25444,6 +25294,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -25650,6 +25501,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -25931,6 +25783,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -26065,6 +25918,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -26305,6 +26159,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -26511,6 +26366,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -26642,6 +26498,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -26774,6 +26631,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -26905,6 +26763,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -27390,6 +27249,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -27524,6 +27384,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -27791,6 +27652,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -27925,6 +27787,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -28165,6 +28028,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -28371,6 +28235,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -28505,6 +28370,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -28848,6 +28714,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -29057,6 +28924,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -29327,6 +29195,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -29488,6 +29357,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -29694,6 +29564,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -29930,6 +29801,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -30173,6 +30045,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 1
     PositionAddition: {x: 0, y: 3, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -30338,6 +30211,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -30638,6 +30512,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -30772,6 +30647,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -31012,6 +30888,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -31086,138 +30963,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 186
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1087444799
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1087444803}
-  - component: {fileID: 1087444802}
-  - component: {fileID: 1087444801}
-  - component: {fileID: 1087444800}
-  m_Layer: 0
-  m_Name: "WillowExamplePrefab 1 (23 clone)\r"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1087444800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087444799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderers: []
-  Layer: "default\r"
-  PositionAdd: {x: 0, y: 0, z: 0}
-  SpawnableObject:
-    Spawn: 1
-    Object: {fileID: 8280151589382765908, guid: b035086063ac676448d1d9cee411cbf2,
-      type: 3}
-    SpawnChance: 1
-    RotationType: 3
-    RotationAxis: 1
-    CustomEulersRotation: {x: 0, y: 0, z: 0}
-    LerpValue: 0.15
-    MinLerpValue: 0.1
-    MaxLerpValue: 0.2
-    RandomizeLerpValue: 0
-    RandomMinRotation: {x: 0, y: 0, z: 0}
-    RandomMaxRotation: {x: 360, y: 360, z: 360}
-    MultiRotationAxis: 0
-    RotationEulerAddition: {x: 0, y: 0, z: 0}
-    ModifyColor: 1
-    ColorModPercentage: 35
-    CustomParent: 0
-    Parent: {fileID: 0}
-    CenterObject: 1
-    ModifyPosition: 1
-    PositionAddition: {x: 0, y: 0, z: 0}
-    Layer: "default\r"
-    LayerIndex: 0
-    RenameObject: 0
-    NewObjectName: "Object\r"
-    ScaleType: 2
-    ScaleAxis: 6
-    ModifyScale: 0
-    CustomScale: {x: 1, y: 1, z: 1}
-    ScaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
-    ScaleMin: 0.9
-    ScaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    ScaleMax: 1.15
-    SeparateScaleAxis: 1
-    Hidden: 0
---- !u!23 &1087444801
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087444799}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 05ec7f15b9bb4564f95c0c43dfc6e66f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1087444802
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087444799}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1087444803
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087444799}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1734867, y: 27.970003, z: -9.256703}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 273
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1100595053
 Material:
@@ -31383,6 +31128,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -31548,6 +31294,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -31682,6 +31429,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -31944,6 +31692,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -32185,6 +31934,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "default\r"
     LayerIndex: 0
     RenameObject: 0
@@ -32316,6 +32066,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -32541,6 +32292,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -32747,6 +32499,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -32878,6 +32631,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33009,6 +32763,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33245,6 +33000,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33526,6 +33282,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33657,6 +33414,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33818,6 +33576,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -33949,6 +33708,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -34155,6 +33915,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -34286,6 +34047,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -34570,6 +34332,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -34832,6 +34595,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -35102,6 +34866,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -35552,6 +35317,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -36077,6 +35843,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -36208,6 +35975,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -36417,6 +36185,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -36851,6 +36620,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -36982,6 +36752,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -37387,6 +37158,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -37518,6 +37290,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -37649,6 +37422,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -37783,6 +37557,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -37951,6 +37726,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -38303,138 +38079,6 @@ Transform:
   m_Father: {fileID: 345037093}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1335765960
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1335765964}
-  - component: {fileID: 1335765963}
-  - component: {fileID: 1335765962}
-  - component: {fileID: 1335765961}
-  m_Layer: 0
-  m_Name: "WillowExamplePrefab 1 (25 clone)\r"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1335765961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335765960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderers: []
-  Layer: "default\r"
-  PositionAdd: {x: 0, y: 0, z: 0}
-  SpawnableObject:
-    Spawn: 1
-    Object: {fileID: 8280151589382765908, guid: b035086063ac676448d1d9cee411cbf2,
-      type: 3}
-    SpawnChance: 1
-    RotationType: 3
-    RotationAxis: 1
-    CustomEulersRotation: {x: 0, y: 0, z: 0}
-    LerpValue: 0.15
-    MinLerpValue: 0.1
-    MaxLerpValue: 0.2
-    RandomizeLerpValue: 0
-    RandomMinRotation: {x: 0, y: 0, z: 0}
-    RandomMaxRotation: {x: 360, y: 360, z: 360}
-    MultiRotationAxis: 0
-    RotationEulerAddition: {x: 0, y: 0, z: 0}
-    ModifyColor: 1
-    ColorModPercentage: 35
-    CustomParent: 0
-    Parent: {fileID: 0}
-    CenterObject: 1
-    ModifyPosition: 1
-    PositionAddition: {x: 0, y: 0, z: 0}
-    Layer: "default\r"
-    LayerIndex: 0
-    RenameObject: 0
-    NewObjectName: "Object\r"
-    ScaleType: 2
-    ScaleAxis: 6
-    ModifyScale: 0
-    CustomScale: {x: 1, y: 1, z: 1}
-    ScaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
-    ScaleMin: 0.9
-    ScaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    ScaleMax: 1.15
-    SeparateScaleAxis: 1
-    Hidden: 0
---- !u!23 &1335765962
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335765960}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 05ec7f15b9bb4564f95c0c43dfc6e66f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1335765963
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335765960}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1335765964
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335765960}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.3716269, y: 26.05022, z: -12.600004}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 275
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1337660269
 Material:
   serializedVersion: 6
@@ -38567,6 +38211,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "default\r"
     LayerIndex: 0
     RenameObject: 0
@@ -38742,6 +38387,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -38873,6 +38519,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -39268,6 +38915,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -39400,6 +39048,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "default\r"
     LayerIndex: 0
     RenameObject: 0
@@ -39532,6 +39181,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -39663,6 +39313,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -39794,6 +39445,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -40027,6 +39679,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -40158,6 +39811,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -40367,6 +40021,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -40532,6 +40187,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -40787,6 +40443,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -41148,6 +40805,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -41279,6 +40937,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -41410,6 +41069,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -41883,6 +41543,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -42014,6 +41675,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -42220,6 +41882,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -42426,6 +42089,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -42802,6 +42466,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -43008,6 +42673,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -43214,6 +42880,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -43662,6 +43329,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -43869,6 +43537,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -44000,6 +43669,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -44131,6 +43801,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -44340,6 +44011,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -44505,6 +44177,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -44939,6 +44612,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -45434,6 +45108,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -45674,6 +45349,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -45808,6 +45484,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -46067,6 +45744,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -46520,6 +46198,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -46790,6 +46469,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -46955,6 +46635,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -47766,6 +47447,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -48232,6 +47914,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -48390,6 +48073,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -48521,6 +48205,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -48728,6 +48413,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: defaultLayer1
     LayerIndex: 1
     RenameObject: 0
@@ -48859,6 +48545,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -49084,6 +48771,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -49290,6 +48978,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -49421,6 +49110,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -49555,6 +49245,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -49663,138 +49354,6 @@ Transform:
   - {fileID: 1578747086}
   m_Father: {fileID: 0}
   m_RootOrder: 250
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1875894616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1875894620}
-  - component: {fileID: 1875894619}
-  - component: {fileID: 1875894618}
-  - component: {fileID: 1875894617}
-  m_Layer: 0
-  m_Name: "WillowExamplePrefab 1 (24 clone)\r"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1875894617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875894616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6902bea10b6eb654e9b734d0b164de9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderers: []
-  Layer: "default\r"
-  PositionAdd: {x: 0, y: 0, z: 0}
-  SpawnableObject:
-    Spawn: 1
-    Object: {fileID: 8280151589382765908, guid: b035086063ac676448d1d9cee411cbf2,
-      type: 3}
-    SpawnChance: 1
-    RotationType: 3
-    RotationAxis: 1
-    CustomEulersRotation: {x: 0, y: 0, z: 0}
-    LerpValue: 0.15
-    MinLerpValue: 0.1
-    MaxLerpValue: 0.2
-    RandomizeLerpValue: 0
-    RandomMinRotation: {x: 0, y: 0, z: 0}
-    RandomMaxRotation: {x: 360, y: 360, z: 360}
-    MultiRotationAxis: 0
-    RotationEulerAddition: {x: 0, y: 0, z: 0}
-    ModifyColor: 1
-    ColorModPercentage: 35
-    CustomParent: 0
-    Parent: {fileID: 0}
-    CenterObject: 1
-    ModifyPosition: 1
-    PositionAddition: {x: 0, y: 0, z: 0}
-    Layer: "default\r"
-    LayerIndex: 0
-    RenameObject: 0
-    NewObjectName: "Object\r"
-    ScaleType: 2
-    ScaleAxis: 6
-    ModifyScale: 0
-    CustomScale: {x: 1, y: 1, z: 1}
-    ScaleMinSeparated: {x: 0.9, y: 0.9, z: 0.9}
-    ScaleMin: 0.9
-    ScaleMaxSeparated: {x: 1.1, y: 1.1, z: 1.1}
-    ScaleMax: 1.15
-    SeparateScaleAxis: 1
-    Hidden: 0
---- !u!23 &1875894618
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875894616}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 05ec7f15b9bb4564f95c0c43dfc6e66f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1875894619
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875894616}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1875894620
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875894616}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071067, w: 0.7071068}
-  m_LocalPosition: {x: -1.9000007, y: 25.049416, z: -8.912635}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 274
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1876868023
 Material:
@@ -49930,6 +49489,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -50291,6 +49851,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -50519,6 +50080,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -50808,6 +50370,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -50976,6 +50539,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -51141,6 +50705,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -51347,6 +50912,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -51478,6 +51044,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -51609,6 +51176,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -51740,6 +51308,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -51871,6 +51440,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -52077,6 +51647,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -52208,6 +51779,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -52534,6 +52106,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -52878,6 +52451,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -53009,6 +52583,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -53242,6 +52817,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -53448,6 +53024,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -53579,6 +53156,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -53740,6 +53318,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -54273,6 +53852,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -54482,6 +54062,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -54647,6 +54228,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -55224,6 +54806,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -55358,6 +54941,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
@@ -55523,6 +55107,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -55748,6 +55333,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -55879,6 +55465,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -56085,6 +55672,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -56335,6 +55923,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -56619,6 +56208,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: "defaultLayer\r"
     LayerIndex: 0
     RenameObject: 0
