@@ -9,6 +9,27 @@ For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To
 
 </details>
 
+<details>
+<summary><b>Global settings</b></summary>
+
+
+***Brush density***: static amount of spawned object per click.
+	
+***Brush size***: static abstract size of brush. You can change it with hotkeys: *F + Scroll Wheel*
+
+***Brush shape***: shape of brush. Spawnes objects evenly on shape.
+	
+***Fill brush***: if turned on it will spawn *inside* shape, otherwise only on border.
+	
+***Index objects***: if turned on Willow will index names.
+	
+***Auto-save***: if turned on it saves all Willow settings in a file whenever you work with objects.<br>
+*Note: it does not save automatically if you change settings.*
+
+
+
+</details>
+
 All surfaces that you want to spawn objects on must contain ***WillowTerrainSettings*** component and any type of collider.<br>
 *Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for **convenience***<br>
 
@@ -32,6 +53,8 @@ Erasing (removing) objects that have been spawned by *Willow*<br>
 It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***<br>
 Further you can simply disable them by using ***Tools -> Willow -> Disable Destroyed Objects***<br>
 
+Also it supports *smoothness* - the rarity of applying to object. More smoothnes less chance object will be exchanged by new one
+	
 </details>
 
 <details>
@@ -47,7 +70,7 @@ You can exchange:<br>
 - Color
 
 Also it supports *smoothness* - the rarity of applying to object. More smoothnes less chance object will be exchanged by new one
-	
+
 </details>
 
 Willow ***saves*** your configuration and spawned objects, so it will read from file when you re-import scripts or re-enter Unity.
