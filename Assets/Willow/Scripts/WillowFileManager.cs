@@ -17,98 +17,95 @@ public static class WillowFileManager
 
     public static void Write()
     {
-        StringBuilder output = new StringBuilder();
+        Push(WillowTerrainSettings.IsActive);
+        Push(WillowTerrainSettings.BrushDensity);
+        Push(WillowTerrainSettings.BrushSize);
 
-        output.AppendLine(WillowTerrainSettings.IsActive.ToString());
-        output.AppendLine(WillowTerrainSettings.BrushDensity.ToString());
-        output.AppendLine(WillowTerrainSettings.BrushSize.ToString());
+        Push(WillowTerrainSettings.BaseParent == null ? "null" : WillowTerrainSettings.BaseParent.name);
+        Push(WillowTerrainSettings.PlacementType);
 
-        output.AppendLine(WillowTerrainSettings.BaseParent == null ? "null" : WillowTerrainSettings.BaseParent.name);
-        output.AppendLine(WillowTerrainSettings.PlacementType.ToString());
-
-        output.AppendLine(WillowTerrainSettings.LayersName.Count.ToString());
+        Push(WillowTerrainSettings.LayersName.Count);
         for (int layer = 0; layer < WillowTerrainSettings.LayersName.Count; layer++)
         {
-            output.AppendLine(WillowTerrainSettings.LayersName[layer].RemoveSlashN().RemoveSlashR());
-            output.AppendLine(WillowTerrainSettings.LayersState[layer].ToString());
+            Push(WillowTerrainSettings.LayersName[layer].RemoveSlashN().RemoveSlashR());
+            Push(WillowTerrainSettings.LayersState[layer]);
         }
 
-        output.AppendLine(WillowTerrainSettings.SpawnableObjects.Count.ToString());
+        Push(WillowTerrainSettings.SpawnableObjects.Count);
         foreach (WillowSpawnableObject obj in WillowTerrainSettings.SpawnableObjects)
         {
-            //output.AppendLine(obj.Object == null ? "null" : obj.Object.name);
-            output.AppendLine(obj.Object == null ? "null" : AssetDatabase.GetAssetPath(obj.Object));
-            output.AppendLine(obj.Spawn.ToString());
-            output.AppendLine(obj.SpawnChance.ToString());
-            output.AppendLine(obj.CustomParent.ToString());
-            output.AppendLine(obj.Parent == null ? "null" : obj.Parent.name);
-            output.AppendLine(obj.CenterObject.ToString());
+            Push(obj.Object == null ? "null" : AssetDatabase.GetAssetPath(obj.Object));
+            Push(obj.Spawn);
+            Push(obj.SpawnChance);
+            Push(obj.CustomParent);
+            Push(obj.Parent == null ? "null" : obj.Parent.name);
+            Push(obj.CenterObject);
             //6
 
-            output.AppendLine(obj.RotationType.ToString());
-            output.AppendLine(obj.RotationAxis.ToString());
-            output.AppendLine(obj.CustomEulersRotation.ToString());
-            output.AppendLine(obj.LerpValue.ToString());
-            output.AppendLine(obj.MinLerpValue.ToString());
-            output.AppendLine(obj.MaxLerpValue.ToString());
+            Push(obj.RotationType);
+            Push(obj.RotationAxis);
+            Push(obj.CustomEulersRotation);
+            Push(obj.LerpValue);
+            Push(obj.MinLerpValue);
+            Push(obj.MaxLerpValue);
 
-            output.AppendLine(obj.MultiRotationAxis.ToString());
-            output.AppendLine(obj.RandomizeLerpValue.ToString());
-            output.AppendLine(obj.RandomMinRotation.ToString());
-            output.AppendLine(obj.RandomMaxRotation.ToString());
+            Push(obj.MultiRotationAxis);
+            Push(obj.RandomizeLerpValue);
+            Push(obj.RandomMinRotation);
+            Push(obj.RandomMaxRotation);
             //16
 
-            output.AppendLine(obj.ModifyColor.ToString());
-            output.AppendLine(obj.ColorModPercentage.ToString());
+            Push(obj.ModifyColor);
+            Push(obj.ColorModPercentage);
 
-            output.AppendLine(obj.ModifyPosition.ToString());
-            output.AppendLine(obj.PositionAddition.ToString());
+            Push(obj.ModifyPosition);
+            Push(obj.PositionAddition);
 
-            output.AppendLine(obj.RenameObject.ToString());
-            output.AppendLine(obj.NewObjectName.RemoveSlashR());
+            Push(obj.RenameObject);
+            Push(obj.NewObjectName.RemoveSlashR());
             //22
 
-            output.AppendLine(obj.ScaleType.ToString());
-            output.AppendLine(obj.ScaleAxis.ToString());
-            output.AppendLine(obj.ModifyScale.ToString());
-            output.AppendLine(obj.CustomScale.ToString());
-            output.AppendLine(obj.ScaleMinSeparated.ToString());
-            output.AppendLine(obj.ScaleMin.ToString());
-            output.AppendLine(obj.ScaleMaxSeparated.ToString());
-            output.AppendLine(obj.ScaleMax.ToString());
-            output.AppendLine(obj.SeparateScaleAxis.ToString());
+            Push(obj.ScaleType);
+            Push(obj.ScaleAxis);
+            Push(obj.ModifyScale);
+            Push(obj.CustomScale);
+            Push(obj.ScaleMinSeparated);
+            Push(obj.ScaleMin);
+            Push(obj.ScaleMaxSeparated);
+            Push(obj.ScaleMax);
+            Push(obj.SeparateScaleAxis);
             //31
-            output.AppendLine(obj.Layer.RemoveSlashR());
-            output.AppendLine(obj.LayerIndex.ToString());
+            Push(obj.Layer.RemoveSlashR());
+            Push(obj.LayerIndex);
 
-            output.AppendLine(obj.RotationEulerAddition.ToString());
+            Push(obj.RotationEulerAddition);
         }
 
-        output.AppendLine(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length .ToString());
+        Push(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length );
         foreach (GameObject spawnedObj in WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
-            output.AppendLine(spawnedObj.name.RemoveSlashR());
+            Push(spawnedObj.name.RemoveSlashR());
         }
 
-        output.AppendLine(WillowTerrainSettings.IndexObjects.ToString());
-        output.AppendLine(WillowTerrainSettings.IndexFormat.RemoveSlashR());
-        output.AppendLine(WillowTerrainSettings.SpawnedIndecies.ToString());
+        Push(WillowTerrainSettings.IndexObjects);
+        Push(WillowTerrainSettings.IndexFormat.RemoveSlashR());
+        Push(WillowTerrainSettings.SpawnedIndecies);
 
-        output.AppendLine(WillowTerrainSettings.EraseSmoothness.ToString());
+        Push(WillowTerrainSettings.EraseSmoothness);
 
-        output.AppendLine(WillowTerrainSettings.ExchangeColor.ToString());
-        output.AppendLine(WillowTerrainSettings.ExchangeParent.ToString());
-        output.AppendLine(WillowTerrainSettings.ExchangePosition.ToString());
-        output.AppendLine(WillowTerrainSettings.ExchangeRotation.ToString());
-        output.AppendLine(WillowTerrainSettings.ExchangeScale.ToString());
-        output.AppendLine(WillowTerrainSettings.ExchangeSmoothness.ToString());
+        Push(WillowTerrainSettings.ExchangeColor);
+        Push(WillowTerrainSettings.ExchangeParent);
+        Push(WillowTerrainSettings.ExchangePosition);
+        Push(WillowTerrainSettings.ExchangeRotation);
+        Push(WillowTerrainSettings.ExchangeScale);
+        Push(WillowTerrainSettings.ExchangeSmoothness);
 
         using (StreamWriter writer = new StreamWriter(path, false))
         {
-            writer.Write(output);
+            writer.Write(WriterStringBuilder);
         }
 
-        Log("Templates saved!", Green);
+        Log("Templates successfully saved!", Green);
     }
     public static void Read()
     {
