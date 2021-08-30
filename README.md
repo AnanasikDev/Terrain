@@ -1,16 +1,22 @@
 ## Willow
 
-Willow is **Unity** asset for working with instantiating objects on surfaces in **Editor**.<br>
+<details>
+<summary><b>What is it?</b></summary>
+
+Willow is **Unity** asset for working with custom instantiating objects on surfaces in **Editor**.<br>
 For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To start working you need to enable it in Editor window.<br>
+*Note: If you want to set path to **Willow Tools** you can set **WillowGlobalConfig.Path***
+
+</details>
 
 All surfaces that you want to spawn objects on must contain ***WillowTerrainSettings*** component and any type of collider.<br>
-Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for *convenience*<br>
+*Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for **convenience***<br>
 
 There are 3 actions you can do:
 
 <details>
-<summary><strong>Place</strong></summary>
-Instantiating objects on the surface.
+<summary><b>Place</b></summary>	
+Instantiating objects on the surface.<br>
 There are three types of detecting surfaces to spawn on:
 	
 - Only on Terrain
@@ -20,7 +26,7 @@ There are three types of detecting surfaces to spawn on:
 </details>
 
 <details>
-<summary><strong>Erase</strong></summary>
+<summary><b>Erase</b></summary>
 	
 Erasing (removing) objects that have been spawned by *Willow*<br>
 It does not destroy objects, but hide them. It is possible to enable all erased objects in last session with ***Tools -> Willow -> Enable Destroyed Objects***<br>
@@ -29,7 +35,7 @@ Further you can simply disable them by using ***Tools -> Willow -> Disable Destr
 </details>
 
 <details>
-  <summary><strong>Exchange</strong></summary>
+  <summary><b>Exchange</b></summary>
 This mode allows you to recalculate some parameters, like color, rotation, scale and other. It can be used to get next random rotation, scale, etc.<br>
 Also it may change object to another one from spawnable objects list.<br>
 You can exchange:<br>
@@ -51,16 +57,16 @@ The file is on the path *root/WillowSaveFile.txt*. You can change it in WillowFi
 
 <details>
 
-<summary><strong>FAQ</strong></summary>
+<summary><b>FAQ</b></summary>
 <br>
 	
 <details>
-<summary><strong>What is the minimum Unity version to use Willow?</strong></summary>
+<summary><b>What is the minimum Unity version to use Willow?</b></summary>
 <br>
 - Your project should be on Unity 2019.4.23f and higher.
 </details>
 
-<details><summary><strong>I want to get it, how do I import it into my project?</strong></summary>
+<details><summary><b>I want to get it, how do I import it into my project?</b></summary>
 <br>
 - Instruction:
 
@@ -72,7 +78,7 @@ The file is on the path *root/WillowSaveFile.txt*. You can change it in WillowFi
 	
 </details>
 
-<details><summary><strong>I cant spawn objects, what may be wrong?</strong></summary>
+<details><summary><b>I cant spawn objects, what may be wrong?</b></summary>
 <br>
 	
 1. Make sure Willow is enabled.<br>
@@ -83,7 +89,7 @@ The file is on the path *root/WillowSaveFile.txt*. You can change it in WillowFi
 
 </details>
 
-<details><summary><strong>I cant see brush, what should I do?</strong></summary>
+<details><summary><b>I cant see brush, what should I do?</b></summary>
 <br>
 - This is a temporary bug I am trying to fix. You need to close Willow window and open it again.
 
