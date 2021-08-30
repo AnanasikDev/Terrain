@@ -17,9 +17,17 @@ public static class WillowFileManager
 
     public static void Write()
     {
+        PrepareForWrite();
+
         Push(WillowTerrainSettings.IsActive);
         Push(WillowTerrainSettings.BrushDensity);
+        Push(WillowTerrainSettings.RandomizeBrushDensity);
+        Push(WillowTerrainSettings.BrushDensityRandomizationModificator);
         Push(WillowTerrainSettings.BrushSize);
+
+        Push(WillowTerrainSettings.DebugMode);
+        Push(WillowTerrainSettings.AutoSave);
+        Push(WillowTerrainSettings.SafeMode);
 
         Push(WillowTerrainSettings.BaseParent == null ? "null" : WillowTerrainSettings.BaseParent.name);
         Push(WillowTerrainSettings.PlacementType);
@@ -40,7 +48,6 @@ public static class WillowFileManager
             Push(obj.CustomParent);
             Push(obj.Parent == null ? "null" : obj.Parent.name);
             Push(obj.CenterObject);
-            //6
 
             Push(obj.RotationType);
             Push(obj.RotationAxis);
@@ -53,7 +60,6 @@ public static class WillowFileManager
             Push(obj.RandomizeLerpValue);
             Push(obj.RandomMinRotation);
             Push(obj.RandomMaxRotation);
-            //16
 
             Push(obj.ModifyColor);
             Push(obj.ColorModPercentage);
@@ -63,7 +69,6 @@ public static class WillowFileManager
 
             Push(obj.RenameObject);
             Push(obj.NewObjectName.RemoveSlashR());
-            //22
 
             Push(obj.ScaleType);
             Push(obj.ScaleAxis);
@@ -74,7 +79,7 @@ public static class WillowFileManager
             Push(obj.ScaleMaxSeparated);
             Push(obj.ScaleMax);
             Push(obj.SeparateScaleAxis);
-            //31
+
             Push(obj.Layer.RemoveSlashR());
             Push(obj.LayerIndex);
 
@@ -92,7 +97,6 @@ public static class WillowFileManager
         Push(WillowTerrainSettings.SpawnedIndecies);
 
         Push(WillowTerrainSettings.EraseSmoothness);
-
         Push(WillowTerrainSettings.ExchangeColor);
         Push(WillowTerrainSettings.ExchangeParent);
         Push(WillowTerrainSettings.ExchangePosition);
@@ -109,12 +113,19 @@ public static class WillowFileManager
     }
     public static void Read()
     {
-        ReadFile();
+        PrepareForRead();
+
         using (StreamReader reader = new StreamReader(path))
         {
             WillowTerrainSettings.IsActive = Convert.ToBoolean(Pull());
             WillowTerrainSettings.BrushDensity = Convert.ToInt32(Pull());
+            WillowTerrainSettings.RandomizeBrushDensity = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.BrushDensityRandomizationModificator = Convert.ToSingle(Pull());
             WillowTerrainSettings.BrushSize = Convert.ToSingle(Pull());
+
+            WillowTerrainSettings.DebugMode = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.AutoSave = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.SafeMode = Convert.ToBoolean(Pull());
 
             string parent = Pull().RemoveSlashR();
             if (parent == "null") WillowTerrainSettings.BaseParent = null;
@@ -208,12 +219,13 @@ public static class WillowFileManager
 
             WillowTerrainSettings.SpawnedObjects.Clear();
             WillowTerrainSettings.SpawnedObjects = new List<GameObject>(Convert.ToInt32(Pull().RemoveSlashN()));
-            for (int l = 0; l < WillowTerrainSettings.SpawnedObjects.Capacity; l++)
+
+            for (int i = 0; i < WillowTerrainSettings.SpawnedObjects.Capacity; i++)
             {
-                var g = GameObject.Find(Pull());
-                g.GetComponent<WillowSpawnedObject>().SpawnableObject = 
-                    g.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
-                WillowTerrainSettings.SpawnedObjects.Add(g);
+                GameObject spawned = GameObject.Find(Pull());
+                spawned.GetComponent<WillowSpawnedObject>().SpawnableObject = 
+                    spawned.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
+                WillowTerrainSettings.SpawnedObjects.Add(spawned);
             }
 
             WillowTerrainSettings.IndexObjects = Convert.ToBoolean(Pull());
@@ -250,7 +262,11 @@ public static class WillowFileManager
     {
         WriterStringBuilder.AppendLine(obj.ToString());
     }
-    private static void ReadFile()
+    private static void PrepareForWrite()
+    {
+        WriterStringBuilder = new StringBuilder();
+    }
+    private static void PrepareForRead()
     {
         ReadLineIndex = 0;
         using (StreamReader reader = new StreamReader(path))

@@ -7,6 +7,8 @@ public class WillowTerrainSettings : MonoBehaviour
     static public bool Validated = false;
 
     static public int BrushDensity = 4;
+    static public bool RandomizeBrushDensity = true;
+    static public float BrushDensityRandomizationModificator = 0.1f;
     static public float BrushSize = 25;
 
     static public bool IndexObjects = true;
@@ -19,6 +21,7 @@ public class WillowTerrainSettings : MonoBehaviour
 
     static public bool DebugMode = true;
     static public bool AutoSave = true;
+    static public bool SafeMode = true;
 
     static public bool IgnoreInactiveLayers = false;
 
@@ -53,5 +56,5 @@ public class WillowTerrainSettings : MonoBehaviour
     // Changelog for undo implementation
     static public Stack<Change> ChangeLog = new Stack<Change>();
 
-    static public float RecalculatingLength = 50;
+    static public float RecalculatingLength = 200;
 }

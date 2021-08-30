@@ -53,9 +53,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         
         if (GUILayout.Button("Revert", GUILayout.Width(60)))
         {
-            if (EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session? You can not undo this action.", "Revert", "Cancel"))
+            if (!WillowTerrainSettings.SafeMode || EditorUtility.DisplayDialog("Willow Revert", "Are you sure to REVERT all changings of the last session? You can not undo this action.", "Revert", "Cancel"))
             {
-                WillowFileManager.TryRead();
+                WillowFileManager.Read();
             }
         }
 

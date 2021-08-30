@@ -64,7 +64,8 @@ public static class WillowSpawnableObjectManager
         {
             if (SpawnedDependsOnSpawnable(WillowTerrainSettings.SpawnableObjects[index], out int amount))
             {
-                EditorUtility.DisplayDialog("Willow Error", $"Unable to remove spawnable object. {amount} spawned objects depend on it.", "Ok");
+                if (!WillowTerrainSettings.SafeMode) 
+                    EditorUtility.DisplayDialog("Willow Error", $"Unable to remove spawnable object. {amount} spawned objects depend on it.", "Ok");
                 return false;
             }
             WillowTerrainSettings.SpawnableObjects.RemoveAt(index);
@@ -292,7 +293,7 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("Reset", GUILayout.Width(60)))
         {
-            if (EditorUtility.DisplayDialog("Reset all spawnable objects", "Are you sure to RESET all spawnable objects info? You can not undo this action.", "Reset all", "Cancel"))
+            if (!WillowTerrainSettings.SafeMode || EditorUtility.DisplayDialog("Reset all spawnable objects", "Are you sure to RESET all spawnable objects info? You can not undo this action.", "Reset all", "Cancel"))
             {
                 WillowSpawnableObjectManager.ResetAllSpawnableObjects();
             }
