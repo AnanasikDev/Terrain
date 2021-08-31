@@ -35,7 +35,6 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         WillowTerrainSettings.IsActive = false;
     }
-    
 
     private void DrawHeader()
     {
@@ -162,7 +161,18 @@ public sealed class WillowTerrainEditor : EditorWindow
     private void DrawSettingsTab()
     {
         WillowTerrainSettings.BrushDensity = EditorGUILayout.IntField("Brush density", WillowTerrainSettings.BrushDensity);
+        WillowTerrainSettings.RandomizeBrushDensity = EditorGUILayout.Toggle("Randomize?", WillowTerrainSettings.RandomizeBrushDensity);
         
+        if (WillowTerrainSettings.RandomizeBrushDensity)
+        {
+            WillowTerrainSettings.BrushDensityRandomizationModificator = EditorGUILayout.FloatField("Randomization %", WillowTerrainSettings.BrushDensityRandomizationModificator);
+        }
+        WillowTerrainSettings.BrushSurface = (BrushSurface)EditorGUILayout.EnumPopup("Surface identify", WillowTerrainSettings.BrushSurface);
+        if (WillowTerrainSettings.BrushSurface == BrushSurface.Static)
+        {
+            WillowTerrainSettings.BrushSurfaceStaticNormal = EditorGUILayout.Vector3Field("  Brush normal", WillowTerrainSettings.BrushSurfaceStaticNormal);
+        }
+
         if (WillowTerrainSettings.BrushDensity < 0)
             WillowTerrainSettings.BrushDensity = 0;
         WillowTerrainSettings.BrushSize = EditorGUILayout.FloatField("Brush size", WillowTerrainSettings.BrushSize);

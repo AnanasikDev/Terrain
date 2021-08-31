@@ -14,11 +14,13 @@ public static class WillowBrushVis
             Handles.DrawSphere(0, pos + Vector3.down * size/6, Quaternion.identity, size*2);
             Color c1 = new Color(0.35f, 0.33f, 0.4f, 0.65f);
             Handles.color = c1;
-            Handles.DrawSolidDisc(pos, normal, size);
-        }
+            Vector3 brushNormal = normal;
+            
+            if (WillowTerrainSettings.BrushSurface == BrushSurface.Static)
+                brushNormal = WillowTerrainSettings.BrushSurfaceStaticNormal;
 
-        /*if (WillowTerrainSettings.BrushShape == BrushShape.Circle)
-            Handles.DrawSolidDisc(pos, Vector3.up, size);
+            Handles.DrawSolidDisc(pos, brushNormal, size);
+        }
 
         else if (WillowTerrainSettings.BrushShape == BrushShape.Square)
         {
@@ -29,7 +31,7 @@ public static class WillowBrushVis
                 new Vector3(pos.x + normSize/2, pos.y, pos.z + normSize / 2),
                 new Vector3(pos.x + normSize/2, pos.y, pos.z - normSize / 2)
             }, new Color(0.1f, 0.1f, 0.2f, 0.8f), c);
-        }*/
+        }
     }
     public static void BrushVis()
     {

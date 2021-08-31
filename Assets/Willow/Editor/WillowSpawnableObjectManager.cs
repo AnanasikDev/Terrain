@@ -132,7 +132,9 @@ public static class WillowSpawnableObjectManager
             spawnableObject.Layer = WillowTerrainSettings.LayersName[spawnableObject.LayerIndex];
 
         spawnableObject.SpawnChance = EditorGUILayout.IntField("Chance", spawnableObject.SpawnChance); //objs[i].spawnChance
-        if (spawnableObject.SpawnChance < 0) spawnableObject.SpawnChance = 0;
+        
+        if (spawnableObject.SpawnChance < 0) 
+            spawnableObject.SpawnChance = 0;
 
 
         EditorGUILayout.BeginVertical("box");

@@ -47,7 +47,11 @@ public static class WillowUtils
         Circle,
         Square
     }
-
+    public enum BrushSurface
+    {
+        Static,
+        AsNormal
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;

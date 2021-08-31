@@ -37,7 +37,10 @@ public static class WillowObjectsController
             return;
         }
 
-        for (int i = 0; i < WillowTerrainSettings.BrushDensity; i++)
+        float density = WillowTerrainSettings.BrushDensity;
+        if (WillowTerrainSettings.RandomizeBrushDensity)
+            density = RandomizeBrushDensity();
+        for (int i = 0; i < density; i++)
         {
             WillowSpawnableObject spawnableObject = GetObject(spawnableObjects);
             
@@ -420,6 +423,27 @@ public static class WillowObjectsController
     private static bool RaycastBrush(out RaycastHit hit, RaycastHit screenHit)
     {
         Vector3 position = GetRandomPointOnBrush();
-        return Physics.Raycast(screenHit.point + position + screenHit.normal * 10, -screenHit.normal, out hit) && CheckSurface(hit.collider.gameObject);
+        Vector3 normal = GetBrushNormal(screenHit.normal);
+        return Physics.Raycast(screenHit.point + position + normal * 10, -normal, out hit) && CheckSurface(hit.collider.gameObject);
+    }
+    private static float RandomizeBrushDensity()
+    {
+        return Random.Range(WillowTerrainSettings.BrushDensity * (1f / WillowTerrainSettings.BrushDensityRandomizationModificator),
+                            WillowTerrainSettings.BrushDensity * (1f + WillowTerrainSettings.BrushDensityRandomizationModificator));
+    }
+    private static Vector3 GetBrushNormal(Vector3 surfaceNormal)
+    {
+        Vector3 normal = Vector3.zero;
+
+        if (WillowTerrainSettings.BrushSurface == BrushSurface.AsNormal)
+        {
+            normal = surfaceNormal;
+        }
+        if (WillowTerrainSettings.BrushSurface == BrushSurface.Static)
+        {
+            normal = WillowTerrainSettings.BrushSurfaceStaticNormal;
+        }
+
+        return normal;
     }
 }

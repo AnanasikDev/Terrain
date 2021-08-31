@@ -11,6 +11,9 @@ public class WillowTerrainSettings : MonoBehaviour
     static public float BrushDensityRandomizationModificator = 0.1f;
     static public float BrushSize = 25;
 
+    static public BrushSurface BrushSurface = BrushSurface.Static;
+    static public Vector3 BrushSurfaceStaticNormal = Vector3.up;
+
     static public bool IndexObjects = true;
 
     static public BrushShape BrushShape = BrushShape.Circle;
