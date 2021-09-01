@@ -1,8 +1,8 @@
 True
-1
-False
-0
-11,45
+2
+True
+20
+4,85
 True
 True
 True
@@ -17,7 +17,7 @@ False
 1
 False
 null
-False
+True
 AsNormal
 Y
 (0.0, 2.0, 0.0)
@@ -30,7 +30,7 @@ False
 (360.0, 360.0, 360.0)
 True
 35
-False
+True
 (0.0, 0.0, 0.0)
 False
 Object
@@ -52,7 +52,7 @@ True
 False
 null
 False
-AsNormal
+LerpedRandomAsNormal
 Y
 (0.0, 0.0, 0.0)
 0,15
@@ -64,8 +64,8 @@ False
 (360.0, 360.0, 360.0)
 True
 35
-False
-(0.0, 0.0, 0.0)
+True
+(0.0, 0.0, -1.0)
 False
 Object
 AsPrefab
@@ -80,22 +80,10 @@ True
 default
 0
 (-90.0, 0.0, 0.0)
-12
-tree1a pre (175 clone)
-tree1a pre (176 clone)
-tree1a pre (177 clone)
-tree1a pre (178 clone)
-tree1a pre (179 clone)
-tree1a pre (180 clone)
-tree1a pre (181 clone)
-tree1a pre (182 clone)
-tree1a pre (183 clone)
-tree1a pre (184 clone)
-tree1a pre (185 clone)
-tree1a pre (186 clone)
+0
 True
  ({0} clone)
-187
+308
 0
 False
 True

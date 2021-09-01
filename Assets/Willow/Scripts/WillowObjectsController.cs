@@ -426,10 +426,14 @@ public static class WillowObjectsController
         Vector3 normal = GetBrushNormal(screenHit.normal);
         return Physics.Raycast(screenHit.point + position + normal * 10, -normal, out hit) && CheckSurface(hit.collider.gameObject);
     }
-    private static float RandomizeBrushDensity()
+    private static int RandomizeBrushDensity()
     {
-        return Random.Range(WillowTerrainSettings.BrushDensity * (1f / WillowTerrainSettings.BrushDensityRandomizationModificator),
-                            WillowTerrainSettings.BrushDensity * (1f + WillowTerrainSettings.BrushDensityRandomizationModificator));
+        return Mathf.RoundToInt( 
+            Random.Range
+            (
+                WillowTerrainSettings.BrushDensity + (WillowTerrainSettings.BrushDensityRandomizationModificator * 0.1f) / 2f,
+                WillowTerrainSettings.BrushDensity - (WillowTerrainSettings.BrushDensityRandomizationModificator * 0.1f) / 2f) 
+            );
     }
     private static Vector3 GetBrushNormal(Vector3 surfaceNormal)
     {
