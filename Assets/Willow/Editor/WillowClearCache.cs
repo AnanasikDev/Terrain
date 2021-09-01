@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using static WillowGlobalConfig;
@@ -72,3 +73,4 @@ public class WillowClearCache : Editor
         WillowFileManager.Write();
     }
 }
+#endif

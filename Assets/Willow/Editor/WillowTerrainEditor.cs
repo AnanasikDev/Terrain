@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -285,3 +286,4 @@ public sealed class WillowTerrainEditor : EditorWindow
         Repaint();
     }
 }
+#endif

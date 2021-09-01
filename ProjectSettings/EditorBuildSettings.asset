@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Willow/Example/Scenes/New Scene.unity
     guid: 05ba77b463b8ba34794dcbcbbf8aee6d
   - enabled: 1

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using static WillowUtils;
 
@@ -45,3 +46,4 @@ public static class WillowBrushVis
         SceneView.RepaintAll();
     }
 }
+#endif

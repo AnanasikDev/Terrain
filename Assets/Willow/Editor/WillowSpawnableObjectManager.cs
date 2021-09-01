@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using static WillowUtils;
 using static WillowStyles;
@@ -323,3 +324,4 @@ public static class WillowSpawnableObjectManager
         return false;
     }
 }
+#endif

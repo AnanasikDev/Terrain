@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 public static class WillowStyles
@@ -25,3 +26,4 @@ public static class WillowStyles
         DefaultContentColor = GUI.contentColor;
     }
 }
+#endif

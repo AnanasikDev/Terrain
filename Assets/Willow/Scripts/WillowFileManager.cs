@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using System.Text;
 using System.IO;
@@ -300,3 +301,4 @@ public static class WillowFileManager
         return AssetDatabase.LoadAssetAtPath($"{name.RemoveSlashR()}", typeof(GameObject)) as GameObject;
     }
 }
+#endif

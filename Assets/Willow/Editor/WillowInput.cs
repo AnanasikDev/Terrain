@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using System;
 using static WillowUtils;
@@ -175,3 +176,4 @@ public static class WillowInput
         }
     }
 }
+#endif

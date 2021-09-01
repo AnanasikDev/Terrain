@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿#if UNITY_EDITOR
+using System.Linq;
 using UnityEngine;
 
 public class WillowObjectsRecalculation
@@ -25,3 +26,4 @@ public class WillowObjectsRecalculation
         }
     }
 }
+#endif
