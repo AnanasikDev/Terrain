@@ -21,6 +21,7 @@ public static class WillowFileManager
 
         Push(WillowTerrainSettings.IsActive);
         Push(WillowTerrainSettings.BrushDensity);
+        Push(WillowTerrainSettings.BrushMode);
         Push(WillowTerrainSettings.RandomizeBrushDensity);
         Push(WillowTerrainSettings.BrushDensityRandomizationModificator);
         Push(WillowTerrainSettings.BrushSize);
@@ -119,6 +120,7 @@ public static class WillowFileManager
         {
             WillowTerrainSettings.IsActive = Convert.ToBoolean(Pull());
             WillowTerrainSettings.BrushDensity = Convert.ToInt32(Pull());
+            WillowTerrainSettings.BrushMode = ParseEnum<BrushMode>(Pull());
             WillowTerrainSettings.RandomizeBrushDensity = Convert.ToBoolean(Pull());
             WillowTerrainSettings.BrushDensityRandomizationModificator = Convert.ToSingle(Pull());
             WillowTerrainSettings.BrushSize = Convert.ToSingle(Pull());
