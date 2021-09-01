@@ -14,11 +14,15 @@ For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To
 
 
 ***Brush density***: static amount of spawned object per click.
-	
+
+***Randomize, Randomization %***: If Randomize is enabled then brush density will be randomized as Randomization % value.
+
 ***Brush size***: static abstract size of brush. You can change it with hotkeys: *F + Scroll Wheel*
 
 ***Brush shape***: shape of brush. Spawnes objects evenly on shape.
 	
+***Brush mode***: brush surface detection mode. If it is static then brush will be used only on static normal. If mode is AsNormal then brush rotates as normal the cursor points on. First mode is useful for trees planting; Second may be used for planting moss onto walls etc.
+
 ***Fill brush***: if turned on it will spawn *inside* shape, otherwise only on border.
 	
 ***Index objects***: if turned on Willow will index names.
