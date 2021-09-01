@@ -25,11 +25,18 @@ For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To
 
 ***Fill brush***: if turned on it will spawn *inside* shape, otherwise only on border.
 	
-***Index objects***: if turned on Willow will index names.
+***Index objects, Index format***: if turned on Willow will index names using index format value.
+
+***Parent***: default parent for all spawnable objects that do not define custom parent instead.
+
+***Ignore inactive layers***: It is useful to be sure that you interact only with enabled layers.
+	
+***Debug mode***: enables console debug.
 	
 ***Auto-save***: if turned on it saves all Willow settings in a file whenever you work with objects.<br>
 *Note: it does not save automatically if you change settings.*
-
+	
+***Recalculation check length***: the length of the ray used to recalculate rotation and position parameters of spawned objects. 
 
 
 </details>
