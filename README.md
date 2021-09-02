@@ -38,8 +38,16 @@ For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To
 	
 ***Recalculation check length***: the length of the ray used to recalculate rotation and position parameters of spawned objects. 
 
+</details>
+
+
+<details>
+<summary><b>What is WillowSpawnedObject for?</b></summary>
+
+***WillowSpawnedObject*** component allows *Willow* to recalculate objects' rotation, position, scale, etc. It is also used to calculate renderers' colors. Do not delete this component!
 
 </details>
+
 
 All surfaces that you want to spawn objects on must contain ***WillowTerrainSettings*** component and any type of collider.<br>
 *Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for **convenience***<br>
