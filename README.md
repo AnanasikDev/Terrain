@@ -49,6 +49,13 @@ For initialize Willow you need to open ***Tools -> Willow -> Prefab Brush***. To
 </details>
 
 
+<details>
+<summary><b>Working with layers</b></summary>
+
+Layers in *Willow* is a way to work only with selected objects. Every spawnable object is attached to one layer. To edit layers go to tab *Layers*. You can delete any layer, if no spawned objects depend on it, otherwise error will be occured. You can rename any layer if there is no layer with that name.
+
+</details>
+
 All surfaces that you want to spawn objects on must contain ***WillowTerrainSettings*** component and any type of collider.<br>
 *Note: Further in the documentation, GameObject with WillowTerrainSettings is replaced by Terrain for **convenience***<br>
 
