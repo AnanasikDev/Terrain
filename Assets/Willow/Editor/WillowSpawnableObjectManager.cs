@@ -87,7 +87,8 @@ public static class WillowSpawnableObjectManager
 
         if (GUILayout.Button("+", GUILayout.Width(18), GUILayout.Height(18)))
         {
-            WillowTerrainSettings.SpawnableObjects.Insert(index + 1, new WillowSpawnableObject(WillowTerrainSettings.SpawnableObjects[index]));
+            //new WillowSpawnableObject(WillowTerrainSettings.SpawnableObjects[index])
+            WillowTerrainSettings.SpawnableObjects.Insert(index + 1, WillowTerrainSettings.SpawnableObjects[index].Clone());
         }
 
         GUI.backgroundColor = bgc;

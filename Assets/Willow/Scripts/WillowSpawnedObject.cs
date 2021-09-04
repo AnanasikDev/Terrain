@@ -9,20 +9,76 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     [HideInInspector] public Vector3 PositionAdd;
     [HideInInspector] public WillowSpawnableObject SpawnableObject;
 
-    private RaycastHit[] hits = new RaycastHit[12];
+    private const int CastCapacity = 15;
+
+    [SerializeField] private RaycastHit[] Hits = new RaycastHit[CastCapacity];
+    [SerializeField] private Collider[] Colliders = new Collider[CastCapacity];
 
     private bool GetHit()
     {
-        Physics.RaycastNonAlloc(transform.position + transform.up * WillowTerrainSettings.RecalculatingLength, -transform.up, hits, WillowTerrainSettings.RecalculatingLength * 2f);
+        Vector3 direction = GetRaycastDirection();
+        Physics.RaycastNonAlloc
+            (
+                transform.position + -direction * WillowTerrainSettings.RecalculatingLength, 
+                direction, 
+                Hits, 
+                WillowTerrainSettings.RecalculatingLength * 2f
+            );
 
-        return hits.Where(x => x.collider != null).ToArray().Length != 0;
+        return Hits.Where(x => x.collider != null).ToArray().Length != 0;
     }
+    private Vector3 GetRaycastDirection()
+    {
+        if (SpawnableObject.RecalculatingMode == WillowUtils.RecalculatingMode.AsRotation)
+        {
+            return - transform.up;
+        }
+        else if (SpawnableObject.RecalculatingMode == WillowUtils.RecalculatingMode.Static)
+        {
+            // Static mode
 
+            return SpawnableObject.RecalculationStaticDirection;
+        }
+        else if (SpawnableObject.RecalculatingMode == WillowUtils.RecalculatingMode.AsNearest)
+        {
+            // nearest mode
+
+            Vector3 nearestPoint;
+            Vector3 origin = transform.position;
+            float radius = WillowTerrainSettings.RecalculatingLength;
+            //Physics.SphereCastNonAlloc(origin, radius, Vector3.forward, hits);
+            Physics.OverlapSphereNonAlloc(origin, radius, Colliders);
+
+            Debug.Log(string.Join<Collider>(", ", Colliders.Where(c => c != null).OrderBy(c => (transform.position - c.transform.position).sqrMagnitude)));
+
+            Collider nearest = Colliders
+                .Where(c => c != null)
+                //.Reverse()
+                .OrderBy(c => (transform.position - c.transform.position).sqrMagnitude)
+                .FirstOrDefault();
+
+            Debug.Log(nearest);
+
+            if (nearest == null)
+            {
+                throw new UnityEngine.MissingReferenceException("No collider");
+            }
+
+            nearestPoint = nearest.ClosestPoint(transform.position);
+
+            Vector3 direction = (transform.position - nearestPoint).normalized;
+            Debug.Log(direction);
+            //Physics.Raycast(/*new Ray(transform.position, nearestPoint)*/, out RaycastHit nearest);
+
+            return direction;
+        }
+        return Vector3.zero;
+    }
     private bool GetNewPosition(out Vector3 position)
     {
         GetHit();
 
-        foreach (var hit in hits.Reverse().Where(h => h.collider != null))
+        foreach (var hit in Hits.Reverse().Where(h => h.collider != null))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
@@ -39,7 +95,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         GetHit();
 
-        foreach (var hit in hits.Reverse().Where(h => h.collider != null))
+        foreach (var hit in Hits.Reverse().Where(h => h.collider != null))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
@@ -75,6 +131,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public void RecalculateObjectRotation()
     {
         GetNewRotation(out Vector3 normal);
+        Debug.Log(normal);
 
         WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, normal, SpawnableObject.CustomEulersRotation);
     }

@@ -1,9 +1,9 @@
 True
-2
+1
 Place
-True
+False
 0,1
-25
+1
 True
 True
 True
@@ -19,7 +19,7 @@ True
 False
 null
 False
-AsPrefab
+AsNormal
 Y
 (0.0, 0.0, 0.0)
 0,15
@@ -47,10 +47,11 @@ True
 default
 0
 (0.0, 0.0, 0.0)
-0
+1
+WillowExamplePrefab 1 (38 clone)
 True
  ({0} clone)
-0
+39
 0
 False
 True

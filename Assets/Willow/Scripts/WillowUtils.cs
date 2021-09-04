@@ -52,6 +52,12 @@ public static class WillowUtils
         Static,
         AsNormal
     }
+    public enum RecalculatingMode
+    {
+        AsNearest,
+        Static,
+        AsRotation
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;

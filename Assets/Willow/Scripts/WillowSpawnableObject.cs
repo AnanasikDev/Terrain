@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Linq;
+﻿using System.Linq;
+using UnityEngine;
+using static WillowUtils;
 
 [System.Serializable]
 public sealed class WillowSpawnableObject
@@ -8,8 +9,8 @@ public sealed class WillowSpawnableObject
     public GameObject Object;
     [SerializeField, Min(0)] public int SpawnChance = 1;
 
-    public WillowUtils.RotationType RotationType = WillowUtils.RotationType.AsPrefab;
-    public WillowUtils.Axis RotationAxis = WillowUtils.Axis.Y;
+    public RotationType RotationType = RotationType.AsPrefab;
+    public Axis RotationAxis = Axis.Y;
     public Vector3 CustomEulersRotation = Vector3.zero;
     public float LerpValue = 0.15f;
     public float MinLerpValue = 0.1f;
@@ -37,8 +38,8 @@ public sealed class WillowSpawnableObject
     public bool RenameObject = false;
     public string NewObjectName = "Object";
 
-    public WillowUtils.ScaleType ScaleType = WillowUtils.ScaleType.AsPrefab;
-    public WillowUtils.Axis ScaleAxis = WillowUtils.Axis.XYZ;
+    public ScaleType ScaleType = ScaleType.AsPrefab;
+    public Axis ScaleAxis = Axis.XYZ;
     public bool ModifyScale = false;
     public Vector3 CustomScale = Vector3.one;
     public Vector3 ScaleMinSeparated = new Vector3(0.9f, 0.9f, 0.9f);
@@ -48,6 +49,8 @@ public sealed class WillowSpawnableObject
     public bool SeparateScaleAxis = true;
 
     public bool Hidden = false;
+    public RecalculatingMode RecalculatingMode = RecalculatingMode.AsNearest;
+    public Vector3 RecalculationStaticDirection = Vector3.down;
 
     public WillowSpawnableObject()
     {
@@ -94,6 +97,32 @@ public sealed class WillowSpawnableObject
         ScaleMax = clone.ScaleMax;
         ScaleMinSeparated = clone.ScaleMinSeparated;
         ScaleMaxSeparated = clone.ScaleMaxSeparated;
+        
+
+        //Clone(clone);
+    }
+    private void Clone(WillowSpawnableObject spawnableObject)
+    {
+        var properties = typeof(WillowSpawnableObject).GetProperties().ToList();
+        for (int i = 0; i < properties.Count; i++)
+        {
+            object value = properties[i].GetValue(spawnableObject);
+            Debug.Log(value);
+            properties[i].SetValue(this, value);
+        }
+    }
+    public WillowSpawnableObject Clone()
+    {
+        WillowSpawnableObject spawnableObject = new WillowSpawnableObject();
+
+        var properties = this.GetType().GetProperties().ToList();
+        for (int i = 0; i < properties.Count; i++)
+        {
+            object value = properties[i].GetValue(this);
+            Debug.Log(value);
+            properties[i].SetValue(spawnableObject, value);
+        }
+        return spawnableObject;
     }
     public bool DeepEquals(WillowSpawnableObject spawnableObject)
     {
