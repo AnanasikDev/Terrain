@@ -19,13 +19,21 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         Vector3 direction = GetRaycastDirection();
         Physics.RaycastNonAlloc
             (
-                transform.position + -direction * WillowTerrainSettings.RecalculatingLength, 
-                direction, 
-                Hits, 
-                WillowTerrainSettings.RecalculatingLength * 2f
+                transform.position, // + -direction * WillowTerrainSettings.RecalculatingLength, 
+                direction,
+                Hits,
+                WillowTerrainSettings.RecalculatingLength
             );
 
-        return Hits.Where(x => x.collider != null).ToArray().Length != 0;
+        for (int i = 0; i < Hits.Length; i++)
+        {
+            if (Hits[i].collider != null && (Hits[i].collider.gameObject == gameObject || Hits[i].collider.gameObject.activeSelf == false))
+                Hits[i] = new RaycastHit();
+        }
+
+        foreach (var a in Hits) Debug.Log(a.collider);
+
+        return Hits.Reverse().Where(x => x.collider != null).ToArray().Length != 0;
     }
     private Vector3 GetRaycastDirection()
     {
@@ -47,6 +55,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
             Vector3 origin = transform.position;
             float radius = WillowTerrainSettings.RecalculatingLength;
             //Physics.SphereCastNonAlloc(origin, radius, Vector3.forward, hits);
+            Debug.Log(radius);
             Physics.OverlapSphereNonAlloc(origin, radius, Colliders);
 
             Debug.Log(string.Join<Collider>(", ", Colliders.Where(c => c != null).OrderBy(c => (transform.position - c.transform.position).sqrMagnitude)));
@@ -66,8 +75,8 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
             nearestPoint = nearest.ClosestPoint(transform.position);
 
-            Vector3 direction = (transform.position - nearestPoint).normalized;
-            Debug.Log(direction);
+            Vector3 direction = (nearestPoint - transform.position).normalized; //-(transform.position - nearestPoint).normalized;
+            Debug.Log($"{direction}; {transform.position}, {nearestPoint}");
             //Physics.Raycast(/*new Ray(transform.position, nearestPoint)*/, out RaycastHit nearest);
 
             return direction;
