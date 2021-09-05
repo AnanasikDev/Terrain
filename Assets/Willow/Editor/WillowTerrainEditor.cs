@@ -85,7 +85,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         GUI.contentColor = DefaultContentColor;
         GUI.backgroundColor = DefaultBackGroundColor;
 
-
         DrawBrushTabs();
 
         if (WillowTerrainSettings.Erase)
@@ -96,6 +95,8 @@ public sealed class WillowTerrainEditor : EditorWindow
         }
 
         EditorGUILayout.Space(20);
+
+        //WillowFileManager.Write();
     }
     private void DrawBrushTabs()
     {
@@ -220,7 +221,6 @@ public sealed class WillowTerrainEditor : EditorWindow
         EditorGUILayout.LabelField("Total spawned: " + WillowTerrainSettings.SpawnedObjects.Where(o => o != null).ToArray().Length.ToString());
         EditorGUILayout.LabelField("Layers amount: " + WillowTerrainSettings.LayersName.Count.ToString());
         EditorGUILayout.LabelField("Total spawnable objects: " + WillowTerrainSettings.SpawnableObjects.Count);
-
     }
     private void DrawObjectsTab()
     {

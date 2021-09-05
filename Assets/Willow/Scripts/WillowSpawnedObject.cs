@@ -25,13 +25,10 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
                 WillowTerrainSettings.RecalculatingLength
             );
 
-        for (int i = 0; i < Hits.Length; i++)
-        {
-            if (Hits[i].collider != null && (Hits[i].collider.gameObject == gameObject || Hits[i].collider.gameObject.activeSelf == false))
-                Hits[i] = new RaycastHit();
-        }
+        Hits = Hits.Where(hit => hit.collider != null && hit.collider.gameObject.activeInHierarchy).ToArray();
 
-        foreach (var a in Hits) Debug.Log(a.collider);
+        foreach (var a in Hits) 
+            Debug.Log(a.collider);
 
         return Hits.Reverse().Where(x => x.collider != null).ToArray().Length != 0;
     }
@@ -58,6 +55,8 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
             Debug.Log(radius);
             Physics.OverlapSphereNonAlloc(origin, radius, Colliders);
 
+            Colliders = Colliders.Where(c => c != null && c.gameObject.activeInHierarchy).ToArray();
+
             Debug.Log(string.Join<Collider>(", ", Colliders.Where(c => c != null).OrderBy(c => (transform.position - c.transform.position).sqrMagnitude)));
 
             Collider nearest = Colliders
@@ -73,7 +72,10 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
                 throw new UnityEngine.MissingReferenceException("No collider");
             }
 
-            nearestPoint = nearest.ClosestPoint(transform.position);
+            nearestPoint = nearest.ClosestPointOnBounds(transform.position);
+
+            /*GameObject a = new GameObject();
+            a.transform.position = nearestPoint;*/
 
             Vector3 direction = (nearestPoint - transform.position).normalized; //-(transform.position - nearestPoint).normalized;
             Debug.Log($"{direction}; {transform.position}, {nearestPoint}");

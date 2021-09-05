@@ -47,11 +47,12 @@ True
 default
 0
 (0.0, 0.0, 0.0)
-1
-WillowExamplePrefab 1 (39 clone)
+2
+WillowExamplePrefab 1 (1 clone)
+WillowExamplePrefab 1 (2 clone)
 True
  ({0} clone)
-40
+3
 0
 False
 True
