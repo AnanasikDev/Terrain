@@ -3,7 +3,7 @@ True
 Place
 False
 0,1
-1
+3,86
 True
 True
 True
@@ -18,7 +18,7 @@ True
 1
 False
 null
-False
+True
 AsNormal
 Y
 (0.0, 0.0, 0.0)
@@ -31,14 +31,14 @@ False
 (360.0, 360.0, 360.0)
 True
 35
-False
-(0.0, 0.0, 0.0)
+True
+(0.0, 1.0, 0.0)
 False
 Object
-AsPrefab
+Static
 XYZ
-False
-(1.0, 1.0, 1.0)
+True
+(1.0, 0.1, 1.0)
 (0.9, 0.9, 0.9)
 0,9
 (1.1, 1.1, 1.1)
@@ -47,12 +47,11 @@ True
 default
 0
 (0.0, 0.0, 0.0)
-2
-WillowExamplePrefab 1 (1 clone)
-WillowExamplePrefab 1 (2 clone)
+1
+WillowExamplePrefab 1 (18 clone)
 True
  ({0} clone)
-3
+19
 0
 False
 True

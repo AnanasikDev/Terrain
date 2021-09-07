@@ -8,11 +8,13 @@ using static WillowUndo;
 public static class WillowInput
 {
     // Keys
-    public static KeyCode PlaceModeKey = KeyCode.C;
-    public static KeyCode EraseModeKey = KeyCode.V;
-    public static KeyCode ExchangeModeKey = KeyCode.B;
-    public static KeyCode BrushSizeModeKey = KeyCode.F;
-    public static KeyCode EnableKey = KeyCode.E;
+    public static bool UseHotkeys = true;
+
+    public static KeyCode PlaceModeKey      = KeyCode.C;
+    public static KeyCode EraseModeKey      = KeyCode.V;
+    public static KeyCode ExchangeModeKey   = KeyCode.B;
+    public static KeyCode BrushSizeModeKey  = KeyCode.F;
+    public static KeyCode EnableKey         = KeyCode.E;
 
     public static float MouseScrollSensitivity = 0.2f;
 
@@ -21,6 +23,9 @@ public static class WillowInput
 
     public static void GetInput()
     {
+        if (Event.current == null || !UseHotkeys) 
+            return;
+
         bool active = GetEnableChange();
         if (active)
             WillowTerrainEditor.EnableWillow();
@@ -31,7 +36,7 @@ public static class WillowInput
             return;
 
         WillowTerrainSettings.BrushMode = GetPlaceModeInput();
-        WillowTerrainSettings.BrushSize = (float)System.Math.Round(Mathf.Clamp(WillowTerrainSettings.BrushSize + GetBrushSizeChange(), 0.05f, 1024f), 2);
+        WillowTerrainSettings.BrushSize = GetBrushSizeChange();
     }
     private static BrushMode GetPlaceModeInput()
     {
@@ -69,14 +74,22 @@ public static class WillowInput
                 BrushSizeKeyHeld = false;
         }
 
-        if (!BrushSizeKeyHeld) return 0;
+        if (!BrushSizeKeyHeld) 
+            return WillowTerrainSettings.BrushSize;
 
         if (Event.current.type == EventType.ScrollWheel)
         {
-            return -Event.current.delta.y * MouseScrollSensitivity;
+            return (float)System.Math.Round
+                (
+                Mathf.Clamp
+                (
+                    WillowTerrainSettings.BrushSize + (-Event.current.delta.y * MouseScrollSensitivity),
+                    0.05f, 1024f
+                    ), 2
+                );
         }
 
-        return 0;
+        return WillowTerrainSettings.BrushSize;
     }
     private static bool GetEnableChange()
     {
@@ -91,6 +104,10 @@ public static class WillowInput
         return WillowTerrainSettings.IsActive;
     }
 
+    public static void OnHierarchyGUI(int instanceID, Rect selectionRect)
+    {
+        GetInput();
+    }
     public static void SceneGUI()
     {
         GetInput();

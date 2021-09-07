@@ -177,6 +177,7 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         if (WillowTerrainSettings.BrushDensity < 0)
             WillowTerrainSettings.BrushDensity = 0;
+
         WillowTerrainSettings.BrushSize = EditorGUILayout.FloatField("Brush size", WillowTerrainSettings.BrushSize);
         if (WillowTerrainSettings.BrushSize < 0) 
             WillowTerrainSettings.BrushSize = 0;
@@ -257,7 +258,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         SceneView.duringSceneGui += OnSceneGUI;
         WillowObjectsController.OnRepaint += Repaint;
         EditorApplication.quitting += Quit;
-        EditorApplication.quitting += WillowClearingDestroyed.ClearDestroyedObjects;
+        EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyGUI;
     }
     private void OnDisable()
     {
@@ -270,9 +271,9 @@ public sealed class WillowTerrainEditor : EditorWindow
         SceneView.duringSceneGui -= OnSceneGUI;
         WillowObjectsController.OnRepaint -= Repaint;
         EditorApplication.quitting -= Quit;
-        EditorApplication.quitting -= WillowClearingDestroyed.ClearDestroyedObjects;
-
+        EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyGUI;
     }
+
     private void Read(UnityEngine.SceneManagement.Scene newScene, OpenSceneMode mode)
     {
         WillowFileManager.TryRead();

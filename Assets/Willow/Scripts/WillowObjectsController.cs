@@ -59,6 +59,7 @@ public static class WillowObjectsController
                 GameObject spawned = SpawnObject(spawnableObject, hit);
 
                 spawnedObjs.Add(spawned);
+                spawned.GetComponent<WillowSpawnedObject>().SpawnedPosition = spawned.transform.position;
 
                 EditorUtility.SetDirty(spawned);
             }
@@ -160,6 +161,9 @@ public static class WillowObjectsController
 
                     o.gameObject.hideFlags = hidden;
                     o.SetActive(false);
+                    
+                    o.GetComponent<WillowSpawnedObject>().SpawnedPosition = o.transform.position;
+
                     WillowTerrainSettings.DestroyedObjects.Add(o);
 
                     EditorUtility.SetDirty(o);

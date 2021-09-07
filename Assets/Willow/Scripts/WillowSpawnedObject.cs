@@ -7,6 +7,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public Renderer[] Renderers;
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
+    [HideInInspector] public Vector3 SpawnedPosition;
     [HideInInspector] public WillowSpawnableObject SpawnableObject;
 
     private const int CastCapacity = 15;
@@ -131,7 +132,9 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
         if (SpawnableObject.CenterObject)
         {
-            transform.Translate(Vector3.up * transform.localScale.y / 2);
+            Vector3 dir = SpawnableObject.PositionAdditionSpace == Space.Self ? transform.up : Vector3.up;
+            transform.position = SpawnedPosition;
+            transform.Translate(dir * transform.localScale.y / 2 * (SpawnableObject.ModifyScale ? SpawnableObject.CustomScale.y : 1));
         }
 
         if (SpawnableObject.ModifyPosition)
