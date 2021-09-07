@@ -53,7 +53,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
             Vector3 origin = transform.position;
             float radius = WillowTerrainSettings.RecalculatingLength;
             //Physics.SphereCastNonAlloc(origin, radius, Vector3.forward, hits);
-            Debug.Log(radius);
             Physics.OverlapSphereNonAlloc(origin, radius, Colliders);
 
             Colliders = Colliders.Where(c => c != null && c.gameObject.activeInHierarchy).ToArray();
@@ -139,7 +138,8 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
 
         if (SpawnableObject.ModifyPosition)
         {
-            transform.Translate(SpawnableObject.PositionAddition);
+            transform.position = SpawnedPosition;
+            transform.Translate(SpawnableObject.PositionAddition, SpawnableObject.PositionAdditionSpace);
         }
     }
     public void RecalculateObjectRotation()

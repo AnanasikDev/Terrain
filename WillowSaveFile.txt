@@ -32,7 +32,7 @@ False
 True
 35
 True
-(0.0, 1.0, 0.0)
+(0.0, 0.0, 0.0)
 False
 Object
 Static
