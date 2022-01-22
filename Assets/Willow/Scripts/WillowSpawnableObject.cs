@@ -49,7 +49,7 @@ public sealed class WillowSpawnableObject
     public bool SeparateScaleAxis = true;
 
     public bool Hidden = false;
-    public RecalculatingMode RecalculatingMode = RecalculatingMode.AsNearest;
+    public RecalculationMode RecalculatingMode = RecalculationMode.AsNearest;
     public Vector3 RecalculationStaticDirection = Vector3.down;
 
     public WillowSpawnableObject()

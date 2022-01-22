@@ -143,6 +143,12 @@ public static class WillowSpawnableObjectManager
 
         DrawLabel("Recalculate", 2);
 
+        spawnableObject.RecalculatingMode = (RecalculationMode)EditorGUILayout.EnumPopup("Mode", spawnableObject.RecalculatingMode);
+        if (spawnableObject.RecalculatingMode == RecalculationMode.Static)
+        {
+            spawnableObject.RecalculationStaticDirection = EditorGUILayout.Vector3Field("  Static direction", spawnableObject.RecalculationStaticDirection);
+        }
+
         EditorGUILayout.BeginHorizontal("box");
 
         if (GUILayout.Button("Position"))

@@ -52,7 +52,7 @@ public static class WillowUtils
         Static,
         AsNormal
     }
-    public enum RecalculatingMode
+    public enum RecalculationMode
     {
         AsNearest,
         Static,
@@ -69,13 +69,6 @@ public static class WillowUtils
         return res[UnityEngine.Random.Range(0, res.Count)];
     }
 
-    public static Vector3 Abs(this Vector3 vector)
-    {
-        return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
-    }
-
-    
-    
     public static float ToFloat(this string input)
     {
         return (float)System.Convert.ToDouble(input);

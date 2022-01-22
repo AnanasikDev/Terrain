@@ -1,5 +1,5 @@
 True
-1
+2
 Place
 False
 0,1
@@ -21,38 +21,71 @@ null
 True
 AsNormal
 Y
-(0.0, 0.0, 0.0)
+(0.00, 0.00, 0.00)
 0,15
 0,1
 0,2
 False
 False
-(0.0, 0.0, 0.0)
-(360.0, 360.0, 360.0)
+(0.00, 0.00, 0.00)
+(360.00, 360.00, 360.00)
 True
 35
 True
-(0.0, 0.0, 0.0)
+(0.00, 0.00, 0.00)
 False
 Object
 Static
 XYZ
 True
-(1.0, 0.1, 1.0)
-(0.9, 0.9, 0.9)
+(1.00, 0.10, 1.00)
+(0.90, 0.90, 0.90)
 0,9
-(1.1, 1.1, 1.1)
+(1.10, 1.10, 1.10)
 1,15
 True
 default
 0
-(0.0, 0.0, 0.0)
-1
+(0.00, 0.00, 0.00)
+34
+WillowExamplePrefab 1 (14 clone)
+WillowExamplePrefab 1 (15 clone)
 WillowExamplePrefab 1 (18 clone)
+WillowExamplePrefab 1 (20 clone)
+WillowExamplePrefab 1 (22 clone)
+WillowExamplePrefab 1 (26 clone)
+WillowExamplePrefab 1 (31 clone)
+WillowExamplePrefab 1 (32 clone)
+WillowExamplePrefab 1 (35 clone)
+WillowExamplePrefab 1 (36 clone)
+WillowExamplePrefab 1 (39 clone)
+WillowExamplePrefab 1 (40 clone)
+WillowExamplePrefab 1 (41 clone)
+WillowExamplePrefab 1 (42 clone)
+WillowExamplePrefab 1 (43 clone)
+WillowExamplePrefab 1 (45 clone)
+WillowExamplePrefab 1 (46 clone)
+WillowExamplePrefab 1 (47 clone)
+WillowExamplePrefab 1 (49 clone)
+WillowExamplePrefab 1 (50 clone)
+WillowExamplePrefab 1 (52 clone)
+WillowExamplePrefab 1 (53 clone)
+WillowExamplePrefab 1 (54 clone)
+WillowExamplePrefab 1 (56 clone)
+WillowExamplePrefab 1 (57 clone)
+WillowExamplePrefab 1 (59 clone)
+WillowExamplePrefab 1 (61 clone)
+WillowExamplePrefab 1 (62 clone)
+WillowExamplePrefab 1 (63 clone)
+WillowExamplePrefab 1 (64 clone)
+WillowExamplePrefab 1 (65 clone)
+WillowExamplePrefab 1 (66 clone)
+WillowExamplePrefab 1 (29 clone)
+WillowExamplePrefab 1 (48 clone)
 True
  ({0} clone)
-19
-0
+67
+1
 False
 True
 False

@@ -12,7 +12,8 @@ public static class WillowBrushVis
 
         if (WillowTerrainSettings.BrushShape == BrushShape.Circle)
         {
-            Handles.DrawSphere(0, pos + Vector3.down * size/6, Quaternion.identity, size*2);
+            //Handles.DrawSphere(0, pos + Vector3.down * size/6, Quaternion.identity, size*2);
+            Handles.SphereHandleCap(0, pos + Vector3.down * size / 6, Quaternion.identity, size * 2, EventType.Repaint);
             Color c1 = new Color(0.35f, 0.33f, 0.4f, 0.65f);
             Handles.color = c1;
             Vector3 brushNormal = normal;
