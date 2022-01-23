@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
+using UnityEditor;
 using static WillowUtils;
 
 [System.Serializable]
@@ -51,6 +52,8 @@ public sealed class WillowSpawnableObject
     public bool Hidden = false;
     public RecalculationMode RecalculatingMode = RecalculationMode.AsNearest;
     public Vector3 RecalculationStaticDirection = Vector3.down;
+
+    public Editor gameObjectEditor;
 
     public WillowSpawnableObject()
     {

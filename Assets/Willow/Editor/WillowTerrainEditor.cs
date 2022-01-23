@@ -20,10 +20,12 @@ public sealed class WillowTerrainEditor : EditorWindow
     private Vector2 scrollPos = Vector2.zero;
     private bool Quited = false;
 
-    [MenuItem(WillowGlobalConfig.Path + "Prefab brush")]
+    public static Rect WindowRectPos;
+
+    [MenuItem(WillowGlobalConfig.Path + "Prefab Brush", false, -1)]
     public static void ShowWindow()
     {
-        GetWindow<WillowTerrainEditor>("Terrain++");
+        GetWindow<WillowTerrainEditor>("Willow Prefab Brush");
     }
 
     public static void EnableWillow()
@@ -227,6 +229,8 @@ public sealed class WillowTerrainEditor : EditorWindow
     {
         DrawSpawnablesAddButton();
 
+        WillowSpawnableObjectManager.DrawPreviews();
+
         for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Count; i++)
         {
             WillowSpawnableObjectManager.DrawSpawnableObject(i);
@@ -236,6 +240,8 @@ public sealed class WillowTerrainEditor : EditorWindow
 
     private void OnGUI()
     {
+        WindowRectPos = position;
+
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         
         DrawHeader();

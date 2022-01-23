@@ -104,6 +104,7 @@ public static class WillowSpawnableObjectManager
         EditorGUILayout.BeginVertical("box");
 
         spawnableObject.Spawn = EditorGUILayout.Toggle("Active", spawnableObject.Spawn);
+
         if (!spawnableObject.Spawn)
         {
             EditorGUILayout.EndHorizontal();
@@ -116,6 +117,14 @@ public static class WillowSpawnableObjectManager
         DrawLabel("GameObject");
 
         spawnableObject.Object = (GameObject)EditorGUILayout.ObjectField("GameObject", spawnableObject.Object, typeof(GameObject), true);
+
+        if (spawnableObject.Object != null)
+        {
+            if (spawnableObject.gameObjectEditor == null)
+                spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
+
+            spawnableObject.gameObjectEditor.OnPreviewGUI(GUILayoutUtility.GetRect(100, 100), EditorStyles.whiteLabel);
+        }
 
         spawnableObject.RenameObject = EditorGUILayout.Toggle("Rename object", spawnableObject.RenameObject);
         if (spawnableObject.RenameObject)
@@ -312,6 +321,69 @@ public static class WillowSpawnableObjectManager
         GUI.backgroundColor = DefaultBackGroundColor;
 
         EditorGUILayout.EndHorizontal();
+    }
+
+    public static void DrawPreviews()
+    {
+        GUILayout.BeginVertical("box");
+        GUILayout.BeginHorizontal("box");
+        int k = 0;
+        int xi = 0;
+        for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Count; i++)
+        {
+            WillowSpawnableObject spawnableObject = WillowTerrainSettings.SpawnableObjects[i];
+
+            float x = 0;
+            float y = 0;
+            if (x + 90 * xi > 270 + 5) //WillowTerrainEditor.WindowRectPos.width - 10
+            {
+                xi = 0;
+                k++;
+                y -= 90 * i;
+                //GUILayout.EndHorizontal();
+                if (k > 1)
+                {
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
+                }
+                GUILayout.Space(100);
+                GUILayout.BeginVertical("box");
+                GUILayout.BeginHorizontal("box");
+            }
+            else
+            {
+                x += 90 * xi;
+                xi++;
+            }
+
+
+            GUILayout.BeginVertical("box");
+
+            GUIStyle style = new GUIStyle();
+            style.fixedWidth = 70f;
+            style.fixedHeight = 70f;
+            var r = GUILayoutUtility.GetRect(new GUIContent(), style);
+            r.x = x;
+            r.y = y;
+
+            if (spawnableObject.Object != null)
+            {
+                if (spawnableObject.gameObjectEditor == null)
+                    spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
+
+                spawnableObject.gameObjectEditor.OnPreviewGUI(r, EditorStyles.whiteLabel);
+            }
+
+            GUILayout.EndVertical();
+        }
+        //for (int j = 0; j < k; j++)
+        if (k > 0)
+        {
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
+        }
+        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
     }
 
     private static bool SpawnedDependsOnSpawnable(WillowSpawnableObject spawnableObject, out int amount)
