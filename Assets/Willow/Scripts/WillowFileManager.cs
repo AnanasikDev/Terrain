@@ -86,6 +86,12 @@ public static class WillowFileManager
             Push(obj.LayerIndex);
 
             Push(obj.RotationEulerAddition);
+
+            Push(obj.AvoidObstacles);
+            Push(obj.ObstaclesTagType);
+            Push(obj.ObstaclesAvoidanceAction);
+            Push(obj.AvoidanceRadius);
+            Push(obj.AvoidanceHeight);
         }
 
         Push(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length );
@@ -119,16 +125,16 @@ public static class WillowFileManager
 
         using (StreamReader reader = new StreamReader(path))
         {
-            WillowTerrainSettings.IsActive = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.BrushDensity = Convert.ToInt32(Pull());
+            WillowTerrainSettings.IsActive = Pull().ToBool();
+            WillowTerrainSettings.BrushDensity = Pull().ToInt();
             WillowTerrainSettings.BrushMode = ParseEnum<BrushMode>(Pull());
-            WillowTerrainSettings.RandomizeBrushDensity = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.BrushDensityRandomizationModificator = Convert.ToSingle(Pull());
+            WillowTerrainSettings.RandomizeBrushDensity = Pull().ToBool();
+            WillowTerrainSettings.BrushDensityRandomizationModificator = Pull().ToFloat();
             WillowTerrainSettings.BrushSize = Convert.ToSingle(Pull());
 
-            WillowTerrainSettings.DebugMode = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.AutoSave = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.SafeMode = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.DebugMode = Pull().ToBool();
+            WillowTerrainSettings.AutoSave = Pull().ToBool();
+            WillowTerrainSettings.SafeMode = Pull().ToBool();
 
             string parent = Pull().RemoveSlashR();
             if (parent == "null") WillowTerrainSettings.BaseParent = null;
@@ -136,7 +142,7 @@ public static class WillowFileManager
 
             Enum.TryParse(Pull(), out WillowTerrainSettings.PlacementType);
 
-            int layerAmount = Convert.ToInt32(Pull());
+            int layerAmount = Pull().ToInt();
             WillowTerrainSettings.LayersName.Clear();
             WillowTerrainSettings.LayersName = new List<string>(layerAmount);
             WillowTerrainSettings.LayersState.Clear();
@@ -145,11 +151,11 @@ public static class WillowFileManager
             for (int layer = 0; layer < layerAmount; layer++)
             {
                 WillowTerrainSettings.LayersName.Add(Pull());
-                WillowTerrainSettings.LayersState.Add(Convert.ToBoolean(Pull()));
+                WillowTerrainSettings.LayersState.Add(Pull().ToBool());
             }
 
             WillowTerrainSettings.SpawnableObjects.Clear();
-            int spawnablesAmount = Convert.ToInt32(Pull());
+            int spawnablesAmount = Pull().ToInt();
             WillowTerrainSettings.SpawnableObjects = new List<WillowSpawnableObject>(spawnablesAmount);
 
             for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Capacity; i++)
@@ -162,15 +168,15 @@ public static class WillowFileManager
                 else
                     spawnable.Object = LoadPrefab(spawnObject);
 
-                spawnable.Spawn = Convert.ToBoolean(Pull());
-                spawnable.SpawnChance = Convert.ToInt32(Pull());
-                spawnable.CustomParent = Convert.ToBoolean(Pull());
+                spawnable.Spawn = Pull().ToBool();
+                spawnable.SpawnChance = Pull().ToInt();
+                spawnable.CustomParent = Pull().ToBool();
 
                 string customParent = Pull().RemoveSlashR();
                 if (customParent == "null") spawnable.Parent = null;
                 else spawnable.Parent = GameObject.Find(customParent).transform;
 
-                spawnable.CenterObject = Convert.ToBoolean(Pull());
+                spawnable.CenterObject = Pull().ToBool();
 
                 spawnable.RotationType = ParseEnum<RotationType>(Pull());
                 spawnable.RotationAxis = ParseEnum<Axis>(Pull());
@@ -179,25 +185,25 @@ public static class WillowFileManager
                 spawnable.LerpValue = Pull().ToFloat();
                 spawnable.MinLerpValue = Pull().ToFloat();
                 spawnable.MaxLerpValue = Pull().ToFloat();
-                spawnable.MultiRotationAxis = Convert.ToBoolean(Pull());
-                spawnable.RandomizeLerpValue = Convert.ToBoolean(Pull());
+                spawnable.MultiRotationAxis = Pull().ToBool();
+                spawnable.RandomizeLerpValue = Pull().ToBool();
                 spawnable.RandomMinRotation = ParseVector(Pull());
                 spawnable.RandomMaxRotation = ParseVector(Pull());
 
-                spawnable.ModifyColor = Convert.ToBoolean(Pull());
+                spawnable.ModifyColor = Pull().ToBool();
                 spawnable.ColorModPercentage = Pull().ToFloat();
 
-                spawnable.ModifyPosition = Convert.ToBoolean(Pull());
+                spawnable.ModifyPosition = Pull().ToBool();
                 
                 spawnable.PositionAddition = ParseVector(Pull());
 
-                spawnable.RenameObject = Convert.ToBoolean(Pull());
+                spawnable.RenameObject = Pull().ToBool();
                 spawnable.NewObjectName = Pull();
 
                 spawnable.ScaleType = ParseEnum<ScaleType>(Pull());
                 spawnable.ScaleAxis = ParseEnum<Axis>(Pull());
 
-                spawnable.ModifyScale = Convert.ToBoolean(Pull());
+                spawnable.ModifyScale = Pull().ToBool();
                 
                 spawnable.CustomScale = ParseVector(Pull());
 
@@ -210,12 +216,18 @@ public static class WillowFileManager
 
                 spawnable.ScaleMax = Pull().ToFloat();
 
-                spawnable.SeparateScaleAxis = Convert.ToBoolean(Pull());
+                spawnable.SeparateScaleAxis = Pull().ToBool();
 
                 spawnable.Layer = Pull();
-                spawnable.LayerIndex = Convert.ToInt32(Pull());
+                spawnable.LayerIndex = Pull().ToInt();
 
                 spawnable.RotationEulerAddition = ParseVector(Pull());
+
+                spawnable.AvoidObstacles = Pull().ToBool();
+                spawnable.ObstaclesTagType = ParseEnum<ObstaclesTagType>(Pull());
+                spawnable.ObstaclesAvoidanceAction = ParseEnum<ObstaclesAvoidanceAction>(Pull());
+                spawnable.AvoidanceRadius = Pull().ToFloat();
+                spawnable.AvoidanceHeight = Pull().ToFloat();
 
                 WillowTerrainSettings.SpawnableObjects.Add(spawnable);
             }
@@ -231,18 +243,18 @@ public static class WillowFileManager
                 WillowTerrainSettings.SpawnedObjects.Add(spawned);
             }
 
-            WillowTerrainSettings.IndexObjects = Convert.ToBoolean(Pull());
+            WillowTerrainSettings.IndexObjects = Pull().ToBool();
             WillowTerrainSettings.IndexFormat = Pull();
             WillowTerrainSettings.SpawnedIndecies = Convert.ToInt64(Pull());
 
-            WillowTerrainSettings.EraseSmoothness = Convert.ToInt32(Pull());
+            WillowTerrainSettings.EraseSmoothness = Pull().ToInt();
 
-            WillowTerrainSettings.ExchangeColor = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.ExchangeParent = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.ExchangePosition = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.ExchangeRotation = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.ExchangeScale = Convert.ToBoolean(Pull());
-            WillowTerrainSettings.ExchangeSmoothness = Convert.ToInt32(Pull());
+            WillowTerrainSettings.ExchangeColor = Pull().ToBool();
+            WillowTerrainSettings.ExchangeParent = Pull().ToBool();
+            WillowTerrainSettings.ExchangePosition = Pull().ToBool();
+            WillowTerrainSettings.ExchangeRotation = Pull().ToBool();
+            WillowTerrainSettings.ExchangeScale = Pull().ToBool();
+            WillowTerrainSettings.ExchangeSmoothness = Pull().ToInt();
         }
 
         Log("Templates read!", Green);

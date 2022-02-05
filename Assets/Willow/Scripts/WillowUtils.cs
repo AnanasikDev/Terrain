@@ -58,6 +58,15 @@ public static class WillowUtils
         Static,
         AsRotation
     }
+    public enum ObstaclesAvoidanceAction
+    {
+        Disable,
+        Delete
+    }
+    public enum ObstaclesTagType
+    {
+        WillowObstacle
+    }
     public static int GetChance(int[] chances)
     {
         int n = chances.Length;
@@ -72,6 +81,14 @@ public static class WillowUtils
     public static float ToFloat(this string input)
     {
         return (float)System.Convert.ToDouble(input);
+    }
+    public static bool ToBool(this string input)
+    {
+        return System.Convert.ToBoolean(input);
+    }
+    public static int ToInt(this string input)
+    {
+        return System.Convert.ToInt32(input);
     }
     public static string RemoveSlashN(this string input)
     {

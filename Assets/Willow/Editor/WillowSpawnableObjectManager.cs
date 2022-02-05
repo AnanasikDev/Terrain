@@ -116,11 +116,13 @@ public static class WillowSpawnableObjectManager
 
         DrawLabel("GameObject");
 
+        int hash = spawnableObject.Object ? spawnableObject.Object.GetHashCode() : 0;
         spawnableObject.Object = (GameObject)EditorGUILayout.ObjectField("GameObject", spawnableObject.Object, typeof(GameObject), true);
 
         if (spawnableObject.Object != null)
         {
-            if (spawnableObject.gameObjectEditor == null)
+            //if (spawnableObject.gameObjectEditor == null)
+            if (hash != spawnableObject.Object.GetHashCode() || spawnableObject.gameObjectEditor == null)
                 spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
 
             spawnableObject.gameObjectEditor.OnPreviewGUI(GUILayoutUtility.GetRect(100, 100), EditorStyles.whiteLabel);
@@ -279,6 +281,14 @@ public static class WillowSpawnableObjectManager
             if (spawnableObject.ColorModPercentage < 0) spawnableObject.ColorModPercentage = 0;
         }
 
+        DrawLabel("Obstacles Avoidance");
+
+        spawnableObject.AvoidObstacles = EditorGUILayout.Toggle("Avoid Obstacles", spawnableObject.AvoidObstacles);
+        spawnableObject.ObstaclesTagType = (ObstaclesTagType)EditorGUILayout.EnumPopup("Obstacles Defining Algorithm", spawnableObject.ObstaclesTagType);
+        spawnableObject.ObstaclesAvoidanceAction = (ObstaclesAvoidanceAction)EditorGUILayout.EnumPopup("Obstacles Avoidance Action", spawnableObject.ObstaclesAvoidanceAction);
+        spawnableObject.AvoidanceRadius = EditorGUILayout.FloatField("Avoidance Radius", spawnableObject.AvoidanceRadius);
+        spawnableObject.AvoidanceHeight = EditorGUILayout.FloatField("Avoidance Height", spawnableObject.AvoidanceHeight);
+
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
@@ -325,65 +335,68 @@ public static class WillowSpawnableObjectManager
 
     public static void DrawPreviews()
     {
-        GUILayout.BeginVertical("box");
+        /*GUILayout.BeginVertical("box");
         GUILayout.BeginHorizontal("box");
-        int k = 0;
-        int xi = 0;
-        for (int i = 0; i < WillowTerrainSettings.SpawnableObjects.Count; i++)
-        {
-            WillowSpawnableObject spawnableObject = WillowTerrainSettings.SpawnableObjects[i];
 
-            float x = 0;
-            float y = 0;
-            if (x + 90 * xi > 270 + 5) //WillowTerrainEditor.WindowRectPos.width - 10
+        int objectsAmount = WillowTerrainSettings.SpawnableObjects.Count;
+
+        int horizontalObjectsAmount = WillowTerrainSettings.SpawnableObjects.Count / 2; // (int)((WillowTerrainEditor.WindowRectPos.width - 20) / 90);
+
+        //Vector2 matrix = new Vector2(horizontalObjectsAmount, objectsAmount / horizontalObjectsAmount);
+        //Vector2Int matrix = new Vector2Int(horizontalObjectsAmount, 2);
+        Vector2Int matrix = new Vector2Int(2, 5);
+
+        for (int line = 0; line < matrix.x; line++)
+        {
+            for (int item = 0; item < matrix.y; item++)
             {
-                xi = 0;
-                k++;
-                y -= 90 * i;
-                //GUILayout.EndHorizontal();
-                if (k > 1)
+                int index = (int)(line * matrix.y + item);
+
+                if (index > objectsAmount - 1)
                 {
+                    var er = GUILayoutUtility.GetRect(90 * (matrix.y - objectsAmount % matrix.x), 90);
+                    er.x += item * 90;
+                    er.y += line * 90;
+                    //GUILayout.EndHorizontal();
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
+                    return;
                 }
-                GUILayout.Space(100);
+
+                WillowSpawnableObject spawnableObject = WillowTerrainSettings.SpawnableObjects[index];
+
                 GUILayout.BeginVertical("box");
-                GUILayout.BeginHorizontal("box");
+
+                var r = GUILayoutUtility.GetAspectRect(1);
+                //r.width = 70;
+                //r.height = 70;
+                r.x += item * 90;
+                r.y += line * 90;
+
+                if (spawnableObject.Object != null)
+                {
+                    if (spawnableObject.gameObjectEditor == null)
+                        spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
+
+                    *//*var rect = new Rect(0, 0, 70, 70);
+                    rect.x = r.x / 90 * 70;
+                    rect.y = r.y;*//*
+                    var rect = r;
+                    rect.x /= 1.5f;
+                    //rect.x = rect.x / 90 * 66;
+                    spawnableObject.gameObjectEditor.OnPreviewGUI(rect, EditorStyles.whiteLabel);
+                }
+
+                GUILayout.EndVertical();
             }
-            else
-            {
-                x += 90 * xi;
-                xi++;
-            }
-
-
-            GUILayout.BeginVertical("box");
-
-            GUIStyle style = new GUIStyle();
-            style.fixedWidth = 70f;
-            style.fixedHeight = 70f;
-            var r = GUILayoutUtility.GetRect(new GUIContent(), style);
-            r.x = x;
-            r.y = y;
-
-            if (spawnableObject.Object != null)
-            {
-                if (spawnableObject.gameObjectEditor == null)
-                    spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
-
-                spawnableObject.gameObjectEditor.OnPreviewGUI(r, EditorStyles.whiteLabel);
-            }
-
-            GUILayout.EndVertical();
-        }
-        //for (int j = 0; j < k; j++)
-        if (k > 0)
-        {
-            GUILayout.EndVertical();
             GUILayout.EndHorizontal();
+            //GUILayout.BeginVertical("box");
+            GUILayout.BeginHorizontal("box");
         }
+
+
         GUILayout.EndHorizontal();
-        GUILayout.EndVertical();
+        GUILayout.EndVertical();*/
     }
 
     private static bool SpawnedDependsOnSpawnable(WillowSpawnableObject spawnableObject, out int amount)

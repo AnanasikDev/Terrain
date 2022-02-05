@@ -53,6 +53,13 @@ public sealed class WillowSpawnableObject
     public RecalculationMode RecalculatingMode = RecalculationMode.AsNearest;
     public Vector3 RecalculationStaticDirection = Vector3.down;
 
+    public bool AvoidObstacles = false;
+    public ObstaclesAvoidanceAction ObstaclesAvoidanceAction;
+    public float AvoidanceRadius = 1f;
+    public float AvoidanceHeight = 1f;
+    public ObstaclesTagType ObstaclesTagType;
+        
+
     public Editor gameObjectEditor;
 
     public WillowSpawnableObject()
@@ -100,8 +107,12 @@ public sealed class WillowSpawnableObject
         ScaleMax = clone.ScaleMax;
         ScaleMinSeparated = clone.ScaleMinSeparated;
         ScaleMaxSeparated = clone.ScaleMaxSeparated;
-        
 
+        AvoidObstacles = clone.AvoidObstacles;
+        ObstaclesAvoidanceAction = clone.ObstaclesAvoidanceAction;
+        AvoidanceRadius = clone.AvoidanceRadius;
+        AvoidanceHeight = clone.AvoidanceHeight;
+        ObstaclesTagType = clone.ObstaclesTagType;
         //Clone(clone);
     }
     private void Clone(WillowSpawnableObject spawnableObject)

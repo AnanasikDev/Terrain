@@ -150,5 +150,43 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         transform.localScale = WillowObjectsController.GetObjectScale(SpawnableObject);
     }
+    public void AvoidObstacles()
+    {
+        if (SpawnableObject.AvoidObstacles)
+        {
+            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+            Collider[] colliders = Physics.OverlapCapsule(origin, target, SpawnableObject.AvoidanceRadius);
+            foreach (Collider collider in colliders)
+            {
+                if (SpawnableObject.ObstaclesTagType == WillowUtils.ObstaclesTagType.WillowObstacle)
+                {
+                    if (collider.GetComponent<WillowObstacle>())
+                    {
+                        if (SpawnableObject.ObstaclesAvoidanceAction == WillowUtils.ObstaclesAvoidanceAction.Disable)
+                        {
+                            gameObject.SetActive(false);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        gameObject.SetActive(true);
+    }
+    private void OnDrawGizmos()
+    {
+        try
+        {
+            if (!SpawnableObject.AvoidObstacles) return;
+
+            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+
+            Gizmos.DrawWireSphere(origin, SpawnableObject.AvoidanceRadius);
+            Gizmos.DrawWireSphere(target, SpawnableObject.AvoidanceRadius);
+        }
+        catch { }
+    }
 }
 #endif

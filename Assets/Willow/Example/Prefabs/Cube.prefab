@@ -26,7 +26,8 @@ Transform:
   m_GameObject: {fileID: 2144695060696966919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 33.34342, y: 23.579762, z: 0.20343207}
-  m_LocalScale: {x: 0.1, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9075483205743703467}
   m_Father: {fileID: 0}
@@ -48,6 +49,7 @@ MonoBehaviour:
   - {fileID: 7813805464649226541}
   Layer: 
   PositionAdd: {x: 0, y: 0, z: 0}
+  SpawnedPosition: {x: 0, y: 0, z: 0}
   SpawnableObject:
     Spawn: 1
     Object: {fileID: 0}
@@ -70,6 +72,7 @@ MonoBehaviour:
     CenterObject: 0
     ModifyPosition: 0
     PositionAddition: {x: 0, y: 0, z: 0}
+    PositionAdditionSpace: 1
     Layer: default
     LayerIndex: 0
     RenameObject: 0
@@ -84,6 +87,9 @@ MonoBehaviour:
     ScaleMax: 1.15
     SeparateScaleAxis: 1
     Hidden: 0
+    RecalculatingMode: 0
+    RecalculationStaticDirection: {x: 0, y: -1, z: 0}
+    gameObjectEditor: {fileID: 0}
 --- !u!1001 &8824854705535259200
 PrefabInstance:
   m_ObjectHideFlags: 0

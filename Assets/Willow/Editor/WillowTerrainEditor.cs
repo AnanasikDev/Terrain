@@ -201,13 +201,24 @@ public sealed class WillowTerrainEditor : EditorWindow
         WillowTerrainSettings.AutoSave = EditorGUILayout.Toggle("Auto save", WillowTerrainSettings.AutoSave);
 
         WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
-        
+
+        GUILayout.BeginHorizontal("box");
+
         if (GUILayout.Button("Recalculate all"))
         {
             RecalculatePositionsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
             RecalculateRotationsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
             RecalculateScalesSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
         }
+
+        if (GUILayout.Button("Avoid"))
+        {
+            foreach (GameObject spawnedObject in WillowTerrainSettings.SpawnedObjects.Where(x => x))
+            {
+                spawnedObject.GetComponent<WillowSpawnedObject>().AvoidObstacles();
+            }
+        }
+        GUILayout.EndHorizontal();
 
         // General Info
 
