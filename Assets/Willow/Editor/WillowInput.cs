@@ -114,7 +114,7 @@ public static class WillowInput
 
         if (WillowTerrainSettings.AvoidAutomatically) AvoidObstacles();
 
-        if (!WillowTerrainSettings.IsActive) return;
+        if (!WillowTerrainSettings.IsActive) return; //
 
         if (Event.current.type == EventType.MouseLeaveWindow)
             SceneView = false;

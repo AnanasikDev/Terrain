@@ -282,7 +282,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         GetInput();
     }
 
-    private void OnValidate()
+    private void OnEnable()
     {
         InitializeStyles();
         WillowFileManager.TryRead();

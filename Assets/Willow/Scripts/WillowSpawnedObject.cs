@@ -8,7 +8,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
     [HideInInspector] public Vector3 SpawnedPosition;
-    [HideInInspector] public WillowSpawnableObject SpawnableObject;
+    /*[HideInInspector]*/ public WillowSpawnableObject SpawnableObject;
 
     private const int CastCapacity = 15;
 

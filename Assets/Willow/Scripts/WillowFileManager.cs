@@ -94,11 +94,11 @@ public static class WillowFileManager
             Push(obj.AvoidanceHeight);
         }
 
-        Push(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length );
+        /*Push(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length );
         foreach (GameObject spawnedObj in WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None))
         {
             Push(spawnedObj.name.RemoveSlashR());
-        }
+        }*/
 
         Push(WillowTerrainSettings.IndexObjects);
         Push(WillowTerrainSettings.IndexFormat.RemoveSlashR());
@@ -235,15 +235,24 @@ public static class WillowFileManager
             }
 
             WillowTerrainSettings.SpawnedObjects.Clear();
-            WillowTerrainSettings.SpawnedObjects = new List<GameObject>(Convert.ToInt32(Pull().RemoveSlashN()));
-
-            for (int i = 0; i < WillowTerrainSettings.SpawnedObjects.Capacity; i++)
+            WillowTerrainSettings.SpawnedObjects = GameObject.FindObjectsOfType<WillowSpawnedObject>(true).Select(x => x.gameObject).Where(x => x.gameObject).ToList(); ; // Resources.FindObjectsOfTypeAll<WillowSpawnedObject>().Select(x => x.gameObject).ToList(); // new List<GameObject>(Convert.ToInt32(Pull().RemoveSlashN()));
+            
+            /*foreach (GameObject g in WillowTerrainSettings.SpawnedObjects)
             {
-                GameObject spawned = GameObject.Find(Pull());
+                GameObject.DestroyImmediate(g);
+            }*/
+
+            //GameObject.FindObjectsOfType
+            /*for (int i = 0; i < WillowTerrainSettings.SpawnedObjects.Capacity; i++)
+            {
+                //GameObject spawned = GameObject.Find(Pull());
+                // GameObject spawned = 
+                //var fooGroup = Resources.FindObjectsOfTypeAll<WillowSpawnedObject>();
+                //Debug.Log(spawned);
                 spawned.GetComponent<WillowSpawnedObject>().SpawnableObject = 
                     spawned.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
                 WillowTerrainSettings.SpawnedObjects.Add(spawned);
-            }
+            }*/
 
             WillowTerrainSettings.IndexObjects = Pull().ToBool();
             WillowTerrainSettings.IndexFormat = Pull();
@@ -265,7 +274,7 @@ public static class WillowFileManager
     }
     public static bool TryRead()
     {
-        try
+        /*try
         {
             Read();
             return true;
@@ -274,7 +283,10 @@ public static class WillowFileManager
         {
             Log("There is an error occured while reading. Impossible to read.", Yellow, Debug.LogWarning);
         }
-        return false;
+        return false;*/
+
+        Read();
+        return true;
     }
 
     private static void Push(object obj)
