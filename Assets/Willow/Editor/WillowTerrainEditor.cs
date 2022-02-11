@@ -202,22 +202,41 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         WillowTerrainSettings.RecalculatingLength = EditorGUILayout.FloatField("Recalculation check length", WillowTerrainSettings.RecalculatingLength);
 
+
+        GUILayout.Space(45);
+
         GUILayout.BeginHorizontal("box");
 
-        if (GUILayout.Button("Recalculate all"))
+        int buttonWidth = 150;
+        if (GUILayout.Button("Recalculate all", GUILayout.Width(buttonWidth)))
         {
             RecalculatePositionsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
             RecalculateRotationsSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
             RecalculateScalesSelected(WillowTerrainSettings.SpawnedObjects.ToArray());
         }
 
-        if (GUILayout.Button("Avoid"))
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal("box");
+        
+        if (GUILayout.Button("Avoid", GUILayout.Width(buttonWidth)))
         {
-            foreach (GameObject spawnedObject in WillowTerrainSettings.SpawnedObjects.Where(x => x))
-            {
-                spawnedObject.GetComponent<WillowSpawnedObject>().AvoidObstacles();
-            }
+            AvoidObstacles();
         }
+
+        WillowTerrainSettings.AvoidAutomatically = EditorGUILayout.Toggle("Avoid Auto", WillowTerrainSettings.AvoidAutomatically);
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal("box");
+
+        if (GUILayout.Button("Select Spawned",  GUILayout.Width(buttonWidth)))
+        {
+            Selection.objects = WillowTerrainSettings.SpawnedObjects.Where(x => x).ToArray();
+        }
+
+        WillowTerrainSettings.DeselectAutomatically = EditorGUILayout.Toggle("Deselect Auto", WillowTerrainSettings.DeselectAutomatically);
+
         GUILayout.EndHorizontal();
 
         // General Info
@@ -263,7 +282,7 @@ public sealed class WillowTerrainEditor : EditorWindow
         GetInput();
     }
 
-    private void OnEnable()
+    private void OnValidate()
     {
         InitializeStyles();
         WillowFileManager.TryRead();

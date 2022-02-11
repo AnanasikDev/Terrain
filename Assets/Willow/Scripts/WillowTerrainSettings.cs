@@ -60,4 +60,7 @@ public class WillowTerrainSettings : MonoBehaviour
     static public Stack<Change> ChangeLog = new Stack<Change>();
 
     static public float RecalculatingLength = 200;
+
+    static public bool AvoidAutomatically = false;
+    static public bool DeselectAutomatically = true;
 }

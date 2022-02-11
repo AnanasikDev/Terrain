@@ -122,6 +122,7 @@ public static class WillowSpawnableObjectManager
         if (spawnableObject.Object != null)
         {
             //if (spawnableObject.gameObjectEditor == null)
+            // Менять превью только когда поменялся объект
             if (hash != spawnableObject.Object.GetHashCode() || spawnableObject.gameObjectEditor == null)
                 spawnableObject.gameObjectEditor = Editor.CreateEditor(spawnableObject.Object);
 

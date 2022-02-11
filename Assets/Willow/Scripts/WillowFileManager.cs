@@ -112,6 +112,8 @@ public static class WillowFileManager
         Push(WillowTerrainSettings.ExchangeScale);
         Push(WillowTerrainSettings.ExchangeSmoothness);
 
+        Push(WillowTerrainSettings.AvoidAutomatically);
+
         using (StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(WriterStringBuilder);
@@ -255,6 +257,8 @@ public static class WillowFileManager
             WillowTerrainSettings.ExchangeRotation = Pull().ToBool();
             WillowTerrainSettings.ExchangeScale = Pull().ToBool();
             WillowTerrainSettings.ExchangeSmoothness = Pull().ToInt();
+
+            WillowTerrainSettings.AvoidAutomatically = Pull().ToBool();
         }
 
         Log("Templates read!", Green);

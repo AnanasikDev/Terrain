@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using System;
+using System.Linq;
 using static WillowUtils;
 using static WillowObjectsController;
 using static WillowUndo;
@@ -112,6 +112,8 @@ public static class WillowInput
     {
         GetInput();
 
+        if (WillowTerrainSettings.AvoidAutomatically) AvoidObstacles();
+
         if (!WillowTerrainSettings.IsActive) return;
 
         if (Event.current.type == EventType.MouseLeaveWindow)
@@ -140,8 +142,11 @@ public static class WillowInput
                 EditorApplication.RepaintHierarchyWindow();
                 EditorApplication.DirtyHierarchyWindowSorting();
 
-                GUIUtility.hotControl = controlId;
-                Event.current.Use();
+                if (WillowTerrainSettings.DeselectAutomatically)
+                {
+                    GUIUtility.hotControl = controlId;
+                    Event.current.Use();
+                }
             }
 
             // Placing objects
@@ -149,8 +154,11 @@ public static class WillowInput
             {
                 PlaceObjects();
 
-                GUIUtility.hotControl = controlId;
-                Event.current.Use();
+                if (WillowTerrainSettings.DeselectAutomatically)
+                {
+                    GUIUtility.hotControl = controlId;
+                    Event.current.Use();
+                }
             }
 
             // Exchanging objects
@@ -158,8 +166,11 @@ public static class WillowInput
             {
                 ExchangeObjects();
 
-                GUIUtility.hotControl = controlId;
-                Event.current.Use();
+                if (WillowTerrainSettings.DeselectAutomatically)
+                {
+                    GUIUtility.hotControl = controlId;
+                    Event.current.Use();
+                }
             }
         }
 
@@ -170,8 +181,11 @@ public static class WillowInput
             {
                 Undo();
 
-                GUIUtility.hotControl = controlId;
-                Event.current.Use();
+                if (WillowTerrainSettings.DeselectAutomatically)
+                {
+                    GUIUtility.hotControl = controlId;
+                    Event.current.Use();
+                }
             }
         }
 
@@ -190,6 +204,14 @@ public static class WillowInput
             Event.current.modifiers == EventModifiers.Control)
         {
             WillowFileManager.Write();
+        }
+    }
+
+    public static void AvoidObstacles()
+    {
+        foreach (GameObject spawnedObject in WillowTerrainSettings.SpawnedObjects.Where(x => x))
+        {
+            spawnedObject.GetComponent<WillowSpawnedObject>().AvoidObstacles();
         }
     }
 }
