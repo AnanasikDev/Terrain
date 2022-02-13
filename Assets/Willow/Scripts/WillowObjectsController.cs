@@ -362,7 +362,7 @@ public static class WillowObjectsController
             spawned.name = spawnableObject.NewObjectName;
 
         if (WillowTerrainSettings.IndexObjects)
-            spawned.name += IndexName();
+            spawned.name = IndexName(spawned.name);
 
         if (spawnableObject.CenterObject)
             spawned.transform.localPosition += new Vector3(0, spawnableObject.Object.transform.localScale.y / 2, 0);
@@ -371,9 +371,9 @@ public static class WillowObjectsController
 
         return spawned;
     }
-    private static string IndexName()
+    private static string IndexName(string name)
     {
-        return string.Format(WillowTerrainSettings.IndexFormat, WillowTerrainSettings.SpawnedIndecies++);
+        return string.Format(WillowTerrainSettings.IndexFormat, name, WillowTerrainSettings.SpawnedIndecies++);
     }
     private static Vector3 GetRandomPointOnBrush()
     {

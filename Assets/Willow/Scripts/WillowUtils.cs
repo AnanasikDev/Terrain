@@ -54,8 +54,8 @@ public static class WillowUtils
     }
     public enum RecalculationMode
     {
-        AsNearest,
         Static,
+        AsNearest,
         AsRotation
     }
     public enum ObstaclesAvoidanceAction

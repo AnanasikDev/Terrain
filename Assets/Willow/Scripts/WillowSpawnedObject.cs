@@ -8,7 +8,7 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     [HideInInspector] public string Layer;
     [HideInInspector] public Vector3 PositionAdd;
     [HideInInspector] public Vector3 SpawnedPosition;
-    /*[HideInInspector]*/ public WillowSpawnableObject SpawnableObject;
+    [HideInInspector] public WillowSpawnableObject SpawnableObject;
 
     private const int CastCapacity = 15;
 
@@ -86,11 +86,16 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     {
         GetHit();
 
+        Vector3 shift = Vector3.zero;
+        if (SpawnableObject.ModifyPosition)
+            shift = SpawnableObject.PositionAdditionSpace == Space.Self ? transform.InverseTransformVector(SpawnableObject.PositionAddition) : SpawnableObject.PositionAddition;
+
         foreach (var hit in Hits.Reverse().Where(h => h.collider))
         {
             if (WillowObjectsController.CheckSurface(hit.collider.gameObject))
             {
-                position = hit.point + (SpawnableObject.CenterObject ? transform.up * transform.localScale.y / 2 : Vector3.zero);
+
+                position = hit.point + (SpawnableObject.CenterObject ? transform.up * transform.localScale.y / 2 : Vector3.zero) + shift;
                 return true;
             }
         }
@@ -142,7 +147,6 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     public void RecalculateObjectRotation()
     {
         GetNewRotation(out Vector3 normal);
-        Debug.Log(normal);
 
         WillowObjectsController.SetObjectRotation(SpawnableObject, gameObject, normal, SpawnableObject.CustomEulersRotation);
     }
@@ -152,10 +156,13 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
     }
     public void AvoidObstacles()
     {
+        Debug.Log(SpawnableObject.AvoidObstacles);
         if (SpawnableObject.AvoidObstacles)
         {
-            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
-            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+            Vector3 shift = transform.InverseTransformVector(SpawnableObject.AvoidanceLocalShift) + SpawnableObject.AvoidanceWorldShift;
+
+            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f) + shift;
+            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f) + shift;
             Collider[] colliders = Physics.OverlapCapsule(origin, target, SpawnableObject.AvoidanceRadius);
             foreach (Collider collider in colliders)
             {
@@ -180,8 +187,10 @@ public class WillowSpawnedObject : MonoBehaviour // Do NOT remove this script fr
         {
             if (!SpawnableObject.AvoidObstacles) return;
 
-            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
-            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f);
+            Vector3 shift = transform.InverseTransformVector(SpawnableObject.AvoidanceLocalShift) + SpawnableObject.AvoidanceWorldShift;
+
+            Vector3 origin = transform.position - Vector3.up * (SpawnableObject.AvoidanceHeight / 2f) + shift;
+            Vector3 target = transform.position + Vector3.up * (SpawnableObject.AvoidanceHeight / 2f) + shift;
 
             Gizmos.DrawWireSphere(origin, SpawnableObject.AvoidanceRadius);
             Gizmos.DrawWireSphere(target, SpawnableObject.AvoidanceRadius);

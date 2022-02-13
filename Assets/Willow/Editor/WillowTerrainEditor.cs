@@ -189,7 +189,9 @@ public sealed class WillowTerrainEditor : EditorWindow
 
         WillowTerrainSettings.IndexObjects = EditorGUILayout.Toggle("Index objects", WillowTerrainSettings.IndexObjects);
         if (WillowTerrainSettings.IndexObjects)
+        {
             WillowTerrainSettings.IndexFormat = EditorGUILayout.TextField("Index format", WillowTerrainSettings.IndexFormat);
+        }
 
         WillowTerrainSettings.BaseParent = (Transform)EditorGUILayout.ObjectField("Parent", WillowTerrainSettings.BaseParent, typeof(Transform), true);
         WillowTerrainSettings.PlacementType = (WillowUtils.SpawnPlaceType)EditorGUILayout.EnumPopup("Placement type", WillowTerrainSettings.PlacementType);

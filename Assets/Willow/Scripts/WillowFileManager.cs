@@ -92,6 +92,8 @@ public static class WillowFileManager
             Push(obj.ObstaclesAvoidanceAction);
             Push(obj.AvoidanceRadius);
             Push(obj.AvoidanceHeight);
+            Push(obj.AvoidanceLocalShift);
+            Push(obj.AvoidanceWorldShift);
         }
 
         /*Push(WillowTerrainSettings.SpawnedObjects.Where(o => o != null && o.hideFlags == HideFlags.None).ToArray().Length );
@@ -230,29 +232,30 @@ public static class WillowFileManager
                 spawnable.ObstaclesAvoidanceAction = ParseEnum<ObstaclesAvoidanceAction>(Pull());
                 spawnable.AvoidanceRadius = Pull().ToFloat();
                 spawnable.AvoidanceHeight = Pull().ToFloat();
+                spawnable.AvoidanceLocalShift = ParseVector(Pull());
+                spawnable.AvoidanceWorldShift = ParseVector(Pull());
 
                 WillowTerrainSettings.SpawnableObjects.Add(spawnable);
             }
 
             WillowTerrainSettings.SpawnedObjects.Clear();
             WillowTerrainSettings.SpawnedObjects = GameObject.FindObjectsOfType<WillowSpawnedObject>(true).Select(x => x.gameObject).Where(x => x.gameObject).ToList(); ; // Resources.FindObjectsOfTypeAll<WillowSpawnedObject>().Select(x => x.gameObject).ToList(); // new List<GameObject>(Convert.ToInt32(Pull().RemoveSlashN()));
-            
+
             /*foreach (GameObject g in WillowTerrainSettings.SpawnedObjects)
             {
                 GameObject.DestroyImmediate(g);
             }*/
 
             //GameObject.FindObjectsOfType
-            /*for (int i = 0; i < WillowTerrainSettings.SpawnedObjects.Capacity; i++)
+            foreach (GameObject spawned in WillowTerrainSettings.SpawnedObjects)
             {
                 //GameObject spawned = GameObject.Find(Pull());
                 // GameObject spawned = 
                 //var fooGroup = Resources.FindObjectsOfTypeAll<WillowSpawnedObject>();
                 //Debug.Log(spawned);
-                spawned.GetComponent<WillowSpawnedObject>().SpawnableObject = 
+                spawned.GetComponent<WillowSpawnedObject>().SpawnableObject =
                     spawned.GetComponent<WillowSpawnedObject>().SpawnableObject.GetOriginal();
-                WillowTerrainSettings.SpawnedObjects.Add(spawned);
-            }*/
+            }
 
             WillowTerrainSettings.IndexObjects = Pull().ToBool();
             WillowTerrainSettings.IndexFormat = Pull();

@@ -20,7 +20,7 @@ public class WillowTerrainSettings : MonoBehaviour
     static public bool FillBrush = true;
 
     static public long SpawnedIndecies = 0;
-    static public string IndexFormat = " ({0} clone)";
+    static public string IndexFormat = "{name} ({index} clone)";
 
     static public bool DebugMode = true;
     static public bool AutoSave = true;

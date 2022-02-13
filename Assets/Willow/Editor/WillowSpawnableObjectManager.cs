@@ -289,6 +289,8 @@ public static class WillowSpawnableObjectManager
         spawnableObject.ObstaclesAvoidanceAction = (ObstaclesAvoidanceAction)EditorGUILayout.EnumPopup("Obstacles Avoidance Action", spawnableObject.ObstaclesAvoidanceAction);
         spawnableObject.AvoidanceRadius = EditorGUILayout.FloatField("Avoidance Radius", spawnableObject.AvoidanceRadius);
         spawnableObject.AvoidanceHeight = EditorGUILayout.FloatField("Avoidance Height", spawnableObject.AvoidanceHeight);
+        spawnableObject.AvoidanceLocalShift = EditorGUILayout.Vector3Field("Avoidance Local Shift", spawnableObject.AvoidanceLocalShift);
+        spawnableObject.AvoidanceWorldShift = EditorGUILayout.Vector3Field("Avoidance World Shift", spawnableObject.AvoidanceWorldShift);
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndVertical();
